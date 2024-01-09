@@ -14,7 +14,6 @@ public class BulletBehaviour : MonoBehaviour
     [Foldout("Stats"), Tooltip("")]
     private float movementSpeed;
 
-    // Add despawn actions: adjust object pool, disable not destroy
     private void Update()
     {
         // make bullet move direction

@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Play game initial setups
-    private void StartGame()
+    public void StartNewGame()
     {
         // Start Chaos Factor
         // Start Player stuff

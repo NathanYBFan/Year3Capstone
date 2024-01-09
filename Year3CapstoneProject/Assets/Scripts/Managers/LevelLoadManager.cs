@@ -24,10 +24,10 @@ public class LevelLoadManager : MonoBehaviour
 
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
-    private List<string> levelNameList;
+    private List<string> levelNamesList;
     
     // Getters
-    public List<string> LevelNames { get { return levelNameList; } }
+    public List<string> LevelNamesList { get { return levelNamesList; } }
     public bool IsLoadingLevel { get { return isLoadingLevel; } }
 
     private void Awake()
@@ -45,7 +45,7 @@ public class LevelLoadManager : MonoBehaviour
     // Initial Level Load
     private void Start()
     {
-        StartLoadLevel(levelNameList[0]);
+        StartLoadLevel(levelNamesList[0]);
     }
 
     // LoadLevelScript
