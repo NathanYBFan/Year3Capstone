@@ -886,6 +886,7 @@ MonoBehaviour:
   levelNamesList:
   - MainMenu
   - SettingsMenu
+  - CreditsMenu
   - 
 --- !u!1 &1251883271
 GameObject:
@@ -1087,7 +1088,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deactivatedBullets: []
   activatedBullets: []
-  defaultBullet: {fileID: 0}
+  defaultBullet: {fileID: 1615981789932428633, guid: d6f78f7a07df7074cb2e8143467a1490, type: 3}
   bulletsPerPlayer: 25
 --- !u!1 &1503023763
 GameObject:
