@@ -6,12 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoadManager : MonoBehaviour
 {
+    // Singleton Initialization
     public static LevelLoadManager _Instance;
+
+    // Serialize Fields
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private LoadingScreen loadingScreen;
 
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("")]
     private bool isLoadingLevel = false;
-    public bool IsLoadingLevel { get { return isLoadingLevel; } }
 
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("The name of the level currently loaded and in use")]
@@ -20,7 +25,10 @@ public class LevelLoadManager : MonoBehaviour
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
     private List<string> levelNameList;
+    
+    // Getters
     public List<string> LevelNames { get { return levelNameList; } }
+    public bool IsLoadingLevel { get { return isLoadingLevel; } }
 
     private void Awake()
     {
@@ -34,22 +42,24 @@ public class LevelLoadManager : MonoBehaviour
             _Instance = this;
     }
 
+    // Initial Level Load
     private void Start()
     {
         StartLoadLevel(levelNameList[0]);
     }
 
+    // LoadLevelScript
     public void StartLoadLevel(string levelName)
     {
         StartCoroutine(LoadLevel(levelName));
     }
 
+    // Coroutine to load level properly
     private IEnumerator LoadLevel(string sceneToLoad)
     {
         isLoadingLevel = true;
 
-        // TODO NATHANF: ADD LOADING SCREEN HOOKUP
-        //loadingScreen.gameObject.SetActive(true);
+        loadingScreen.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(0.25f);
 
@@ -66,8 +76,7 @@ public class LevelLoadManager : MonoBehaviour
             //loadingScreen.UpdateSlider(asyncLoad.progress);
             yield return null;
         }
-        // TODO NATHANF: FIX HERE ie. uncomment
-        //loadingScreen.UpdateSlider(1);
+        loadingScreen.UpdateSlider(1);
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneToLoad));
 
         currentLevelName = sceneToLoad;
@@ -79,6 +88,7 @@ public class LevelLoadManager : MonoBehaviour
         isLoadingLevel = false;
     }
 
+    // Level Reset
     public void ResetAll()
     {
         // RESET STAGE
@@ -86,11 +96,7 @@ public class LevelLoadManager : MonoBehaviour
         // RESET STATS
     }
 
-    public void LoadFromSave(string level)
-    {
-        StartCoroutine(LoadLevel(level));
-    }
-
+    // New game started
     public void StartNewGame()
     {
         ResetAll();
