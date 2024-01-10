@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerBody : MonoBehaviour
 {
 	Vector2 moveDir; //The current movement direction of this player.
-	int movementSpeed = 25; //The movement speed of the player.
+	PlayerStats stats;
 
 	[SerializeField]
 	private int playerIndex = -1; //Which number this player is.
@@ -23,6 +23,11 @@ public class PlayerBody : MonoBehaviour
 		moveDir = dir;
 	}
 
+	private void Start()
+	{
+		stats = GetComponent<PlayerStats>();
+	}
+
 	// Update is called once per frame
 	private void Update()
 	{
@@ -32,7 +37,7 @@ public class PlayerBody : MonoBehaviour
 			moveDirection.Normalize();
 		}
 
-		this.gameObject.GetComponent<Rigidbody>().velocity = moveDirection * movementSpeed;
+		this.gameObject.GetComponent<Rigidbody>().velocity = moveDirection * stats.MovementSpeed;
 
 	}
 }

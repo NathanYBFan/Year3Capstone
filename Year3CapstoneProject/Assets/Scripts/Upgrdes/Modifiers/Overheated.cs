@@ -20,7 +20,17 @@ public class Overheated : Modifier
 	}
 	public override void AddEffects()
 	{
-		//Access the player stats
-		//Add debuffToApply to a "giveableDebuffs" list
+		PlayerStats playerStats = GetComponent<PlayerStats>();
+		if (playerStats != null)
+		{
+			playerStats.giveableDebuff = new Debuff
+			{
+				debuffName = debuffToApply.name,
+				debuffDuration = debuffToApply.debuffDuration,
+				damageInterval = debuffToApply.damageInterval,
+				damage = debuffToApply.damage,
+				shouldKill = debuffToApply.shouldKill
+			};
+		}
 	}
 }
