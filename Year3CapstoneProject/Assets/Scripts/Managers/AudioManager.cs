@@ -13,9 +13,9 @@ public class AudioManager : MonoBehaviour
     // Serialize Fields
     [SerializeField, ReadOnly]
     [Foldout("Dependencies"), Tooltip("Audio Source List of each character, this is propgated within this script")]
-    private List<AudioSource> playerAudioSourceList;
+    private List<AudioSource> playerAudioSourceList; // TODO NATHANF: Propogate using a call to GameManager
 
-    [SerializeField]
+    [SerializeField, Required]
     [Foldout("Dependencies"), Tooltip("The music Audio Source which should be attached to the main camera(s)")]
     private AudioSource musicAudioSource;
 

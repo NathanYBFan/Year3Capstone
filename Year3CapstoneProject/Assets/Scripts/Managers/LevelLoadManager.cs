@@ -20,7 +20,7 @@ public class LevelLoadManager : MonoBehaviour
 
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("The name of the level currently loaded and in use")]
-    private string currentLevelName;
+    private List<string> currentLevelList;
 
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
@@ -45,13 +45,26 @@ public class LevelLoadManager : MonoBehaviour
     // Initial Level Load
     private void Start()
     {
-        StartLoadLevel(levelNamesList[0]);
+        StartLoadNewLevel(levelNamesList[0]);
     }
 
-    // LoadLevelScript
-    public void StartLoadLevel(string levelName)
+    // Load a new level method
+    public void StartLoadNewLevel(string levelName)
     {
         StartCoroutine(LoadLevel(levelName));
+    }
+
+    public void LoadMenuOverlay(string menuName)
+    {
+        SceneManager.LoadScene(menuName, LoadSceneMode.Additive);
+        currentLevelList.Insert(0, menuName); // Insert at front
+    }
+
+    public void UnloadMenuOverlay(string menuName)
+    {
+        SceneManager.UnloadSceneAsync(currentLevelList[0]);
+        currentLevelList.RemoveAt(0); // Remove first
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(currentLevelList[0])); // Set as active scene
     }
 
     // Coroutine to load level properly
@@ -63,29 +76,33 @@ public class LevelLoadManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.25f);
 
-        // Unload current scene
-        if (currentLevelName.Length != 0)
-            SceneManager.UnloadSceneAsync(currentLevelName);
+        // Unload all opened scenes (Not the persistent scene
+        if (currentLevelList.Count != 0)
+        {
+            for (int i = 0; i < currentLevelList.Count; i++)
+                SceneManager.UnloadSceneAsync(currentLevelList[i]);
+        }
 
         // Load new scene
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
 
         while (!asyncLoad.isDone)
         {
-            // TODO NATHANF: FIX HERE ie. uncomment
-            //loadingScreen.UpdateSlider(asyncLoad.progress);
+            loadingScreen.UpdateSlider(asyncLoad.progress);
             yield return null;
         }
         loadingScreen.UpdateSlider(1);
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneToLoad));
 
-        currentLevelName = sceneToLoad;
+        currentLevelList.Add(sceneToLoad);
 
         // Initialize player etc.
         yield return new WaitForSeconds(1f);
-        // TODO NATHANF: FIX HERE ie. uncomment
-        //loadingScreen.gameObject.SetActive(false);
+        
+        loadingScreen.gameObject.SetActive(false);
         isLoadingLevel = false;
+
+        yield break;
     }
 
     // Level Reset

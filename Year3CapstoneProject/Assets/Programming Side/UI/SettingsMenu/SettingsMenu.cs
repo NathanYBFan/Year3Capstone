@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using NaughtyAttributes;
-using TMPro;
 using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
@@ -31,7 +30,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void UnloadScene()
     {
-        SceneManager.UnloadSceneAsync(settingsMenuSceneName);
+        LevelLoadManager._Instance.UnloadMenuOverlay("SettingsMenu");
     }
 
     public void SettingsButtonPressed(int buttonNumber)

@@ -30,8 +30,16 @@ public class BulletObjectPoolManager : MonoBehaviour
     //private GameObject audienceBullet;
 
     [SerializeField]
-    [Foldout("Stats"), Tooltip("")]
-    private int bulletsPerPlayer = 25;
+    [Foldout("Stats"), Tooltip("The total number of bullets to fill the object pool with on start")]
+    private int totalBulletsInPool = 50;
+
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("Toggle if bullet object pool should be able to grow")]
+    private bool bulletPoolCanGrow = false;
+
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("Absolute MAX bullets allowed to grow to")]
+    private int hardCapBulletCount = 100;
 
     private void Awake()
     {
@@ -56,7 +64,7 @@ public class BulletObjectPoolManager : MonoBehaviour
 
     private void PropogateList(List<GameObject> bulletList, GameObject bulletType)
     {
-        for (int i = 0; i < bulletsPerPlayer; i++)
+        for (int i = 0; i < totalBulletsInPool; i++)
         {
             GameObject bullet = GameObject.Instantiate(bulletType, transform);
             bullet.SetActive(false);
@@ -66,9 +74,36 @@ public class BulletObjectPoolManager : MonoBehaviour
 
     public GameObject FiredBullet()
     {
-        GameObject bulletToReturn = deactivatedBullets[0];
+        GameObject bulletToReturn = null;
+
+        if (deactivatedBullets.Count == 0)
+        {
+            if (!bulletPoolCanGrow) return null;
+         
+            if (totalBulletsInPool >= hardCapBulletCount) // If max cap has been reached
+            {
+                bulletPoolCanGrow = false;
+                return null;
+            }
+            // Create Bullet & Reset
+            bulletToReturn = GameObject.Instantiate(defaultBullet, transform);
+            bulletToReturn.SetActive(false);
+            
+            // Add to Correct Object Pool
+            activatedBullets.Add(bulletToReturn);
+
+            // Increase proper counts
+            totalBulletsInPool++;
+
+            return bulletToReturn;
+        }
+        // If there are still bullets in pool:
+        bulletToReturn = deactivatedBullets[0];
+
+        // Add and remove from poper lists:
         deactivatedBullets.Remove(bulletToReturn);
         activatedBullets.Add(bulletToReturn);
+
         return bulletToReturn;
     }
 

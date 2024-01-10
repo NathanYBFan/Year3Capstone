@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGamePressed()
     {
         // TODO NATHANF: SET LEVELNAMELIST[i] TO CORRECT NUMBER
-        LevelLoadManager._Instance.StartLoadLevel(LevelLoadManager._Instance.LevelNamesList[3]);
+        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3]);
         // Reset player stats
         GameManager._Instance.StartNewGame();
     }
@@ -14,12 +14,12 @@ public class MainMenu : MonoBehaviour
     // TODO NATHANF: ADJUST SETTINGS TO WORK WITH LEVEL LOADER
     public void SettingsButtonPressed()
     {
-        SceneManager.LoadScene("SettingsMenu", LoadSceneMode.Additive);
+        LevelLoadManager._Instance.LoadMenuOverlay("SettingsMenu");
     }
 
     public void CreditsButtonPressed()
     {
-        SceneManager.LoadScene("CreditsMenu", LoadSceneMode.Additive);
+        LevelLoadManager._Instance.LoadMenuOverlay("CreditsMenu");
     }
 
     public void QuitButtonPressed()
