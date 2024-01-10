@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
     // Singleton Initialization
     public static GameManager _Instance;
 
+    public bool inGame;
+
     // Serialize Fields
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("Player 1 referenceable gameobject")]
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
     private GameObject player4;
 
     // Getters
+    public GameObject Player1 { get { return player1; } }
     public GameObject Player2 { get { return player2; } }
     public GameObject Player3 { get { return player3; } }
     public GameObject Player4 { get { return player4; } }

@@ -10,16 +10,16 @@ public class ChaosFactorManager : MonoBehaviour
 
     // Serialize Fields
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private List<string> chaosFactorList;
+    [Foldout("Dependencies"), Tooltip("List of all Chaos Factors that can spawn in the game")]
+    private List<GameObject> chaosFactorList;
 
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("")]
-    private float nextChaosFactorTimer;
+    private float nextChaosFactorTimerSeconds = 0f;
 
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
-    private float chaosFactorMaxTimer;
+    private float chaosFactorMaxTimerSeconds = 30f;
 
 
     private void Awake()
@@ -34,15 +34,48 @@ public class ChaosFactorManager : MonoBehaviour
             _Instance = this;
     }
 
+    private void Start()
+    {
+        nextChaosFactorTimerSeconds = 0f;
+    }
+
     // Start Chaos Factor
     public void StartChaosFactor()
     {
-        StartCoroutine(RunChaosFactor());
+        while (GameManager._Instance.inGame)
+        {
+            if (nextChaosFactorTimerSeconds > chaosFactorMaxTimerSeconds)
+            {
+                int chaosFactorToSpawn = Random.Range(1, chaosFactorList.Count - 1);
+                StartCoroutine(RunChaosFactor(chaosFactorList[chaosFactorToSpawn]));
+                ResetChaosFactorTimer();
+            }
+            else
+                nextChaosFactorTimerSeconds += Time.deltaTime;
+        }
     }
 
     // Run Coroutine
-    public IEnumerator RunChaosFactor()
+    public IEnumerator RunChaosFactor(GameObject chaosFactorToSpawn)
     {
-        yield return null;
+        GameObject chaosFactor = GameObject.Instantiate(chaosFactorToSpawn, transform);
+        Destroy(chaosFactor, 60); // Destroy Chaos Factor after 1 minute
+        
+        yield return new WaitForSeconds(20); // Wait for 20 seconds
+        ResetChaosFactorTimer();
+
+        yield return new WaitForSeconds(20); // Wait for 20 seconds
+        ResetChaosFactorTimer();
+
+        yield return new WaitForSeconds(20); // Wait for 20 seconds
+        ResetChaosFactorTimer();
+
+        // After waiting for 1 minute in total,
+        //ResetStage(); // Reset the stage: Lights, environment, etc.
+        ResetChaosFactorTimer();
+
+        yield break;
     }
+
+    public void ResetChaosFactorTimer() { nextChaosFactorTimerSeconds = 0f; }
 }
