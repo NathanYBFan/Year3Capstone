@@ -1,11 +1,9 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
     public void PlayGamePressed()
     {
-        // TODO NATHANF: SET LEVELNAMELIST[i] TO CORRECT NUMBER
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3]);
         // Reset player stats
         GameManager._Instance.StartNewGame();
@@ -14,12 +12,12 @@ public class MainMenu : MonoBehaviour
     // TODO NATHANF: ADJUST SETTINGS TO WORK WITH LEVEL LOADER
     public void SettingsButtonPressed()
     {
-        LevelLoadManager._Instance.LoadMenuOverlay("SettingsMenu");
+        LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[1]);
     }
 
     public void CreditsButtonPressed()
     {
-        LevelLoadManager._Instance.LoadMenuOverlay("CreditsMenu");
+        LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[2]);
     }
 
     public void QuitButtonPressed()

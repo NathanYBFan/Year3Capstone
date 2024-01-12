@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("P")]
     private GameObject player4;
 
+    [SerializeField, ReadOnly, Range(2,4)]
+    [Foldout("Stats"), Tooltip("")]
+    private int numberOfPlayers;
+
     // Getters
     public GameObject Player1 { get { return player1; } }
     public GameObject Player2 { get { return player2; } }
@@ -50,4 +54,6 @@ public class GameManager : MonoBehaviour
         // Start Player stuff
         // Setup Bullet Instances? <-- Could be done at launch, reset them
     }
+
+
 }

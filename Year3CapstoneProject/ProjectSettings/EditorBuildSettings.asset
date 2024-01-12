@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menus/CreditsMenu.unity
     guid: 15eb8391efdbaa54cac96453e9246d78
+  - enabled: 1
+    path: Assets/Scenes/Menus/ModeSelectMenu.unity
+    guid: 5e34692046198dd49aa80ea561558f95
+  - enabled: 1
+    path: Assets/Scenes/Menus/CharacterSelectMenu.unity
+    guid: 58646a16b00c2cb4cbdf3fa97fca5d0f
   m_configObjects: {}
