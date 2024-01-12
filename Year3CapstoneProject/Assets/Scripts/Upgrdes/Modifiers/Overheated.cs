@@ -11,7 +11,7 @@ public class Overheated : Modifier
     private string modifierName;
     public override string ModifierName
     {
-        get { return name; }
+        get { return modifierName; }
     }
 
 	private void Start()
