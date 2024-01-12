@@ -23,6 +23,27 @@ public class PlayerController : MonoBehaviour
 		body = bodies.FirstOrDefault(m => m.PlayerIndex == index); //The body that this controller corresponds to is the one whose index matches the player input index of this controller.
 	}
 
+	public void OnFire(CallbackContext ctx)
+	{
+		if (body != null)
+		{
+
+		}
+	}
+	public void OnDash(CallbackContext ctx)
+	{
+		if (body != null)
+		{
+
+		}
+	}
+	public void OnAim(CallbackContext ctx)
+	{
+		if (body != null)
+		{
+			body.SetFiringDirection(ctx.ReadValue<Vector2>());
+		}
+	}
 	/// <summary>
 	/// Event that is called when the player provides movement input.
 	/// </summary>
