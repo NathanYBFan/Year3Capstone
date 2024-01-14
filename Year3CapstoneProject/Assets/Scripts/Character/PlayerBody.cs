@@ -14,8 +14,9 @@ public class PlayerBody : MonoBehaviour
 	public ChaosFactorManager CFManager;
 
 
+	private Rigidbody rb;
 
-    PlayerStats stats;
+	PlayerStats stats;
 
 	[SerializeField]
 	private int playerIndex = -1; //Which number this player is.
@@ -24,21 +25,24 @@ public class PlayerBody : MonoBehaviour
 		get { return playerIndex; }
 	}
 
-    /// <summary>
-    /// Sets the directional vector for movement.
-    /// </summary>
-    /// <param name="dir">The direction vector.</param>
-    public void SetMovementVector(Vector2 dir)
+	
+	/// <summary>
+	/// Sets the directional vector for movement.
+	/// </summary>
+	/// <param name="dir">The direction vector.</param>
+	public void SetMovementVector(Vector2 dir)
 	{
 		moveDir = dir;
 	}
 	public void SetFiringDirection(Vector2 dir)
 	{
-		aimDir = new Vector2(dir.x, dir.y);
+		if (dir.x != 0 && dir.y != 0)
+			aimDir = dir;
 	}
 	private void Start()
 	{
 		stats = GetComponent<PlayerStats>();
+		rb = GetComponent<Rigidbody>();
 	}
 
 	// Update is called once per frame
@@ -50,19 +54,18 @@ public class PlayerBody : MonoBehaviour
 			moveDirection.Normalize();
 		}
 
-        GetComponent<Rigidbody>().AddForce(moveDirection * stats.MovementSpeed, ForceMode.Acceleration);
-
-        var angle = Mathf.Atan2(aimDir.x, aimDir.y) * Mathf.Rad2Deg;
+		rb.AddForce((moveDirection * stats.MovementSpeed) - rb.velocity, ForceMode.Acceleration);
+		var angle = Mathf.Atan2(aimDir.x, aimDir.y) * Mathf.Rad2Deg;
 		pivot.transform.rotation = Quaternion.Euler(0, angle, 0);
 	}
 
 
-	public void choasFactorTest(int toTest) 
+	public void choasFactorTest(int toTest)
 	{
-        Debug.Log("Running test function in player body");
-		CFManager.StartChaosFactorTest(toTest-1);
-        Debug.Log("completed test function in player body");
-    }
+		Debug.Log("Running test function in player body");
+		CFManager.StartChaosFactorTest(toTest - 1);
+		Debug.Log("completed test function in player body");
+	}
 
 
 
