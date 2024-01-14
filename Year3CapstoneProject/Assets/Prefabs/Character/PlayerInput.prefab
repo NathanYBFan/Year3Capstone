@@ -122,6 +122,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 764aeb21-bb45-4a08-9220-a320694fb94b
     m_ActionName: Player1/Dash[/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID1/leftTrigger,/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3589008200577592553}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnChoasFactor
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f9dd66b7-dc06-4883-8395-aef19861747a
+    m_ActionName: Player1/Subzero[/Keyboard/numpad1]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player1
@@ -139,3 +155,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadcadfb34898654fb540b173de47982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  temp: 0

@@ -9,7 +9,13 @@ public class PlayerBody : MonoBehaviour
 	[SerializeField]
 	private GameObject pivot;
 
-	PlayerStats stats;
+
+	[SerializeField]
+	public ChaosFactorManager CFManager;
+
+
+
+    PlayerStats stats;
 
 	[SerializeField]
 	private int playerIndex = -1; //Which number this player is.
@@ -18,11 +24,11 @@ public class PlayerBody : MonoBehaviour
 		get { return playerIndex; }
 	}
 
-	/// <summary>
-	/// Sets the directional vector for movement.
-	/// </summary>
-	/// <param name="dir">The direction vector.</param>
-	public void SetMovementVector(Vector2 dir)
+    /// <summary>
+    /// Sets the directional vector for movement.
+    /// </summary>
+    /// <param name="dir">The direction vector.</param>
+    public void SetMovementVector(Vector2 dir)
 	{
 		moveDir = dir;
 	}
@@ -43,9 +49,25 @@ public class PlayerBody : MonoBehaviour
 		{
 			moveDirection.Normalize();
 		}
-		this.gameObject.GetComponent<Rigidbody>().velocity = moveDirection * stats.MovementSpeed;
 
-		var angle = Mathf.Atan2(aimDir.x, aimDir.y) * Mathf.Rad2Deg;
+        GetComponent<Rigidbody>().AddForce(moveDirection * stats.MovementSpeed, ForceMode.Acceleration);
+
+        var angle = Mathf.Atan2(aimDir.x, aimDir.y) * Mathf.Rad2Deg;
 		pivot.transform.rotation = Quaternion.Euler(0, angle, 0);
 	}
+
+
+	public void choasFactorTest(int toTest) 
+	{
+        Debug.Log("Running test function in player body");
+		CFManager.StartChaosFactorTest(toTest-1);
+        Debug.Log("completed test function in player body");
+    }
+
+
+
+
 }
+
+
+

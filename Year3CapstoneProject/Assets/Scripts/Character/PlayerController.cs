@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 	private PlayerInput playerInput; //This corresponds to a "Player Input Component" that is attached to the GO with this script on it.
 	public PlayerInputActions playerControl; //The player input in general
 	private PlayerBody body; //A specific player that will be manipulated by this controller.
+	public float temp;
 
 	private void Awake()
 	{
@@ -53,5 +54,25 @@ public class PlayerController : MonoBehaviour
 		if (body != null) //If this controller has a body to control, then adjust the direction of which it's going to move.
 			body.SetMovementVector(ctx.ReadValue<Vector2>());
 	}
-	
+
+    public void OnChoasFactor(CallbackContext ctx)
+    {
+
+        if (body != null)
+        {
+			
+			temp = ctx.ReadValue<float>();
+            Debug.Log("Input recived: " + temp);
+			
+			if (temp != 0)
+			{
+                Debug.Log("Input recived: " + temp);
+                int temp2 = (int)temp;
+                body.choasFactorTest(temp2);
+            }
+
+        }
+    }
+
+
 }
