@@ -1,36 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 
 public class PlayerBody : MonoBehaviour
 {
-	Vector2 moveDir, aimDir; //The current movement direction of this player.
+    // Serialize Fields
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private GameObject pivot;
 
-	[SerializeField]
-	private GameObject pivot;
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private PlayerStats stats;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private Rigidbody rb;
+
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("")]
+    private int playerIndex = -1; //Which number this player is.
 
 
-	[SerializeField]
-	public ChaosFactorManager CFManager;
+
+    // Getters
+    public int PlayerIndex { get { return playerIndex; } }
+
+    // Private Variables
+    private Vector2 moveDir, aimDir; //The current movement direction of this player.
 
 
-	private Rigidbody rb;
-
-	PlayerStats stats;
-
-	[SerializeField]
-	private int playerIndex = -1; //Which number this player is.
-	public int PlayerIndex
-	{
-		get { return playerIndex; }
-	}
-
-	
-	/// <summary>
-	/// Sets the directional vector for movement.
-	/// </summary>
-	/// <param name="dir">The direction vector.</param>
-	public void SetMovementVector(Vector2 dir)
+    /// <summary>
+    /// Sets the directional vector for movement.
+    /// </summary>
+    /// <param name="dir">The direction vector.</param>
+    public void SetMovementVector(Vector2 dir)
 	{
 		moveDir = dir;
 	}
@@ -58,18 +61,6 @@ public class PlayerBody : MonoBehaviour
 		var angle = Mathf.Atan2(aimDir.x, aimDir.y) * Mathf.Rad2Deg;
 		pivot.transform.rotation = Quaternion.Euler(0, angle, 0);
 	}
-
-
-	public void choasFactorTest(int toTest)
-	{
-		Debug.Log("Running test function in player body");
-		CFManager.StartChaosFactorTest(toTest - 1);
-		Debug.Log("completed test function in player body");
-	}
-
-
-
-
 }
 
 

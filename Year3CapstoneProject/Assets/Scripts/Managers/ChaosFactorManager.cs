@@ -1,17 +1,16 @@
 using NaughtyAttributes;
-using NaughtyAttributes.Test;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class ChaosFactorManager : MonoBehaviour
 {
     // Singleton Initialization
     public static ChaosFactorManager _Instance;
+
     // Serialize Fields
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("List of all Chaos Factors that can spawn in the game")]
+    [Tooltip("List of all Chaos Factors that can spawn in the game")]
     private List<GameObject> chaosFactorList;
 
     [SerializeField, ReadOnly]
@@ -22,11 +21,11 @@ public class ChaosFactorManager : MonoBehaviour
     [Foldout("Stats"), Tooltip("")]
     private float chaosFactorMaxTimerSeconds = 30f;
 
+    // Getters
+    public List<GameObject> ChaosFactorList { get { return chaosFactorList; } }
 
     private void Awake()
     {
- 
-
         if (_Instance != null && _Instance != this)
         {
             Debug.LogWarning("Destroyed a repeated ChaosFactorManager");
@@ -42,6 +41,16 @@ public class ChaosFactorManager : MonoBehaviour
         nextChaosFactorTimerSeconds = 0f;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown("[1]"))
+        {
+            Debug.Log("Input recived: Numpad 1");
+            StartCoroutine(RunChaosFactor(chaosFactorList[0]));
+        }
+    }
+
+
     // Start Chaos Factor
     public void StartChaosFactor()
     {
@@ -53,7 +62,6 @@ public class ChaosFactorManager : MonoBehaviour
                 StartCoroutine(RunChaosFactor(chaosFactorList[chaosFactorToSpawn]));
                 ResetChaosFactorTimer();
             }
-
             else
                 nextChaosFactorTimerSeconds += Time.deltaTime;
         }
@@ -66,9 +74,9 @@ public class ChaosFactorManager : MonoBehaviour
 
         chaosFactorToSpawn.SetActive(true);
 
-        //GameObject chaosFactor = GameObject.Instantiate(chaosFactorToSpawn, transform);
-        //Destroy(chaosFactor, 60); // Destroy Chaos Factor after 1 minute
-        Destroy(chaosFactorToSpawn, 60); // Destroy Chaos Factor after 1 minute
+        GameObject chaosFactor = GameObject.Instantiate(chaosFactorToSpawn, transform);
+        Destroy(chaosFactor, 60); // Destroy Chaos Factor after 1 minute
+        //Destroy(chaosFactorToSpawn, 60); // Destroy Chaos Factor after 1 minute
 
         yield return new WaitForSeconds(20); // Wait for 20 seconds
         ResetChaosFactorTimer();

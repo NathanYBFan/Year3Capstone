@@ -75,7 +75,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 7563282606907889379}
-  CFManager: {fileID: 0}
+  stats: {fileID: 8415995967917466892}
+  rb: {fileID: 915514133798776964}
   playerIndex: 0
 --- !u!114 &8415995967917466892
 MonoBehaviour:
