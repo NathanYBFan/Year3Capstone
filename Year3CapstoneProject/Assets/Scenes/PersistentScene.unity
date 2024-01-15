@@ -371,14 +371,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 338731853}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.4718312, y: -0, z: -0, w: 0.8816889}
+  m_LocalPosition: {x: 0, y: 13.8, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 61338532}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 56.306, y: 0, z: 0}
 --- !u!1 &371700093
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,7 +678,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a44d991b5415e54b86ed413f11501a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaosFactorList: []
+  chaosFactorList:
+  - {fileID: 8732952394648480490, guid: 281bb21b1941c2949aa7316fe9cff7e8, type: 3}
   nextChaosFactorTimerSeconds: 0
   chaosFactorMaxTimerSeconds: 30
 --- !u!1 &694279906
@@ -965,6 +966,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 896485369}
   m_CullTransparentMesh: 1
+--- !u!1 &899188257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 899188258}
+  - component: {fileID: 899188259}
+  m_Layer: 0
+  m_Name: PlayerInputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &899188258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899188257}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1756162859}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &899188259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899188257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NotificationBehavior: 0
+  m_MaxPlayerCount: -1
+  m_AllowJoining: 1
+  m_JoinBehavior: 0
+  m_PlayerJoinedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PlayerLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JoinAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  m_PlayerPrefab: {fileID: 8492288978512282192, guid: eb4b095be6da0ca4284ca08126a9b1ee, type: 3}
+  m_SplitScreen: 0
+  m_MaintainAspectRatioInSplitScreen: 0
+  m_FixedNumberOfSplitScreens: -1
+  m_SplitScreenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &1058846375
 GameObject:
   m_ObjectHideFlags: 0
@@ -976,7 +1053,7 @@ GameObject:
   - component: {fileID: 1058846376}
   - component: {fileID: 1058846377}
   m_Layer: 0
-  m_Name: LevelLoad Manager
+  m_Name: LevelLoadManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1017,8 +1094,9 @@ MonoBehaviour:
   - SettingsMenu
   - CreditsMenu
   - ModeSelectMenu
-  - PlayerSelectMenu
+  - CharacterSelectMenu
   - MainGame
+  - CharacterDemo
 --- !u!1 &1251883271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1174,6 +1252,7 @@ MonoBehaviour:
   player2: {fileID: 501964349}
   player3: {fileID: 524895596}
   player4: {fileID: 1555659534}
+  numberOfPlayers: 0
 --- !u!1 &1478896578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,6 +1302,7 @@ MonoBehaviour:
   defaultBullet: {fileID: 1615981789932428633, guid: d6f78f7a07df7074cb2e8143467a1490, type: 3}
   totalBulletsInPool: 50
   bulletPoolCanGrow: 0
+  hardCapBulletCount: 100
 --- !u!1 &1503023763
 GameObject:
   m_ObjectHideFlags: 0
@@ -1453,6 +1533,7 @@ Transform:
   - {fileID: 820440619}
   - {fileID: 611015150}
   - {fileID: 1478896579}
+  - {fileID: 899188258}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1819993792

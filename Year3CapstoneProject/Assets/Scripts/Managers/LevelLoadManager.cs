@@ -81,6 +81,7 @@ public class LevelLoadManager : MonoBehaviour
         {
             for (int i = 0; i < currentLevelList.Count; i++)
                 SceneManager.UnloadSceneAsync(currentLevelList[i]);
+            currentLevelList.Clear();
         }
 
         // Load new scene
