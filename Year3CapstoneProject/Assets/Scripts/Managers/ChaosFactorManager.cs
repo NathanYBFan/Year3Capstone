@@ -34,10 +34,7 @@ public class ChaosFactorManager : MonoBehaviour
 
         else if (_Instance == null)
             _Instance = this;
-    }
-
-    private void Start()
-    {
+     
         nextChaosFactorTimerSeconds = 0f;
     }
 
@@ -108,4 +105,8 @@ public class ChaosFactorManager : MonoBehaviour
 
     }
 
+    public void Reset()
+    {
+        
+    }
 }

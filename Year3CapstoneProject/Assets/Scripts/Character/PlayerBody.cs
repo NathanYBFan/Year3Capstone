@@ -46,11 +46,15 @@ public class PlayerBody : MonoBehaviour
 	{
 		stats = GetComponent<PlayerStats>();
 		rb = GetComponent<Rigidbody>();
+
+		GameManager._Instance.Players.Add(this.gameObject);
 	}
 
 	// Update is called once per frame
 	private void Update()
 	{
+		if (moveDir.magnitude == 0) return;
+
 		Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
 		if (moveDirection.magnitude > 1)
 		{

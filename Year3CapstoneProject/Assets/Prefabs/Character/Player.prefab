@@ -44,7 +44,7 @@ Rigidbody:
   m_GameObject: {fileID: 751660676036993506}
   serializedVersion: 4
   m_Mass: 20
-  m_Drag: 5
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -193,7 +193,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2166621469592211565}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 3e925b801feddbf4d9a832ba3ef7bee3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

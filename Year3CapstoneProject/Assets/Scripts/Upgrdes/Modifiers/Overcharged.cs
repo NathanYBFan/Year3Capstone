@@ -1,19 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.UI;
 
 public class Overcharged : Modifier
 {
-	private string modifierName;
-	public override string ModifierName
-	{
-		get { return modifierName; }
-	}
+	// Private Variables
+	private string modifierName = "Overcharged";
 
-	private void Start()
-	{
-		modifierName = "Overcharged";
-	}
+	public Image modifierImage;
+
+	public string modifierDescription;
+
+	// Getters
+	public override string ModifierName { get { return modifierName; } }
+	public override Image ModifierImage { get { return modifierImage; } }
+    public override string ModifierDescription { get { return modifierDescription; } }
 
 	public override void AddEffects()
 	{

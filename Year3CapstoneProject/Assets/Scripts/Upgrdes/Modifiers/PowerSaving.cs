@@ -1,19 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.UI;
 
 public class PowerSaving : Modifier
 {
-	private string modifierName;
-	public override string ModifierName
-	{
-		get { return modifierName; }
-	}
+	// Private Variables
+	private string modifierName = "Power-Saving Mode";
+	private Image modifierImage;
+	private string modifierDescription;
 
-	private void Start()
-	{
-		modifierName = "Power-Saving Mode";
-	}
+	// Getters
+	public override string ModifierName{ get { return modifierName; } }
+	public override Image ModifierImage { get { return modifierImage; } }
+	public override string ModifierDescription { get {  return modifierDescription; } }
 
 	public override void AddEffects()
 	{

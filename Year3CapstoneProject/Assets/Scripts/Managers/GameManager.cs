@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,29 +12,10 @@ public class GameManager : MonoBehaviour
     // Serialize Fields
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("Player 1 referenceable gameobject")]
-    private GameObject player1;
-
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("P")]
-    private GameObject player2;
-
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("P")]
-    private GameObject player3;
-
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("P")]
-    private GameObject player4;
-
-    [SerializeField, ReadOnly, Range(2,4)]
-    [Foldout("Stats"), Tooltip("")]
-    private int numberOfPlayers;
+    private List<GameObject> players;
 
     // Getters
-    public GameObject Player1 { get { return player1; } }
-    public GameObject Player2 { get { return player2; } }
-    public GameObject Player3 { get { return player3; } }
-    public GameObject Player4 { get { return player4; } }
+    public List<GameObject> Players { get { return players; } set { players = value; } }
 
     private void Awake()
     {
@@ -50,7 +32,7 @@ public class GameManager : MonoBehaviour
     // Play game initial setups
     public void StartNewGame()
     {
-        // Start Chaos Factor
+        ChaosFactorManager._Instance.Reset();
         // Start Player stuff
         // Setup Bullet Instances? <-- Could be done at launch, reset them
     }
