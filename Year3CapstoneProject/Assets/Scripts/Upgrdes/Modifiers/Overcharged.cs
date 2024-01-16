@@ -21,8 +21,8 @@ public class Overcharged : Modifier
 		if (playerStats != null)
 		{
 			//TO DO -> Make movement speed and fire rate accessible somehow.
-			//playerStats.MovementSpeed += 5;
-			//playerStats.FireRate += 5;
+			playerStats.MovementSpeed += 5;
+			playerStats.FireRate += 5;
 		}
 	}
 

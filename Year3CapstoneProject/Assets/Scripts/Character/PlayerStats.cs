@@ -46,6 +46,9 @@ public class PlayerStats : MonoBehaviour
 	[Foldout("Player Stats"), Tooltip("The debuff that this player is currently suffering from.")]
 	public Debuff inflictedDebuff;
     private Coroutine debuffCoroutine;
+
+    [ReadOnly]
+    public bool isPowerSaving = false;
     public int MaxHealth
     {
         get { return maxHealth; }
@@ -57,10 +60,12 @@ public class PlayerStats : MonoBehaviour
     public float MovementSpeed
     {
         get { return movementSpeed; }
+        set { movementSpeed = value; }
     }
     public float FireRate 
     { 
         get { return fireRate; } 
+        set {  fireRate = value; }
     }
     public float MaxEnergy 
     { 
