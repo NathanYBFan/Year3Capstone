@@ -11,5 +11,6 @@ public class CharacterSelectMenu : MonoBehaviour
     public void ContinueButtonPressed()
     {
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[5]);
+        GameManager._Instance.StartNewGame(); // Reset player stats
     }
 }

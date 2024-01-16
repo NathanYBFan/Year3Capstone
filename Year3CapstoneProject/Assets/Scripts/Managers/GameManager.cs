@@ -7,12 +7,19 @@ public class GameManager : MonoBehaviour
     // Singleton Initialization
     public static GameManager _Instance;
 
+    // Public Variables
     public bool inGame;
+    public bool isPaused;
 
     // Serialize Fields
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("Player 1 referenceable gameobject")]
+    [Foldout("Dependencies"), Tooltip("Pause Menu GameObject")]
+    private GameObject pauseMenu;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("All players as a referenceable gameobject")]
     private List<GameObject> players;
+
 
     // Getters
     public List<GameObject> Players { get { return players; } set { players = value; } }
@@ -33,9 +40,19 @@ public class GameManager : MonoBehaviour
     public void StartNewGame()
     {
         ChaosFactorManager._Instance.Reset();
+        BulletObjectPoolManager._Instance.ResetAllBullets();
         // Start Player stuff
-        // Setup Bullet Instances? <-- Could be done at launch, reset them
     }
 
+    public void PauseGame()
+    {
+        if (!inGame) return; // TODO NATHANF: If not in game should have different use
+        isPaused = !isPaused;
+        pauseMenu.SetActive(isPaused);
 
+        if (isPaused)
+            Time.timeScale = 0f;
+        else
+            Time.timeScale = 1f;
+    }
 }

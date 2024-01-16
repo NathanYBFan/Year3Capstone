@@ -13,7 +13,7 @@ public class AudioManager : MonoBehaviour
     // Serialize Fields
     [SerializeField, ReadOnly]
     [Foldout("Dependencies"), Tooltip("Audio Source List of each character, this is propgated within this script")]
-    private List<AudioSource> playerAudioSourceList; // TODO NATHANF: Propogate using a call to GameManager
+    private List<AudioSource> playerAudioSourceList;
 
     [SerializeField, Required]
     [Foldout("Dependencies"), Tooltip("The music Audio Source which should be attached to the main camera(s)")]
@@ -42,6 +42,18 @@ public class AudioManager : MonoBehaviour
 
         else if (_Instance == null) // If no other AudioManager exists
             _Instance = this;
+    }
+
+    private void Start()
+    {
+        ResetAudioSources();
+    }
+
+    public void ResetAudioSources()
+    {
+        playerAudioSourceList.Clear();
+        foreach(GameObject player in GameManager._Instance.Players)
+            playerAudioSourceList.Add(player.GetComponentInChildren<AudioSource>());
     }
 
     // Play oneshot soundFX

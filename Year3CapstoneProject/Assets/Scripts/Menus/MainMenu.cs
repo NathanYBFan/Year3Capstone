@@ -5,8 +5,6 @@ public class MainMenu : MonoBehaviour
     public void PlayGamePressed()
     {
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3]);
-        // Reset player stats
-        GameManager._Instance.StartNewGame();
     }
 
     // TODO NATHANF: ADJUST SETTINGS TO WORK WITH LEVEL LOADER

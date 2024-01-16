@@ -17,10 +17,12 @@ public class PlayerBody : MonoBehaviour
     private Rigidbody rb;
 
     [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private AudioSource audioSource;
+
+    [SerializeField]
     [Foldout("Stats"), Tooltip("")]
     private int playerIndex = -1; //Which number this player is.
-
-
 
     // Getters
     public int PlayerIndex { get { return playerIndex; } }
@@ -44,26 +46,23 @@ public class PlayerBody : MonoBehaviour
 	}
 	private void Start()
 	{
-		stats = GetComponent<PlayerStats>();
-		rb = GetComponent<Rigidbody>();
-
 		GameManager._Instance.Players.Add(this.gameObject);
-	}
+        AudioManager._Instance.PlayerAudioSourceList.Add(audioSource);
+    }
 
 	// Update is called once per frame
 	private void Update()
 	{
-		if (moveDir.magnitude == 0) return;
+        var angle = Mathf.Atan2(aimDir.x, aimDir.y) * Mathf.Rad2Deg;
+        pivot.transform.rotation = Quaternion.Euler(0, angle, 0);
+
 
 		Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
 		if (moveDirection.magnitude > 1)
-		{
 			moveDirection.Normalize();
-		}
 
-		rb.AddForce((moveDirection * stats.MovementSpeed) - rb.velocity, ForceMode.Acceleration);
-		var angle = Mathf.Atan2(aimDir.x, aimDir.y) * Mathf.Rad2Deg;
-		pivot.transform.rotation = Quaternion.Euler(0, angle, 0);
+        if (moveDir.magnitude != 0)
+    		rb.AddForce((moveDirection * stats.MovementSpeed) - rb.velocity, ForceMode.Acceleration);
 	}
 }
 

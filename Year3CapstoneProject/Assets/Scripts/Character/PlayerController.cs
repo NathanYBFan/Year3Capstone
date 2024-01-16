@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
@@ -50,5 +51,10 @@ public class PlayerController : MonoBehaviour
 	{	
 		if (body != null) //If this controller has a body to control, then adjust the direction of which it's going to move.
 			body.SetMovementVector(ctx.ReadValue<Vector2>());
+	}
+
+	public void OnPause()
+	{
+		GameManager._Instance.PauseGame();
 	}
 }
