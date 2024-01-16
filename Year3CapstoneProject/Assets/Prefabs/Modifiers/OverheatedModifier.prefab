@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4972246204649190176}
-  - component: {fileID: 8886883156730225163}
   m_Layer: 0
   m_Name: OverheatedModifier
   m_TagString: Untagged
@@ -32,16 +31,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8886883156730225163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2174072255946404976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 033e3c16a415fe24ebab3e1a523468d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debuffToApply: {fileID: 11400000, guid: 583f2597d53480d4099e8b7784da733f, type: 2}

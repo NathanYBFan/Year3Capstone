@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
+[CreateAssetMenu(fileName = "New Modifier", menuName = "Modifiers/Overheated")]
 public class Overheated : Modifier
 {
 	// Serialize Fields
@@ -8,18 +10,13 @@ public class Overheated : Modifier
     private Debuff debuffToApply;
 
 	// Private Variables
-    private string modifierName = "Overheated";
-	private Image modifierImage;
-	private string modifierDescription;
-
-	// Getters
-    public override string ModifierName { get { return modifierName; } }
-    public override Image ModifierImage { get { return modifierImage; } }
-    public override string ModifierDescription { get {  return modifierDescription; } }
+    public string modifierName = "Overheated";
+	public Image modifierImage;
+	public string modifierDescription;
 
 	public override void AddEffects()
 	{
-		PlayerStats playerStats = GetComponent<PlayerStats>();
+		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
 		if (playerStats != null)
 		{
 			playerStats.giveableDebuff = new Debuff

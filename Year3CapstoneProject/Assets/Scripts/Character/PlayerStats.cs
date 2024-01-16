@@ -45,7 +45,11 @@ public class PlayerStats : MonoBehaviour
 	[SerializeField, ReadOnly]
 	[Foldout("Player Stats"), Tooltip("The debuff that this player is currently suffering from.")]
 	public Debuff inflictedDebuff;
-    private Coroutine debuffCoroutine;
+
+    [Header("Debuffs")]
+    [SerializeField, ReadOnly]
+    public List<Modifier> modifiers;
+	private Coroutine debuffCoroutine;
 
     [ReadOnly]
     public bool isPowerSaving = false;
@@ -107,6 +111,11 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    public void ActivateEffects(Modifier modifier)
+    {
+        modifier.AddEffects();
+        modifiers.Add(modifier);
+    }
     /// <summary>
     /// This coroutine applies the debuff's effects throughout it's duration before removing itself from the player.
     /// </summary>

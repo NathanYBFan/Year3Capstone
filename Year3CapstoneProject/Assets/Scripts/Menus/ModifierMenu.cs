@@ -34,12 +34,12 @@ public class ModifierMenu : MonoBehaviour
 
     private void ResetAllModifierSelection()
     {
-        List<GameObject> localListOfModifiers = ModifierManager._Instance.ListOfModifiers;
+        List<Modifier> localListOfModifiers = ModifierManager._Instance.ListOfModifiers;
 
         foreach (GameObject modiferDisplay in modifierDisplayList)
         {
             int modifierSelected = Random.Range(0, localListOfModifiers.Count - 1);
-            Modifier selectedModifier = localListOfModifiers[modifierSelected].GetComponent<Modifier>();
+            Modifier selectedModifier = localListOfModifiers[modifierSelected];
             localListOfModifiers.RemoveAt(modifierSelected);
 
             modiferDisplay.GetComponent<ModifierDisplay>().ResetModifier(selectedModifier);

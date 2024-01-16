@@ -14,15 +14,15 @@ public class ModifierManager : MonoBehaviour
 
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
-    private List<GameObject> listOfModifiers; // TODO NATHANF: Change scriptable Object to created script
+    private List<Modifier> listOfModifiers; // TODO NATHANF: Change scriptable Object to created script
 
-    [SerializeField, ReadOnly]
+    [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private GameObject playerToModify;
 
     // Getters
-    public List<GameObject> ListOfModifiers { get { return listOfModifiers; } }
-    public GameObject PlayerToModify { get {  return playerToModify; } }
+    public List<Modifier> ListOfModifiers { get { return listOfModifiers; } }
+    public GameObject PlayerToModify { get {  return playerToModify; } set { playerToModify = value; } }
 
     private void Awake()
     {

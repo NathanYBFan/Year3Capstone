@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ModifierDisplay : MonoBehaviour
 {
     // Serialze Fields
-    [SerializeField, ReadOnly]
+    [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private Modifier modifier;
 
@@ -18,15 +18,17 @@ public class ModifierDisplay : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("")]
     private TextMeshProUGUI modifierText;
 
+    public GameObject playerToModify;
+
     public void ResetModifier(Modifier newModifier)
     {
         modifier = newModifier;
-        modifierText.text = modifier.ModifierDescription;
-        modifierImage = modifier.ModifierImage;
     }
 
     public void ModifierClicked()
     {
-        //ModifierManager._Instance.PlayerToModify.AddComponent<modifier>();
+        ModifierManager._Instance.PlayerToModify = playerToModify;
+		ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>().ActivateEffects(modifier);
+        
     }
 }
