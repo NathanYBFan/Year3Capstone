@@ -16,8 +16,13 @@ public class ModifierManager : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("")]
     private List<GameObject> listOfModifiers; // TODO NATHANF: Change scriptable Object to created script
 
+    [SerializeField, ReadOnly]
+    [Foldout("Dependencies"), Tooltip("")]
+    private GameObject playerToModify;
+
     // Getters
     public List<GameObject> ListOfModifiers { get { return listOfModifiers; } }
+    public GameObject PlayerToModify { get {  return playerToModify; } }
 
     private void Awake()
     {

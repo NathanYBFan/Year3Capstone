@@ -300,6 +300,7 @@ MonoBehaviour:
   - {fileID: 6411136873885653366, guid: f600e5b83be06c142af03213d4626329, type: 3}
   - {fileID: 2174072255946404976, guid: da7a9c4b385534149be74d04fd32cebd, type: 3}
   - {fileID: 7108811874639624729, guid: f58ca436ec30d9e4b8025ac2a4758590, type: 3}
+  playerToModify: {fileID: 0}
 --- !u!1 &222585821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,12 +1291,12 @@ MonoBehaviour:
   isLoadingLevel: 0
   currentLevelList: []
   levelNamesList:
-  - MainGame
   - MainMenu
   - SettingsMenu
   - CreditsMenu
   - ModeSelectMenu
   - CharacterSelectMenu
+  - MainGame
   - CharacterDemo
 --- !u!1 &1390863569
 GameObject:
@@ -1970,8 +1971,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1546706634}
-  - {fileID: 371726806}
   - {fileID: 583934627}
+  - {fileID: 371726806}
   m_Father: {fileID: 222585822}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

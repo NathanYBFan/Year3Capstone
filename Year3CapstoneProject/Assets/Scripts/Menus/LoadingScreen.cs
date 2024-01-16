@@ -11,6 +11,7 @@ public class LoadingScreen : MonoBehaviour
 
     private void OnEnable()
     {
+        // Reset value
         loadingSlider.value = 0;
     }
 

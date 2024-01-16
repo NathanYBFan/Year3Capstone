@@ -24,4 +24,9 @@ public class ModifierDisplay : MonoBehaviour
         modifierText.text = modifier.ModifierDescription;
         modifierImage = modifier.ModifierImage;
     }
+
+    public void ModifierClicked()
+    {
+        //ModifierManager._Instance.PlayerToModify.AddComponent<modifier>();
+    }
 }
