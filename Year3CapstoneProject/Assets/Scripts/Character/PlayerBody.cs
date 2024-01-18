@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using Palmmedia.ReportGenerator.Core.Reporting.Builders;
 using UnityEngine;
 
 public class PlayerBody : MonoBehaviour
@@ -24,7 +25,17 @@ public class PlayerBody : MonoBehaviour
     [Foldout("Stats"), Tooltip("")]
     private int playerIndex = -1; //Which number this player is.
 
+    [SerializeField]
+    [Foldout("Physics Modifiers"), Tooltip("Flag that allows the movement to switch between default and ice settings." +
+        "\nNOTE: Will be read-only in the future. Editable in editor for debugging purposes.")]
+    private bool onIce;
+    [SerializeField]
+    [Foldout("Physics Modifiers"), Range(0,2), Tooltip("Float value that affects the amount of resistance the player experiences to move in a specific direction." +
+        "\nNOTE: Higher values make the resistance against the player greater (and makes it harder to move).")]
+    private float iceInertiaMultiplier = 0.5f;
+
     // Getters
+    public bool OnIce { get { return onIce; } set { onIce = value; } }
     public int PlayerIndex { get { return playerIndex; } }
 
     // Private Variables
@@ -61,9 +72,25 @@ public class PlayerBody : MonoBehaviour
 		if (moveDirection.magnitude > 1)
 			moveDirection.Normalize();
 
-        if (moveDir.magnitude != 0)
-    		rb.AddForce((moveDirection * stats.MovementSpeed) - rb.velocity, ForceMode.Acceleration);
-	}
+
+        if (onIce)
+        {
+            //Apply movement for ice physics.
+            //Kind of scuffed looking, but this has so far been the only way it worked to our preferences.
+            //Forgive me.
+			rb.velocity += (moveDirection * stats.MovementSpeed) * Time.deltaTime;
+			rb.velocity = Vector3.ClampMagnitude(rb.velocity, stats.MovementSpeed); //Cannot go above max speed.
+
+			rb.velocity -= rb.velocity * iceInertiaMultiplier * Time.deltaTime; //Apply resistance to the player's movement.
+		}
+        else
+        {
+            //Default motion.
+            rb.AddForce((moveDirection * stats.MovementSpeed) - rb.velocity, ForceMode.Acceleration);
+        }
+
+
+    }
 }
 
 
