@@ -353,6 +353,51 @@ MonoBehaviour:
   modifierDisplayObj: {fileID: 4195133267721753695, guid: 9c4d5ef6ba8601e40833d4bbb79e9bec, type: 3}
   modifierHolderTransform: {fileID: 371726806}
   modifierDisplayList: []
+--- !u!1 &296285069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 296285070}
+  - component: {fileID: 296285071}
+  m_Layer: 0
+  m_Name: PointsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &296285070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296285069}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1756162859}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &296285071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296285069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e084d90da748ccd449b6846ca8a4ee7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointsPerPlayer: 
 --- !u!1 &338731853
 GameObject:
   m_ObjectHideFlags: 0
@@ -2024,6 +2069,13 @@ MonoBehaviour:
   isPaused: 0
   pauseMenu: {fileID: 1333667569}
   players: []
+  stageOfPlay:
+  - Menus
+  - In Play
+  - Modifier
+  - Win Screen
+  selectedGameMode: 
+  stageAt: 
 --- !u!1 &1478896578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2943,6 +2995,7 @@ Transform:
   - {fileID: 1478896579}
   - {fileID: 899188258}
   - {fileID: 210767187}
+  - {fileID: 296285070}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1797492169
