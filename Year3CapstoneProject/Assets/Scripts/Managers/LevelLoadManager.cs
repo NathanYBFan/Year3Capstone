@@ -109,6 +109,8 @@ public class LevelLoadManager : MonoBehaviour
     // Level Reset
     public void ResetAll()
     {
+        GameManager._Instance.inGame = true;
+
         // RESET STAGE
         // RESET PLAYERS
         // RESET STATS

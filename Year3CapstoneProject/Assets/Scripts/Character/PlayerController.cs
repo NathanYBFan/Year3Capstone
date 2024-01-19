@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (body != null)
 		{
-
+			body.GetComponent<PlayerShooting>().FireBullet();
 		}
 	}
 	public void OnDash(CallbackContext ctx)
@@ -53,8 +53,9 @@ public class PlayerController : MonoBehaviour
 			body.SetMovementVector(ctx.ReadValue<Vector2>());
 	}
 
-	public void OnPause()
+	public void OnPause(CallbackContext ctx)
 	{
-		GameManager._Instance.PauseGame();
+		if (body != null)
+			GameManager._Instance.PauseGame();
 	}
 }
