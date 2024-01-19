@@ -2,17 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-[CreateAssetMenu(fileName = "New Modifier", menuName = "Modifiers/Power-Saving Mode")]
-public class PowerSaving : Modifier
+[CreateAssetMenu(fileName = "New Modifier", menuName = "Modifiers/Fragmentation")]
+public class Fragmentation : Modifier
 {
-	// Private Variables
-
 	public override void AddEffects()
 	{
 		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
 		if (playerStats != null)
 		{
-			playerStats.isPowerSaving = true;
+			playerStats.fragmentBullets = true;
 		}
 	}
+
 }

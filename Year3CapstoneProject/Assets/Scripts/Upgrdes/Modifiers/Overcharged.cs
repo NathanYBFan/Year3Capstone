@@ -6,11 +6,6 @@ using UnityEngine.UI;
 public class Overcharged : Modifier
 {
 	// Private Variables
-	public string modifierName = "Overcharged";
-
-	public Image modifierImage;
-
-	public string modifierDescription;
 
 
 	public override void AddEffects()

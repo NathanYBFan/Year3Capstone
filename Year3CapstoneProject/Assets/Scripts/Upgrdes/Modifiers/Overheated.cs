@@ -9,11 +9,6 @@ public class Overheated : Modifier
     [SerializeField]
     private Debuff debuffToApply;
 
-	// Private Variables
-    public string modifierName = "Overheated";
-	public Image modifierImage;
-	public string modifierDescription;
-
 	public override void AddEffects()
 	{
 		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
