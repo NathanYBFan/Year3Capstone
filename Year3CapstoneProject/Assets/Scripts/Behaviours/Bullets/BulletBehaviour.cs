@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections;
 using TreeEditor;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
@@ -39,15 +40,54 @@ public class BulletBehaviour : MonoBehaviour
 	[Foldout("Stats"), Tooltip("")]
 	private bool isFragmentable = true;
 
+	[SerializeField]
+	[Foldout("Stats"), Tooltip(""), Range(0, 1f)]
+	private Transform target;
+
 	private void OnEnable()
 	{
 		StartCoroutine(LifetimeClock());
+		if (playerOwner != null)
+		{
+			if (playerOwner.homingBullets)
+				FindClosestPlayer();
+		}
 	}
 
 	private void Update()
 	{
 		// make bullet move direction
+		if (playerOwner.homingBullets)
+		{
+			if (target != null)
+			{
+				Vector3 direction = target.position - transform.position;
+				direction.y += 2;
+				Vector3 inaccurateDir = Vector3.Slerp(direction.normalized, Random.onUnitSphere, 1 - playerOwner.homingAccuracy);
+
+				Quaternion toRotation = Quaternion.LookRotation(inaccurateDir, Vector3.up);
+				bulletRootObject.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerOwner.homingBulletRotSpeed * Time.deltaTime);
+			}
+		}
 		bulletRootObject.position += transform.forward * movementSpeed * Time.deltaTime;
+	}
+
+	private void FindClosestPlayer()
+	{
+		float closestDistance = Mathf.Infinity;
+		foreach (GameObject player in GameManager._Instance.Players)
+		{
+			if (player.GetComponent <PlayerBody>().PlayerIndex != originalPlayerIndex)
+			{
+				float distance = Vector3.Distance(transform.position, player.transform.position);
+
+				if (distance < closestDistance)
+				{
+					closestDistance = distance;
+					target = player.transform;
+				}
+			}
+		}
 	}
 
 	private IEnumerator LifetimeClock()

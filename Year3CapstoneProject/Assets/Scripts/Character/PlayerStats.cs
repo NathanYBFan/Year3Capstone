@@ -51,14 +51,24 @@ public class PlayerStats : MonoBehaviour
 	public List<Modifier> modifiers;
 	private Coroutine debuffCoroutine;
 
+	[Header("Modifiers")]
 	[ReadOnly]
+	[Foldout("Player Stats"), Tooltip("")]
 	public bool isPowerSaving = false;
 
+	[Foldout("Player Stats"), Tooltip("")]
 	public bool fragmentBullets = false;
-	[ReadOnly]
+	[Foldout("Player Stats"), Tooltip("")]
 	public bool homingBullets = false;
 	[ReadOnly]
+	[Foldout("Player Stats"), Tooltip("")]
 	public bool explodingBullets = false;
+	[SerializeField]
+	[Foldout("Player Stats"), Tooltip("How accurate a homing bullet would be to hitting its target.\nNOTE: A value of 0 means it will have a 0% chance to hit the target."), Range(0,1f)]
+	public float homingAccuracy = 0.8f;
+	[SerializeField]
+	[Foldout("Player Stats"), Tooltip("The speed of which a homing bullet will rotate at to aim towards it's target.\nNOTE: Lower speed values means it takes longer to adjust its rotation to face the target -> Less Accuracy")]
+	public float homingBulletRotSpeed = 200f;
 	public int MaxHealth
 	{
 		get { return maxHealth; }

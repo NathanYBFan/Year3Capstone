@@ -18,9 +18,6 @@ public class PlayerShooting : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("")]
     private Transform playerRotation;
 
-    [SerializeField]
-    [Foldout("Stats"), Tooltip("")]
-    private float shootingCooldown;
 
     //[SerializeField]
     //[Foldout("Stats"), Tooltip("")]
