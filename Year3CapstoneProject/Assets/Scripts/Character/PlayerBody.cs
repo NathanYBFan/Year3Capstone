@@ -41,6 +41,14 @@ public class PlayerBody : MonoBehaviour
     // Private Variables
     private Vector2 moveDir, aimDir; //The current movement direction of this player.
 
+    public void FireBullet()
+    {
+        if (Time.time >= stats.nextFireTime)
+        {
+            GetComponent<PlayerShooting>().FireBullet();
+            stats.nextFireTime = Time.time + 1f / stats.FireRate;
+        }
+    }
 
     /// <summary>
     /// Sets the directional vector for movement.

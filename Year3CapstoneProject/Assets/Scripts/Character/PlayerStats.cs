@@ -94,6 +94,9 @@ public class PlayerStats : MonoBehaviour
 		get { return rate; }
 	}
 
+	[HideInInspector]
+	public float nextFireTime = 0;
+
 	private void Update()
 	{
 		//Energy bar regeneration.

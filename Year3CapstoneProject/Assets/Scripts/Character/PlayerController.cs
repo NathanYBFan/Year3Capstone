@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (body != null)
 		{
-			body.GetComponent<PlayerShooting>().FireBullet();
+			body.FireBullet();
 		}
 	}
 	public void OnDash(CallbackContext ctx)
