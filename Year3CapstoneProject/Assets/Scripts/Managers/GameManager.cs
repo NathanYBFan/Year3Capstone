@@ -20,9 +20,27 @@ public class GameManager : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("All players as a referenceable gameobject")]
     private List<GameObject> players;
 
+    [SerializeField, ReadOnly]
+    [Foldout("Stats"), Tooltip("The stages possible")]
+    private string[] stageOfPlay = { "Menus", "In Play", "Modifier", "Win Screen" };
+
+    [SerializeField, ReadOnly]
+    [Foldout("Stats"), Tooltip("Selectected game mode to load")]
+    private string selectedGameMode;
+
+    [SerializeField, ReadOnly]
+    [Foldout("Stats"), Tooltip("Stage the game is currently at")]
+    private string stageAt;
 
     // Getters
     public List<GameObject> Players { get { return players; } set { players = value; } }
+    public string SelectedGameMode { get { return selectedGameMode; } set { selectedGameMode = value; } }
+    public string StageAt { get { return stageAt; } set {  stageAt = value; } }
+
+    private void Start()
+    {
+        stageAt = stageOfPlay[0];
+    }
 
     private void Awake()
     {
@@ -54,5 +72,10 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f;
         else
             Time.timeScale = 1f;
+    }
+
+    public void WinConditionMet()
+    {
+
     }
 }
