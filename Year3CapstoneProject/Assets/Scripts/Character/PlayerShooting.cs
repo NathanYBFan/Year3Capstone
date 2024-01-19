@@ -36,7 +36,7 @@ public class PlayerShooting : MonoBehaviour
         bulletRot.y = playerRotation.rotation.eulerAngles.y;
         bullet.transform.rotation = Quaternion.Euler(bulletRot);
 
-        bullet.GetComponentInChildren<BulletBehaviour>().ResetPlayerIndex(this.gameObject.GetComponent<PlayerBody>().PlayerIndex);
+        bullet.GetComponentInChildren<BulletBehaviour>().ResetPlayerOwner(this.gameObject.GetComponent<PlayerBody>().PlayerIndex, this.gameObject.GetComponent<PlayerStats>());
         
         bullet.SetActive(true);
 

@@ -47,15 +47,18 @@ public class PlayerStats : MonoBehaviour
 	public Debuff inflictedDebuff;
 
 	[Header("Debuffs")]
-	[SerializeField, ReadOnly]
+	[SerializeField]
 	public List<Modifier> modifiers;
 	private Coroutine debuffCoroutine;
 
 	[ReadOnly]
 	public bool isPowerSaving = false;
 
-	[ReadOnly]
 	public bool fragmentBullets = false;
+	[ReadOnly]
+	public bool homingBullets = false;
+	[ReadOnly]
+	public bool explodingBullets = false;
 	public int MaxHealth
 	{
 		get { return maxHealth; }
