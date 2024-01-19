@@ -93,11 +93,11 @@ public class BulletBehaviour : MonoBehaviour
 			{
 				for (int i = 0; i < 3; i++)
 				{
-					GameObject bullet = Instantiate(gameObject, fragmentDirections[i].position, Quaternion.identity);
-					bullet.GetComponent<BulletBehaviour>().playerOwner = this.playerOwner;
-					bullet.GetComponent<BulletBehaviour>().originalPlayerIndex = this.originalPlayerIndex;
-					bullet.GetComponent<BulletBehaviour>().isFragmentable = false;
-					bullet.GetComponent<BulletBehaviour>().bulletRootObject = bullet.gameObject.transform.parent;
+					GameObject bullet = Instantiate(gameObject.transform.parent.gameObject, fragmentDirections[i].position, Quaternion.identity);
+					bullet.GetComponentInChildren<BulletBehaviour>().playerOwner = this.playerOwner;
+					bullet.GetComponentInChildren<BulletBehaviour>().originalPlayerIndex = this.originalPlayerIndex;
+					bullet.GetComponentInChildren<BulletBehaviour>().isFragmentable = false;
+					bullet.GetComponentInChildren<BulletBehaviour>().bulletRootObject = bullet.gameObject.transform;
 					Vector3 bulletRot = bullet.transform.rotation.eulerAngles;
 					bulletRot.y = fragmentDirections[i].rotation.eulerAngles.y;
 					bullet.transform.rotation = Quaternion.Euler(bulletRot);
