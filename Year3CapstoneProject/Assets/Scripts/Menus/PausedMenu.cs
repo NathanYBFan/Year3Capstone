@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PausedMenu : MonoBehaviour
 {
+
+
     public void ResumeButtonPressed()
     {
         GameManager._Instance.PauseGame();

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 915514133798776964}
   - component: {fileID: 5717743873403891224}
   - component: {fileID: 8415995967917466892}
+  - component: {fileID: 5597250579197962162}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -79,6 +80,8 @@ MonoBehaviour:
   rb: {fileID: 915514133798776964}
   audioSource: {fileID: 5310610532670783938}
   playerIndex: 0
+  onIce: 0
+  iceInertiaMultiplier: 0.5
 --- !u!114 &8415995967917466892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,7 +105,25 @@ MonoBehaviour:
   replenishAmount: 1
   giveableDebuff: {fileID: 0}
   inflictedDebuff: {fileID: 0}
+  modifiers: []
   isPowerSaving: 0
+  fragmentBullets: 0
+--- !u!114 &5597250579197962162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751660676036993506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ccad5507e2d9ec4d9382b230fc24bad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletDisplay: {fileID: 1615981789932428633, guid: d6f78f7a07df7074cb2e8143467a1490, type: 3}
+  firePoint: {fileID: 4600983117546790531}
+  playerRotation: {fileID: 4066807516070608054}
+  shootingCooldown: 5
 --- !u!1 &1951336121382196518
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +266,7 @@ GameObject:
   - component: {fileID: 44657025361041121}
   m_Layer: 0
   m_Name: PlayerMesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

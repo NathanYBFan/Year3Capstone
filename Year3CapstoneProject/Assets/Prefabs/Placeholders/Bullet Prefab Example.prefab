@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9178586412494838048}
   - component: {fileID: 129918306287115425}
   - component: {fileID: 3947666854757011594}
+  - component: {fileID: 6647096345936810800}
   m_Layer: 0
   m_Name: BulletBody
   m_TagString: Untagged
@@ -99,12 +100,29 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6647096345936810800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51901446835095915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0097c9133fb23f948b8980c3906ee4bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletRootObject: {fileID: 8334014978921442311}
+  originalPlayerName: 
+  lifeTime: 5
+  movementSpeed: 5
+  damageToDeal: 1
 --- !u!1 &1615981789932428633
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8334014978921442311}
-  - component: {fileID: 3885185632581922025}
   m_Layer: 0
   m_Name: Bullet Prefab Example
   m_TagString: Untagged
@@ -138,18 +155,3 @@ Transform:
   - {fileID: 8829146591164870906}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3885185632581922025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1615981789932428633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0097c9133fb23f948b8980c3906ee4bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletRootObject: {fileID: 8334014978921442311}
-  lifeTime: 5
-  movementSpeed: 2.5
