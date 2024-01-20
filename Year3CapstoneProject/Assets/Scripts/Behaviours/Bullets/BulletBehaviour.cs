@@ -122,6 +122,8 @@ public class BulletBehaviour : MonoBehaviour
 					}
 				}
 				other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damageToDeal);
+				if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject); 
+				else Destroy(bulletRootObject.gameObject);
 			}
 		}
 		//Else instead

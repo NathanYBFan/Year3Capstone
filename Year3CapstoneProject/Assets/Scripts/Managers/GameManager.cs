@@ -104,6 +104,9 @@ public class GameManager : MonoBehaviour
 			case "fragmentation":
 				modifierName = "Fragmentation";
 				break;
+			case "trifecta":
+				modifierName = "Trifecta";
+				break;
 			default:
 				Debug.LogWarning("Invalid modifier entry!");
 				return;

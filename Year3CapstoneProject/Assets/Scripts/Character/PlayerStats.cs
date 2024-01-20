@@ -54,10 +54,14 @@ public class PlayerStats : MonoBehaviour
 	[Header("Modifiers")]
 	[ReadOnly]
 	[Foldout("Player Stats"), Tooltip("")]
+	public bool triShot = false;
+	[ReadOnly]
+	[Foldout("Player Stats"), Tooltip("")]
 	public bool isPowerSaving = false;
-
+	[ReadOnly]
 	[Foldout("Player Stats"), Tooltip("")]
 	public bool fragmentBullets = false;
+	[ReadOnly]
 	[Foldout("Player Stats"), Tooltip("")]
 	public bool homingBullets = false;
 	[ReadOnly]

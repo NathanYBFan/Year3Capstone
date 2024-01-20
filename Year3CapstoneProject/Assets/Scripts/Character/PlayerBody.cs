@@ -83,18 +83,23 @@ public class PlayerBody : MonoBehaviour
 
         if (onIce)
         {
-            //Apply movement for ice physics.
-            //Kind of scuffed looking, but this has so far been the only way it worked to our preferences.
-            //Forgive me.
+			//Apply movement for ice physics.
+			//Kind of scuffed looking, but this has so far been the only way it worked to our preferences.
+			//Forgive me.
+			
 			rb.velocity += (moveDirection * stats.MovementSpeed) * Time.deltaTime;
 			rb.velocity = Vector3.ClampMagnitude(rb.velocity, stats.MovementSpeed); //Cannot go above max speed.
 
-			rb.velocity -= rb.velocity * iceInertiaMultiplier * Time.deltaTime; //Apply resistance to the player's movement.
+			Vector3 velocity = rb.velocity;
+			velocity.y = 0;
+			rb.velocity -= velocity * iceInertiaMultiplier * Time.deltaTime; //Apply resistance to the player's movement.
 		}
         else
         {
             //Default motion.
-            rb.AddForce((moveDirection * stats.MovementSpeed) - rb.velocity, ForceMode.Acceleration);
+            Vector3 velocity = rb.velocity;
+            velocity.y = 0;
+            rb.AddForce((moveDirection * stats.MovementSpeed) - velocity, ForceMode.Acceleration);
         }
 
 
