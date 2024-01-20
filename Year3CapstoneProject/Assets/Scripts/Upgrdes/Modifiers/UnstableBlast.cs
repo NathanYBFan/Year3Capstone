@@ -12,4 +12,9 @@ public class UnstableBlast : Modifier
 			playerStats.explodingBullets = true;
 		}
 	}
+
+	public override void AddEffects(PlayerStats playerStats)
+	{
+		playerStats.explodingBullets = true;
+	}
 }

@@ -14,4 +14,8 @@ public class Fragmentation : Modifier
 		}
 	}
 
+	public override void AddEffects(PlayerStats playerStats)
+	{
+		playerStats.fragmentBullets = true;
+	}
 }

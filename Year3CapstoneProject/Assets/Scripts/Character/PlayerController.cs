@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 	private PlayerBody body; //A specific player that will be manipulated by this controller.
 	public float temp;
 
+
 	private void Awake()
 	{
 		playerControl = new PlayerInputActions();
@@ -22,6 +23,10 @@ public class PlayerController : MonoBehaviour
 		body = bodies.FirstOrDefault(m => m.PlayerIndex == index); //The body that this controller corresponds to is the one whose index matches the player input index of this controller.
 	}
 
+	public void OnDebugPressed(CallbackContext ctx)
+	{
+		DebugMenu._Instance.OnDebugPressed();
+	}
 	public void OnFire(CallbackContext ctx)
 	{
 		if (body != null)

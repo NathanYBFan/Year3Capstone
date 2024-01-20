@@ -24,4 +24,16 @@ public class Overheated : Modifier
 			};
 		}
 	}
+
+	public override void AddEffects(PlayerStats playerStats)
+	{
+		playerStats.giveableDebuff = new Debuff
+		{
+			debuffName = debuffToApply.name,
+			debuffDuration = debuffToApply.debuffDuration,
+			damageInterval = debuffToApply.damageInterval,
+			damage = debuffToApply.damage,
+			shouldKill = debuffToApply.shouldKill
+		};
+	}
 }

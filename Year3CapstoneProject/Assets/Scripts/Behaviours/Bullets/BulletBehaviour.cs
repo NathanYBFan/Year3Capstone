@@ -38,7 +38,7 @@ public class BulletBehaviour : MonoBehaviour
 
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("")]
-	private bool isFragmentable = true;
+	public bool isFragmentable = true;
 
 	[SerializeField]
 	[Foldout("Stats"), Tooltip(""), Range(0, 1f)]
@@ -77,7 +77,7 @@ public class BulletBehaviour : MonoBehaviour
 		float closestDistance = Mathf.Infinity;
 		foreach (GameObject player in GameManager._Instance.Players)
 		{
-			if (player.GetComponent <PlayerBody>().PlayerIndex != originalPlayerIndex)
+			if (player.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
 			{
 				float distance = Vector3.Distance(transform.position, player.transform.position);
 
@@ -108,9 +108,9 @@ public class BulletBehaviour : MonoBehaviour
 				Debug.Log("Player hit!");
 				if (playerOwner.giveableDebuff != null)
 				{
-					if (other.GetComponent<PlayerStats>().inflictedDebuff == null)
+					if (other.transform.parent.parent.GetComponent<PlayerStats>().inflictedDebuff == null)
 					{
-						other.GetComponent<PlayerStats>().inflictedDebuff = new Debuff
+						other.transform.parent.parent.GetComponent<PlayerStats>().inflictedDebuff = new Debuff
 						{
 							debuffName = playerOwner.giveableDebuff.name,
 							debuffDuration = playerOwner.giveableDebuff.debuffDuration,
@@ -144,7 +144,8 @@ public class BulletBehaviour : MonoBehaviour
 				}
 			}
 
-			BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
+			if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
+			else Destroy(bulletRootObject.gameObject);
 			return;
 			//Check if player has Unstable Blast, and if they do, explode!
 		}

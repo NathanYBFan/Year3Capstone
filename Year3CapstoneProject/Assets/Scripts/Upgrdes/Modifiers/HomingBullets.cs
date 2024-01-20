@@ -14,4 +14,9 @@ public class HomingBullets : Modifier
 			playerStats.homingBullets = true;
 		}
 	}
+
+	public override void AddEffects(PlayerStats playerStats)
+	{
+		playerStats.homingBullets = true;
+	}
 }

@@ -15,4 +15,9 @@ public class PowerSaving : Modifier
 			playerStats.isPowerSaving = true;
 		}
 	}
+
+	public override void AddEffects(PlayerStats playerStats)
+	{
+		playerStats.isPowerSaving = true;
+	}
 }

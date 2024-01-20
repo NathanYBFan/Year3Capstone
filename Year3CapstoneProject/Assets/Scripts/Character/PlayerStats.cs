@@ -42,7 +42,7 @@ public class PlayerStats : MonoBehaviour
 	[SerializeField, ReadOnly]
 	[Foldout("Player Stats"), Tooltip("The debuff that this player can give to other players.")]
 	public Debuff giveableDebuff;
-	[SerializeField, ReadOnly]
+	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("The debuff that this player is currently suffering from.")]
 	public Debuff inflictedDebuff;
 
@@ -153,9 +153,11 @@ public class PlayerStats : MonoBehaviour
 			else
 			{
 				if (currHealth - inflictedDebuff.damage < 1) currHealth = 1;
+				else currHealth -= inflictedDebuff.damage;
 			}
 			inflictedDebuff.debuffDuration -= inflictedDebuff.damageInterval;
 		}
 		inflictedDebuff = null;
+		debuffCoroutine = null;
 	}
 }

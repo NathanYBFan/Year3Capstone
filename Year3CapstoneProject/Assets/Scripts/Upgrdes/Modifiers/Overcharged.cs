@@ -19,4 +19,9 @@ public class Overcharged : Modifier
 		}
 	}
 
+	public override void AddEffects(PlayerStats playerStats)
+	{
+		playerStats.MovementSpeed += 5;
+		playerStats.FireRate += 5;
+	}
 }
