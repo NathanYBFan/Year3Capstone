@@ -16,6 +16,10 @@ public class BulletBehaviour : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")]
 	private Transform[] fragmentDirections;
 
+	[SerializeField, Required]
+	[Foldout("Dependencies"), Tooltip("")]
+	private GameObject explosionRadius;
+
 	[SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("")]
 	private int originalPlayerIndex;
@@ -140,16 +144,25 @@ public class BulletBehaviour : MonoBehaviour
 					bullet.GetComponentInChildren<BulletBehaviour>().originalPlayerIndex = this.originalPlayerIndex;
 					bullet.GetComponentInChildren<BulletBehaviour>().isFragmentable = false;
 					bullet.GetComponentInChildren<BulletBehaviour>().bulletRootObject = bullet.gameObject.transform;
+					bullet.GetComponentInChildren<BulletBehaviour>().explosionRadius = this.explosionRadius;
 					Vector3 bulletRot = bullet.transform.rotation.eulerAngles;
 					bulletRot.y = fragmentDirections[i].rotation.eulerAngles.y;
 					bullet.transform.rotation = Quaternion.Euler(bulletRot);
 				}
 			}
+			//Check if player has Unstable Blast, and if they do, explode!
+			if (playerOwner.explodingBullets)
+			{
+				GameObject explosion = Instantiate(explosionRadius, transform.position, Quaternion.identity);
+				explosion.GetComponent<Explosive>().playerOwner = this.playerOwner;
+				explosion.GetComponent<Explosive>().originalPlayerIndex = this.originalPlayerIndex;
+				explosion.GetComponent<Explosive>().StartExpansion();
 
+			}
 			if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
 			else Destroy(bulletRootObject.gameObject);
 			return;
-			//Check if player has Unstable Blast, and if they do, explode!
+			
 		}
 
 

@@ -124,13 +124,14 @@ MonoBehaviour:
   - {fileID: 7291704744719408704}
   - {fileID: 2865587106818845243}
   - {fileID: 7567577414424103779}
+  explosionRadius: {fileID: 1169603157817054202, guid: ab8d64efebba136408e283c3c2107549, type: 3}
   originalPlayerIndex: 0
   playerOwner: {fileID: 0}
   lifeTime: 5
   movementSpeed: 5
   damageToDeal: 1
   isFragmentable: 1
-  accuracy: 0
+  target: {fileID: 0}
 --- !u!54 &4483240422436281335
 Rigidbody:
   m_ObjectHideFlags: 0

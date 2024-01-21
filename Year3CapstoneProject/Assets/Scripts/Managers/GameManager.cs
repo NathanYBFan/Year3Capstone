@@ -107,6 +107,9 @@ public class GameManager : MonoBehaviour
 			case "trifecta":
 				modifierName = "Trifecta";
 				break;
+			case "unstableblast":
+				modifierName = "Unstable Blast";
+				break;
 			default:
 				Debug.LogWarning("Invalid modifier entry!");
 				return;
