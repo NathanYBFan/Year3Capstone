@@ -41,6 +41,9 @@ public class PlayerBody : MonoBehaviour
     // Private Variables
     private Vector2 moveDir, aimDir; //The current movement direction of this player.
 
+    /// <summary>
+    /// Fires a bullet if the player can fire a bullet
+    /// </summary>
     public void FireBullet()
     {
         if (Time.time >= stats.nextFireTime)
@@ -83,10 +86,7 @@ public class PlayerBody : MonoBehaviour
 
         if (onIce)
         {
-			//Apply movement for ice physics.
-			//Kind of scuffed looking, but this has so far been the only way it worked to our preferences.
-			//Forgive me.
-			
+			//Apply movement for ice physics.			
 			rb.velocity += (moveDirection * stats.MovementSpeed) * Time.deltaTime;
 			rb.velocity = Vector3.ClampMagnitude(rb.velocity, stats.MovementSpeed); //Cannot go above max speed.
 

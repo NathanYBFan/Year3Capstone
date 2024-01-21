@@ -13,19 +13,18 @@ public class BulletBehaviour : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")]
 	private Transform bulletRootObject;
 	[SerializeField, Required]
-	[Foldout("Dependencies"), Tooltip("")]
+	[Foldout("Dependencies"), Tooltip("The positions/angles of which the Fragmentation bullets will shoot in.")]
 	private Transform[] fragmentDirections;
-
 	[SerializeField, Required]
-	[Foldout("Dependencies"), Tooltip("")]
+	[Foldout("Dependencies"), Tooltip("The explosion prefab for the Unstable Blast to spawn.")]
 	private GameObject explosionRadius;
 
 	[SerializeField, ReadOnly]
-	[Foldout("Stats"), Tooltip("")]
+	[Foldout("Stats"), Tooltip("The index of the player who shot this bullet.")]
 	private int originalPlayerIndex;
 
 	[SerializeField, ReadOnly]
-	[Foldout("Stats"), Tooltip("")]
+	[Foldout("Stats"), Tooltip("The stats of the player who shot this bullet.")]
 	private PlayerStats playerOwner;
 
 	[SerializeField]
@@ -45,7 +44,7 @@ public class BulletBehaviour : MonoBehaviour
 	public bool isFragmentable = true;
 
 	[SerializeField]
-	[Foldout("Stats"), Tooltip(""), Range(0, 1f)]
+	[Foldout("Stats"), Tooltip("")]
 	private Transform target;
 
 	private void OnEnable()
@@ -53,6 +52,7 @@ public class BulletBehaviour : MonoBehaviour
 		StartCoroutine(LifetimeClock());
 		if (playerOwner != null)
 		{
+			//We want the bullets to get a target as soon as they are used from the object pool, if the player has homing bullets enabled.
 			if (playerOwner.homingBullets)
 				FindClosestPlayer();
 		}
@@ -60,22 +60,28 @@ public class BulletBehaviour : MonoBehaviour
 
 	private void Update()
 	{
-		// make bullet move direction
+		
 		if (playerOwner.homingBullets)
 		{
+			//If these bullets are to be homing bullets, then their direction will be altered to aim towards a defined target.
 			if (target != null)
 			{
 				Vector3 direction = target.position - transform.position;
-				direction.y += 2;
-				Vector3 inaccurateDir = Vector3.Slerp(direction.normalized, Random.onUnitSphere, 1 - playerOwner.homingAccuracy);
+				direction.y += 2; // To make the bullets shoot roughly from the center of the player's body, rather than at their feet.
+
+				Vector3 inaccurateDir = Vector3.Slerp(direction.normalized, Random.onUnitSphere, 1 - playerOwner.homingAccuracy); //Adding innaccuracy here.
 
 				Quaternion toRotation = Quaternion.LookRotation(inaccurateDir, Vector3.up);
 				bulletRootObject.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerOwner.homingBulletRotSpeed * Time.deltaTime);
 			}
 		}
+		//Otherwise make bullet move default direction
 		bulletRootObject.position += transform.forward * movementSpeed * Time.deltaTime;
 	}
 
+	/// <summary>
+	/// This helper method will locate the closest player to the player who shot this bullet (that is not themselves).
+	/// </summary>
 	private void FindClosestPlayer()
 	{
 		float closestDistance = Mathf.Infinity;
@@ -103,13 +109,11 @@ public class BulletBehaviour : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		Debug.Log(other.name);
-		//Burn effect
 		if (other.CompareTag("Player"))
 		{
 			if (other.transform.parent.parent.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
 			{
-				Debug.Log("Player hit!");
+				//Check to see if these bullets should have a burn effect.
 				if (playerOwner.giveableDebuff != null)
 				{
 					if (other.transform.parent.parent.GetComponent<PlayerStats>().inflictedDebuff == null)
@@ -125,16 +129,18 @@ public class BulletBehaviour : MonoBehaviour
 
 					}
 				}
+				//Deal damage.
 				other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damageToDeal);
+
+				//If these bullets were instantiated from Fragmentation, then they should get destroyed. If not, then they can be readded to the bullet object pool.
 				if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject); 
 				else Destroy(bulletRootObject.gameObject);
 			}
 		}
-		//Else instead
-		else if (other.CompareTag("StageNormal"))
+
+		else if (other.CompareTag("StageNormal") || other.CompareTag("StageBreakable"))
 		{
-			Debug.Log(other.name);
-			//If it does, check if player has fragmentation and if so, do this FIRST. Make sure the fragmented bullets don't fragment themselves!
+			//If the player has Fragmentation and the bullet that hit the stage is fragmentable, split the bullet!
 			if (playerOwner.fragmentBullets && isFragmentable)
 			{
 				for (int i = 0; i < 3; i++)
@@ -150,7 +156,7 @@ public class BulletBehaviour : MonoBehaviour
 					bullet.transform.rotation = Quaternion.Euler(bulletRot);
 				}
 			}
-			//Check if player has Unstable Blast, and if they do, explode!
+			//Check if player has Unstable Blast, and if they do, make this bullet explode!
 			if (playerOwner.explodingBullets)
 			{
 				GameObject explosion = Instantiate(explosionRadius, transform.position, Quaternion.identity);
@@ -159,6 +165,8 @@ public class BulletBehaviour : MonoBehaviour
 				explosion.GetComponent<Explosive>().StartExpansion();
 
 			}
+
+			//If these bullets were instantiated from Fragmentation, then they should get destroyed. If not, then they can be readded to the bullet object pool.
 			if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
 			else Destroy(bulletRootObject.gameObject);
 			return;

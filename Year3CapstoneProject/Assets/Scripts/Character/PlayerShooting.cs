@@ -29,6 +29,8 @@ public class PlayerShooting : MonoBehaviour
 
 		// set bullet visual to bulletDisplay
 		PlayerStats stats = this.gameObject.GetComponent<PlayerStats>();
+
+		//They have Trifecta
 		if (stats.triShot)
 		{
 			for (int i = 0; i < firePoint.Length; i++)
@@ -44,6 +46,7 @@ public class PlayerShooting : MonoBehaviour
 				bullet.SetActive(true);
 			}
 		}
+		//They don't have Trifecta
 		else
 		{
 			GameObject bullet = BulletObjectPoolManager._Instance.FiredBullet();

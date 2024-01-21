@@ -6,10 +6,10 @@ using UnityEngine;
 public class Explosive : MonoBehaviour
 {
 	[SerializeField]
-	[Foldout("Stats"), Tooltip("")]
+	[Foldout("Stats"), Tooltip("The damage the explosion deals to damageable entities.")]
 	private int damage;
-	[SerializeField]
-	[Foldout("Stats"), Tooltip("")]
+	[SerializeField, ReadOnly]
+	[Foldout("Stats"), Tooltip("If this explosion can give a debuff, this is where it would be")]
 	private Debuff giveableDebuff;
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("Float value that affects the scaling of the explosion radius")]
@@ -30,6 +30,7 @@ public class Explosive : MonoBehaviour
 	{
 		if (other.CompareTag("Player"))
 		{
+			//Burn effect.
 			if (other.transform.parent.parent.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
 			{
 				if (playerOwner.giveableDebuff != null)
@@ -55,11 +56,17 @@ public class Explosive : MonoBehaviour
 			//Do damage to this stage block's "health" component.
 			//TO DO: Have stage blocks that are breakable, with health component.
 		}
-	}
+	}	
 	public void StartExpansion()
 	{
+		transform.localScale = new Vector3(minScale, minScale, minScale);
 		StartCoroutine(Expand());
 	}
+
+	/// <summary>
+	/// This coroutine expands the blast radius from the minScale size to its maximum scale before the explosion effect dissipates.
+	/// </summary>
+	/// <returns></returns>
 	private IEnumerator Expand()
 	{
 		while (gameObject.transform.localScale.x < maxScale)

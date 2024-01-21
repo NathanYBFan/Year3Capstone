@@ -85,8 +85,14 @@ public class GameManager : MonoBehaviour
 
 	}
 
+	/// <summary>
+	/// This is to give functionality to the "Give" command for the Command Prompt menu. (Debug purposes)
+	/// </summary>
+	/// <param name="playerIndex">The index of the player to give some modifier to.</param>
+	/// <param name="modifierName">The name of the modifier being given.</param>
 	public void CommandGive(int playerIndex, string modifierName)
 	{
+		//Converting command modifier name to actual modifier name.
 		switch (modifierName)
 		{
 			case "overheated":
@@ -113,11 +119,13 @@ public class GameManager : MonoBehaviour
 			default:
 				Debug.LogWarning("Invalid modifier entry!");
 				return;
-
 		}
-		Modifier modifierToGive = modifiers.Find(m => m.modifierName == modifierName);
+		Modifier modifierToGive = modifiers.Find(m => m.modifierName == modifierName); //Search for the modifier to give within the list of existing modifiers.
+
+		//If it exists...
 		if (modifierToGive != null)
 		{
+			//Give to all players
 			if (playerIndex == -1)
 			{
 				foreach (GameObject p in players)
@@ -126,16 +134,19 @@ public class GameManager : MonoBehaviour
 					p.GetComponent<PlayerStats>().modifiers.Add(modifierToGive);
 				}
 			}
+			//Give to a specific player
 			else
 			{
 				GameObject playerToModify = players.Find(p => p.GetComponent<PlayerBody>().PlayerIndex == playerIndex);
+				//If the provided player number matches a player.
 				if (playerToModify != null)
 				{
 					modifierToGive.AddEffects(playerToModify.GetComponent<PlayerStats>());
 					playerToModify.GetComponent<PlayerStats>().modifiers.Add(modifierToGive);
 				}
+				//There's no player with this number.
 				else Debug.LogWarning("Player of index " + playerIndex + " doesn't exist!");
-				
+
 			}
 		}
 	}

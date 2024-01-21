@@ -144,6 +144,7 @@ public class PlayerStats : MonoBehaviour
 		modifier.AddEffects();
 		modifiers.Add(modifier);
 	}
+
 	/// <summary>
 	/// This coroutine applies the debuff's effects throughout it's duration before removing itself from the player.
 	/// </summary>
