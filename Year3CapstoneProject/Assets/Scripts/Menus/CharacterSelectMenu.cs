@@ -9,8 +9,14 @@ public class CharacterSelectMenu : MonoBehaviour
     
     public void ContinueButtonPressed()
     {
-        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[5], true);
         GameManager._Instance.StartNewGame(); // Reset player stats
         LevelLoadManager._Instance.StartNewGame();
+
+        if (GameManager._Instance.SelectedGameMode.CompareTo("WHITEBOX") == 0)
+            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[5], true);
+        else if(GameManager._Instance.SelectedGameMode.CompareTo("WHITEBOX") == 0)
+            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[5], true);
+
+
     }
 }

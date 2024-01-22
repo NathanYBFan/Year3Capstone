@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 80
   currHealth: 80
-  movementSpeed: 10
+  movementSpeed: 20
   fireRate: 4
   maxEnergy: 20
   currEnergy: 20

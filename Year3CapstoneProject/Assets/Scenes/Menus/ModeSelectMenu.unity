@@ -1902,8 +1902,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modesToSelectFrom:
-  - FREE FOR ALL
-  - SOLO TESTING
+  - WHITEBOX
+  - STAGE CREATION
+  - MODELS
+  - CHAOS FACTORS
   modeTextDisplay: {fileID: 1162462829}
   currentSelectedMode: 0
 --- !u!1 &1800919286

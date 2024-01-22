@@ -1,7 +1,5 @@
 using NaughtyAttributes;
 using System.Collections;
-using TreeEditor;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
