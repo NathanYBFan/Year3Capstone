@@ -116,6 +116,9 @@ public class GameManager : MonoBehaviour
 			case "unstableblast":
 				modifierName = "Unstable Blast";
 				break;
+			case "ygdwm":
+				modifierName = "You're Going Down With Me!";
+				break;
 			default:
 				Debug.LogWarning("Invalid modifier entry!");
 				return;

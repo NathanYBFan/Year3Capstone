@@ -54,6 +54,9 @@ public class PlayerStats : MonoBehaviour
 	[Header("Modifiers")]
 	[ReadOnly]
 	[Foldout("Player Stats"), Tooltip("")]
+	public bool canSelfDestruct = false;
+	[ReadOnly]
+	[Foldout("Player Stats"), Tooltip("")]
 	public bool triShot = false;
 	[ReadOnly]
 	[Foldout("Player Stats"), Tooltip("")]
@@ -134,6 +137,11 @@ public class PlayerStats : MonoBehaviour
 		}
 	}
 
+	public void StartDeath()
+	{
+		currHealth = 0;
+		Debug.Log("Player " + gameObject.GetComponent<PlayerBody>().PlayerIndex + " has died!");
+	}
 	public void TakeDamage(int amount)
 	{
 		if (currHealth - amount > 0) currHealth -= amount;

@@ -8,8 +8,11 @@ public class PlayerBody : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private GameObject pivot;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	private GameObject explosion;
 
-    [SerializeField]
+	[SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private PlayerStats stats;
 
@@ -53,11 +56,22 @@ public class PlayerBody : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Sets the directional vector for movement.
-    /// </summary>
-    /// <param name="dir">The direction vector.</param>
-    public void SetMovementVector(Vector2 dir)
+	public void InitiateSelfDestruct()
+	{
+		if (stats.canSelfDestruct && stats.CurrHealth > 0)
+        {
+            GameObject explosionRadius = Instantiate(explosion, transform.position, Quaternion.identity);
+            explosionRadius.GetComponent<Explosive>().originalPlayerIndex = playerIndex;
+			explosionRadius.GetComponent<Explosive>().playerOwner = stats;
+			explosionRadius.GetComponent<Explosive>().StartExpansion(true);
+		}
+	}
+
+	/// <summary>
+	/// Sets the directional vector for movement.
+	/// </summary>
+	/// <param name="dir">The direction vector.</param>
+	public void SetMovementVector(Vector2 dir)
 	{
 		moveDir = dir;
 	}

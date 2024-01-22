@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 3480853351814254915}
+  explosion: {fileID: 2979114167936268833, guid: f3505abae2f77b145abf69c313ba5dd2, type: 3}
   stats: {fileID: 4952783801461123959}
   rb: {fileID: 2394888332640096119}
   audioSource: {fileID: 377464014033735781}
@@ -106,6 +107,7 @@ MonoBehaviour:
   giveableDebuff: {fileID: 0}
   inflictedDebuff: {fileID: 0}
   modifiers: []
+  canSelfDestruct: 0
   triShot: 0
   isPowerSaving: 0
   fragmentBullets: 0

@@ -162,7 +162,7 @@ public class BulletBehaviour : MonoBehaviour
 				GameObject explosion = Instantiate(explosionRadius, transform.position, Quaternion.identity);
 				explosion.GetComponent<Explosive>().playerOwner = this.playerOwner;
 				explosion.GetComponent<Explosive>().originalPlayerIndex = this.originalPlayerIndex;
-				explosion.GetComponent<Explosive>().StartExpansion();
+				explosion.GetComponent<Explosive>().StartExpansion(false);
 
 			}
 

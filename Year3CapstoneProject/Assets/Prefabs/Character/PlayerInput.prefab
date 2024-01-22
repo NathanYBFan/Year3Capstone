@@ -158,6 +158,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 08a44341-99b3-471b-9e8a-63fa6a5ff804
     m_ActionName: Player1/DebugMenu[/Keyboard/backquote]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3589008200577592553}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnSelfDestruct
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6e5e8a18-38ac-48ec-a462-4ed500a85895
+    m_ActionName: Player1/SelfDestruct[/XInputControllerWindows/rightTrigger,/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player1

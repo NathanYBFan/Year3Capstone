@@ -2628,6 +2628,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a627b655536938545922e75ce611c666, type: 2}
   - {fileID: 11400000, guid: 886a83c9009fd764e98111557b6fd765, type: 2}
   - {fileID: 11400000, guid: 1944556be5cdcb240bc944a1ba793b33, type: 2}
+  - {fileID: 11400000, guid: 5e02542a5a3b94e4699768eff2ac97db, type: 2}
   stageOfPlay:
   - Menus
   - In Play

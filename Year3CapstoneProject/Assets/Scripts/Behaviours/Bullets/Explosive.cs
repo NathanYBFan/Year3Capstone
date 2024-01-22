@@ -17,6 +17,9 @@ public class Explosive : MonoBehaviour
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("Speed of which the explosion radius expands.")]
 	private float explosionSpeed;
+	[SerializeField]
+	[Foldout("Stats"), Tooltip("The delay (in seconds) until the explosion actually starts.")]
+	private float explosionDelay;
 
 	[SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("")]
@@ -57,23 +60,29 @@ public class Explosive : MonoBehaviour
 			//TO DO: Have stage blocks that are breakable, with health component.
 		}
 	}	
-	public void StartExpansion()
+	public void StartExpansion(bool isSelfDestruct)
 	{
 		transform.localScale = new Vector3(minScale, minScale, minScale);
-		StartCoroutine(Expand());
+		StartCoroutine(Expand(isSelfDestruct));
 	}
 
 	/// <summary>
 	/// This coroutine expands the blast radius from the minScale size to its maximum scale before the explosion effect dissipates.
 	/// </summary>
 	/// <returns></returns>
-	private IEnumerator Expand()
+	private IEnumerator Expand(bool isSelfDestruct)
 	{
+		yield return new WaitForSeconds(explosionDelay);
 		while (gameObject.transform.localScale.x < maxScale)
 		{
 			float increaseAmount = explosionSpeed * Time.deltaTime;
 			gameObject.transform.localScale += new Vector3(increaseAmount, increaseAmount, increaseAmount);
 			yield return null;
+		}
+		if (isSelfDestruct)
+		{
+			playerOwner.StartDeath();
+			yield return new WaitForSeconds(0.01f);
 		}
 		Destroy(gameObject);
 	}
