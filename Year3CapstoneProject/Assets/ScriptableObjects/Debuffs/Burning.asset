@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Burning
   m_EditorClassIdentifier: 
   debuffName: Burning
-  debuffDuration: 0.1
-  damageInterval: 1
+  debuffDuration: 1
+  damageInterval: 0.25
   damage: 1
   shouldKill: 0
