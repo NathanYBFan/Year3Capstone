@@ -9,11 +9,6 @@ public class Overheated : Modifier
     [SerializeField]
     private Debuff debuffToApply;
 
-	// Private Variables
-    public string modifierName = "Overheated";
-	public Image modifierImage;
-	public string modifierDescription;
-
 	public override void AddEffects()
 	{
 		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
@@ -28,5 +23,17 @@ public class Overheated : Modifier
 				shouldKill = debuffToApply.shouldKill
 			};
 		}
+	}
+
+	public override void AddEffects(PlayerStats playerStats)
+	{
+		playerStats.giveableDebuff = new Debuff
+		{
+			debuffName = debuffToApply.name,
+			debuffDuration = debuffToApply.debuffDuration,
+			damageInterval = debuffToApply.damageInterval,
+			damage = debuffToApply.damage,
+			shouldKill = debuffToApply.shouldKill
+		};
 	}
 }

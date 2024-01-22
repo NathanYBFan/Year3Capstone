@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
 	private PlayerBody body; //A specific player that will be manipulated by this controller.
 	public float temp;
 
+	private float holdDuration = 0.6f;
+
+
 	private void Awake()
 	{
 		playerControl = new PlayerInputActions();
@@ -21,12 +24,24 @@ public class PlayerController : MonoBehaviour
 
 		body = bodies.FirstOrDefault(m => m.PlayerIndex == index); //The body that this controller corresponds to is the one whose index matches the player input index of this controller.
 	}
-
+	 
+	public void OnDebugPressed(CallbackContext ctx)
+	{
+		DebugMenu._Instance.OnDebugPressed();
+	}
 	public void OnFire(CallbackContext ctx)
 	{
 		if (body != null)
 		{
-
+			body.FireBullet();
+		}
+	}
+	public void OnSelfDestruct(CallbackContext ctx)
+	{
+		float holdTime = (float) ctx.duration;
+		if (body != null && holdTime >= holdDuration)
+		{
+			body.InitiateSelfDestruct();
 		}
 	}
 	public void OnDash(CallbackContext ctx)
@@ -53,8 +68,9 @@ public class PlayerController : MonoBehaviour
 			body.SetMovementVector(ctx.ReadValue<Vector2>());
 	}
 
-	public void OnPause()
+	public void OnPause(CallbackContext ctx)
 	{
-		GameManager._Instance.PauseGame();
+		if (body != null)
+			GameManager._Instance.PauseGame();
 	}
 }

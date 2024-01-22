@@ -6,11 +6,6 @@ using UnityEngine.UI;
 public class Overcharged : Modifier
 {
 	// Private Variables
-	public string modifierName = "Overcharged";
-
-	public Image modifierImage;
-
-	public string modifierDescription;
 
 
 	public override void AddEffects()
@@ -24,4 +19,9 @@ public class Overcharged : Modifier
 		}
 	}
 
+	public override void AddEffects(PlayerStats playerStats)
+	{
+		playerStats.MovementSpeed += 5;
+		playerStats.FireRate += 5;
+	}
 }

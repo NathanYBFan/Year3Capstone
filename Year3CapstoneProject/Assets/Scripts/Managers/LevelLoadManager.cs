@@ -45,13 +45,13 @@ public class LevelLoadManager : MonoBehaviour
     // Initial Level Load
     private void Start()
     {
-        StartLoadNewLevel(levelNamesList[0]);
+        StartLoadNewLevel(levelNamesList[0], true);
     }
 
     // Load a new level method
-    public void StartLoadNewLevel(string levelName)
+    public void StartLoadNewLevel(string levelName, bool showLoadingScreen)
     {
-        StartCoroutine(LoadLevel(levelName));
+        StartCoroutine(LoadLevel(levelName, showLoadingScreen));
     }
 
     public void LoadMenuOverlay(string menuName)
@@ -68,11 +68,11 @@ public class LevelLoadManager : MonoBehaviour
     }
 
     // Coroutine to load level properly
-    private IEnumerator LoadLevel(string sceneToLoad)
+    private IEnumerator LoadLevel(string sceneToLoad, bool showLoadingScreen)
     {
         isLoadingLevel = true;
-
-        loadingScreen.gameObject.SetActive(true);
+        if (showLoadingScreen)
+            loadingScreen.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(0.25f);
 
@@ -109,6 +109,8 @@ public class LevelLoadManager : MonoBehaviour
     // Level Reset
     public void ResetAll()
     {
+        GameManager._Instance.inGame = true;
+
         // RESET STAGE
         // RESET PLAYERS
         // RESET STATS

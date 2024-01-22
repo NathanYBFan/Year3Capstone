@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class PowerSaving : Modifier
 {
 	// Private Variables
-	public string modifierName = "Power-Saving Mode";
-	public Image modifierImage;
-	public string modifierDescription;
 
 	public override void AddEffects()
 	{
@@ -17,5 +14,10 @@ public class PowerSaving : Modifier
 		{
 			playerStats.isPowerSaving = true;
 		}
+	}
+
+	public override void AddEffects(PlayerStats playerStats)
+	{
+		playerStats.isPowerSaving = true;
 	}
 }

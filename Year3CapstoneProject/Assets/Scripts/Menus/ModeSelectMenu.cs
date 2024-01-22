@@ -17,8 +17,17 @@ public class ModeSelectMenu : MonoBehaviour
     [Foldout("Stats"), Tooltip("")]
     private int currentSelectedMode = 0;
 
-    private void OnEnable()
+    private void Start()
     {
+        for (int i = 0; i < modesToSelectFrom.Length; i++)
+        {
+            if (GameManager._Instance.SelectedGameMode.CompareTo(modesToSelectFrom[i]) == 0)
+            {
+                currentSelectedMode = i;
+                modeTextDisplay.text = modesToSelectFrom[currentSelectedMode];
+                return;
+            }
+        }
         modeTextDisplay.text = modesToSelectFrom[currentSelectedMode];
     }
 
@@ -40,11 +49,13 @@ public class ModeSelectMenu : MonoBehaviour
 
     public void ContinueButtonPressed()
     {
-        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4]);
+        GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
+        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
     }
 
     public void BackButtonPressed()
     {
-        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[0]);
+        GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
+        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[0], false);
     }
 }

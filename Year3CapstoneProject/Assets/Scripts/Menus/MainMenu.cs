@@ -4,7 +4,7 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGamePressed()
     {
-        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3]);
+        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], true);
     }
 
     // TODO NATHANF: ADJUST SETTINGS TO WORK WITH LEVEL LOADER

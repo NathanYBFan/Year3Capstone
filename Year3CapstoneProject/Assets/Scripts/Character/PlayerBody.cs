@@ -1,5 +1,4 @@
 using NaughtyAttributes;
-using Palmmedia.ReportGenerator.Core.Reporting.Builders;
 using UnityEngine;
 
 public class PlayerBody : MonoBehaviour
@@ -8,8 +7,11 @@ public class PlayerBody : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private GameObject pivot;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	private GameObject explosion;
 
-    [SerializeField]
+	[SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private PlayerStats stats;
 
@@ -41,12 +43,34 @@ public class PlayerBody : MonoBehaviour
     // Private Variables
     private Vector2 moveDir, aimDir; //The current movement direction of this player.
 
-
     /// <summary>
-    /// Sets the directional vector for movement.
+    /// Fires a bullet if the player can fire a bullet
     /// </summary>
-    /// <param name="dir">The direction vector.</param>
-    public void SetMovementVector(Vector2 dir)
+    public void FireBullet()
+    {
+        if (Time.time >= stats.nextFireTime)
+        {
+            GetComponent<PlayerShooting>().FireBullet();
+            stats.nextFireTime = Time.time + 1f / stats.FireRate;
+        }
+    }
+
+	public void InitiateSelfDestruct()
+	{
+		if (stats.canSelfDestruct && stats.CurrHealth > 0)
+        {
+            GameObject explosionRadius = Instantiate(explosion, transform.position, Quaternion.identity);
+            explosionRadius.GetComponent<Explosive>().originalPlayerIndex = playerIndex;
+			explosionRadius.GetComponent<Explosive>().playerOwner = stats;
+			explosionRadius.GetComponent<Explosive>().StartExpansion(true);
+		}
+	}
+
+	/// <summary>
+	/// Sets the directional vector for movement.
+	/// </summary>
+	/// <param name="dir">The direction vector.</param>
+	public void SetMovementVector(Vector2 dir)
 	{
 		moveDir = dir;
 	}
@@ -75,18 +99,20 @@ public class PlayerBody : MonoBehaviour
 
         if (onIce)
         {
-            //Apply movement for ice physics.
-            //Kind of scuffed looking, but this has so far been the only way it worked to our preferences.
-            //Forgive me.
+			//Apply movement for ice physics.			
 			rb.velocity += (moveDirection * stats.MovementSpeed) * Time.deltaTime;
 			rb.velocity = Vector3.ClampMagnitude(rb.velocity, stats.MovementSpeed); //Cannot go above max speed.
 
-			rb.velocity -= rb.velocity * iceInertiaMultiplier * Time.deltaTime; //Apply resistance to the player's movement.
+			Vector3 velocity = rb.velocity;
+			velocity.y = 0;
+			rb.velocity -= velocity * iceInertiaMultiplier * Time.deltaTime; //Apply resistance to the player's movement.
 		}
         else
         {
             //Default motion.
-            rb.AddForce((moveDirection * stats.MovementSpeed) - rb.velocity, ForceMode.Acceleration);
+            Vector3 velocity = rb.velocity;
+            velocity.y = 0;
+            rb.AddForce((moveDirection * stats.MovementSpeed) - velocity, ForceMode.Acceleration);
         }
 
 

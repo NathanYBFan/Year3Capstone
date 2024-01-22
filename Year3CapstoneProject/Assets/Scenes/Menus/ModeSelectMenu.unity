@@ -1736,8 +1736,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 61.93
-  m_fontSizeBase: 61.93
+  m_fontSize: 59
+  m_fontSizeBase: 59
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1902,9 +1902,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modesToSelectFrom:
-  - FREE FOR ALL
-  - SOLO BOLO
-  - GOOGLE CHROME
+  - WHITEBOX
+  - STAGE CREATION
+  - MODELS
+  - CHAOS FACTORS
   modeTextDisplay: {fileID: 1162462829}
   currentSelectedMode: 0
 --- !u!1 &1800919286
