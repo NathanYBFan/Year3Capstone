@@ -1,7 +1,19 @@
+using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private GameObject firstButton;
+
+    private void Start()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButton);
+    }
+
     public void PlayGamePressed()
     {
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], true);

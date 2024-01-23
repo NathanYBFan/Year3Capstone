@@ -16,7 +16,11 @@ public class GameManager : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("Pause Menu GameObject")]
 	private GameObject pauseMenu;
 
-	[SerializeField]
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Object Holding the playerInputManager script")]
+    private GameObject playerInputManager;
+
+    [SerializeField]
 	[Foldout("Dependencies"), Tooltip("All players as a referenceable gameobject")]
 	private List<GameObject> players;
 
@@ -65,10 +69,18 @@ public class GameManager : MonoBehaviour
 	{
 		ChaosFactorManager._Instance.Reset();
 		BulletObjectPoolManager._Instance.ResetAllBullets();
+		playerInputManager.SetActive(true);
 		// Start Player stuff
 	}
 
-	public void PauseGame()
+	public void EndGame()
+	{
+        ChaosFactorManager._Instance.Reset();
+        BulletObjectPoolManager._Instance.ResetAllBullets();
+		playerInputManager.SetActive(false);
+    }
+
+    public void PauseGame()
 	{
 		if (!inGame) return; // TODO NATHANF: If not in game should have different use
 		isPaused = !isPaused;

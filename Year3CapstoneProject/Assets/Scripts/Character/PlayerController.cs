@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
 
 	private void Awake()
 	{
-		playerControl = new PlayerInputActions();
 		playerInput = GetComponent<PlayerInput>();
 
 		var bodies = FindObjectsOfType<PlayerBody>(); //Getting an array of players...

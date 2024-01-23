@@ -1,31 +1,71 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using NaughtyAttributes;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class SettingsMenu : MonoBehaviour
 {
-    [Header("UI Initializations")]
-    [SerializeField] private string settingsMenuSceneName;
-    [SerializeField, Required] private GameObject videoControls;
-    [SerializeField, Required] private Image videoButton;
-    [SerializeField, Required] private GameObject audioControls;
-    [SerializeField, Required] private Image audioButton;
-    [SerializeField, Required] private GameObject inGameControls;
-    [SerializeField, Required] private Image controlsButton;
-    [Header("Color Schemes")]
-    [SerializeField] private Color selectedButtonColor;
-    [SerializeField] private Color deselectedButtonColor;
+    [Foldout("Dependencies"), Tooltip("")]
+    [SerializeField]
+    private string settingsMenuSceneName;
+    
+    [Foldout("Dependencies"), Tooltip("")]
+    [SerializeField, Required]
+    private GameObject videoControls;
+
+    [Foldout("Dependencies"), Tooltip("")]
+    [SerializeField, Required]
+    private Image videoButton;
+
+    [Foldout("Dependencies"), Tooltip("")]
+    [SerializeField, Required]
+    private GameObject audioControls;
+
+    [Foldout("Dependencies"), Tooltip("")]
+    [SerializeField, Required]
+    private Image audioButton;
+
+    [Foldout("Dependencies"), Tooltip("")]
+    [SerializeField, Required]
+    private GameObject inGameControls;
+
+    [Foldout("Dependencies"), Tooltip("")]
+    [SerializeField, Required]
+    private Image controlsButton;
+
+    [Foldout("Dependencies"), Tooltip("")]
+    [SerializeField, Required]
+    private GameObject firstSelectedButton;
+
+    [SerializeField, ReadOnly]
+    [Foldout("Dependencies"), Tooltip("")]
+    private GameObject savedSelectedButton;
+
+
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("")]
+    private Color selectedButtonColor;
+    
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("")]
+    private Color deselectedButtonColor;
 
     // Start is called before the first frame update
     void Awake()
     {
+        savedSelectedButton = EventSystem.current.currentSelectedGameObject;
+        EventSystem.current.SetSelectedGameObject(firstSelectedButton);
         videoButton.color = selectedButtonColor;
         audioButton.color = deselectedButtonColor;
         controlsButton.color = deselectedButtonColor;
         videoControls.SetActive(true);
         audioControls.SetActive(false);
         inGameControls.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        EventSystem.current.SetSelectedGameObject(savedSelectedButton);
     }
 
     public void UnloadScene()
