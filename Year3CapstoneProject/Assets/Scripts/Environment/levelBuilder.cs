@@ -1,37 +1,48 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class levelBuilder : MonoBehaviour
 {
-
-
-
     [SerializeField]
-    TextAsset[] levels;
-    [SerializeField]
-    GameObject[] levelAssets;
+    [Foldout("Dependencies"), Tooltip("")]
+    private TextAsset[] levels;
 
     [SerializeField]
-    int startX;
+    [Foldout("Dependencies"), Tooltip("")]
+    private GameObject[] levelAssets;
+
     [SerializeField]
-    int startY;
+    [Foldout("Dependencies"), Tooltip("")]
+    private Transform levelBuilderParent;
+
     [SerializeField]
-    int startZ;
+    [Foldout("Stats"), Tooltip("")]
+    private int startX;
+
     [SerializeField]
-    int tileSize;
+    [Foldout("Stats"), Tooltip("")]
+    private int startY;
+    
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("")]
+    private int startZ;
+    
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("")]
+    private int tileSize;
 
 
-    int[,] levelInfo;
-    int rowCount;
-    int columnCount;
+    private int[,] levelInfo;
+    private int rowCount;
+    private int columnCount;
 
     //temp start method for testing, final version will be called in gamemanager
     void Start()
     {
         buildLevel(0);
     }
-
 
     public void buildLevel(int lev)
     {
@@ -47,16 +58,9 @@ public class levelBuilder : MonoBehaviour
                 if (levelInfo[i, j] - 1 != -1) 
                 { 
                     if (levelInfo[i, j] > 20)
-                    {
-                        Instantiate(levelAssets[levelInfo[i, j] - 21], new Vector3(xVal, yVal + tileSize, zVal), Quaternion.identity);
-                        
-                    }
-
+                        GameObject.Instantiate(levelAssets[levelInfo[i, j] - 21], new Vector3(xVal, yVal + tileSize, zVal), Quaternion.identity, levelBuilderParent);
                     else
-                    {
-                        Instantiate(levelAssets[levelInfo[i, j] - 1], new Vector3(xVal, yVal, zVal), Quaternion.identity);
-                        
-                    }
+                        GameObject.Instantiate(levelAssets[levelInfo[i, j] - 1], new Vector3(xVal, yVal, zVal), Quaternion.identity, levelBuilderParent);
 
                 }
                 zVal = zVal + tileSize;
@@ -64,10 +68,6 @@ public class levelBuilder : MonoBehaviour
             zVal = startZ;
             xVal = xVal+tileSize;
         }
-
-
-
-
     }
 
 
@@ -75,7 +75,6 @@ public class levelBuilder : MonoBehaviour
     {
         int i = 0;//row tracker
         int j = 0;//column tracker
-
 
         string level = levels[lev].ToString();
 
@@ -88,28 +87,19 @@ public class levelBuilder : MonoBehaviour
 
         levelInfo = new int[rowCount, columnCount];
 
-
         foreach (string s in rSplit) 
         {
             string[] t = s.Split("\t");
 
             foreach (string r in t) 
             {
-
                 levelInfo[i,j] = int.Parse(r);
-
                 j++;
             }
 
             i++;
             j = 0;
         }
-
         Debug.Log("int arr complete");
-
-
     }
-
-
-
 }

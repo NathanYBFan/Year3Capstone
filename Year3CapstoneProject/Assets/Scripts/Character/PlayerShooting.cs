@@ -1,7 +1,6 @@
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.VFX;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -59,7 +58,7 @@ public class PlayerShooting : MonoBehaviour
 
 			bullet.SetActive(true);
 		}
-		// TODO BRYAN: SETUP AUDIO HOOKUP + CODE;
-		// AudioManager._Instance.PlaySoundFX(playerAudioList[i], playerAudioSourceList[playerNumber]);
+		int playerIndex = GetComponent<PlayerBody>().PlayerIndex;
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[0], AudioManager._Instance.PlayerAudioSourceList[playerIndex]);
 	}
 }

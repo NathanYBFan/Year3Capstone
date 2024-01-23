@@ -1267,7 +1267,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAudioSourceList: []
   musicAudioSource: {fileID: 61338533}
-  playerAudioList: []
+  playerAudioList:
+  - {fileID: 8300000, guid: 4b33b2a93dbfb2e4bb706159d6dfe049, type: 3}
+  - {fileID: 8300000, guid: 92aa2295b64293b4aa2808610d2ddcb2, type: 3}
+  - {fileID: 8300000, guid: bcb878bf7c05dc74b91f201d9fa24ea9, type: 3}
+  - {fileID: 8300000, guid: 2f90e7f1cb927c048bf0d86bd971b329, type: 3}
   musicList: []
 --- !u!1 &872936915
 GameObject:
@@ -1957,6 +1961,7 @@ MonoBehaviour:
   - CharacterSelectMenu
   - MainGame
   - CharacterDemo
+  - WickhamG
 --- !u!1 &1071010891
 GameObject:
   m_ObjectHideFlags: 0

@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	/// <param name="playerIndex">The index of the player to give some modifier to.</param>
 	/// <param name="modifierName">The name of the modifier being given.</param>
-	public void CommandGive(int playerIndex, string modifierName)
+	public void CommandGive(int playerIndex, string modifierName) // There is probably a better way to do this
 	{
 		//Converting command modifier name to actual modifier name.
 		switch (modifierName)
