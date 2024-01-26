@@ -3611,6 +3611,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0a92403d02b674ea015acc1de27871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listOfStats:
+  - {fileID: 11400000, guid: 46ad957a4215877409a217da43fccc32, type: 2}
+  - {fileID: 11400000, guid: 2cc7a1821c25fa44ea7c317ad7ef55b5, type: 2}
+  - {fileID: 11400000, guid: 5da0e338aff20224fafc512221a1e732, type: 2}
+  - {fileID: 11400000, guid: a2cd314d6dba3654689b6bccdf70e467, type: 2}
+  characterSelectedByPlayers:
+  - {fileID: 11400000, guid: a2cd314d6dba3654689b6bccdf70e467, type: 2}
+  - {fileID: 11400000, guid: a2cd314d6dba3654689b6bccdf70e467, type: 2}
+  - {fileID: 11400000, guid: a2cd314d6dba3654689b6bccdf70e467, type: 2}
+  - {fileID: 11400000, guid: a2cd314d6dba3654689b6bccdf70e467, type: 2}
+  displayParent:
+  - {fileID: 486204292}
+  - {fileID: 1604445844}
+  - {fileID: 61564465}
+  - {fileID: 517408788}
 --- !u!1 &851277998
 GameObject:
   m_ObjectHideFlags: 0
