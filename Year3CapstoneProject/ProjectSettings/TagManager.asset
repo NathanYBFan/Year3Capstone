@@ -6,6 +6,7 @@ TagManager:
   tags:
   - StageNormal
   - StageBreakable
+  - test
   layers:
   - Default
   - TransparentFX
