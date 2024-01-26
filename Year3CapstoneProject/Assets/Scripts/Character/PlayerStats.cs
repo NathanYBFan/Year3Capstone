@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+	// Serialize Fields
+	[SerializeField, ReadOnly]
+	[Foldout("Dependencies"), Tooltip("")]
+	private CharacterStatsSO characterStat;
 
 	[Header("Character Stats")]
 	[SerializeField]
@@ -76,40 +80,16 @@ public class PlayerStats : MonoBehaviour
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("The speed of which a homing bullet will rotate at to aim towards it's target.\nNOTE: Lower speed values means it takes longer to adjust its rotation to face the target -> Less Accuracy")]
 	public float homingBulletRotSpeed = 200f;
-	public int MaxHealth
-	{
-		get { return maxHealth; }
-	}
-	public int CurrHealth
-	{
-		get { return currHealth; }
-	}
-	public float MovementSpeed
-	{
-		get { return movementSpeed; }
-		set { movementSpeed = value; }
-	}
-	public float FireRate
-	{
-		get { return fireRate; }
-		set { fireRate = value; }
-	}
-	public float MaxEnergy
-	{
-		get { return maxEnergy; }
-	}
-	public float CurrentEnergy
-	{
-		get { return currEnergy; }
-	}
-	public float Timer
-	{
-		get { return timer; }
-	}
-	public float Rate
-	{
-		get { return rate; }
-	}
+
+	// Getters and Setters
+	public int MaxHealth { get { return maxHealth; } }
+	public int CurrHealth { get { return currHealth; } }
+	public float MovementSpeed { get { return movementSpeed; } set { movementSpeed = value; } }
+	public float FireRate { get { return fireRate; } set { fireRate = value; } }
+	public float MaxEnergy { get { return maxEnergy; } }
+	public float CurrentEnergy { get { return currEnergy; } }
+	public float Timer { get { return timer; } }
+	public float Rate { get { return rate; } }
 
 	[HideInInspector]
 	public float nextFireTime = 0;
@@ -137,16 +117,32 @@ public class PlayerStats : MonoBehaviour
 		}
 	}
 
+	public void SetCharacterStats(CharacterStatsSO newCharacterStat)
+	{
+		// Dont do work already done
+		if (newCharacterStat == characterStat) return;
+
+		characterStat = newCharacterStat;
+		// Instantiate model
+		maxHealth = newCharacterStat.MaxHealth;
+		movementSpeed = newCharacterStat.DefaultMoveSpeed;
+		fireRate = newCharacterStat.DefaultFireRate;
+		maxEnergy = newCharacterStat.MaxEnergy;
+		rate = newCharacterStat.EnergyRegenRate;
+	}
+
 	public void StartDeath()
 	{
 		currHealth = 0;
 		Debug.Log("Player " + gameObject.GetComponent<PlayerBody>().PlayerIndex + " has died!");
 	}
+
 	public void TakeDamage(int amount)
 	{
 		if (currHealth - amount > 0) currHealth -= amount;
 		else currHealth = 0;
 	}
+
 	public void ActivateEffects(Modifier modifier)
 	{
 		modifier.AddEffects();
