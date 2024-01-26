@@ -18,6 +18,9 @@ public class levelBuilder : MonoBehaviour
     private Transform levelBuilderParent;
 
     [SerializeField]
+    int levelToBuildl;
+
+    [SerializeField]
     [Foldout("Stats"), Tooltip("")]
     private int startX;
 
@@ -41,7 +44,7 @@ public class levelBuilder : MonoBehaviour
     //temp start method for testing, final version will be called in gamemanager
     void Start()
     {
-        buildLevel(0);
+        buildLevel(levelToBuildl);
     }
 
     public void buildLevel(int lev)
@@ -55,18 +58,34 @@ public class levelBuilder : MonoBehaviour
         {
             for (int j = 0; j < columnCount; j++)
             {
-                if (levelInfo[i, j] - 1 != -1) 
-                { 
+                if (levelInfo[i, j] != 0)
+                {
                     if (levelInfo[i, j] > 20)
-                        GameObject.Instantiate(levelAssets[levelInfo[i, j] - 21], new Vector3(xVal, yVal + tileSize, zVal), Quaternion.identity, levelBuilderParent);
+                    {
+
+                        Instantiate(levelAssets[levelInfo[i, j] - 21], new Vector3(xVal, yVal + tileSize, zVal), Quaternion.identity);
+
+                    }
+
+                    else if (levelInfo[i, j] < 0)
+                    {
+                        Vector3 rot = transform.rotation.eulerAngles;
+                        rot = new Vector3(rot.x, rot.y + 180, rot.z);
+                        Instantiate(levelAssets[levelInfo[i, j] * -1 - 1], new Vector3(xVal, yVal, zVal), Quaternion.Euler(rot));
+                    }
+
+
                     else
-                        GameObject.Instantiate(levelAssets[levelInfo[i, j] - 1], new Vector3(xVal, yVal, zVal), Quaternion.identity, levelBuilderParent);
+                    {
+                        Instantiate(levelAssets[levelInfo[i, j] - 1], new Vector3(xVal, yVal, zVal), Quaternion.identity);
+
+                    }
 
                 }
-                zVal = zVal + tileSize;
+                xVal = xVal + tileSize;
             }
-            zVal = startZ;
-            xVal = xVal+tileSize;
+            xVal = startX;
+            zVal = zVal - tileSize;
         }
     }
 
@@ -77,8 +96,6 @@ public class levelBuilder : MonoBehaviour
         int j = 0;//column tracker
 
         string level = levels[lev].ToString();
-
-        Debug.Log(level);
 
         string[] rSplit = level.Split('\n');
         rowCount = rSplit.Length;
@@ -100,6 +117,5 @@ public class levelBuilder : MonoBehaviour
             i++;
             j = 0;
         }
-        Debug.Log("int arr complete");
     }
 }
