@@ -81,6 +81,10 @@ public class PlayerStats : MonoBehaviour
 	[Foldout("Player Stats"), Tooltip("The speed of which a homing bullet will rotate at to aim towards it's target.\nNOTE: Lower speed values means it takes longer to adjust its rotation to face the target -> Less Accuracy")]
 	public float homingBulletRotSpeed = 200f;
 
+	private bool isDead = false;
+
+	public bool IsDead { get { return isDead; } set { isDead = value; } }
+
 	// Getters and Setters
 	public int MaxHealth { get { return maxHealth; } }
 	public int CurrHealth { get { return currHealth; } }
@@ -93,6 +97,8 @@ public class PlayerStats : MonoBehaviour
 
 	[HideInInspector]
 	public float nextFireTime = 0;
+
+	bool messageSent = false;
 
 	private void Update()
 	{
@@ -115,6 +121,21 @@ public class PlayerStats : MonoBehaviour
 				debuffCoroutine = StartCoroutine(ApplyDebuffEffects());
 			}
 		}
+
+		if (currHealth <= 0)
+		{
+			currHealth = 0;
+			if (!canSelfDestruct)
+			{
+				isDead = true;
+			}
+		}
+
+		if (isDead && !messageSent)
+		{
+			Debug.Log("Player " + gameObject.GetComponent<PlayerBody>().PlayerIndex + " has died!");
+			messageSent = true;
+		}
 	}
 
 	public void SetCharacterStats(CharacterStatsSO newCharacterStat)
@@ -134,7 +155,8 @@ public class PlayerStats : MonoBehaviour
 	public void StartDeath()
 	{
 		currHealth = 0;
-		Debug.Log("Player " + gameObject.GetComponent<PlayerBody>().PlayerIndex + " has died!");
+		isDead = true;
+		
 	}
 
 	public void TakeDamage(int amount)
