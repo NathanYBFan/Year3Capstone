@@ -6,46 +6,16 @@ using UnityEngine.InputSystem.XR;
 
 public class Platform : MonoBehaviour
 {
-
     [SerializeField]
-    float speed;
-
-
-    private bool moveingUp = false;
-    private bool moveingDown = false;
-
-    private float startHight;
-
-    [SerializeField]
-    private float minHight;
-    [SerializeField]
-    private float maxHight;
-
+    float time;
     private Rigidbody rb;
 
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        startHight = this.transform.position.y;
+        time = 10;
     }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //moveUp();
-    }
-
-    // Update is called once per frame
-    //void Update()
-    //{
-
-
-
-    //}
-
-
 
     public void fakeDestroy()
     {
@@ -58,9 +28,11 @@ public class Platform : MonoBehaviour
 
     public void fakeRespawn()
     {
+        Debug.Log("fake respawn called");
+
         GetComponent<MeshRenderer>().enabled = true;
         GetComponent<Collider>().enabled = true;
-        StartCoroutine(Up()); ;
+        StartCoroutine(Up());
     }
 
 
@@ -76,18 +48,16 @@ public class Platform : MonoBehaviour
 
     private IEnumerator Up()
     {
-        Debug.Log("up called");
-
-        while (moveingUp) 
+        //Debug.Log("up called");
+        float elapsedTime = 0;
+       
+        Vector3 startPos = transform.position;
+        Vector3 endPos = new Vector3(transform.position.x, transform.position.y + 10f, transform.position.z);
+        while (elapsedTime < time)
         {
-            Vector3 newPos = rb.position + (Vector3.up * speed * Time.deltaTime);
-            if (newPos.y > maxHight)
-            {
-                newPos.y = maxHight;
-                moveingUp = false;
-                rb.MovePosition(newPos);
-
-            }
+            transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime /time));
+            elapsedTime += 0.5f * Time.deltaTime;
+            yield return null;
         }
 
         yield return null;
@@ -96,21 +66,20 @@ public class Platform : MonoBehaviour
 
     private IEnumerator Down()
     {
-        Debug.Log("down called");
-        while (moveingDown) 
+        //Debug.Log("down called");
+        float elapsedTime = 0;
+       
+        Vector3 startPos = transform.position;
+        Vector3 endPos = new Vector3(transform.position.x, transform.position.y-10f, transform.position.z);
+        while (elapsedTime < time) 
         {
-            Vector3 newPos = rb.position + (Vector3.down * speed * Time.deltaTime);
 
-            if (newPos.y < minHight)
-            {
-                newPos.y = minHight;
-                moveingDown = false;
-                rb.MovePosition(newPos);
-            }
-
+            transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime / time));
+            elapsedTime += 0.5f*Time.deltaTime;
+            yield return null;
+            //Debug.Log(elapsedTime);
         }
 
-        yield return new WaitForSeconds(10f);
         fakeRespawn();
     }
 

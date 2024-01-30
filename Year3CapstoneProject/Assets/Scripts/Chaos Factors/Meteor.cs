@@ -19,10 +19,10 @@ public class Meteor : MonoBehaviour
     [SerializeField]
     private int fallForce;
 
-    private Rigidbody rb;
-
     [SerializeField]
-    private Collider Bigg;
+    private MeshRenderer MeteorVisual;
+
+    private Rigidbody rb;
 
     [SerializeField]
     private ParticleSystem explosion;
@@ -31,7 +31,6 @@ public class Meteor : MonoBehaviour
     {
         transform.position = new Vector3(Random.Range(minSpawnX, maxSpawnX), spawnHeight, Random.Range(minSpawnZ, maxSpawnZ));
         rb = GetComponent<Rigidbody>();
-
     }
 
 
@@ -44,16 +43,16 @@ public class Meteor : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collsion");
         StartCoroutine(boom());
     }
 
 
     private IEnumerator boom()
     {
-        Debug.Log("boom called");
         explosion.Play();
-        yield return new WaitForSeconds(0.2f);
+        MeteorVisual.enabled = false;
+        GetComponentInChildren<MeshRenderer>().enabled = false;
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
         yield return null;
     }
