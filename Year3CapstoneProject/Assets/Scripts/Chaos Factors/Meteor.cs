@@ -24,23 +24,16 @@ public class Meteor : MonoBehaviour
     [SerializeField]
     private Collider Bigg;
 
+    [SerializeField]
+    private ParticleSystem explosion;
+
     void Awake()
     {
         transform.position = new Vector3(Random.Range(minSpawnX, maxSpawnX), spawnHeight, Random.Range(minSpawnZ, maxSpawnZ));
-
         rb = GetComponent<Rigidbody>();
 
-
-
     }
 
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -51,11 +44,19 @@ public class Meteor : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+        Debug.Log("Collsion");
+        StartCoroutine(boom());
     }
 
 
-
+    private IEnumerator boom()
+    {
+        Debug.Log("boom called");
+        explosion.Play();
+        yield return new WaitForSeconds(0.2f);
+        Destroy(gameObject);
+        yield return null;
+    }
 
 
 
