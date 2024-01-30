@@ -17,15 +17,9 @@ public class PlayerShooting : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")]
 	private Transform playerRotation;
 
-
-	//[SerializeField]
-	//[Foldout("Stats"), Tooltip("")]
-	//private int playerNumber;
-
 	// Fire Bullet Method
 	public void FireBullet()
 	{
-
 		// set bullet visual to bulletDisplay
 		PlayerStats stats = this.gameObject.GetComponent<PlayerStats>();
 

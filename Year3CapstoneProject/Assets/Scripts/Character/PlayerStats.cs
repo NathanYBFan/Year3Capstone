@@ -11,7 +11,11 @@ public class PlayerStats : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")]
 	private CharacterStatsSO characterStat;
 
-	[Header("Character Stats")]
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private Transform playerMeshGO;
+
+    [Header("Character Stats")]
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("Player max health")]
 	private int maxHealth = 100;
@@ -171,11 +175,25 @@ public class PlayerStats : MonoBehaviour
 		modifiers.Add(modifier);
 	}
 
-	/// <summary>
-	/// This coroutine applies the debuff's effects throughout it's duration before removing itself from the player.
-	/// </summary>
-	/// <returns></returns>
-	private IEnumerator ApplyDebuffEffects()
+	public void ApplyStats(CharacterStatsSO charStat)
+	{
+		maxHealth = charStat.MaxHealth;
+		movementSpeed = charStat.DefaultMoveSpeed;
+		fireRate = charStat.DefaultFireRate;
+		maxEnergy = charStat.MaxEnergy;
+		rate = charStat.EnergyRegenRate;
+
+		currHealth = maxHealth;
+		currEnergy = maxEnergy;
+
+		GameObject.Instantiate(charStat.playerModel, Vector3.zero, Quaternion.identity, playerMeshGO);
+	}
+
+    /// <summary>
+    /// This coroutine applies the debuff's effects throughout it's duration before removing itself from the player.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ApplyDebuffEffects()
 	{
 		while (inflictedDebuff.debuffDuration > 0)
 		{

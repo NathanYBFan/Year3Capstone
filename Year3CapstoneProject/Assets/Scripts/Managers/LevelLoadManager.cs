@@ -46,6 +46,7 @@ public class LevelLoadManager : MonoBehaviour
     private void Start()
     {
         StartLoadNewLevel(levelNamesList[0], true);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("PersistentScene"));
     }
 
     // Load a new level method
@@ -93,7 +94,7 @@ public class LevelLoadManager : MonoBehaviour
             yield return null;
         }
         loadingScreen.UpdateSlider(1);
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneToLoad));
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneToLoad));
 
         currentLevelList.Add(sceneToLoad);
 

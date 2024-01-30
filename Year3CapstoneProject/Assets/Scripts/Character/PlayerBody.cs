@@ -83,7 +83,6 @@ public class PlayerBody : MonoBehaviour
 	}
 	private void Start()
 	{
-		GameManager._Instance.Players.Add(this.gameObject);
 		AudioManager._Instance.PlayerAudioSourceList.Add(audioSource);
 	}
 
@@ -119,8 +118,6 @@ public class PlayerBody : MonoBehaviour
 			velocity.y = 0;
 			rb.AddForce((moveDirection * stats.MovementSpeed) - velocity, ForceMode.Acceleration);
 		}
-
-
 	}
 }
 

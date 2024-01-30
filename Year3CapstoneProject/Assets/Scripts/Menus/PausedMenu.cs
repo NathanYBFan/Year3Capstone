@@ -1,7 +1,29 @@
+using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PausedMenu : MonoBehaviour
 {
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Button to start on (controller support)")]
+    private GameObject buttonToStartOn;
+
+    private GameObject buttonWasOn;
+
+    private void OnEnable()
+    {
+        Debug.Log("Set");
+        if (EventSystem.current.gameObject != null)
+            buttonWasOn = EventSystem.current.gameObject;
+
+        EventSystem.current.SetSelectedGameObject(buttonToStartOn);
+    }
+
+    private void OnDisable()
+    {
+        EventSystem.current.SetSelectedGameObject(buttonWasOn);
+    }
+
     public void ResumeButtonPressed()
     {
         GameManager._Instance.PauseGame();

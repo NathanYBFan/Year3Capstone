@@ -1,6 +1,9 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,31 +31,21 @@ public class GameManager : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("All modifiers accessible in the game.")]
 	private List<Modifier> modifiers;
 
-	[SerializeField, ReadOnly]
-	[Foldout("Stats"), Tooltip("The stages possible")]
-	private string[] stageOfPlay = { "Menus", "In Play", "Modifier", "Win Screen" };
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("array of spawnpoints")]
+    private Transform[] stageSpawnPoints; // TODO NATHANF: ADD SPAWNPOINTS ON INSTANTIATE
 
-	[SerializeField, ReadOnly]
+    [SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("Selectected game mode to load")]
 	private string selectedGameMode;
 
-	[SerializeField, ReadOnly]
-	[Foldout("Stats"), Tooltip("Stage the game is currently at")]
-	private string stageAt;
-
 	// Getters
 	public List<GameObject> Players { get { return players; } set { players = value; } }
-
 	public List<Modifier> Modifiers { get { return modifiers; } }
 	public string SelectedGameMode { get { return selectedGameMode; } set { selectedGameMode = value; } }
-	public string StageAt { get { return stageAt; } set { stageAt = value; } }
+    public Transform[] StageSpawnPoints { get { return stageSpawnPoints; } set { stageSpawnPoints = value; } }
 
-	private void Start()
-	{
-		stageAt = stageOfPlay[0];
-	}
-
-	private void Awake()
+    private void Awake()
 	{
 		if (_Instance != null && _Instance != this)
 		{
@@ -70,6 +63,9 @@ public class GameManager : MonoBehaviour
 		ChaosFactorManager._Instance.Reset();
 		BulletObjectPoolManager._Instance.ResetAllBullets();
 		playerInputManager.SetActive(true);
+
+		SpawnPlayersAtSpawnpoint();
+
 		// Start Player stuff
 	}
 
@@ -78,6 +74,8 @@ public class GameManager : MonoBehaviour
         ChaosFactorManager._Instance.Reset();
         BulletObjectPoolManager._Instance.ResetAllBullets();
 		playerInputManager.SetActive(false);
+
+		ResetPlayersToVoid();
     }
 
     public void PauseGame()
@@ -163,6 +161,22 @@ public class GameManager : MonoBehaviour
 				else Debug.LogWarning("Player of index " + playerIndex + " doesn't exist!");
 
 			}
+		}
+	}
+
+	private void SpawnPlayersAtSpawnpoint()
+	{
+		foreach(GameObject player in players)
+		{
+			player.transform.position = stageSpawnPoints[player.GetComponent<PlayerBody>().PlayerIndex].position;
+		}
+	}
+
+	private void ResetPlayersToVoid()
+	{
+		foreach(GameObject player in players)
+		{
+			player.transform.position = new Vector3(-100, 0, 0);
 		}
 	}
 }
