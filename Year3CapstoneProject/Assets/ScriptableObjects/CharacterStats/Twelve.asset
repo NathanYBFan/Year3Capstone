@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Twelve
   m_EditorClassIdentifier: 
   CharacterName: Twelve
-  playerModel: {fileID: 6780297355927854567, guid: 154835307e8f73446ad951438dd14efb, type: 3}
+  playerModel: {fileID: 708677753232018910, guid: 8cacbd17c23d79149a88ca3f9257e4a1, type: 3}
   MaxHealth: 100
   DefaultMoveSpeed: 20
   DefaultFireRate: 7
