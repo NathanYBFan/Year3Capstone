@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerBody : MonoBehaviour
 {
@@ -42,6 +43,8 @@ public class PlayerBody : MonoBehaviour
 	public bool OnIce { get { return onIce; } set { onIce = value; } }
 	public int PlayerIndex { get { return playerIndex; } }
 
+	
+
 	// Private Variables
 	private Vector2 moveDir, aimDir; //The current movement direction of this player.
 
@@ -69,6 +72,23 @@ public class PlayerBody : MonoBehaviour
 		}
 	}
 
+	public void PerformDash()
+	{
+		float amount = (2 * stats.MaxEnergy) / 3;
+		if (stats.isPowerSaving) amount /= 2;
+		if (stats.CurrentEnergy - amount < 0) return;
+
+		stats.CurrentEnergy -= amount;
+
+		Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
+		if (moveDirection.magnitude > 1)
+			moveDirection.Normalize();
+
+		Vector3 velocity = rb.velocity;
+		velocity.y = 0;
+		rb.AddForce(moveDirection * stats.DashSpeed, ForceMode.Impulse);
+
+	}
 	/// <summary>
 	/// Sets the directional vector for movement.
 	/// </summary>
