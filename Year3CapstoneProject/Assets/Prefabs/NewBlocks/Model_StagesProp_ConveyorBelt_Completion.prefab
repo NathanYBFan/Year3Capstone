@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 11f839b18ef5b124b80f65e06464087d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9169dbe5c7c3f7b4f9385e05675bedd0, type: 2}
     - target: {fileID: 919132149155446097, guid: 11f839b18ef5b124b80f65e06464087d, type: 3}
       propertyPath: m_Name
       value: Model_StagesProp_ConveyorBelt_Completion
