@@ -42,6 +42,8 @@ public class PlayerBody : MonoBehaviour
 	public bool OnIce { get { return onIce; } set { onIce = value; } }
 	public int PlayerIndex { get { return playerIndex; } }
 
+	
+
 	// Private Variables
 	private Vector2 moveDir, aimDir; //The current movement direction of this player.
 
@@ -83,7 +85,7 @@ public class PlayerBody : MonoBehaviour
 
 		Vector3 velocity = rb.velocity;
 		velocity.y = 0;
-		rb.AddForce(moveDirection * stats.MovementSpeed * 100, ForceMode.Impulse);
+		rb.AddForce(moveDirection * stats.DashSpeed, ForceMode.Impulse);
 
 	}
 	/// <summary>
