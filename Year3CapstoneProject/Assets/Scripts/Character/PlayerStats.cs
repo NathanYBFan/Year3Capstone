@@ -37,6 +37,9 @@ public class PlayerStats : MonoBehaviour
 	[Foldout("Player Stats"), Tooltip("Player current energy (the cooldown bar)")]
 	private float currEnergy = 10;
 	[SerializeField]
+	[Foldout("Player Stats"), Tooltip("Player Dash speed.")]
+	private int dashSpeed = 100;
+	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("Time it takes (in seconds) to replenish a portion of the energy bar.")]
 	private float timer = 0;
 	[SerializeField]
@@ -96,6 +99,7 @@ public class PlayerStats : MonoBehaviour
 	public float FireRate { get { return fireRate; } set { fireRate = value; } }
 	public float MaxEnergy { get { return maxEnergy; } }
 	public float CurrentEnergy { get { return currEnergy; } set { currEnergy = value; } }
+	public int DashSpeed { get { return dashSpeed; } set { dashSpeed = value; } }
 	public float Timer { get { return timer; } }
 	public float Rate { get { return rate; } }
 
