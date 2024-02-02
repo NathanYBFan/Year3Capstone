@@ -49,6 +49,8 @@ public class PlayerController : MonoBehaviour
 		if (!GameManager._Instance.inGame) return;
 
 		if (body == null) return;
+
+		body.PerformDash();
 		// Add code here
 	}
 	public void OnAim(CallbackContext ctx)
