@@ -869,6 +869,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 4f9133cb51804504c8abeb00232277ef, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 611f0ca93542a1249b46db509e5440e0, type: 2}
     - target: {fileID: 919132149155446097, guid: 4f9133cb51804504c8abeb00232277ef, type: 3}
       propertyPath: m_Name
       value: Model_ChaosFactor_IceBlock_Completion
