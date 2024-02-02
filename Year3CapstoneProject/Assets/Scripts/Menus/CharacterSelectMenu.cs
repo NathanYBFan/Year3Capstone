@@ -51,7 +51,7 @@ public class CharacterSelectMenu : MonoBehaviour
         if (GameManager._Instance.SelectedGameMode.CompareTo("WHITEBOX") == 0)
             LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[5], true);
         else if(GameManager._Instance.SelectedGameMode.CompareTo("STAGE CREATION") == 0)
-            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
+            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[6], true);
         else if (GameManager._Instance.SelectedGameMode.CompareTo("MODELS") == 0)
             LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[6], true);
     }
