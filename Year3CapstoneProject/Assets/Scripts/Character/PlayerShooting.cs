@@ -53,6 +53,7 @@ public class PlayerShooting : MonoBehaviour
 			bullet.SetActive(true);
 		}
 		int playerIndex = GetComponent<PlayerBody>().PlayerIndex;
-        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[0], AudioManager._Instance.PlayerAudioSourceList[playerIndex]);
+		if (AudioManager._Instance.PlayerAudioSourceList.Count < playerIndex || AudioManager._Instance.PlayerAudioList.Count < 0)
+	        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[0], AudioManager._Instance.PlayerAudioSourceList[playerIndex]);
 	}
 }

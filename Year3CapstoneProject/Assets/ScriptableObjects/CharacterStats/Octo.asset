@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Octo
   m_EditorClassIdentifier: 
   CharacterName: Octo
-  playerModel: {fileID: 4275381189052205492, guid: eac5506fbdb1798489a8cabf8e058b49, type: 3}
+  playerModel: {fileID: 1256141111918847457, guid: 227b23a1e26e07d479443ee9e19f78ab, type: 3}
   MaxHealth: 80
   DefaultMoveSpeed: 20
   DefaultFireRate: 7
