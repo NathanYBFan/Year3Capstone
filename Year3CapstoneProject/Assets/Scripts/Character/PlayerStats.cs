@@ -3,6 +3,7 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -11,11 +12,16 @@ public class PlayerStats : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")]
 	private CharacterStatsSO characterStat;
 
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private Transform playerMeshGO;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	private Transform playerMeshGO;
 
-    [Header("Character Stats")]
+	[Header("Effects")]
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	public ParticleSystem burning; //The particle system prefabs for debuff effects
+
+	[Header("Character Stats")]
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("Player max health")]
 	private int maxHealth = 100;
@@ -82,7 +88,7 @@ public class PlayerStats : MonoBehaviour
 	[Foldout("Player Stats"), Tooltip("")]
 	public bool explodingBullets = false;
 	[SerializeField]
-	[Foldout("Player Stats"), Tooltip("How accurate a homing bullet would be to hitting its target.\nNOTE: A value of 0 means it will have a 0% chance to hit the target."), Range(0,1f)]
+	[Foldout("Player Stats"), Tooltip("How accurate a homing bullet would be to hitting its target.\nNOTE: A value of 0 means it will have a 0% chance to hit the target."), Range(0, 1f)]
 	public float homingAccuracy = 0.8f;
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("The speed of which a homing bullet will rotate at to aim towards it's target.\nNOTE: Lower speed values means it takes longer to adjust its rotation to face the target -> Less Accuracy")]
@@ -108,6 +114,10 @@ public class PlayerStats : MonoBehaviour
 
 	bool messageSent = false;
 
+	private void OnEnable()
+	{
+		DeactivateEffects(ParticleSystemStopBehavior.StopEmittingAndClear);
+	}
 	private void Update()
 	{
 		//Energy bar regeneration.
@@ -127,6 +137,7 @@ public class PlayerStats : MonoBehaviour
 			if (debuffCoroutine == null)
 			{
 				debuffCoroutine = StartCoroutine(ApplyDebuffEffects());
+				ActivateEffects();
 			}
 		}
 
@@ -145,7 +156,20 @@ public class PlayerStats : MonoBehaviour
 			messageSent = true;
 		}
 	}
-
+	/// <summary>
+	/// This method deactivates the given debuff effect.
+	/// </summary>
+	private void DeactivateEffects(ParticleSystemStopBehavior behaviour)
+	{
+		burning.Stop(true, behaviour);
+	}
+	/// <summary>
+	/// This method activates the given debuff effect.
+	/// </summary>
+	private void ActivateEffects()
+	{
+		burning.Play();
+	}
 	public void SetCharacterStats(CharacterStatsSO newCharacterStat)
 	{
 		// Dont do work already done
@@ -164,7 +188,7 @@ public class PlayerStats : MonoBehaviour
 	{
 		currHealth = 0;
 		isDead = true;
-		
+
 	}
 
 	public void TakeDamage(int amount)
@@ -193,11 +217,11 @@ public class PlayerStats : MonoBehaviour
 		GameObject.Instantiate(charStat.playerModel, playerMeshGO.position, Quaternion.identity, playerMeshGO);
 	}
 
-    /// <summary>
-    /// This coroutine applies the debuff's effects throughout it's duration before removing itself from the player.
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator ApplyDebuffEffects()
+	/// <summary>
+	/// This coroutine applies the debuff's effects throughout it's duration before removing itself from the player.
+	/// </summary>
+	/// <returns></returns>
+	private IEnumerator ApplyDebuffEffects()
 	{
 		while (inflictedDebuff.debuffDuration > 0)
 		{
@@ -212,5 +236,6 @@ public class PlayerStats : MonoBehaviour
 		}
 		inflictedDebuff = null;
 		debuffCoroutine = null;
+		DeactivateEffects(ParticleSystemStopBehavior.StopEmitting);
 	}
 }
