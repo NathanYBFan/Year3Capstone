@@ -31,6 +31,7 @@ public class PlayerBody : MonoBehaviour
 	[Foldout("Physics Modifiers"), Tooltip("Flag that allows the movement to switch between default and ice settings." +
 		"\nNOTE: Will be read-only in the future. Editable in editor for debugging purposes.")]
 	private bool onIce;
+
 	[SerializeField]
 	[Foldout("Physics Modifiers"), Range(0, 2), Tooltip("Float value that affects the amount of resistance the player experiences to move in a specific direction." +
 		"\nNOTE: Higher values make the resistance against the player greater (and makes it harder to move).")]

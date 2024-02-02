@@ -9,6 +9,10 @@ public class ChaosFactorManager : MonoBehaviour
     public static ChaosFactorManager _Instance;
 
     // Serialize Fields
+
+    [SerializeField]
+    private GameObject gameManagerRef;
+
     [SerializeField]
     [Tooltip("List of all Chaos Factors that can spawn in the game")]
     private List<GameObject> chaosFactorList;
@@ -45,7 +49,11 @@ public class ChaosFactorManager : MonoBehaviour
             Debug.Log("Input recived: Numpad 1");
             StartCoroutine(RunChaosFactor(chaosFactorList[0]));
         }
-
+        if (Input.GetKeyDown("[2]"))
+        {
+            Debug.Log("Input recived: Numpad 2");
+            StartCoroutine(RunChaosFactor(chaosFactorList[1]));
+        }
         if (Input.GetKeyDown(KeyCode.O))
         {
 

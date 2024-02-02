@@ -179,4 +179,11 @@ public class GameManager : MonoBehaviour
 			player.transform.position = new Vector3(-100, 0, 0);
 		}
 	}
+
+
+
+
+
+
+
 }

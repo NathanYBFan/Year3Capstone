@@ -8,12 +8,16 @@ public class Platform : MonoBehaviour
 {
     [SerializeField]
     float time;
-    private Rigidbody rb;
+
+
+
+
+   
 
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+ 
         time = 10;
     }
 
@@ -38,9 +42,10 @@ public class Platform : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.tag == "test")
         {
-
+           
             fakeDestroy();
 
         }

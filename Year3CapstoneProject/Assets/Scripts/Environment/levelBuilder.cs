@@ -69,8 +69,21 @@ public class levelBuilder : MonoBehaviour
 
                     else if (levelInfo[i, j] < 0)
                     {
-                        Vector3 rot = new Vector3(levelAssets[levelInfo[i, j] *-1-1].transform.rotation.x, levelAssets[levelInfo[i, j] *-1-1].transform.rotation.y, levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.z);
-                        Instantiate(levelAssets[levelInfo[i, j] * -1 - 1], new Vector3(xVal, yVal, zVal), Quaternion.Euler(rot));
+
+                        if (levelInfo[i, j] < -20)
+                        {
+                            Vector3 rot = new Vector3(levelAssets[levelInfo[i, j] *-1 - 21].transform.rotation.x, levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.y, levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.z);
+                            Instantiate(levelAssets[levelInfo[i, j] * -1 - 21], new Vector3(xVal, yVal+tileSize, zVal), Quaternion.Euler(new Vector3(rot.x, rot.y + 180, rot.z)));
+
+                        }
+
+
+                        else
+                        {
+                            Vector3 rot = new Vector3(levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.x, levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.y, levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.z);
+                            Instantiate(levelAssets[levelInfo[i, j] * -1 - 1], new Vector3(xVal, yVal, zVal), Quaternion.Euler(new Vector3(rot.x, rot.y+180,rot.z)));
+                        }
+                
                     }
 
 
