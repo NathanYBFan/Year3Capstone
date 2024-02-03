@@ -25,8 +25,17 @@ public class PlayerBody : MonoBehaviour
 	private AudioSource audioSource;
 
 	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	private GameObject aimUI;
+
+	
+	[SerializeField]
 	[Foldout("Stats"), Tooltip("")]
 	private int playerIndex = -1; //Which number this player is.
+
+	[SerializeField]
+	[Foldout("Stats"), Tooltip("Float value that determines how smoothly the rotation of the aim UI will rotate to adjust to new surface normals.")]
+	private float smoothFactor = 0.1f;
 
 	[SerializeField]
 	[Foldout("Physics Modifiers"), Tooltip("Flag that allows the movement to switch between default and ice settings." +
@@ -43,7 +52,7 @@ public class PlayerBody : MonoBehaviour
 	public bool OnIce { get { return onIce; } set { onIce = value; } }
 	public int PlayerIndex { get { return playerIndex; } }
 
-	
+
 
 	// Private Variables
 	private Vector2 moveDir, aimDir; //The current movement direction of this player.
@@ -110,6 +119,24 @@ public class PlayerBody : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
+
+
+		
+
+		//Aim UI oriented so y axis is parallel to map surface normal
+		RaycastHit hit;
+		if (Physics.Raycast(aimUI.transform.position, Vector3.down, out hit))
+		{
+			// Calculate the rotation to match the surface normal
+			Quaternion surfaceRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+
+			// Combine with the pivot's rotation
+			Quaternion finalRotation = surfaceRotation * pivot.transform.rotation;
+
+			// Apply the combined rotation to the UI element
+			aimUI.transform.rotation = Quaternion.Slerp(aimUI.transform.rotation, finalRotation, smoothFactor); ;
+
+		}
 		var angle = Mathf.Atan2(aimDir.x, aimDir.y) * Mathf.Rad2Deg;
 		pivot.transform.rotation = Quaternion.Euler(0, angle, 0);
 
