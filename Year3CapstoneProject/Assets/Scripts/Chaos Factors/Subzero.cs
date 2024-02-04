@@ -19,6 +19,11 @@ public class Subzero : MonoBehaviour
             p.GetComponent<PlayerBody>().OnIce = true;
         }
 
+        foreach (GameObject q in GameManager._Instance.Platforms)
+        {
+            q.GetComponent<Platform>().toggleIce(true);
+        }
+
         Debug.Log("Enable Function ran and finished");
     }
 
@@ -31,7 +36,10 @@ public class Subzero : MonoBehaviour
         {
             p.GetComponent<PlayerBody>().OnIce = false;
         }
-
+        foreach (GameObject q in GameManager._Instance.Platforms)
+        {
+            q.GetComponent<Platform>().toggleIce(false);
+        }
 
     }
 }

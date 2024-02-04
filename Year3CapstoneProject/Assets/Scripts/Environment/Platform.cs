@@ -2,21 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Platform : MonoBehaviour
 {
     [SerializeField]
     float time;
+    [SerializeField]
+    private GameObject iceTop;
 
+    [SerializeField]
+    private ParticleSystem snowBurst;
 
-
-
-   
+    public GameObject IceTop { get { return iceTop; } set { iceTop = value; } }
 
 
     private void Awake()
     {
- 
         time = 10;
     }
 
@@ -38,6 +40,14 @@ public class Platform : MonoBehaviour
         StartCoroutine(Up());
     }
 
+    public void toggleIce(bool i)
+    {
+        if (i == true) 
+        { 
+            snowBurst.Play(); 
+        }
+        iceTop.GetComponent<MeshRenderer>().enabled = i;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

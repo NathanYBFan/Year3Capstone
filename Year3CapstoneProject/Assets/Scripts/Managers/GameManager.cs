@@ -13,8 +13,12 @@ public class GameManager : MonoBehaviour
 	public bool inGame;
 	public bool isPaused;
 
-	// Serialize Fields
-	[SerializeField]
+    //Private Varibles
+    [SerializeField]
+    private List<GameObject> platforms;
+
+    // Serialize Fields
+    [SerializeField]
 	[Foldout("Dependencies"), Tooltip("Pause Menu GameObject")]
 	private GameObject pauseMenu;
 
@@ -38,9 +42,16 @@ public class GameManager : MonoBehaviour
 	[Foldout("Stats"), Tooltip("Selectected game mode to load")]
 	private string selectedGameMode;
 
+	
+
+
+
 	// Getters
 	public List<GameObject> Players { get { return players; } set { players = value; } }
-	public List<Modifier> Modifiers { get { return modifiers; } }
+
+    public List<GameObject> Platforms { get { return platforms; } set { platforms = value; } }
+
+    public List<Modifier> Modifiers { get { return modifiers; } }
 	public string SelectedGameMode { get { return selectedGameMode; } set { selectedGameMode = value; } }
     public Transform[] StageSpawnPoints { get { return stageSpawnPoints; } set { stageSpawnPoints = value; } }
 
@@ -54,6 +65,7 @@ public class GameManager : MonoBehaviour
 
 		else if (_Instance == null)
 			_Instance = this;
+		platforms = new List<GameObject>();
 	}
 
 	// Play game initial setups
