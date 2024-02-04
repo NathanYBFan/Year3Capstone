@@ -1902,8 +1902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modesToSelectFrom:
-  - WHITEBOX
-  - STAGE CREATION
+  - FFA
   - MODELS
   modeTextDisplay: {fileID: 1162462829}
   currentSelectedMode: 0

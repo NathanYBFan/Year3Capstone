@@ -48,11 +48,9 @@ public class CharacterSelectMenu : MonoBehaviour
 
 
         // Load correct scene
-        if (GameManager._Instance.SelectedGameMode.CompareTo("WHITEBOX") == 0)
+        if (GameManager._Instance.SelectedGameMode.CompareTo("FFA") == 0)
             LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[5], true);
-        else if(GameManager._Instance.SelectedGameMode.CompareTo("STAGE CREATION") == 0)
-            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[6], true);
-        else if (GameManager._Instance.SelectedGameMode.CompareTo("MODELS") == 0)
+        else if(GameManager._Instance.SelectedGameMode.CompareTo("TDM") == 0)
             LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[6], true);
     }
 
