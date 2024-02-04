@@ -100,7 +100,7 @@ public class levelBuilder : MonoBehaviour
 
                     if (temp.GetComponent<Platform>() != null)
                     {
-                        GameManager._Instance.Platforms.Add(temp);
+                        GameManager._Instance.Platforms.Add(temp); 
                     }
                 }
                 

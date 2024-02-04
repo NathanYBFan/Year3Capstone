@@ -127,11 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f865b2f7ffa0b2b43b484d2acc7f936b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnHeight: 80
-  maxSpawnX: 34
-  minSpawnX: 34
-  maxSpawnZ: -6
-  minSpawnZ: -6
+  spawnHeight: 160
+  maxSpawnX: 28
+  minSpawnX: 28
+  maxSpawnZ: 15
+  minSpawnZ: 15
   fallForce: -20
   MeteorVisual: {fileID: 411495123518740441}
   explosion: {fileID: 7505172484663540772}
