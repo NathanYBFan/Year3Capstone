@@ -158,6 +158,7 @@ MonoBehaviour:
   audioSource: {fileID: 377464014033735781}
   aimUI: {fileID: 5385108240147413128}
   playerIndex: 0
+  smoothFactor: 0.1
   onIce: 0
   iceInertiaMultiplier: 0.5
 --- !u!114 &4952783801461123959

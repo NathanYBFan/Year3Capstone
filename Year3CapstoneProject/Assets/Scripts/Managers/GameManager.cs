@@ -106,6 +106,19 @@ public class GameManager : MonoBehaviour
 
 	}
 
+	public void QuitToMainMenu()
+	{
+        PauseGame();
+		inGame = false;
+
+		foreach (GameObject player in Players)
+		{
+			player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+			player.transform.position = new Vector3(-100, 0, 0);
+			player.GetComponent<PlayerStats>().ResetPlayer();
+		}
+	}
+
 	/// <summary>
 	/// This is to give functionality to the "Give" command for the Command Prompt menu. (Debug purposes)
 	/// </summary>
