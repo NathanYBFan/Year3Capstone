@@ -215,6 +215,14 @@ public class PlayerStats : MonoBehaviour
 		GameObject.Instantiate(charStat.playerModel, playerMeshGO.position, Quaternion.identity, playerMeshGO);
 	}
 
+	public void ResetPlayer()
+	{
+		for (int i = 0; i < playerMeshGO.childCount; i++) // Destroy the player Models attached to the player
+            Destroy(playerMeshGO.GetChild(0).gameObject);
+
+		// No need to reset stats?
+    }
+
 	/// <summary>
 	/// This coroutine applies the debuff's effects throughout it's duration before removing itself from the player.
 	/// </summary>

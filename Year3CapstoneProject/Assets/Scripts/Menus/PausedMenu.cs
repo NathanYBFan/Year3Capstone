@@ -36,8 +36,7 @@ public class PausedMenu : MonoBehaviour
 
     public void QuitButtonPressed()
     {
-        GameManager._Instance.PauseGame();
-        GameManager._Instance.inGame = false;
+        GameManager._Instance.QuitToMainMenu();
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[0], true);
     }
 }
