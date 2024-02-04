@@ -22,6 +22,8 @@ public class Subzero : MonoBehaviour
         foreach (GameObject q in GameManager._Instance.Platforms)
         {
             q.GetComponent<Platform>().toggleIce(true);
+
+
         }
 
         Debug.Log("Enable Function ran and finished");

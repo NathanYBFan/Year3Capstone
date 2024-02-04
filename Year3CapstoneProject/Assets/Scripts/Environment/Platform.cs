@@ -12,8 +12,14 @@ public class Platform : MonoBehaviour
     private GameObject iceTop;
 
     [SerializeField]
+    private GameObject iceTop2;
+
+
+    [SerializeField]
     private ParticleSystem snowBurst;
 
+    [SerializeField]
+    private ParticleSystem snowBurst2;
     public GameObject IceTop { get { return iceTop; } set { iceTop = value; } }
 
 
@@ -45,8 +51,20 @@ public class Platform : MonoBehaviour
         if (i == true) 
         { 
             snowBurst.Play(); 
+
+            if (snowBurst2 != null) 
+            { 
+                snowBurst2.Play();
+            }
+
         }
         iceTop.GetComponent<MeshRenderer>().enabled = i;
+
+        if (iceTop2 != null)
+        {
+            iceTop2.GetComponent<MeshRenderer>().enabled = i;
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -76,8 +76,9 @@ public class levelBuilder : MonoBehaviour
 
                         if (levelInfo[i, j] < -20)
                         {
+                            Debug.Log(levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.x);
                             Vector3 rot = new Vector3(levelAssets[levelInfo[i, j] *-1 - 21].transform.rotation.x, levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.y, levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.z);
-                            temp = Instantiate(levelAssets[levelInfo[i, j] * -1 - 21], new Vector3(xVal, yVal+tileSize, zVal), Quaternion.Euler(new Vector3(rot.x, rot.y + 180, rot.z)));
+                            temp = Instantiate(levelAssets[levelInfo[i, j] * -1 - 21], new Vector3(xVal, yVal+tileSize, zVal), Quaternion.Euler(new Vector3(rot.x-90, rot.y, rot.z + 180)));
 
                         }
 
@@ -85,7 +86,7 @@ public class levelBuilder : MonoBehaviour
                         else
                         {
                             Vector3 rot = new Vector3(levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.x, levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.y, levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.z);
-                            temp = Instantiate(levelAssets[levelInfo[i, j] * -1 - 1], new Vector3(xVal, yVal, zVal), Quaternion.Euler(new Vector3(rot.x, rot.y+180,rot.z)));
+                            temp = Instantiate(levelAssets[levelInfo[i, j] * -1 - 1], new Vector3(xVal, yVal, zVal), Quaternion.Euler(new Vector3(rot.x-90, rot.y,rot.z+180)));
                         }
                 
                     }

@@ -130,8 +130,8 @@ MonoBehaviour:
   spawnHeight: 80
   maxSpawnX: 34
   minSpawnX: 34
-  maxSpawnZ: -12
-  minSpawnZ: -12
+  maxSpawnZ: -6
+  minSpawnZ: -6
   fallForce: -20
   MeteorVisual: {fileID: 411495123518740441}
   explosion: {fileID: 7505172484663540772}
