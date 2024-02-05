@@ -1,8 +1,6 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour
 {
@@ -42,15 +40,10 @@ public class GameManager : MonoBehaviour
 	[Foldout("Stats"), Tooltip("Selectected game mode to load")]
 	private string selectedGameMode;
 
-	
-
-
 
 	// Getters
 	public List<GameObject> Players { get { return players; } set { players = value; } }
-
     public List<GameObject> Platforms { get { return platforms; } set { platforms = value; } }
-
     public List<Modifier> Modifiers { get { return modifiers; } }
 	public string SelectedGameMode { get { return selectedGameMode; } set { selectedGameMode = value; } }
     public Transform[] StageSpawnPoints { get { return stageSpawnPoints; } set { stageSpawnPoints = value; } }
@@ -203,11 +196,4 @@ public class GameManager : MonoBehaviour
 			player.transform.position = new Vector3(-100, 0, 0);
 		}
 	}
-
-
-
-
-
-
-
 }

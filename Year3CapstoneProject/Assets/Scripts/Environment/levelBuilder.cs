@@ -1,6 +1,4 @@
 using NaughtyAttributes;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class levelBuilder : MonoBehaviour
@@ -67,7 +65,7 @@ public class levelBuilder : MonoBehaviour
                     if (levelInfo[i, j] > 20)
                     {
 
-                        temp = Instantiate(levelAssets[levelInfo[i, j] - 21], new Vector3(xVal, yVal + tileSize, zVal), levelAssets[levelInfo[i, j] - 21].transform.rotation);
+                        temp = Instantiate(levelAssets[levelInfo[i, j] - 21], new Vector3(xVal, yVal + tileSize, zVal), levelAssets[levelInfo[i, j] - 21].transform.rotation, this.transform);
 
                     }
 
@@ -78,7 +76,7 @@ public class levelBuilder : MonoBehaviour
                         {
                             Debug.Log(levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.x);
                             Vector3 rot = new Vector3(levelAssets[levelInfo[i, j] *-1 - 21].transform.rotation.x, levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.y, levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.z);
-                            temp = Instantiate(levelAssets[levelInfo[i, j] * -1 - 21], new Vector3(xVal, yVal+tileSize, zVal), Quaternion.Euler(new Vector3(rot.x-90, rot.y, rot.z + 180)));
+                            temp = Instantiate(levelAssets[levelInfo[i, j] * -1 - 21], new Vector3(xVal, yVal+tileSize, zVal), Quaternion.Euler(new Vector3(rot.x-90, rot.y, rot.z + 180)), this.transform);
 
                         }
 
@@ -86,7 +84,7 @@ public class levelBuilder : MonoBehaviour
                         else
                         {
                             Vector3 rot = new Vector3(levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.x, levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.y, levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.z);
-                            temp = Instantiate(levelAssets[levelInfo[i, j] * -1 - 1], new Vector3(xVal, yVal, zVal), Quaternion.Euler(new Vector3(rot.x-90, rot.y,rot.z+180)));
+                            temp = Instantiate(levelAssets[levelInfo[i, j] * -1 - 1], new Vector3(xVal, yVal, zVal), Quaternion.Euler(new Vector3(rot.x-90, rot.y,rot.z+180)), this.transform);
                         }
                 
                     }
@@ -94,7 +92,7 @@ public class levelBuilder : MonoBehaviour
 
                     else
                     {
-                        temp = Instantiate(levelAssets[levelInfo[i, j] - 1], new Vector3(xVal, yVal, zVal), levelAssets[levelInfo[i, j] - 1].transform.rotation);
+                        temp = Instantiate(levelAssets[levelInfo[i, j] - 1], new Vector3(xVal, yVal, zVal), levelAssets[levelInfo[i, j] - 1].transform.rotation, this.transform);
 
                     }
 

@@ -1,27 +1,31 @@
+using NaughtyAttributes;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
-using static UnityEditor.Experimental.GraphView.GraphView;
-
 public class Platform : MonoBehaviour
 {
+    // Serialize Fields
     [SerializeField]
-    float time;
-    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
     private GameObject iceTop;
 
     [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
     private GameObject iceTop2;
 
-
     [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
     private ParticleSystem snowBurst;
 
     [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
     private ParticleSystem snowBurst2;
-    public GameObject IceTop { get { return iceTop; } set { iceTop = value; } }
 
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("")]
+    float time;
+
+    // Getters & Setters
+    public GameObject IceTop { get { return iceTop; } set { iceTop = value; } }
 
     private void Awake()
     {
@@ -35,7 +39,6 @@ public class Platform : MonoBehaviour
         StartCoroutine(Down());
 
     }
-
 
     public void fakeRespawn()
     {
@@ -95,7 +98,6 @@ public class Platform : MonoBehaviour
         yield return null;
     }
 
-
     private IEnumerator Down()
     {
         //Debug.Log("down called");
@@ -114,5 +116,4 @@ public class Platform : MonoBehaviour
 
         fakeRespawn();
     }
-
 }
