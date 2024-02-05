@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,17 +37,22 @@ public class GameManager : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("array of spawnpoints")]
     private Transform[] stageSpawnPoints; // TODO NATHANF: ADD SPAWNPOINTS ON INSTANTIATE
 
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("array of spawnpoints")]
+    private InputSystemUIInputModule uiInputModule;
+
     [SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("Selectected game mode to load")]
 	private string selectedGameMode;
 
 
-	// Getters
+	// Getters & Setters
 	public List<GameObject> Players { get { return players; } set { players = value; } }
     public List<GameObject> Platforms { get { return platforms; } set { platforms = value; } }
     public List<Modifier> Modifiers { get { return modifiers; } }
 	public string SelectedGameMode { get { return selectedGameMode; } set { selectedGameMode = value; } }
     public Transform[] StageSpawnPoints { get { return stageSpawnPoints; } set { stageSpawnPoints = value; } }
+	public InputSystemUIInputModule UiInputModule { get { return uiInputModule; } }
 
     private void Awake()
 	{

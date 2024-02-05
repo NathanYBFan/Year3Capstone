@@ -1,21 +1,22 @@
 using NaughtyAttributes;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class DebugMenu : MonoBehaviour
 {
-
 	// Singleton Initialization
 	public static DebugMenu _Instance;
 
+	// Serialize Fields
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")]
 	private TMP_InputField commandEntry;
+
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")]
 	private GameObject debugMenu;
+	
+	// Private variables
 	private string command = "";
     private bool isVisible = false;
 

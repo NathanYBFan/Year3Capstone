@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
+    [Foldout("Dependencies"), Tooltip("First button to be selected - for controllers")]
     private GameObject firstButton;
 
     private void Start()

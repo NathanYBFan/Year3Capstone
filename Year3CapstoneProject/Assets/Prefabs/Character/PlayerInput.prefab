@@ -186,6 +186,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6e5e8a18-38ac-48ec-a462-4ed500a85895
     m_ActionName: Player1/SelfDestruct[/XInputControllerWindows/rightTrigger,/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 596c92c1-6e8b-40d1-9093-48016cbaacf5
+    m_ActionName: Menu/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ae092f16-9ece-46b0-809e-326f2bec443a
+    m_ActionName: Menu/Submit
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 04d49d9e-86a1-4369-a8a8-9c8a09351c5e
+    m_ActionName: Menu/Cancel
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 124443c8-7339-4478-b53e-f2e20620c9d1
+    m_ActionName: Menu/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 761fbde0-0fff-4d28-a4db-ea0c476c4023
+    m_ActionName: Menu/Click[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player1

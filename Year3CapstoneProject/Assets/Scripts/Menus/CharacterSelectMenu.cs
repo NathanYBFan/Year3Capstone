@@ -1,8 +1,8 @@
 using NaughtyAttributes;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class CharacterSelectMenu : MonoBehaviour
 {
@@ -11,16 +11,21 @@ public class CharacterSelectMenu : MonoBehaviour
     private CharacterStatsSO[] listOfStats = new CharacterStatsSO[4];
 
     [SerializeField]
-    [Foldout("Stats"), Tooltip("")]
-    private CharacterStatsSO[] characterSelectedByPlayers = new CharacterStatsSO[4];
-
-    [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private GameObject[] displayParent = new GameObject[4];
 
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("First button to be selected - for controllers")]
+    private GameObject firstButton;
+
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("")]
+    private CharacterStatsSO[] characterSelectedByPlayers = new CharacterStatsSO[4];
+    
     private void Start()
     {
-        for (int i = 0; i < listOfStats.Count(); i++)
+        EventSystem.current.SetSelectedGameObject(firstButton);
+        for (int i = 0; i < listOfStats.Length; i++)
             SetCharacterStatAssignment(i, listOfStats[i]);
     }
 

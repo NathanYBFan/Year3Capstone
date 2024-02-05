@@ -1,10 +1,14 @@
 using NaughtyAttributes;
 using UnityEngine;
 using TMPro;
-using System.Linq;
+using UnityEngine.EventSystems;
 
 public class ModeSelectMenu : MonoBehaviour
 {
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("First button to be selected - for controllers")]
+    private GameObject firstButton;
+
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
     private string[] modesToSelectFrom;
@@ -19,6 +23,7 @@ public class ModeSelectMenu : MonoBehaviour
 
     private void Start()
     {
+        EventSystem.current.SetSelectedGameObject(firstButton);
         for (int i = 0; i < modesToSelectFrom.Length; i++)
         {
             if (GameManager._Instance.SelectedGameMode.CompareTo(modesToSelectFrom[i]) == 0)

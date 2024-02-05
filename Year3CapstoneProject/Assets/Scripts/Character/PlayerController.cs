@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
 		var index = playerInput.playerIndex; //This is just fetching the index from the Player Input component.
 
 		body = bodies.FirstOrDefault(m => m.PlayerIndex == index); //The body that this controller corresponds to is the one whose index matches the player input index of this controller.
+		playerInput.uiInputModule = GameManager._Instance.UiInputModule;
 	}
 	 
 	public void OnDebugPressed(CallbackContext ctx)
