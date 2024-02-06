@@ -4972,7 +4972,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 4903b770fc2f8a24d9cbdddca0ef12b4, type: 2}
     - target: {fileID: 919132149155446097, guid: 477418039654e8a4bba4cd4a12358e75, type: 3}
       propertyPath: m_Name
-      value: Model_StagesBlock_FloorFurnace_Completion
+      value: Furnace
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 477418039654e8a4bba4cd4a12358e75, type: 3}
+      propertyPath: m_TagString
+      value: StageNormal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

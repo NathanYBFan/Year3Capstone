@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964128, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -604,6 +604,10 @@ PrefabInstance:
     - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
       propertyPath: fireRate
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: dashSpeed
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
       propertyPath: maxHealth
@@ -1573,6 +1577,10 @@ PrefabInstance:
     - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
       propertyPath: fireRate
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: dashSpeed
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
       propertyPath: maxHealth
@@ -5109,6 +5117,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: dashSpeed
+      value: 250
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5293,6 +5305,10 @@ PrefabInstance:
     - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
       propertyPath: fireRate
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: dashSpeed
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

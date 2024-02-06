@@ -42,7 +42,7 @@ public class PlayerStats : MonoBehaviour
 	private float currEnergy = 10;
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("Player Dash speed.")]
-	private int dashSpeed = 100;
+	private int dashSpeed = 250;
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("Time it takes (in seconds) to replenish a portion of the energy bar.")]
 	private float timer = 0;

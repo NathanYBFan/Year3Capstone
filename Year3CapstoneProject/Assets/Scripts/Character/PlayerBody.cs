@@ -18,6 +18,10 @@ public class PlayerBody : MonoBehaviour
 
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")]
+	private PlayerCollision collisionDetection;
+
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
 	private Rigidbody rb;
 
 	[SerializeField]
@@ -28,14 +32,14 @@ public class PlayerBody : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")]
 	private GameObject aimUI;
 
-	
+
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("")]
 	private int playerIndex = -1; //Which number this player is.
 
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("Float value that determines how smoothly the rotation of the aim UI will rotate to adjust to new surface normals.")]
-	private float smoothFactor = 0.1f;
+	private float smoothFactor = 1;
 
 	[SerializeField]
 	[Foldout("Physics Modifiers"), Tooltip("Flag that allows the movement to switch between default and ice settings." +
@@ -45,7 +49,7 @@ public class PlayerBody : MonoBehaviour
 	[SerializeField]
 	[Foldout("Physics Modifiers"), Range(0, 2), Tooltip("Float value that affects the amount of resistance the player experiences to move in a specific direction." +
 		"\nNOTE: Higher values make the resistance against the player greater (and makes it harder to move).")]
-	private float iceInertiaMultiplier = 0.5f;
+	private float iceInertiaMultiplier = 2f;
 
 	private bool hasExploded = false;
 	// Getters
@@ -94,8 +98,9 @@ public class PlayerBody : MonoBehaviour
 			moveDirection.Normalize();
 
 		Vector3 velocity = rb.velocity;
+		Vector3 newForceDirection = (moveDirection * stats.MovementSpeed);
 		velocity.y = 0;
-		rb.AddForce(moveDirection * stats.DashSpeed, ForceMode.Impulse);
+		rb.AddForce(newForceDirection * stats.DashSpeed, ForceMode.Impulse);
 
 	}
 	/// <summary>
@@ -116,12 +121,10 @@ public class PlayerBody : MonoBehaviour
 		AudioManager._Instance.PlayerAudioSourceList.Add(audioSource);
 	}
 
+
 	// Update is called once per frame
-	private void Update()
+	private void FixedUpdate()
 	{
-
-
-		
 
 		//Aim UI oriented so y axis is parallel to map surface normal
 		RaycastHit hit;
@@ -152,8 +155,8 @@ public class PlayerBody : MonoBehaviour
 		if (onIce)
 		{
 			//Apply movement for ice physics.			
-			rb.velocity += (moveDirection * stats.MovementSpeed) * Time.deltaTime;
-			rb.velocity = Vector3.ClampMagnitude(rb.velocity, stats.MovementSpeed); //Cannot go above max speed.
+			rb.velocity += (moveDirection * stats.MovementSpeed) - collisionDetection.contactNormal * Time.deltaTime;
+			rb.velocity = Vector3.ClampMagnitude(rb.velocity, stats.MovementSpeed / 1.5f); //Cannot go above max speed.
 
 			Vector3 velocity = rb.velocity;
 			velocity.y = 0;
@@ -161,10 +164,12 @@ public class PlayerBody : MonoBehaviour
 		}
 		else
 		{
+
 			//Default motion.
 			Vector3 velocity = rb.velocity;
+			Vector3 newForceDirection = (moveDirection * stats.MovementSpeed) - collisionDetection.contactNormal;
 			velocity.y = 0;
-			rb.AddForce((moveDirection * stats.MovementSpeed) - velocity, ForceMode.Acceleration);
+			rb.AddForce(newForceDirection - velocity, ForceMode.VelocityChange);
 		}
 	}
 }
