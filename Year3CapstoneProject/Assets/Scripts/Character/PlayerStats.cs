@@ -194,6 +194,10 @@ public class PlayerStats : MonoBehaviour
 		if (currHealth - amount > 0) currHealth -= amount;
 		else currHealth = 0;
 	}
+	public void UseEnergy(float amount)
+	{
+		currEnergy -= amount;
+	}
 
 	public void ActivateEffects(Modifier modifier)
 	{

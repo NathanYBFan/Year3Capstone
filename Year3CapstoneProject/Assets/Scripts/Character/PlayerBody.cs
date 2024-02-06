@@ -90,8 +90,7 @@ public class PlayerBody : MonoBehaviour
 		float amount = (2 * stats.MaxEnergy) / 3;
 		if (stats.isPowerSaving) amount /= 2;
 		if (stats.CurrentEnergy - amount < 0) return;
-
-		stats.CurrentEnergy -= amount;
+		stats.UseEnergy(amount);
 
 		Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
 		if (moveDirection.magnitude > 1)
