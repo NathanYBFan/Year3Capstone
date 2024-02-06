@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 791586603182796892}
   - component: {fileID: 8291045507201997765}
   - component: {fileID: 3589008200577592553}
+  - component: {fileID: 7285968678328714521}
+  - component: {fileID: -4293581478609736672}
   m_Layer: 0
   m_Name: PlayerInput
   m_TagString: Untagged
@@ -223,4 +225,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadcadfb34898654fb540b173de47982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultInputAction: {fileID: -944628639613478452, guid: ff95740559fdaa343ade61115c40532f, type: 3}
   temp: 0
+--- !u!114 &7285968678328714521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8492288978512282192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16c6f78230fa4964a222622d8aae332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+  m_PlayerRoot: {fileID: 0}
+--- !u!114 &-4293581478609736672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8492288978512282192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ff95740559fdaa343ade61115c40532f, type: 3}
+  m_PointAction: {fileID: 192071917682726030, guid: ff95740559fdaa343ade61115c40532f, type: 3}
+  m_MoveAction: {fileID: -4464836492009751657, guid: ff95740559fdaa343ade61115c40532f, type: 3}
+  m_SubmitAction: {fileID: -5021616300948802600, guid: ff95740559fdaa343ade61115c40532f, type: 3}
+  m_CancelAction: {fileID: 1388870068553726232, guid: ff95740559fdaa343ade61115c40532f, type: 3}
+  m_LeftClickAction: {fileID: -4696220216794046212, guid: ff95740559fdaa343ade61115c40532f, type: 3}
+  m_MiddleClickAction: {fileID: 0}
+  m_RightClickAction: {fileID: 0}
+  m_ScrollWheelAction: {fileID: 0}
+  m_TrackedDevicePositionAction: {fileID: 0}
+  m_TrackedDeviceOrientationAction: {fileID: 0}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
