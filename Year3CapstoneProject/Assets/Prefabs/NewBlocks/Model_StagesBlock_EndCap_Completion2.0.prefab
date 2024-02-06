@@ -4956,10 +4956,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b17aff17fa3a112439662d634931d833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 0
   iceTop: {fileID: 5267604910974565188}
   iceTop2: {fileID: 0}
   snowBurst: {fileID: 221907920038037822}
+  snowBurst2: {fileID: 0}
+  time: 0
 --- !u!1001 &5626458233764191966
 PrefabInstance:
   m_ObjectHideFlags: 0
