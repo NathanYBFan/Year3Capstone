@@ -93,19 +93,7 @@ MonoBehaviour:
     m_ActionId: 5fbad404-8054-4025-b8b9-6d000f90863b
     m_ActionName: Player1/Aim[/SwitchProControllerHID/rightStick,/SwitchProControllerHID1/rightStick]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3589008200577592553}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnFire
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 5bccedbc-7d1d-484c-89bb-31d623a5e299
     m_ActionName: Player1/Fire[/SwitchProControllerHID/rightTrigger,/SwitchProControllerHID1/rightTrigger,/Mouse/leftButton]
   - m_PersistentCalls:
@@ -225,7 +213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadcadfb34898654fb540b173de47982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultInputAction: {fileID: -944628639613478452, guid: ff95740559fdaa343ade61115c40532f, type: 3}
   temp: 0
 --- !u!114 &7285968678328714521
 MonoBehaviour:

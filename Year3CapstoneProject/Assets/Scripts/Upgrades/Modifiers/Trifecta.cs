@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 [CreateAssetMenu(fileName = "New Modifier", menuName = "Modifiers/Trifecta")]
 public class Trifecta : Modifier

@@ -1,13 +1,13 @@
 using UnityEngine;
-using UnityEngine.UI;
-
 
 [CreateAssetMenu(fileName = "New Modifier", menuName = "Modifiers/Overheated")]
 public class Overheated : Modifier
 {
-	// Serialize Fields
-    [SerializeField]
-    private Debuff debuffToApply;
+	#region Serialize Fields
+	[SerializeField]
+	private Debuff debuffToApply;
+
+	#endregion Serialize Fields
 
 	public override void AddEffects()
 	{

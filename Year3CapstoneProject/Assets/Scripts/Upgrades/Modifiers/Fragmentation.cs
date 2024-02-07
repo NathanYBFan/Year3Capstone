@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 
 [CreateAssetMenu(fileName = "New Modifier", menuName = "Modifiers/Fragmentation")]

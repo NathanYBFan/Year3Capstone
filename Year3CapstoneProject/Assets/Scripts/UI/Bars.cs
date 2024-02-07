@@ -17,7 +17,7 @@ public class Bars : MonoBehaviour
     
     private void TakeDamage()
     {
-        healthBar.fillAmount = (float)playerStats.CurrHealth/(float)playerStats.MaxHealth;
+        healthBar.fillAmount = (float)playerStats.CurrentHealth/(float)playerStats.MaxHealth;
     }
 
     private void UseEnergy()

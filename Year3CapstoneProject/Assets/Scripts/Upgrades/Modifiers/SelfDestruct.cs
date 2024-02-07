@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 [CreateAssetMenu(fileName = "New Modifier", menuName = "Modifiers/You're Going Down With Me")]
 public class SelfDestruct : Modifier

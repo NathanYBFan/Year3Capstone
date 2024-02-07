@@ -4,28 +4,24 @@ using UnityEngine.UIElements;
 
 public class PlayerShooting : MonoBehaviour
 {
-	// Serialize Fields
+	#region Serialize Fields
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]
-	private GameObject bulletDisplay;
-
+	[Foldout("Dependencies"), Tooltip("")]	private GameObject bulletDisplay;
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]
-	private Transform[] firePoint;
-
+	[Foldout("Dependencies"), Tooltip("")]	private Transform[] firePoint;
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]
-	private Transform playerRotation;
+	[Foldout("Dependencies"), Tooltip("")]	private Transform playerRotation;
+	#endregion Serialize Fields
 
-	// Fire Bullet Method
 	public void FireBullet()
 	{
-		// set bullet visual to bulletDisplay
+		// Set bullet visual to bulletDisplay
 		PlayerStats stats = this.gameObject.GetComponent<PlayerStats>();
 
-		//They have Trifecta
+		
 		if (stats.triShot)
 		{
+			// They have Trifecta
 			for (int i = 0; i < firePoint.Length; i++)
 			{
 				GameObject bullet = BulletObjectPoolManager._Instance.FiredBullet();
@@ -33,25 +29,22 @@ public class PlayerShooting : MonoBehaviour
 				Vector3 bulletRot = bullet.transform.rotation.eulerAngles;
 				bulletRot.y = playerRotation.rotation.eulerAngles.y + firePoint[i].rotation.eulerAngles.y;
 				bullet.transform.rotation = Quaternion.Euler(bulletRot);
-
 				bullet.GetComponentInChildren<BulletBehaviour>().ResetPlayerOwner(this.gameObject.GetComponent<PlayerBody>().PlayerIndex, this.gameObject.GetComponent<PlayerStats>());
-
 				bullet.SetActive(true);
 			}
-		}
-		//They don't have Trifecta
+		}		
 		else
 		{
+			// They don't have Trifecta
 			GameObject bullet = BulletObjectPoolManager._Instance.FiredBullet();
 			bullet.transform.position = firePoint[0].position;
 			Vector3 bulletRot = bullet.transform.rotation.eulerAngles;
 			bulletRot.y = playerRotation.rotation.eulerAngles.y;
 			bullet.transform.rotation = Quaternion.Euler(bulletRot);
-
 			bullet.GetComponentInChildren<BulletBehaviour>().ResetPlayerOwner(this.gameObject.GetComponent<PlayerBody>().PlayerIndex, this.gameObject.GetComponent<PlayerStats>());
-
 			bullet.SetActive(true);
 		}
+
 		int playerIndex = GetComponent<PlayerBody>().PlayerIndex;
 		if (AudioManager._Instance.PlayerAudioSourceList.Count < playerIndex || AudioManager._Instance.PlayerAudioList.Count < 0)
 	        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[0], AudioManager._Instance.PlayerAudioSourceList[playerIndex]);

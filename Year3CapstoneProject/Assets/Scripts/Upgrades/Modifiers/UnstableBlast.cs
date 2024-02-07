@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 [CreateAssetMenu(fileName = "New Modifier", menuName = "Modifiers/Unstable Blast")]
 public class UnstableBlast : Modifier
 {

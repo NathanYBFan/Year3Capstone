@@ -1,10 +1,10 @@
 using NaughtyAttributes;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Explosive : MonoBehaviour
 {
+	#region Serialize Fields
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("The damage the explosion deals to damageable entities.")]
 	private int damage;
@@ -23,43 +23,51 @@ public class Explosive : MonoBehaviour
 
 	[SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("")]
-	public int originalPlayerIndex;
+	private int originalPlayerIndex;
 
 	[SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("")]
-	public PlayerStats playerOwner;
+	private PlayerStats playerOwner;
+	#endregion Serialize Fields
+	#region Getters & Setters
+	public int OriginalPlayerIndex {  get { return originalPlayerIndex; } set {  originalPlayerIndex = value; } }
+	public PlayerStats PlayerOwner { get {  return playerOwner; } set {  playerOwner = value; } }
+	#endregion Getters & Setters
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag("Player"))
+		switch (other.tag)
 		{
-			//Burn effect.
-			if (other.transform.parent.parent.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
-			{
-				if (playerOwner.giveableDebuff != null)
+			case "Player":
+				// Burn effect.
+				if (other.transform.parent.parent.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
 				{
-					if (other.transform.parent.parent.GetComponent<PlayerStats>().inflictedDebuff == null)
+					if (playerOwner.giveableDebuff != null)
 					{
-						other.transform.parent.parent.GetComponent<PlayerStats>().inflictedDebuff = new Debuff
+						if (other.transform.parent.parent.GetComponent<PlayerStats>().inflictedDebuff == null)
 						{
-							debuffName = playerOwner.giveableDebuff.name,
-							debuffDuration = playerOwner.giveableDebuff.debuffDuration,
-							damageInterval = playerOwner.giveableDebuff.damageInterval,
-							damage = playerOwner.giveableDebuff.damage,
-							shouldKill = playerOwner.giveableDebuff.shouldKill
-						};
+							other.transform.parent.parent.GetComponent<PlayerStats>().inflictedDebuff = new Debuff
+							{
+								debuffName = playerOwner.giveableDebuff.name,
+								debuffDuration = playerOwner.giveableDebuff.debuffDuration,
+								damageInterval = playerOwner.giveableDebuff.damageInterval,
+								damage = playerOwner.giveableDebuff.damage,
+								shouldKill = playerOwner.giveableDebuff.shouldKill
+							};
 
+						}
 					}
+					other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage);
 				}
-				other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage);
-			}
-		}
-		else if (other.CompareTag("StageBreakable"))
-		{
-			//Do damage to this stage block's "health" component.
-			//TO DO: Have stage blocks that are breakable, with health component.
+				break;
+			case "StageNormal":
+				//Do damage to this stage block's "health" component.
+				//TO DO: Have stage blocks that are breakable, with health component.
+				break;
+			default: break;
 		}
 	}	
+
 	public void StartExpansion(bool isSelfDestruct)
 	{
 		transform.localScale = new Vector3(minScale, minScale, minScale);
