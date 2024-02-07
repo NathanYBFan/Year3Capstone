@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
     // Singleton Initialization
     public static AudioManager _Instance;
 
-    // Serialize Fields
+    #region SerializeFields
     [SerializeField, ReadOnly]
     [Foldout("Dependencies"), Tooltip("Audio Source List of each character, this is propgated within this script")]
     private List<AudioSource> playerAudioSourceList;
@@ -26,12 +26,13 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("Music track list")]
     private List<AudioClip> musicList;
+    #endregion
 
-    // Getters
+    #region Getters&Setters
     public List<AudioSource> PlayerAudioSourceList { get { return playerAudioSourceList; } }
     public List<AudioClip> PlayerAudioList { get { return playerAudioList; } }
     public List<AudioClip> MusicList { get { return musicList; } }
-
+    #endregion
     private void Awake()
     {
         if (_Instance != null && _Instance != this) // If another AudioManager exists
@@ -49,6 +50,7 @@ public class AudioManager : MonoBehaviour
         ResetAudioSources();
     }
 
+    // Reset and grab all the Player Audio Sources
     public void ResetAudioSources()
     {
         playerAudioSourceList.Clear();
@@ -97,7 +99,7 @@ public class AudioManager : MonoBehaviour
             yield return null;
         }
 
-        yield break;
+        yield break; // Exit Coroutine
     }
 
     // Transition Coroutine to switch the music tracks

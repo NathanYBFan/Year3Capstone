@@ -8,8 +8,7 @@ public class ChaosFactorManager : MonoBehaviour
     // Singleton Initialization
     public static ChaosFactorManager _Instance;
 
-    // Serialize Fields
-
+    #region SerializeFields
     [SerializeField]
     private GameObject gameManagerRef;
 
@@ -18,15 +17,17 @@ public class ChaosFactorManager : MonoBehaviour
     private List<GameObject> chaosFactorList;
 
     [SerializeField, ReadOnly]
-    [Foldout("Stats"), Tooltip("")]
+    [Foldout("Stats"), Tooltip("Time until next chaos factor")]
     private float nextChaosFactorTimerSeconds = 0f;
 
     [SerializeField]
-    [Foldout("Stats"), Tooltip("")]
+    [Foldout("Stats"), Tooltip("Max time between each chaos factor")]
     private float chaosFactorMaxTimerSeconds = 30f;
+    #endregion
 
-    // Getters
+    #region Getters&Setters
     public List<GameObject> ChaosFactorList { get { return chaosFactorList; } }
+    #endregion
 
     private void Awake()
     {
@@ -60,7 +61,6 @@ public class ChaosFactorManager : MonoBehaviour
         }
     }
 
-
     // Start Chaos Factor
     public void StartChaosFactor()
     {
@@ -80,21 +80,17 @@ public class ChaosFactorManager : MonoBehaviour
     // Run Coroutine
     public IEnumerator RunChaosFactor(GameObject chaosFactorToSpawn)
     {
-        Debug.Log("Made it into coroutine ");
-
-        chaosFactorToSpawn.SetActive(true);
-
+        // Instantiate Chaos Factor
         GameObject chaosFactor = GameObject.Instantiate(chaosFactorToSpawn, transform);
         Destroy(chaosFactor, 60); // Destroy Chaos Factor after 1 minute
-        //Destroy(chaosFactorToSpawn, 60); // Destroy Chaos Factor after 1 minute
 
-        yield return new WaitForSeconds(20); // Wait for 20 seconds
+        yield return new WaitForSeconds(20); // Wait for 20 seconds <-- These should be tuneable
         ResetChaosFactorTimer();
 
-        yield return new WaitForSeconds(20); // Wait for 20 seconds
+        yield return new WaitForSeconds(20); // Wait for 20 seconds <-- These should be tuneable
         ResetChaosFactorTimer();
 
-        yield return new WaitForSeconds(20); // Wait for 20 seconds
+        yield return new WaitForSeconds(20); // Wait for 20 seconds <-- These should be tuneable
         ResetChaosFactorTimer();
 
         // After waiting for 1 minute in total,
@@ -106,20 +102,18 @@ public class ChaosFactorManager : MonoBehaviour
 
     public void ResetChaosFactorTimer() { nextChaosFactorTimerSeconds = 0f; }
 
-    public void StartChaosFactorTest(int toTest)
+    public void StartChaosFactorTest(int toTest) // TODO NATHANF: DEBUG TO BE REMOVED
     {
-
-
         Debug.Log("Made it to chaos factor manager test function, starting the coroutine, to test is: " + toTest);
             
         StartCoroutine(RunChaosFactor(chaosFactorList[toTest]));
             
         ResetChaosFactorTimer();
-
     }
 
-    public void Reset()
+    public void Reset() // TODO NATHANF: FILL THIS IN
     {
-        
+        // Reset timer
+        // Remove any active Chaos Factor
     }
 }

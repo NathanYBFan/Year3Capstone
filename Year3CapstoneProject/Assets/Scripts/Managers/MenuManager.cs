@@ -1,24 +1,25 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class MenuManager : MonoBehaviour
 {
     // Singleton Initialization
     public static MenuManager _Instance;
 
-    // Serialize Fields
+    #region SerializeFields
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private List<GameObject> playerInputs = new List<GameObject>();
+    #endregion
 
-    // Getters & Setters
+    #region Getters&Setters
     public List<GameObject> PlayerInputs { get { return playerInputs; } set { playerInputs = value; } }
+    #endregion
 
     private void Awake()
     {
-        if (_Instance != null && _Instance != this)
+        if (_Instance != null && _Instance != this) // TODO NATHANF: FIND A USE OR REMOVE
         {
             Debug.LogWarning("Destroyed a repeated MenuManager");
             Destroy(gameObject);
@@ -26,11 +27,5 @@ public class MenuManager : MonoBehaviour
 
         else if (_Instance == null)
             _Instance = this;
-    }
-
-
-    public void ResetAllInputs()
-    {
-        Debug.Log("Reset all inputs");
     }
 }

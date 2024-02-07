@@ -1,5 +1,4 @@
 using NaughtyAttributes;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,26 +7,18 @@ public class BulletObjectPoolManager : MonoBehaviour
 	// Singleton Initialization
 	public static BulletObjectPoolManager _Instance;
 
-	[SerializeField, ReadOnly]
-	[Foldout("Dependencies"), Tooltip("")]
+    #region SerializeFields
+    [SerializeField, ReadOnly]
+	[Foldout("Dependencies"), Tooltip("List of bullets that are deactivated and not in play")]
 	private List<GameObject> deactivatedBullets;
 
 	[SerializeField, ReadOnly]
-	[Foldout("Dependencies"), Tooltip("")]
+	[Foldout("Dependencies"), Tooltip("List of bullets that are actively being used")]
 	private List<GameObject> activatedBullets;
 
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]
+	[Foldout("Dependencies"), Tooltip("Default prefab of a bullet to use")]
 	private GameObject defaultBullet;
-
-	// If implimentation is greenlighted
-	//[SerializeField, ReadOnly]
-	//[Foldout("Dependencies"), Tooltip("")]
-	//private List<GameObject> audienceBulletsDeactivated;
-	//
-	//[SerializeField]
-	//[Foldout("Dependencies"), Tooltip("")]
-	//private GameObject audienceBullet;
 
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("The total number of bullets to fill the object pool with on start")]
@@ -40,8 +31,9 @@ public class BulletObjectPoolManager : MonoBehaviour
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("Absolute MAX bullets allowed to grow to")]
 	private int hardCapBulletCount = 100;
+    #endregion
 
-	private void Awake()
+    private void Awake()
 	{
 		if (_Instance != null && _Instance != this)
 		{
@@ -57,11 +49,9 @@ public class BulletObjectPoolManager : MonoBehaviour
 	{
 		activatedBullets.Clear();
 		PropogateList(deactivatedBullets, defaultBullet);
-
-		// If audience shooting is implimented
-		//PropogateList(audienceBulletsDeactivated, audienceBullet);
 	}
 
+	// Fills the selected list with bullets of a type
 	private void PropogateList(List<GameObject> bulletList, GameObject bulletType)
 	{
 		for (int i = 0; i < totalBulletsInPool; i++)
@@ -72,19 +62,21 @@ public class BulletObjectPoolManager : MonoBehaviour
 		}
 	}
 
+	// If a bullet is fired
 	public GameObject FiredBullet()
 	{
 		GameObject bulletToReturn = null;
 
-		if (deactivatedBullets.Count == 0)
+		if (deactivatedBullets.Count == 0) // If the unused bullet pool is empty
 		{
-			if (!bulletPoolCanGrow) return null;
+			if (!bulletPoolCanGrow) return null; // Pool shouldnt grow, then do nothing
 
-			if (totalBulletsInPool >= hardCapBulletCount) // If max cap has been reached
+			if (totalBulletsInPool >= hardCapBulletCount) // If the absolute max cap has been reached
 			{
 				bulletPoolCanGrow = false;
 				return null;
 			}
+
 			// Create Bullet & Reset
 			bulletToReturn = GameObject.Instantiate(defaultBullet, transform);
 			bulletToReturn.SetActive(false);
@@ -104,18 +96,22 @@ public class BulletObjectPoolManager : MonoBehaviour
 		deactivatedBullets.Remove(bulletToReturn);
 		activatedBullets.Add(bulletToReturn);
 
-		return bulletToReturn;
+		return bulletToReturn; // Return fired bullet
 	}
 
+	// If a bullet is finished its lifespan (Hit object or times out)
 	public void ExpiredBullet(GameObject bullet)
 	{
 		if (!bullet.GetComponentInChildren<BulletBehaviour>().isFragmentable) Destroy(bullet);
-
-		bullet.SetActive(false);
+        
+		// Deactivate the bullet
+        bullet.SetActive(false);
+		// Filter into correct list
 		deactivatedBullets.Add(bullet);
 		activatedBullets.Remove(bullet);
 	}
 
+	// Deactivates all bullets
 	public void ResetAllBullets()
 	{
 		foreach (GameObject bullet in activatedBullets)

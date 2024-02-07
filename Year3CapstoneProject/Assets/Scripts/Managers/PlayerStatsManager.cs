@@ -1,14 +1,12 @@
 using NaughtyAttributes;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStatsManager : MonoBehaviour
 {
     // Singleton Initialization
-    public static PlayerStatsManager _Instance;
+    public static PlayerStatsManager _Instance; // TODO NATHANF: THIS IS TO KEEP TRACK OF KILLS AND OTHER STATS
 
-    // Serialize Fields
+    #region SerializeFields
     [SerializeField]
     [Foldout(""), Tooltip("")]
     private int playerOnePoints;
@@ -24,13 +22,15 @@ public class PlayerStatsManager : MonoBehaviour
     [SerializeField]
     [Foldout(""), Tooltip("")]
     private int playerFourPoints;
+    #endregion
 
-    // Setters & Getters
+    #region Setters&Getters
     public int PlayerOnePoints { get { return playerOnePoints; } set { playerOnePoints = value; } }
     public int PlayerTwoPoints { get { return playerTwoPoints; } set {  playerTwoPoints = value; } }
     public int PlayerThreePoints { get { return playerThreePoints; } set { playerThreePoints = value; } }
     public int PlayerFourPoints { get { return playerFourPoints; } set {  playerFourPoints = value; } }
-
+    #endregion
+    
     private void Awake()
     {
         if (_Instance != null && _Instance != this)

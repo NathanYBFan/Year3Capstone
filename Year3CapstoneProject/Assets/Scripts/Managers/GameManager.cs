@@ -8,15 +8,11 @@ public class GameManager : MonoBehaviour
 	// Singleton Initialization
 	public static GameManager _Instance;
 
-	// Public Variables
-	public bool inGame;
-	public bool isPaused;
-
-    //Private Varibles
+    #region SerializeFields
     [SerializeField]
+	[Foldout("Dependencies"), Tooltip("List of all platforms")]
     private List<GameObject> platforms;
 
-    // Serialize Fields
     [SerializeField]
 	[Foldout("Dependencies"), Tooltip("Pause Menu GameObject")]
 	private GameObject pauseMenu;
@@ -35,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("array of spawnpoints")]
-    private Transform[] stageSpawnPoints; // TODO NATHANF: ADD SPAWNPOINTS ON INSTANTIATE
+    private Transform[] stageSpawnPoints; // TODO NATHANF: ADD SPAWNPOINTS ON STAGE INSTANTIATE
 
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("array of spawnpoints")]
@@ -44,15 +40,22 @@ public class GameManager : MonoBehaviour
     [SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("Selectected game mode to load")]
 	private string selectedGameMode;
+    #endregion
 
+    // Public Variables
+    private bool inGame;
+    private bool isPaused;
 
-	// Getters & Setters
-	public List<GameObject> Players { get { return players; } set { players = value; } }
+    #region Getters&Setters
+    public List<GameObject> Players { get { return players; } set { players = value; } }
     public List<GameObject> Platforms { get { return platforms; } set { platforms = value; } }
     public List<Modifier> Modifiers { get { return modifiers; } }
 	public string SelectedGameMode { get { return selectedGameMode; } set { selectedGameMode = value; } }
     public Transform[] StageSpawnPoints { get { return stageSpawnPoints; } set { stageSpawnPoints = value; } }
 	public InputSystemUIInputModule UiInputModule { get { return uiInputModule; } }
+	public bool InGame { get { return inGame; } set { inGame = value; } }
+	public bool IsPaused { get { return isPaused; } set { isPaused = value; } }
+    #endregion
 
     private void Awake()
 	{
@@ -79,6 +82,7 @@ public class GameManager : MonoBehaviour
 		// Start Player stuff
 	}
 
+	// Reset everything when game ends
 	public void EndGame()
 	{
         ChaosFactorManager._Instance.Reset();
@@ -90,7 +94,8 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
 	{
-		if (!inGame) return; // TODO NATHANF: If not in game should have different use
+		if (!inGame) return;
+
 		isPaused = !isPaused;
 		pauseMenu.SetActive(isPaused);
 
@@ -100,12 +105,13 @@ public class GameManager : MonoBehaviour
 			Time.timeScale = 1f;
 	}
 
-	public void WinConditionMet()
+	public void WinConditionMet() // TODO NATHANF: FILL OUT
 	{
 
 	}
 
-	public void QuitToMainMenu()
+	// Method to reset everything when quitting to main menu
+	public void QuitToMainMenu() // TODO NATHANF: INCORPORATE THIS INTO ENDING THE GAME
 	{
         PauseGame();
 		inGame = false;
@@ -187,7 +193,8 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	private void SpawnPlayersAtSpawnpoint()
+	// Spawn players at appropiate spawn points
+	private void SpawnPlayersAtSpawnpoint() // TODO NATHANF: INCORPORATE THIS INTO GAME START PROCEDURE
 	{
 		foreach(GameObject player in players)
 		{
@@ -195,7 +202,8 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	private void ResetPlayersToVoid()
+	// Reset player to platform on end game
+	private void ResetPlayersToVoid() // TODO NATHANF: INCORPORATE THIS INTO GAME END PROCEDURE
 	{
 		foreach(GameObject player in players)
 		{

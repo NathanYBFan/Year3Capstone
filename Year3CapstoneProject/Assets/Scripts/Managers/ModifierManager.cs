@@ -7,7 +7,7 @@ public class ModifierManager : MonoBehaviour
     // Singleton Initialization
     public static ModifierManager _Instance;
 
-    // Serialize Fields
+    #region SerializeFields
     [SerializeField, Required]
     [Foldout("Dependencies"), Tooltip("")]
     private GameObject modifierMenu;
@@ -19,12 +19,14 @@ public class ModifierManager : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private GameObject playerToModify;
+    #endregion
 
-    // Getters
+    #region Getters&Setters
     public List<Modifier> ListOfModifiers { get { return listOfModifiers; } }
     public GameObject PlayerToModify { get {  return playerToModify; } set { playerToModify = value; } }
+    #endregion
 
-    private void Awake()
+    private void Awake() // TODO NATHANF: ADD FUNCTIONALITY
     {
         if (_Instance != null && _Instance != this)
         {
@@ -35,12 +37,14 @@ public class ModifierManager : MonoBehaviour
             _Instance = this;
     }
 
+    // Open Menu actions
     public void OpenModifierMenu()
     {
         Time.timeScale = 0;
         modifierMenu.SetActive(true);
     }
 
+    // Close Menu actions
     public void CloseModifierMenu()
     {
         Time.timeScale = 1;

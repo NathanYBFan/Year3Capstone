@@ -6,13 +6,15 @@ public class PointsManager : MonoBehaviour
     // Singleton Initialization
     public static PointsManager _Instance;
 
-    // Serialize Fields
+    #region SerializeFields
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("")]
     private int[] pointsPerPlayer;
+    #endregion
 
-    // Private Variables
+    #region PrivateVariables
     private int winThreshold;
+    #endregion
 
     private void Awake()
     {
@@ -31,13 +33,15 @@ public class PointsManager : MonoBehaviour
         // Make number of points to record equal to the number of players
         pointsPerPlayer = new int[GameManager._Instance.Players.Count];
     }
-
+    
+    // Increase a select amount of points for a selected player
     public void IncreasePoints(int playerToIncrease, int amountOfPointsToAdd)
     {
         pointsPerPlayer[playerToIncrease] += amountOfPointsToAdd;
         CheckWinCondition();
     }
 
+    // Check to see if any player has met the win condition
     private void CheckWinCondition()
     {
         for (int i = 0; i < pointsPerPlayer.Length; i++)
