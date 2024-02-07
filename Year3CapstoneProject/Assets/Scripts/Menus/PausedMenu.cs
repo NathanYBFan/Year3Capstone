@@ -12,7 +12,6 @@ public class PausedMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("Set");
         if (EventSystem.current.gameObject != null)
             buttonWasOn = EventSystem.current.gameObject;
 
