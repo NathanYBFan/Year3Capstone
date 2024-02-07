@@ -690,6 +690,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStats: {fileID: 4952783801461123959}
+  healthBar: {fileID: 1441439104699277042}
+  energyBar: {fileID: 7225527456164556867}
 --- !u!1 &4619852430399021933
 GameObject:
   m_ObjectHideFlags: 0

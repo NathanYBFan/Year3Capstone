@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,16 +8,26 @@ public class Bars : MonoBehaviour
     [Tooltip("Player prefab go here")]
     private PlayerStats playerStats;
 
+    [SerializeField]
+    [Foldout("UI Bars"), Tooltip("Drag in Health bars here")]
     private Image healthBar;
+    [SerializeField]
+    [Foldout("UI Bars"), Tooltip("Drag in Energy bar here")]
     private Image energyBar;
     
     private void TakeDamage()
     {
-        healthBar.fillAmount = 1;
+        healthBar.fillAmount = (float)playerStats.CurrHealth/(float)playerStats.MaxHealth;
     }
 
     private void UseEnergy()
     {
-        energyBar.fillAmount = 1;
+        energyBar.fillAmount = playerStats.CurrentEnergy/playerStats.MaxEnergy;
+    }
+
+    private void Update()
+    {
+        TakeDamage();
+        UseEnergy();
     }
 }
