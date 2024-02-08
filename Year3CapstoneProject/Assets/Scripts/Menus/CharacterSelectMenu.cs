@@ -50,8 +50,6 @@ public class CharacterSelectMenu : MonoBehaviour
 
         ApplyCharacterStats();
 
-
-
         // Load correct scene
         if (GameManager._Instance.SelectedGameMode.CompareTo("FFA") == 0)
             LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[5], true);

@@ -69,17 +69,18 @@ public class ChaosFactorManager : MonoBehaviour
     // Start Chaos Factor
     public void StartChaosFactor()
     {
-        while (GameManager._Instance.InGame)
-        {
-            if (nextChaosFactorTimerSeconds > chaosFactorMaxTimerSeconds)
-            {
-                int chaosFactorToSpawn = Random.Range(1, chaosFactorList.Count - 1);
-                StartCoroutine(RunChaosFactor(chaosFactorList[chaosFactorToSpawn]));
-                ResetChaosFactorTimer();
-            }
-            else
-                nextChaosFactorTimerSeconds += Time.deltaTime;
-        }
+        // This needs to be a coroutine
+        //while (GameManager._Instance.InGame)
+        //{
+        //    if (nextChaosFactorTimerSeconds > chaosFactorMaxTimerSeconds)
+        //    {
+        //        int chaosFactorToSpawn = Random.Range(1, chaosFactorList.Count - 1);
+        //        StartCoroutine(RunChaosFactor(chaosFactorList[chaosFactorToSpawn]));
+        //        ResetChaosFactorTimer();
+        //    }
+        //    else
+        //        nextChaosFactorTimerSeconds += Time.deltaTime;
+        //}
     }
 
     // Run Coroutine
