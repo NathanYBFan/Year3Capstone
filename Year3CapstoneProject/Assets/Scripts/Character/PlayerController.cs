@@ -10,17 +10,17 @@ public class PlayerController : MonoBehaviour
 	public float temp;
 	#endregion Public Variables
 	#region Private Variables
-	private PlayerInput playerInput;	// This corresponds to a "Player Input Component" that is attached to the GO with this script on it.
-	private PlayerBody body;			// A specific player that will be manipulated by this controller.
+	private PlayerInput playerInput;    // This corresponds to a "Player Input Component" that is attached to the GO with this script on it.
+	private PlayerBody body;            // A specific player that will be manipulated by this controller.
 	private float holdDuration = 0.6f;
-	InputAction fireAction;				// Input Action for firing bullets (to see if the button is held down).
+	InputAction fireAction;             // Input Action for firing bullets (to see if the button is held down).
 	#endregion Private Variables
 
 	private void Awake()
 	{
 		playerInput = GetComponent<PlayerInput>();
 		var bodies = FindObjectsOfType<PlayerBody>(); // Getting an array of players...
-		int index = playerInput.playerIndex; 
+		int index = playerInput.playerIndex;
 
 		body = bodies.FirstOrDefault(m => m.PlayerIndex == index); // The body that this controller corresponds to is the one whose index matches the player input index of this controller.
 		playerInput.uiInputModule = GameManager._Instance.UiInputModule;
@@ -32,8 +32,15 @@ public class PlayerController : MonoBehaviour
 		OnFire();
 	}
 
-	public void OnDebugPressed(CallbackContext ctx)	{		DebugMenu._Instance.OnDebugPressed();	}
+	public void OnDebugPressed(CallbackContext ctx) { DebugMenu._Instance.OnDebugPressed(); }
 
+	public void OnRoll(CallbackContext ctx)
+	{
+		if (!GameManager._Instance.InGame) return;
+		if (body == null) return;
+
+		body.Roll();
+	}
 	public void OnFire()
 	{
 		if (!GameManager._Instance.InGame) return;

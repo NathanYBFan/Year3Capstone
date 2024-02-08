@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 3480853351814254915}
+  mesh: {fileID: 3915485280281416030}
   explosion: {fileID: 2979114167936268833, guid: f3505abae2f77b145abf69c313ba5dd2, type: 3}
   stats: {fileID: 4952783801461123959}
   collisionDetection: {fileID: 1550623138706404224}

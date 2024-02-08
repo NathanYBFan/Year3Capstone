@@ -6,25 +6,27 @@ public class PlayerBody : MonoBehaviour
 {
 	#region Serialize Fields
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]	private GameObject pivot;
+	[Foldout("Dependencies"), Tooltip("")] private GameObject pivot;
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]	private GameObject explosion;
+	[Foldout("Dependencies"), Tooltip("")] private GameObject mesh;
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]	private PlayerStats stats;
+	[Foldout("Dependencies"), Tooltip("")] private GameObject explosion;
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]	private PlayerCollision collisionDetection;
+	[Foldout("Dependencies"), Tooltip("")] private PlayerStats stats;
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]	private Rigidbody rb;
+	[Foldout("Dependencies"), Tooltip("")] private PlayerCollision collisionDetection;
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]	private AudioSource audioSource;
+	[Foldout("Dependencies"), Tooltip("")] private Rigidbody rb;
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]	private GameObject aimUI;
+	[Foldout("Dependencies"), Tooltip("")] private AudioSource audioSource;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")] private GameObject aimUI;
 
 	[SerializeField]
-	[Foldout("Stats"), Tooltip("")]			private int playerIndex = -1; //Which number this player is.
+	[Foldout("Stats"), Tooltip("")] private int playerIndex = -1; //Which number this player is.
 
 	[SerializeField]
-	[Foldout("Stats"), Tooltip("How fast the UI adjusts to a new angle.")]	
+	[Foldout("Stats"), Tooltip("How fast the UI adjusts to a new angle.")]
 	private float smoothFactor = 1;
 
 	[SerializeField, ReadOnly]
@@ -42,6 +44,7 @@ public class PlayerBody : MonoBehaviour
 	#endregion Getters & Setters
 	#region Private Variables
 	private bool hasExploded = false;
+	private bool isDashing = false, isShooting = false, isDead = false, isRolling = false;
 	private Vector2 moveDir, aimDir; //The current movement direction of this player.
 	#endregion Private Variables
 
@@ -52,6 +55,7 @@ public class PlayerBody : MonoBehaviour
 
 	private void Update()
 	{
+		UpdateAnimations();
 		// Begin self-destruct (if possible)
 		if (stats.CurrentHealth <= 0 && !stats.IsDead)
 		{
@@ -66,8 +70,8 @@ public class PlayerBody : MonoBehaviour
 		RaycastHit hit;
 		if (Physics.Raycast(aimUI.transform.position, Vector3.down, out hit))
 		{
-			Quaternion surfaceRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);	// Calculate the rotation to match the surface normal
-			Quaternion finalRotation = surfaceRotation * pivot.transform.rotation;			// Combine with the pivot's rotation
+			Quaternion surfaceRotation = Quaternion.FromToRotation(Vector3.up, hit.normal); // Calculate the rotation to match the surface normal
+			Quaternion finalRotation = surfaceRotation * pivot.transform.rotation;          // Combine with the pivot's rotation
 
 			aimUI.transform.rotation = Quaternion.Slerp(aimUI.transform.rotation, finalRotation, smoothFactor); ;
 		}
@@ -101,11 +105,50 @@ public class PlayerBody : MonoBehaviour
 		}
 	}
 
+	void Death()
+	{
+		isDead = true;
+	}
+	private void UpdateAnimations()
+	{
+		if (!GameManager._Instance.InGame) return;
+		Animation anim = mesh.transform.GetChild(0).GetChild(0).GetComponent<Animation>();
+		if (anim == null) return;
+		if (isDead)
+		{
+			anim.Play("Death");
+		}
+		if (isDashing)
+		{
+			anim.Play("Dash");
+			isDashing = false;
+		}
+		else if (isShooting)
+		{
+			anim.Play("Shoot");
+			isShooting = false;
+		}
+		else if (isRolling)
+		{
+			anim.Play("Roll");
+			isRolling = false;
+		}
+		else if (moveDir.magnitude != 0 && !anim.IsPlaying("Death") && !anim.IsPlaying("Dash") && !anim.IsPlaying("Shoot") && !anim.IsPlaying("Roll")) anim.Play("Walk");
+		else if (!anim.IsPlaying("Death") && !anim.IsPlaying("Dash") && !anim.IsPlaying("Shoot") && !anim.IsPlaying("Roll") && !anim.IsPlaying("Walk")) anim.Play("Idle");
+
+
+}
+	
+	public void Roll()
+	{
+		isRolling = true;
+	}
 	public void FireBullet()
 	{
 		if (Time.time >= stats.NextFireTime)
 		{
 			GetComponent<PlayerShooting>().FireBullet();
+			isShooting = true;
 			stats.NextFireTime = Time.time + 1f / stats.FireRate;
 		}
 	}
@@ -124,6 +167,7 @@ public class PlayerBody : MonoBehaviour
 
 	public void PerformDash()
 	{
+		isDashing = true;
 		float amount = (2 * stats.MaxEnergy) / 3;
 		if (stats.isPowerSaving) amount /= 2;
 		if (stats.CurrentEnergy - amount < 0) return;
@@ -140,9 +184,9 @@ public class PlayerBody : MonoBehaviour
 
 	}
 
-	public void SetMovementVector(Vector2 dir)	{	moveDir = dir;	}
+	public void SetMovementVector(Vector2 dir) { moveDir = dir; }
 
-	public void SetFiringDirection(Vector2 dir)	{	if (dir.x != 0 && dir.y != 0)	aimDir = dir;	}
+	public void SetFiringDirection(Vector2 dir) { if (dir.x != 0 && dir.y != 0) aimDir = dir; }
 }
 
 
