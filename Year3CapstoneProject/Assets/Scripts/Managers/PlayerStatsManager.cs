@@ -9,15 +9,15 @@ public class PlayerStatsManager : MonoBehaviour
     #region SerializeFields
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("Array of points for each player")]
-    private int[] playerPoints = new int[GameManager._Instance.Players.Count];
+    private int[] playerPoints;
 
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("Array of kills each player has done")]
-    private int[] playerKills = new int[GameManager._Instance.Players.Count];
+    private int[] playerKills;
 
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("Array of kills each player has done")]
-    private int[] playerDeaths = new int[GameManager._Instance.Players.Count];
+    private int[] playerDeaths;
     #endregion
 
     #region Setters&Getters
@@ -39,6 +39,12 @@ public class PlayerStatsManager : MonoBehaviour
             _Instance = this;
     }
 
+    private void Start()
+    {
+        playerPoints = new int[GameManager._Instance.Players.Count];
+        playerKills = new int[GameManager._Instance.Players.Count];
+        playerDeaths = new int[GameManager._Instance.Players.Count];
+    }
     public void ResetStats()
     {
         for (int i = 0; i < GameManager._Instance.Players.Count; i++)

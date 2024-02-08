@@ -16,15 +16,26 @@ public class ModifierDisplay : MonoBehaviour
 
     [SerializeField, Required]
     [Foldout("Dependencies"), Tooltip("")]
-    private TextMeshProUGUI modifierText;
+    private TextMeshProUGUI modifierDescriptionText;
+
+    [SerializeField, Required]
+    [Foldout("Dependencies"), Tooltip("")]
+    private TextMeshProUGUI modifierNameText;
 
     [SerializeField, ReadOnly]
     [Foldout("Dependencies"), Tooltip("")]
     private GameObject playerToModify;
 
-    public void ResetModifier(Modifier newModifier)
+    public void ResetModifier(Modifier newModifier, GameObject newPlayerToModify)
     {
+        // Assign values
         modifier = newModifier;
+        playerToModify = newPlayerToModify;
+
+        // Display proper data
+        modifierImage = modifier.modifierImage;
+        modifierDescriptionText.text = modifier.modifierDescription;
+        modifierNameText.text = modifier.modifierName;
     }
 
     public void ModifierClicked()

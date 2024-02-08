@@ -439,6 +439,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1822362147}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &158182240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 158182241}
+  - component: {fileID: 158182242}
+  m_Layer: 0
+  m_Name: PlayerStatsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &158182241
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158182240}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1756162859}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &158182242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158182240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 064e6709afadf674c8efa26a3463c1e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPoints: 00000000000000000000000000000000
+  playerKills: 00000000000000000000000000000000
+  playerDeaths: 00000000000000000000000000000000
 --- !u!1 &210767186
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +593,8 @@ MonoBehaviour:
   modifierDisplayObj: {fileID: 4195133267721753695, guid: 9c4d5ef6ba8601e40833d4bbb79e9bec, type: 3}
   modifierHolderTransform: {fileID: 371726806}
   modifierDisplayList: []
+  localListOfModifiers: []
+  numberOfDisplaysToSpawn: 3
 --- !u!1001 &240257430
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3216,15 +3265,6 @@ MonoBehaviour:
   - {fileID: 766413478}
   - {fileID: 2037555917}
   - {fileID: 240257433}
-  modifiers:
-  - {fileID: 11400000, guid: 9eead0c4e80adac4dab4b513c61899b5, type: 2}
-  - {fileID: 11400000, guid: ad6904c5ff2711849945a11f4259157a, type: 2}
-  - {fileID: 11400000, guid: d05584c3ab75df64697b86df76347b62, type: 2}
-  - {fileID: 11400000, guid: b790741006cd2454297ab5af0c7a0802, type: 2}
-  - {fileID: 11400000, guid: a627b655536938545922e75ce611c666, type: 2}
-  - {fileID: 11400000, guid: 886a83c9009fd764e98111557b6fd765, type: 2}
-  - {fileID: 11400000, guid: 1944556be5cdcb240bc944a1ba793b33, type: 2}
-  - {fileID: 11400000, guid: 5e02542a5a3b94e4699768eff2ac97db, type: 2}
   stageSpawnPoints:
   - {fileID: 370876313}
   - {fileID: 37866473}
@@ -4198,13 +4238,14 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1452139198}
+  - {fileID: 296285070}
   - {fileID: 1058846376}
   - {fileID: 820440619}
   - {fileID: 611015150}
   - {fileID: 1478896579}
   - {fileID: 899188258}
+  - {fileID: 158182241}
   - {fileID: 210767187}
-  - {fileID: 296285070}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1756162860
