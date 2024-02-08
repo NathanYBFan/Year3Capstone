@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -43,6 +44,7 @@ public class PlayerBody : MonoBehaviour
 	public int PlayerIndex { get { return playerIndex; } }
 	#endregion Getters & Setters
 	#region Private Variables
+	Animation anim;
 	private bool hasExploded = false;
 	private bool isDashing = false, isShooting = false, isDead = false, isRolling = false;
 	private Vector2 moveDir, aimDir; //The current movement direction of this player.
@@ -105,19 +107,28 @@ public class PlayerBody : MonoBehaviour
 		}
 	}
 
-	void Death()
+	private IEnumerator DestroyPlayer()
+	{
+		while (anim.IsPlaying("Death"))
+		{
+			yield return null;
+		}
+		Destroy(gameObject);
+
+	}
+	public void Death()
 	{
 		isDead = true;
+		anim.Play("Death");
+		StartCoroutine("DestroyPlayer");
+
 	}
 	private void UpdateAnimations()
 	{
 		if (!GameManager._Instance.InGame) return;
-		Animation anim = mesh.transform.GetChild(0).GetChild(0).GetComponent<Animation>();
+		anim = mesh.transform.GetChild(0).GetChild(0).GetComponent<Animation>();
 		if (anim == null) return;
-		if (isDead)
-		{
-			anim.Play("Death");
-		}
+
 		if (isDashing)
 		{
 			anim.Play("Dash");
@@ -137,8 +148,8 @@ public class PlayerBody : MonoBehaviour
 		else if (!anim.IsPlaying("Death") && !anim.IsPlaying("Dash") && !anim.IsPlaying("Shoot") && !anim.IsPlaying("Roll") && !anim.IsPlaying("Walk")) anim.Play("Idle");
 
 
-}
-	
+	}
+
 	public void Roll()
 	{
 		isRolling = true;

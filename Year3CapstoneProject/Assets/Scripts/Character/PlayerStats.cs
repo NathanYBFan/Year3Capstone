@@ -145,6 +145,7 @@ public class PlayerStats : MonoBehaviour
 			if (!canSelfDestruct)
 			{
 				isDead = true;
+				StartDeath();
 			}
 		}
 
@@ -178,6 +179,8 @@ public class PlayerStats : MonoBehaviour
 	{
 		currHealth = 0;
 		isDead = true;
+
+		gameObject.GetComponent<PlayerBody>().Death();
 	}
 
 	public void TakeDamage(int amount)
