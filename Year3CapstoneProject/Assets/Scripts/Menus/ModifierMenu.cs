@@ -20,15 +20,10 @@ public class ModifierMenu : MonoBehaviour
     // Getters
     public List<GameObject> ModifierDisplayList { get { return modifierDisplayList; } }
 
-    private void Start()
-    {
-        for (int i = 0; i < 3; i++)
-            modifierDisplayList.Add(GameObject.Instantiate(modifierDisplayObj, modifierHolderTransform));
-        ModifierManager._Instance.CloseModifierMenu();
-    }
-
     private void OnEnable()
     {
+        for (int i = 0; i < 3 - modifierDisplayList.Count; i++)
+            modifierDisplayList.Add(GameObject.Instantiate(modifierDisplayObj, modifierHolderTransform));
         ResetAllModifierSelection();
     }
 
@@ -45,7 +40,6 @@ public class ModifierMenu : MonoBehaviour
             modiferDisplay.GetComponent<ModifierDisplay>().ResetModifier(selectedModifier);
         }
     }
-
     public void SkipButtonPressed()
     {
         ModifierManager._Instance.CloseModifierMenu();

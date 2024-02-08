@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
     #region Getters&Setters
     public List<GameObject> Players { get { return players; } set { players = value; } }
     public List<GameObject> Platforms { get { return platforms; } set { platforms = value; } }
-    public List<Modifier> Modifiers { get { return modifiers; } }
 	public string SelectedGameMode { get { return selectedGameMode; } set { selectedGameMode = value; } }
     public Transform[] StageSpawnPoints { get { return stageSpawnPoints; } set { stageSpawnPoints = value; } }
 	public InputSystemUIInputModule UiInputModule { get { return uiInputModule; } }

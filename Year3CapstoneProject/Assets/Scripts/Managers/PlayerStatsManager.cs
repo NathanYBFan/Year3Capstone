@@ -21,10 +21,10 @@ public class PlayerStatsManager : MonoBehaviour
     #endregion
 
     #region Setters&Getters
-    public int PlayerOnePoints { get { return playerOnePoints; } set { playerOnePoints = value; } }
-    public int PlayerTwoPoints { get { return playerTwoPoints; } set {  playerTwoPoints = value; } }
-    public int PlayerThreePoints { get { return playerThreePoints; } set { playerThreePoints = value; } }
-    public int PlayerFourPoints { get { return playerFourPoints; } set {  playerFourPoints = value; } }
+    public int[] PlayerPoints { get { return playerPoints; } set { playerPoints = value; } }
+    public int[] PlayerKills { get { return playerKills; } set { playerKills = value; } }
+    public int[] PlayerDeaths { get { return playerDeaths; } set { playerDeaths = value; } }
+    //public int[] PlayerFourPoints { get { return playerFourPoints; } set {  playerFourPoints = value; } }
     #endregion
     
     private void Awake()
