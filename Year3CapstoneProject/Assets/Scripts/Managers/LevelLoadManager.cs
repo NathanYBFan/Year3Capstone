@@ -112,18 +112,23 @@ public class LevelLoadManager : MonoBehaviour
     }
 
     // Level Reset
-    public void ResetAll() // TODO NATHANF: FILL OUT
+    public void ResetLevelAll()
     {
         GameManager._Instance.InGame = true;
 
-        // RESET STAGE
+        // RESET STAGE   TODO NATHANF: MAKE A RESET STAGE METHOD
+
+
         // RESET PLAYERS
+        GameManager._Instance.StartNewGame();
+
         // RESET STATS
+        PlayerStatsManager._Instance.ResetStats();
     }
 
     // New game started
     public void StartNewGame()
     {
-        ResetAll();
+        ResetLevelAll();
     }
 }

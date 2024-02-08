@@ -23,6 +23,11 @@ public class ChaosFactorManager : MonoBehaviour
     [SerializeField]
     [Foldout("Stats"), Tooltip("Max time between each chaos factor")]
     private float chaosFactorMaxTimerSeconds = 30f;
+
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("A list of all chaos factors currently in play")]
+    private List<GameObject> currentRunningChaosFactors;
+
     #endregion
 
     #region Getters&Setters
@@ -39,11 +44,11 @@ public class ChaosFactorManager : MonoBehaviour
 
         else if (_Instance == null)
             _Instance = this;
-     
+
         nextChaosFactorTimerSeconds = 0f;
     }
 
-    private void Update()
+    private void Update() // TODO: DEBUG TO BE REMOVED
     {
         if (Input.GetKeyDown("[1]"))
         {
@@ -82,7 +87,8 @@ public class ChaosFactorManager : MonoBehaviour
     {
         // Instantiate Chaos Factor
         GameObject chaosFactor = GameObject.Instantiate(chaosFactorToSpawn, transform);
-        Destroy(chaosFactor, 60); // Destroy Chaos Factor after 1 minute
+        currentRunningChaosFactors.Add(chaosFactor);
+        StartCoroutine(DestroyAfterTime(chaosFactor, 60)); // Destroy Chaos Factor after 1 minute
 
         yield return new WaitForSeconds(20); // Wait for 20 seconds <-- These should be tuneable
         ResetChaosFactorTimer();
@@ -100,20 +106,31 @@ public class ChaosFactorManager : MonoBehaviour
         yield break;
     }
 
-    public void ResetChaosFactorTimer() { nextChaosFactorTimerSeconds = 0f; }
-
-    public void StartChaosFactorTest(int toTest) // TODO NATHANF: DEBUG TO BE REMOVED
+    public IEnumerator DestroyAfterTime(GameObject chaosFactorToDestroy, float timeToWaitFor)
     {
-        Debug.Log("Made it to chaos factor manager test function, starting the coroutine, to test is: " + toTest);
-            
-        StartCoroutine(RunChaosFactor(chaosFactorList[toTest]));
-            
-        ResetChaosFactorTimer();
+        yield return new WaitForSeconds(timeToWaitFor);
+        currentRunningChaosFactors.Remove(chaosFactorToDestroy);
+        Destroy(chaosFactorToDestroy);
     }
 
-    public void Reset() // TODO NATHANF: FILL THIS IN
+    public void ResetChaosFactorTimer() { nextChaosFactorTimerSeconds = 0f; }
+
+    private void RemoveAllChaosFactors()
     {
-        // Reset timer
+        StopAllCoroutines();
+        for (int i = 0; i < currentRunningChaosFactors.Count; i++)
+        {
+            Destroy(currentRunningChaosFactors[i]);
+        }
+        currentRunningChaosFactors.Clear();
+    }
+
+    // Public method to completely reset all chaos factors
+    public void Reset()
+    {
+        // Reset timer to 0
+        ResetChaosFactorTimer();
         // Remove any active Chaos Factor
+        RemoveAllChaosFactors();
     }
 }

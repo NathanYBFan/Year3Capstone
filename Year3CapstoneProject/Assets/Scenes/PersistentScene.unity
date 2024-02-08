@@ -485,9 +485,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modifierMenu: {fileID: 222585821}
   listOfModifiers:
-  - {fileID: 6411136873885653366, guid: f600e5b83be06c142af03213d4626329, type: 3}
-  - {fileID: 2174072255946404976, guid: da7a9c4b385534149be74d04fd32cebd, type: 3}
-  - {fileID: 7108811874639624729, guid: f58ca436ec30d9e4b8025ac2a4758590, type: 3}
+  - {fileID: 11400000, guid: 9eead0c4e80adac4dab4b513c61899b5, type: 2}
+  - {fileID: 11400000, guid: ad6904c5ff2711849945a11f4259157a, type: 2}
+  - {fileID: 11400000, guid: d05584c3ab75df64697b86df76347b62, type: 2}
+  - {fileID: 11400000, guid: b790741006cd2454297ab5af0c7a0802, type: 2}
+  - {fileID: 11400000, guid: a627b655536938545922e75ce611c666, type: 2}
+  - {fileID: 11400000, guid: 886a83c9009fd764e98111557b6fd765, type: 2}
+  - {fileID: 11400000, guid: 1944556be5cdcb240bc944a1ba793b33, type: 2}
+  - {fileID: 11400000, guid: 5e02542a5a3b94e4699768eff2ac97db, type: 2}
   playerToModify: {fileID: 0}
 --- !u!1 &222585821
 GameObject:
@@ -1403,6 +1408,7 @@ MonoBehaviour:
   - {fileID: 852658246439149863, guid: 2303ff10ead46aa4cbd804c6899469b0, type: 3}
   nextChaosFactorTimerSeconds: 0
   chaosFactorMaxTimerSeconds: 30
+  currentRunningChaosFactors: []
 --- !u!1 &694279906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1728,51 +1734,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bcb878bf7c05dc74b91f201d9fa24ea9, type: 3}
   - {fileID: 8300000, guid: 2f90e7f1cb927c048bf0d86bd971b329, type: 3}
   musicList: []
---- !u!1 &853970096
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 853970097}
-  - component: {fileID: 853970098}
-  m_Layer: 0
-  m_Name: MenuManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &853970097
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853970096}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1452139198}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &853970098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853970096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc91114e805bd294f9e5c9b98f5ff6cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInputs: []
 --- !u!1 &872936915
 GameObject:
   m_ObjectHideFlags: 0
@@ -3233,8 +3194,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 853970097}
+  m_Children: []
   m_Father: {fileID: 1756162859}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1452139199
@@ -3249,11 +3209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 964a81809688e1b4aa67f8f2e3f35ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inGame: 0
-  isPaused: 0
   platforms: []
   pauseMenu: {fileID: 1333667569}
-  playerInputManager: {fileID: 899188257}
   players:
   - {fileID: 2024259843}
   - {fileID: 766413478}

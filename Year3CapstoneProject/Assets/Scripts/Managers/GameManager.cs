@@ -18,16 +18,8 @@ public class GameManager : MonoBehaviour
 	private GameObject pauseMenu;
 
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("Object Holding the playerInputManager script")]
-    private GameObject playerInputManager;
-
-    [SerializeField]
 	[Foldout("Dependencies"), Tooltip("All players as a referenceable gameobject")]
 	private List<GameObject> players;
-
-	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("All modifiers accessible in the game.")]
-	private List<Modifier> modifiers;
 
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("array of spawnpoints")]
@@ -42,9 +34,10 @@ public class GameManager : MonoBehaviour
 	private string selectedGameMode;
     #endregion
 
-    // Public Variables
+	#region PrivateVariables
     private bool inGame;
     private bool isPaused;
+    #endregion
 
     #region Getters&Setters
     public List<GameObject> Players { get { return players; } set { players = value; } }
@@ -74,8 +67,8 @@ public class GameManager : MonoBehaviour
 	public void StartNewGame()
 	{
 		ChaosFactorManager._Instance.Reset();
+		ChaosFactorManager._Instance.StartChaosFactor();
 		BulletObjectPoolManager._Instance.ResetAllBullets();
-		playerInputManager.SetActive(true);
 
 		SpawnPlayersAtSpawnpoint();
 
@@ -87,9 +80,7 @@ public class GameManager : MonoBehaviour
 	{
         ChaosFactorManager._Instance.Reset();
         BulletObjectPoolManager._Instance.ResetAllBullets();
-		playerInputManager.SetActive(false);
-
-		ResetPlayersToVoid();
+		QuitToMainMenu();
     }
 
     public void PauseGame()
@@ -107,21 +98,17 @@ public class GameManager : MonoBehaviour
 
 	public void WinConditionMet() // TODO NATHANF: FILL OUT
 	{
-
+		// go to end screen
+		// reset players
+		EndGame();
 	}
 
 	// Method to reset everything when quitting to main menu
-	public void QuitToMainMenu() // TODO NATHANF: INCORPORATE THIS INTO ENDING THE GAME
+	private void QuitToMainMenu()
 	{
         PauseGame();
 		inGame = false;
-
-		foreach (GameObject player in Players)
-		{
-			player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-			player.transform.position = new Vector3(-100, 0, 0);
-			player.GetComponent<PlayerStats>().ResetPlayer();
-		}
+		ResetPlayersToVoid();
 	}
 
 	/// <summary>
@@ -162,7 +149,7 @@ public class GameManager : MonoBehaviour
 				Debug.LogWarning("Invalid modifier entry!");
 				return;
 		}
-		Modifier modifierToGive = modifiers.Find(m => m.modifierName == modifierName); //Search for the modifier to give within the list of existing modifiers.
+		Modifier modifierToGive = ModifierManager._Instance.ListOfModifiers.Find(m => m.modifierName == modifierName); //Search for the modifier to give within the list of existing modifiers.
 
 		//If it exists...
 		if (modifierToGive != null)
@@ -188,26 +175,28 @@ public class GameManager : MonoBehaviour
 				}
 				//There's no player with this number.
 				else Debug.LogWarning("Player of index " + playerIndex + " doesn't exist!");
-
 			}
 		}
 	}
 
 	// Spawn players at appropiate spawn points
-	private void SpawnPlayersAtSpawnpoint() // TODO NATHANF: INCORPORATE THIS INTO GAME START PROCEDURE
+	private void SpawnPlayersAtSpawnpoint()
 	{
 		foreach(GameObject player in players)
 		{
+            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
 			player.transform.position = stageSpawnPoints[player.GetComponent<PlayerBody>().PlayerIndex].position;
-		}
-	}
+        }
+    }
 
 	// Reset player to platform on end game
-	private void ResetPlayersToVoid() // TODO NATHANF: INCORPORATE THIS INTO GAME END PROCEDURE
+	private void ResetPlayersToVoid()
 	{
-		foreach(GameObject player in players)
-		{
-			player.transform.position = new Vector3(-100, 0, 0);
-		}
-	}
+        foreach (GameObject player in Players)
+        {
+            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            player.transform.position = new Vector3(-100, 0, 0);
+            player.GetComponent<PlayerStats>().ResetPlayer(); // Remove player model
+        }
+    }
 }

@@ -4,24 +4,20 @@ using UnityEngine;
 public class PlayerStatsManager : MonoBehaviour
 {
     // Singleton Initialization
-    public static PlayerStatsManager _Instance; // TODO NATHANF: THIS IS TO KEEP TRACK OF KILLS AND OTHER STATS
+    public static PlayerStatsManager _Instance;
 
     #region SerializeFields
-    [SerializeField]
-    [Foldout(""), Tooltip("")]
-    private int playerOnePoints;
+    [SerializeField, ReadOnly]
+    [Foldout("Stats"), Tooltip("Array of points for each player")]
+    private int[] playerPoints = new int[GameManager._Instance.Players.Count];
 
-    [SerializeField]
-    [Foldout(""), Tooltip("")]
-    private int playerTwoPoints;
+    [SerializeField, ReadOnly]
+    [Foldout("Stats"), Tooltip("Array of kills each player has done")]
+    private int[] playerKills = new int[GameManager._Instance.Players.Count];
 
-    [SerializeField]
-    [Foldout(""), Tooltip("")]
-    private int playerThreePoints;
-
-    [SerializeField]
-    [Foldout(""), Tooltip("")]
-    private int playerFourPoints;
+    [SerializeField, ReadOnly]
+    [Foldout("Stats"), Tooltip("Array of kills each player has done")]
+    private int[] playerDeaths = new int[GameManager._Instance.Players.Count];
     #endregion
 
     #region Setters&Getters
@@ -41,5 +37,33 @@ public class PlayerStatsManager : MonoBehaviour
 
         else if (_Instance == null)
             _Instance = this;
+    }
+
+    public void ResetStats()
+    {
+        for (int i = 0; i < GameManager._Instance.Players.Count; i++)
+        {
+            // Reset all points
+            playerPoints[i] = 0;
+            // Reset kills
+            playerKills[i] = 0;
+            // Reset Deaths
+            playerDeaths[i] = 0;
+        }
+    }
+
+    public void IncreasePoints(int playerNumber, int amount)
+    {
+        playerPoints[playerNumber] += amount;
+    }
+
+    public void IncreaseKillCounter(int playerNumber, int amount)
+    {
+        playerKills[playerNumber] += amount;
+    }
+
+    public void IncreaseDeathCounter(int playerNumber, int amount)
+    {
+        playerDeaths[playerNumber] += amount;
     }
 }

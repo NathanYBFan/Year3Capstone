@@ -19,7 +19,6 @@ public class MainMenu : MonoBehaviour
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], true);
     }
 
-    // TODO NATHANF: ADJUST SETTINGS TO WORK WITH LEVEL LOADER
     public void SettingsButtonPressed()
     {
         LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[1]);

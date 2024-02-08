@@ -9,15 +9,15 @@ public class ModifierManager : MonoBehaviour
 
     #region SerializeFields
     [SerializeField, Required]
-    [Foldout("Dependencies"), Tooltip("")]
+    [Foldout("Dependencies"), Tooltip("The menu to gain Modifiers")]
     private GameObject modifierMenu;
 
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private List<Modifier> listOfModifiers; // TODO NATHANF: Change scriptable Object to created script
+    [Foldout("Dependencies"), Tooltip("List of all modifiers obtainable in the game")]
+    private List<Modifier> listOfModifiers;
 
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
+    [Foldout("Dependencies"), Tooltip("The player to apply the modifier to")]
     private GameObject playerToModify;
     #endregion
 
@@ -26,7 +26,7 @@ public class ModifierManager : MonoBehaviour
     public GameObject PlayerToModify { get {  return playerToModify; } set { playerToModify = value; } }
     #endregion
 
-    private void Awake() // TODO NATHANF: ADD FUNCTIONALITY
+    private void Awake() // TODO NATHANF: ADD FUNCTIONALITY TO THIS SCRIPT
     {
         if (_Instance != null && _Instance != this)
         {

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
 {
-	// TODO NATHANF: FILL IN BEHAVIOURS
 	#region Serialize Fields
 	[SerializeField, Required]
 	[Foldout("Dependencies"), Tooltip("")]
