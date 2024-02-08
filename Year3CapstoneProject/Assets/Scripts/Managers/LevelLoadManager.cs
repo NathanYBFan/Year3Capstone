@@ -114,7 +114,7 @@ public class LevelLoadManager : MonoBehaviour
     // Level Reset
     public void ResetAll() // TODO NATHANF: FILL OUT
     {
-        GameManager._Instance.inGame = true;
+        GameManager._Instance.InGame = true;
 
         // RESET STAGE
         // RESET PLAYERS

@@ -64,7 +64,7 @@ public class ChaosFactorManager : MonoBehaviour
     // Start Chaos Factor
     public void StartChaosFactor()
     {
-        while (GameManager._Instance.inGame)
+        while (GameManager._Instance.InGame)
         {
             if (nextChaosFactorTimerSeconds > chaosFactorMaxTimerSeconds)
             {

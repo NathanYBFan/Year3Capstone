@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
 	public void OnFire()
 	{
-		if (!GameManager._Instance.inGame) return;
+		if (!GameManager._Instance.InGame) return;
 		if (body == null) return;
 
 		if (fireAction.IsPressed()) body.FireBullet();
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
 	public void OnSelfDestruct(CallbackContext ctx)
 	{
-		if (!GameManager._Instance.inGame) return;
+		if (!GameManager._Instance.InGame) return;
 		float holdTime = (float)ctx.duration;
 		if (body == null || holdTime < holdDuration) return;
 
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
 	public void OnDash(CallbackContext ctx)
 	{
-		if (!GameManager._Instance.inGame) return;
+		if (!GameManager._Instance.InGame) return;
 		if (body == null) return;
 
 		body.PerformDash();
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
 	public void OnAim(CallbackContext ctx)
 	{
-		if (!GameManager._Instance.inGame) return;
+		if (!GameManager._Instance.InGame) return;
 		if (body == null) return;
 
 		body.SetFiringDirection(ctx.ReadValue<Vector2>());
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
 	public void OnMove(CallbackContext ctx)
 	{
-		if (!GameManager._Instance.inGame) return;
+		if (!GameManager._Instance.InGame) return;
 
 		if (body == null) return;
 
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
 	public void OnPause(CallbackContext ctx)
 	{
-		if (!GameManager._Instance.inGame) return;
+		if (!GameManager._Instance.InGame) return;
 		if (body == null) return;
 
 		GameManager._Instance.PauseGame();
