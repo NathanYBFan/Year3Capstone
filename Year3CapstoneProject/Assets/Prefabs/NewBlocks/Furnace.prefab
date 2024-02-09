@@ -68,8 +68,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Furnace
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
+      propertyPath: m_TagString
+      value: StageNormal
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 216441075546738035}
   m_SourcePrefab: {fileID: 100100000, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
+--- !u!1 &6297765103710325832 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
+  m_PrefabInstance: {fileID: 6604333343566491929}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &216441075546738035
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6297765103710325832}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0225319, y: 1.0225307, z: 1.0169573}
+  m_Center: {x: -0.0011219382, y: 0.00047284376, z: 0.002702207}
