@@ -126,7 +126,6 @@ public class PlayerBody : MonoBehaviour
 	public void Death()
 	{
 		isDead = true;
-		DeathSound();
 		headAnim.Play("Death");
 		StartCoroutine("DestroyPlayer");
 
@@ -221,13 +220,6 @@ public class PlayerBody : MonoBehaviour
 		velocity.y = 0;
 		rb.AddForce(newForceDirection * stats.DashSpeed, ForceMode.Impulse);
 
-	}
-
-	private void DeathSound()
-	{
-		float randPitch = Random.Range(0.8f, 1.5f);
-		audioSource.pitch = randPitch;
-		audioSource.PlayOneShot(AudioManager._Instance.PlayerAudioList[2]);
 	}
 
 	public void SetMovementVector(Vector2 dir) { moveDir = dir; if (dir.x != 0 && dir.y != 0) legDir = dir; }
