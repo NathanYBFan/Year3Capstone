@@ -19,7 +19,7 @@ public class CharacterSelectMenu : MonoBehaviour
     private GameObject firstButton;
 
     [SerializeField]
-    [Foldout("Stats"), Tooltip("")]
+    [Foldout("Stats"), Tooltip("Character to instantiate")]
     private CharacterStatsSO[] characterSelectedByPlayers = new CharacterStatsSO[4];
     
     private void Start()

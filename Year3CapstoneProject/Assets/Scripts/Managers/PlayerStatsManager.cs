@@ -23,15 +23,20 @@ public class PlayerStatsManager : MonoBehaviour
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("Number of points needed to Win")]
     private int pointsThreashold;
+
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("Number of points to assign for order First place = 0")]
+    private int[] pointsToGiveForPosition;
     #endregion
 
     #region Setters&Getters
     public int[] PlayerPoints { get { return playerPoints; } set { playerPoints = value; } }
     public int[] PlayerKills { get { return playerKills; } set { playerKills = value; } }
     public int[] PlayerDeaths { get { return playerDeaths; } set { playerDeaths = value; } }
+    public int[] PointsToGiveForPosition { get { return pointsToGiveForPosition; } set { pointsToGiveForPosition = value; } }
     //public int[] PlayerFourPoints { get { return playerFourPoints; } set {  playerFourPoints = value; } }
     #endregion
-    
+
     private void Awake()
     {
         if (_Instance != null && _Instance != this)

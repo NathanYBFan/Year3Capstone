@@ -1,5 +1,7 @@
 using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 
@@ -115,12 +117,20 @@ public class GameManager : MonoBehaviour
 		RemovePlayerModels();
     }
 
-	/// <summary>
-	/// This is to give functionality to the "Give" command for the Command Prompt menu. (Debug purposes)
-	/// </summary>
-	/// <param name="playerIndex">The index of the player to give some modifier to.</param>
-	/// <param name="modifierName">The name of the modifier being given.</param>
-	public void CommandGive(int playerIndex, string modifierName) // There is probably a better way to do this
+    public void PlayerDied(GameObject playerThatDied)
+    {
+        deadPlayerList.Add(playerThatDied);
+
+        if (deadPlayerList.Count >= players.Count - 1)
+            EndRound();
+    }
+
+    /// <summary>
+    /// This is to give functionality to the "Give" command for the Command Prompt menu. (Debug purposes)
+    /// </summary>
+    /// <param name="playerIndex">The index of the player to give some modifier to.</param>
+    /// <param name="modifierName">The name of the modifier being given.</param>
+    public void CommandGive(int playerIndex, string modifierName) // There is probably a better way to do this
 	{
 		//Converting command modifier name to actual modifier name.
 		switch (modifierName)
@@ -210,16 +220,14 @@ public class GameManager : MonoBehaviour
             player.GetComponent<PlayerStats>().ResetPlayer(); // Remove player model
     }
 
-    public void PlayerDied(GameObject playerThatDied)
-	{
-		deadPlayerList.Add(playerThatDied);
-		
-		if (deadPlayerList.Count >= players.Count)
-			EndRound();
-	}
-
 	private void EndRound()
 	{
+		// Make sure all players are in the list
+		for (int i = 0; i < players.Count; i++)
+        {
+			if (!deadPlayerList.Contains(players[i]))
+				deadPlayerList.Add(players[i]);
+		}
 		// Remove players from stage
 		ResetPlayersToVoid();
 
@@ -227,6 +235,12 @@ public class GameManager : MonoBehaviour
 		ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
 		ModifierManager._Instance.OpenModifierMenu(); // Open modifier menu for dead player
 
-		// TODO NATHANF: Reset stage
-	}
+		// Assign points
+		PlayerStatsManager._Instance.IncreasePoints(0, PlayerStatsManager._Instance.PointsToGiveForPosition[3]); // First to die,	least points
+        PlayerStatsManager._Instance.IncreasePoints(1, PlayerStatsManager._Instance.PointsToGiveForPosition[2]); // Second to die,	some points
+        PlayerStatsManager._Instance.IncreasePoints(2, PlayerStatsManager._Instance.PointsToGiveForPosition[1]); // Third to die,	more points
+        PlayerStatsManager._Instance.IncreasePoints(3, PlayerStatsManager._Instance.PointsToGiveForPosition[0]); // Last one alive, most points
+
+        // TODO NATHANF: Reset stage
+    }
 }
