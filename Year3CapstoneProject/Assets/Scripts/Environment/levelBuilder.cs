@@ -71,21 +71,23 @@ public class levelBuilder : MonoBehaviour
 
                     else if (levelInfo[i, j] < 0)
                     {
-
+                        //Debug.Log("called < 0");
                         if (levelInfo[i, j] < -20)
                         {
-                            Debug.Log(levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.x);
+                            //Debug.Log("called");
+                            
                             Vector3 rot = new Vector3(levelAssets[levelInfo[i, j] *-1 - 21].transform.rotation.x, levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.y, levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.z);
                             temp = Instantiate(levelAssets[levelInfo[i, j] * -1 - 21], new Vector3(xVal, yVal+tileSize, zVal), Quaternion.Euler(new Vector3(rot.x-90, rot.y, rot.z + 180)), this.transform);
+                           // Debug.Log(temp);
 
                         }
 
 
-                        else
-                        {
-                            Vector3 rot = new Vector3(levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.x, levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.y, levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.z);
-                            temp = Instantiate(levelAssets[levelInfo[i, j] * -1 - 1], new Vector3(xVal, yVal, zVal), Quaternion.Euler(new Vector3(rot.x-90, rot.y,rot.z+180)), this.transform);
-                        }
+                        //else
+                        //{
+                        //    Vector3 rot = new Vector3(levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.x, levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.y, levelAssets[levelInfo[i, j] * -1 - 1].transform.rotation.z);
+                        //    temp = Instantiate(levelAssets[levelInfo[i, j] * -1 - 1], new Vector3(xVal, yVal, zVal), Quaternion.Euler(new Vector3(rot.x-90, rot.y,rot.z+180)), this.transform);
+                        //}
                 
                     }
 

@@ -60,6 +60,13 @@ public class ChaosFactorManager : MonoBehaviour
             Debug.Log("Input recived: Numpad 2");
             StartCoroutine(RunChaosFactor(chaosFactorList[1]));
         }
+
+        if (Input.GetKeyDown("[3]"))
+        {
+            Debug.Log("Input recived: Numpad 3");
+            StartCoroutine(RunChaosFactor(chaosFactorList[2]));
+        }
+
         if (Input.GetKeyDown(KeyCode.O))
         {
 
