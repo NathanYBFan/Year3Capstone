@@ -120,15 +120,16 @@ public class PlayerBody : MonoBehaviour
 		{
 			yield return null;
 		}
-		Destroy(gameObject);
+		//Destroy(gameObject);
+        GameManager._Instance.PlayerDied(this.gameObject);
+    }
 
-	}
-	public void Death()
+    public void Death()
 	{
 		isDead = true;
 		headAnim.Play("Death");
+		DeathSound();
 		StartCoroutine("DestroyPlayer");
-
 	}
 	private void UpdateAnimations()
 	{
@@ -221,8 +222,13 @@ public class PlayerBody : MonoBehaviour
 		rb.AddForce(newForceDirection * stats.DashSpeed, ForceMode.Impulse);
 
 	}
-
-	public void SetMovementVector(Vector2 dir) { moveDir = dir; if (dir.x != 0 && dir.y != 0) legDir = dir; }
+    private void DeathSound()
+    {
+        float randPitch = Random.Range(0.8f, 1.5f);
+        audioSource.pitch = randPitch;
+        audioSource.PlayOneShot(AudioManager._Instance.PlayerAudioList[2]);
+    }
+    public void SetMovementVector(Vector2 dir) { moveDir = dir; if (dir.x != 0 && dir.y != 0) legDir = dir; }
 
 	public void SetFiringDirection(Vector2 dir) { if (dir.x != 0 && dir.y != 0) aimDir = dir; }
 }
