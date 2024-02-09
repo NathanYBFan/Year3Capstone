@@ -32,9 +32,13 @@ public class GameManager : MonoBehaviour
     [SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("Selectected game mode to load")]
 	private string selectedGameMode;
+
+    [SerializeField, ReadOnly]
+    [Foldout("Stats"), Tooltip("List of players who are dead")]
+    private List<GameObject> deadPlayerList;
     #endregion
 
-	#region PrivateVariables
+    #region PrivateVariables
     private bool inGame;
     private bool isPaused;
     #endregion
@@ -95,7 +99,7 @@ public class GameManager : MonoBehaviour
 			Time.timeScale = 1f;
 	}
 
-	public void WinConditionMet() // TODO NATHANF: FILL OUT
+	public void WinConditionMet(List<int> playerWinOrder) // TODO NATHANF: FILL OUT
 	{
 		// go to end screen
 		// reset players
@@ -108,7 +112,8 @@ public class GameManager : MonoBehaviour
         PauseGame();
 		inGame = false;
 		ResetPlayersToVoid();
-	}
+		RemovePlayerModels();
+    }
 
 	/// <summary>
 	/// This is to give functionality to the "Give" command for the Command Prompt menu. (Debug purposes)
@@ -185,6 +190,7 @@ public class GameManager : MonoBehaviour
 		{
             player.GetComponent<Rigidbody>().velocity = Vector3.zero;
 			player.transform.position = stageSpawnPoints[player.GetComponent<PlayerBody>().PlayerIndex].position;
+			player.SetActive(true);
         }
     }
 
@@ -195,7 +201,32 @@ public class GameManager : MonoBehaviour
         {
             player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             player.transform.position = new Vector3(-100, 0, 0);
-            player.GetComponent<PlayerStats>().ResetPlayer(); // Remove player model
         }
     }
+
+	private void RemovePlayerModels()
+	{
+		foreach(GameObject player in Players)
+            player.GetComponent<PlayerStats>().ResetPlayer(); // Remove player model
+    }
+
+    public void PlayerDied(GameObject playerThatDied)
+	{
+		deadPlayerList.Add(playerThatDied);
+		
+		if (deadPlayerList.Count >= players.Count)
+			EndRound();
+	}
+
+	private void EndRound()
+	{
+		// Remove players from stage
+		ResetPlayersToVoid();
+
+		// Bring up modifier Menu;
+		ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
+		ModifierManager._Instance.OpenModifierMenu(); // Open modifier menu for dead player
+
+		// TODO NATHANF: Reset stage
+	}
 }

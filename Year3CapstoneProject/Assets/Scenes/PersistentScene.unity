@@ -486,6 +486,7 @@ MonoBehaviour:
   playerPoints: 00000000000000000000000000000000
   playerKills: 00000000000000000000000000000000
   playerDeaths: 00000000000000000000000000000000
+  pointsThreashold: 0
 --- !u!1 &210767186
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,51 +683,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 812649378293534441, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
   m_PrefabInstance: {fileID: 240257430}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &296285069
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 296285070}
-  - component: {fileID: 296285071}
-  m_Layer: 0
-  m_Name: PointsManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &296285070
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296285069}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1756162859}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &296285071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296285069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e084d90da748ccd449b6846ca8a4ee7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointsPerPlayer: 
 --- !u!1 &338731853
 GameObject:
   m_ObjectHideFlags: 0
@@ -3225,7 +3181,7 @@ GameObject:
   - component: {fileID: 1452139198}
   - component: {fileID: 1452139199}
   m_Layer: 0
-  m_Name: Game Manager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3272,6 +3228,7 @@ MonoBehaviour:
   - {fileID: 1428580754}
   uiInputModule: {fileID: 0}
   selectedGameMode: 
+  deadPlayerList: []
 --- !u!1 &1478896578
 GameObject:
   m_ObjectHideFlags: 0
@@ -4238,13 +4195,12 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1452139198}
-  - {fileID: 296285070}
+  - {fileID: 158182241}
   - {fileID: 1058846376}
   - {fileID: 820440619}
   - {fileID: 611015150}
   - {fileID: 1478896579}
   - {fileID: 899188258}
-  - {fileID: 158182241}
   - {fileID: 210767187}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
