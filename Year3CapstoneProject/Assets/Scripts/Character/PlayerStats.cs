@@ -11,6 +11,8 @@ public class PlayerStats : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")]	private CharacterStatsSO characterStat;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")]	private Transform playerMeshGO;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]	private Transform playerLegGO;
 
 	[Header("Effects")]
 	[SerializeField]
@@ -207,7 +209,8 @@ public class PlayerStats : MonoBehaviour
 		currHealth = maxHealth;
 		currEnergy = maxEnergy;
 
-		GameObject.Instantiate(charStat.playerModel, playerMeshGO.position, Quaternion.identity, playerMeshGO);
+		GameObject.Instantiate(charStat.playerModelHead, playerMeshGO.position, Quaternion.identity, playerMeshGO);
+		GameObject.Instantiate(charStat.playerModelBody, playerLegGO.position, Quaternion.identity, playerLegGO);
 	}
 
 	public void ResetPlayer()

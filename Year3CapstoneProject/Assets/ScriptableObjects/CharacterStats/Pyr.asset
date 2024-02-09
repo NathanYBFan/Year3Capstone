@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Pyr
   m_EditorClassIdentifier: 
   CharacterName: Pyr
-  playerModel: {fileID: 6477095304614376440, guid: a19f7847f6f7eb94abac2789bda549f5, type: 3}
+  playerModelHead: {fileID: 6477095304614376440, guid: a19f7847f6f7eb94abac2789bda549f5, type: 3}
+  playerModelBody: {fileID: 6477095304614376440, guid: 7e602257871a3dc4ea43e84f6801ffa0, type: 3}
   MaxHealth: 40
   DefaultMoveSpeed: 20
   DefaultFireRate: 10

@@ -5,7 +5,8 @@ public class CharacterStatsSO : ScriptableObject
 {
     [Header("Stats")]
     public string CharacterName;
-    public GameObject playerModel;
+    public GameObject playerModelHead;
+    public GameObject playerModelBody;
     public int MaxHealth;
     public float DefaultMoveSpeed;
     public float DefaultFireRate;

@@ -9,6 +9,8 @@ public class PlayerBody : MonoBehaviour
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private GameObject pivot;
 	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")] private GameObject legPivot;
+	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private GameObject mesh;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private GameObject explosion;
@@ -44,10 +46,11 @@ public class PlayerBody : MonoBehaviour
 	public int PlayerIndex { get { return playerIndex; } }
 	#endregion Getters & Setters
 	#region Private Variables
-	Animation anim;
+	Animation headAnim;
+	Animation legAnim;
 	private bool hasExploded = false;
 	private bool isDashing = false, isShooting = false, isDead = false, isRolling = false;
-	private Vector2 moveDir, aimDir; //The current movement direction of this player.
+	private Vector2 moveDir, aimDir, legDir; //The current movement direction of this player.
 	#endregion Private Variables
 
 	private void Start()
@@ -82,6 +85,10 @@ public class PlayerBody : MonoBehaviour
 		float angle = Mathf.Atan2(aimDir.x, aimDir.y) * Mathf.Rad2Deg;
 		pivot.transform.rotation = Quaternion.Euler(0, angle, 0);
 
+		// Rotation of the player.
+		float bodyAngle = Mathf.Atan2(legDir.x, legDir.y) * Mathf.Rad2Deg;
+		legPivot.transform.rotation = Quaternion.Euler(0, bodyAngle, 0);
+
 		// Movement of the player.
 		Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
 		if (moveDirection.magnitude > 1)
@@ -109,7 +116,7 @@ public class PlayerBody : MonoBehaviour
 
 	private IEnumerator DestroyPlayer()
 	{
-		while (anim.IsPlaying("Death"))
+		while (headAnim.IsPlaying("Death"))
 		{
 			yield return null;
 		}
@@ -119,35 +126,55 @@ public class PlayerBody : MonoBehaviour
 	public void Death()
 	{
 		isDead = true;
-		anim.Play("Death");
+		headAnim.Play("Death");
 		StartCoroutine("DestroyPlayer");
 
 	}
 	private void UpdateAnimations()
 	{
 		if (!GameManager._Instance.InGame) return;
-		anim = mesh.transform.GetChild(0).GetChild(0).GetComponent<Animation>();
-		if (anim == null) return;
+		headAnim = mesh.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Animation>();
+		if (headAnim == null) return;
 
 		if (isDashing)
 		{
-			anim.Play("Dash");
+			headAnim.Play("Dash");
 			isDashing = false;
 		}
 		else if (isShooting)
 		{
-			anim.Play("Shoot");
+			headAnim.Play("Shoot");
 			isShooting = false;
 		}
 		else if (isRolling)
 		{
-			anim.Play("Roll");
+			headAnim.Play("Roll");
 			isRolling = false;
 		}
-		else if (moveDir.magnitude != 0 && !anim.IsPlaying("Death") && !anim.IsPlaying("Dash") && !anim.IsPlaying("Shoot") && !anim.IsPlaying("Roll")) anim.Play("Walk");
-		else if (!anim.IsPlaying("Death") && !anim.IsPlaying("Dash") && !anim.IsPlaying("Shoot") && !anim.IsPlaying("Roll") && !anim.IsPlaying("Walk")) anim.Play("Idle");
+		else if (moveDir.magnitude != 0 && !headAnim.IsPlaying("Death") && !headAnim.IsPlaying("Dash") && !headAnim.IsPlaying("Shoot") && !headAnim.IsPlaying("Roll")) headAnim.Play("Walk");
+		else if (!headAnim.IsPlaying("Death") && !headAnim.IsPlaying("Dash") && !headAnim.IsPlaying("Shoot") && !headAnim.IsPlaying("Roll") && !headAnim.IsPlaying("Walk")) headAnim.Play("Idle");
 
 
+		legAnim = transform.GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetComponent<Animation>();
+		if (legAnim == null) return;
+
+		if (isDashing)
+		{
+			legAnim.Play("Dash");
+			isDashing = false;
+		}
+		else if (isShooting)
+		{
+			legAnim.Play("Shoot");
+			isShooting = false;
+		}
+		else if (isRolling)
+		{
+			legAnim.Play("Roll");
+			isRolling = false;
+		}
+		else if (moveDir.magnitude != 0 && !legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll")) legAnim.Play("Walk");
+		else if (!legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll") && !legAnim.IsPlaying("Walk")) legAnim.Play("Idle");
 	}
 
 	public void Roll()
@@ -195,7 +222,7 @@ public class PlayerBody : MonoBehaviour
 
 	}
 
-	public void SetMovementVector(Vector2 dir) { moveDir = dir; }
+	public void SetMovementVector(Vector2 dir) { moveDir = dir; if (dir.x != 0 && dir.y != 0) legDir = dir; }
 
 	public void SetFiringDirection(Vector2 dir) { if (dir.x != 0 && dir.y != 0) aimDir = dir; }
 }

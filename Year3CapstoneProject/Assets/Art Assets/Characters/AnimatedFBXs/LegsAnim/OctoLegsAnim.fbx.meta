@@ -3,7 +3,22 @@ guid: 376a64c9bbdc7154aae999189d14b0ba
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brushed Steel
+    second: {fileID: 2100000, guid: d2714731dc7c92848a4ceedac06e4bf2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Joints
+    second: {fileID: 2100000, guid: dc166b5303bad724b9b836c3e87331f4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LightsGreen
+    second: {fileID: 2100000, guid: f47ed3481f230d34eb185a3963b06dee, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
