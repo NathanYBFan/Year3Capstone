@@ -23,6 +23,12 @@ public class Platform : MonoBehaviour
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
     float time;
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("")]
+    float maxHeight;
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("")]
+    float minHeight;
 
     // Getters & Setters
     public GameObject IceTop { get { return iceTop; } set { iceTop = value; } }
@@ -30,20 +36,42 @@ public class Platform : MonoBehaviour
     private void Awake()
     {
         time = 10;
+        maxHeight = transform.position.y;
+        minHeight = maxHeight - 20;
+    }
+
+
+    public void collapse()
+    {
+        //do visual thing as warning
+
+        //
+        StartCoroutine(Down());
+        
+    }
+    public void rise()
+    {
+        //do visual thing as warning
+
+        //
+        Debug.Log("Rise called");
+        StartCoroutine(Up());
+
     }
 
     public void fakeDestroy()
     {
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
-        StartCoroutine(Down());
+        StartCoroutine(destory());
+        
 
     }
 
     public void fakeRespawn()
     {
         Debug.Log("fake respawn called");
-
+        StopAllCoroutines();
         GetComponent<MeshRenderer>().enabled = true;
         GetComponent<Collider>().enabled = true;
         StartCoroutine(Up());
@@ -81,13 +109,12 @@ public class Platform : MonoBehaviour
         }
     }
 
-    private IEnumerator Up()
+    public IEnumerator Up()
     {
         //Debug.Log("up called");
         float elapsedTime = 0;
        
-        Vector3 startPos = transform.position;
-        Vector3 endPos = new Vector3(transform.position.x, transform.position.y + 10f, transform.position.z);
+        Vector3 endPos = new Vector3(transform.position.x, maxHeight, transform.position.z);
         while (elapsedTime < time)
         {
             transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime /time));
@@ -98,13 +125,13 @@ public class Platform : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator Down()
+    private IEnumerator destory()
     {
         //Debug.Log("down called");
         float elapsedTime = 0;
        
         Vector3 startPos = transform.position;
-        Vector3 endPos = new Vector3(transform.position.x, transform.position.y-10f, transform.position.z);
+        Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);
         while (elapsedTime < time) 
         {
 
@@ -113,7 +140,25 @@ public class Platform : MonoBehaviour
             yield return null;
             //Debug.Log(elapsedTime);
         }
-
         fakeRespawn();
     }
+
+    private IEnumerator Down()
+    {
+        //Debug.Log("down called");
+        float elapsedTime = 0;
+
+        Vector3 startPos = transform.position;
+        Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);
+        while (elapsedTime < time)
+        {
+
+            transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime / time));
+            elapsedTime += 0.5f * Time.deltaTime;
+            yield return null;
+            //Debug.Log(elapsedTime);
+        }
+      
+    }
+
 }
