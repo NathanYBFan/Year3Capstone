@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
 				foreach (GameObject p in players)
 				{
 					modifierToGive.AddEffects(p.GetComponent<PlayerStats>());
-					p.GetComponent<PlayerStats>().modifiers.Add(modifierToGive);
+					p.GetComponent<PlayerStats>().ModifiersOnPlayer.Add(modifierToGive);
 				}
 			}
 			//Give to a specific player
@@ -185,7 +185,7 @@ public class GameManager : MonoBehaviour
 				if (playerToModify != null)
 				{
 					modifierToGive.AddEffects(playerToModify.GetComponent<PlayerStats>());
-					playerToModify.GetComponent<PlayerStats>().modifiers.Add(modifierToGive);
+					playerToModify.GetComponent<PlayerStats>().ModifiersOnPlayer.Add(modifierToGive);
 				}
 				//There's no player with this number.
 				else Debug.LogWarning("Player of index " + playerIndex + " doesn't exist!");

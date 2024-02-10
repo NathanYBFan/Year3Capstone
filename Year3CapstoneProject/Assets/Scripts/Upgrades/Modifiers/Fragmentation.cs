@@ -9,12 +9,12 @@ public class Fragmentation : Modifier
 		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
 		if (playerStats != null)
 		{
-			playerStats.fragmentBullets = true;
+			playerStats.FragmentBullets = true;
 		}
 	}
 
 	public override void AddEffects(PlayerStats playerStats)
 	{
-		playerStats.fragmentBullets = true;
+		playerStats.FragmentBullets = true;
 	}
 }

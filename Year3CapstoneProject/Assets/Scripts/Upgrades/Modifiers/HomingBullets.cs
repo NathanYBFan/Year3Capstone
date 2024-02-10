@@ -9,12 +9,12 @@ public class HomingBullets : Modifier
 		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
 		if (playerStats != null)
 		{
-			playerStats.homingBullets = true;
+			playerStats.HomingBullets = true;
 		}
 	}
 
 	public override void AddEffects(PlayerStats playerStats)
 	{
-		playerStats.homingBullets = true;
+		playerStats.HomingBullets = true;
 	}
 }
