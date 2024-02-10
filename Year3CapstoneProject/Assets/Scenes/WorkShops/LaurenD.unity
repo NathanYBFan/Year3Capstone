@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4780c6c90e7d24f4698faee7eebbb665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyedVersion: {fileID: 7667628447750870291, guid: 24223064c85d12941886f564a662114a, type: 3}
+  destroyedVersion: {fileID: 7681722673274605612, guid: 608e21e158726f04ebb5978c85a10e00, type: 3}
 --- !u!65 &999609464
 BoxCollider:
   m_ObjectHideFlags: 0
