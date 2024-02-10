@@ -14,7 +14,7 @@ public class Overheated : Modifier
 		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
 		if (playerStats != null)
 		{
-			playerStats.giveableDebuff = new Debuff
+			playerStats.GiveableDebuff = new Debuff
 			{
 				debuffName = debuffToApply.name,
 				debuffDuration = debuffToApply.debuffDuration,
@@ -27,7 +27,7 @@ public class Overheated : Modifier
 
 	public override void AddEffects(PlayerStats playerStats)
 	{
-		playerStats.giveableDebuff = new Debuff
+		playerStats.GiveableDebuff = new Debuff
 		{
 			debuffName = debuffToApply.name,
 			debuffDuration = debuffToApply.debuffDuration,

@@ -42,17 +42,17 @@ public class Explosive : MonoBehaviour
 				// Burn effect.
 				if (other.transform.parent.parent.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
 				{
-					if (playerOwner.giveableDebuff != null)
+					if (playerOwner.GiveableDebuff != null)
 					{
-						if (other.transform.parent.parent.GetComponent<PlayerStats>().inflictedDebuff == null)
+						if (other.transform.parent.parent.GetComponent<PlayerStats>().InflictedDebuff == null)
 						{
-							other.transform.parent.parent.GetComponent<PlayerStats>().inflictedDebuff = new Debuff
+							other.transform.parent.parent.GetComponent<PlayerStats>().InflictedDebuff = new Debuff
 							{
-								debuffName = playerOwner.giveableDebuff.name,
-								debuffDuration = playerOwner.giveableDebuff.debuffDuration,
-								damageInterval = playerOwner.giveableDebuff.damageInterval,
-								damage = playerOwner.giveableDebuff.damage,
-								shouldKill = playerOwner.giveableDebuff.shouldKill
+								debuffName = playerOwner.GiveableDebuff.name,
+								debuffDuration = playerOwner.GiveableDebuff.debuffDuration,
+								damageInterval = playerOwner.GiveableDebuff.damageInterval,
+								damage = playerOwner.GiveableDebuff.damage,
+								shouldKill = playerOwner.GiveableDebuff.shouldKill
 							};
 
 						}
@@ -89,7 +89,7 @@ public class Explosive : MonoBehaviour
 		}
 		if (isSelfDestruct)
 		{
-			playerOwner.StartDeath();
+			playerOwner.TakeDamage(9999999);
 			yield return new WaitForSeconds(0.01f);
 		}
 		Destroy(gameObject);

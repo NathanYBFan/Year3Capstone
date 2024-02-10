@@ -61,7 +61,7 @@ public class CharacterSelectMenu : MonoBehaviour
     {
         for (int i = 0; i < characterSelectedByPlayers.Length; i++)
         {
-            GameManager._Instance.Players[i].GetComponent<PlayerStats>().ApplyStats(characterSelectedByPlayers[i]);
+            GameManager._Instance.Players[i].GetComponent<PlayerStats>().CharacterStat = characterSelectedByPlayers[i];
         }
     } 
 }

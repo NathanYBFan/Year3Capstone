@@ -8,12 +8,12 @@ public class SelfDestruct : Modifier
 		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
 		if (playerStats != null)
 		{
-			playerStats.canSelfDestruct = true;
+			playerStats.CanSelfDestruct = true;
 		}
 	}
 
 	public override void AddEffects(PlayerStats playerStats)
 	{
-		playerStats.canSelfDestruct = true;
+		playerStats.CanSelfDestruct = true;
 	}
 }

@@ -8,12 +8,12 @@ public class Trifecta : Modifier
 		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
 		if (playerStats != null)
 		{
-			playerStats.triShot = true;
+			playerStats.TriShot = true;
 		}
 	}
 
 	public override void AddEffects(PlayerStats playerStats)
 	{
-		playerStats.triShot = true;
+		playerStats.TriShot = true;
 	}
 }
