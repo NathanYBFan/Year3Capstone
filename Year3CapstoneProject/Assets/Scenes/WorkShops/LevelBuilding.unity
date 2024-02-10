@@ -530,12 +530,13 @@ MonoBehaviour:
   levelAssets:
   - {fileID: 5499215989557754267, guid: 3b1b90876ff06a94eba847c7debb968d, type: 3}
   - {fileID: 1952934666896548472, guid: 7b3e6a1498c5aba4a87b414369be9be0, type: 3}
-  - {fileID: 5841191079338777775, guid: 6a59f46d000738b4cb92af3cecd6e4da, type: 3}
   - {fileID: 7489467434288890564, guid: 02fc289b19215ef43b4c61d0e432943a, type: 3}
+  - {fileID: 5841191079338777775, guid: 6a59f46d000738b4cb92af3cecd6e4da, type: 3}
   - {fileID: 7489467434288890564, guid: 28e481e64644b9a458370625bb54d589, type: 3}
   - {fileID: 7489467434288890564, guid: 2bebf2d10e3bbb140b3416a02c3cbb6f, type: 3}
   - {fileID: 6297765103710325832, guid: 32765dfc7d3811d41a90ae1572497763, type: 3}
   - {fileID: 5499215989557754267, guid: 691b30727a72739428e36561ad5f0fc3, type: 3}
+  - {fileID: 3946516149249041747, guid: 042691db7ee7b974d8ef00eac74b10d1, type: 3}
   levelBuilderParent: {fileID: 1524936288}
   levelToBuild: 0
   startX: 0
