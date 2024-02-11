@@ -180,6 +180,19 @@ public class PlayerBody : MonoBehaviour
 	public void Roll()
 	{
 		isRolling = true;
+		int odds = Random.Range(1, 4);
+		if (odds == 1) 
+		{
+			Debug.Log(":3");
+		}
+		else if (odds == 2)
+		{
+			Debug.Log(">:3");
+		}
+		else if (odds == 3)
+		{
+			Debug.Log("I love arson :3c");
+		}
 	}
 	public void FireBullet()
 	{
