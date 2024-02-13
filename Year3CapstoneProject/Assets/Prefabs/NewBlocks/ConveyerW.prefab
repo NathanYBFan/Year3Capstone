@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7986198137126317732}
   - component: {fileID: 8267337708961615058}
+  - component: {fileID: 6579414603393185532}
   m_Layer: 0
   m_Name: ConveyerTrigger
   m_TagString: Untagged
@@ -85,6 +86,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9, y: 0.9, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6579414603393185532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744214207655971781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82880fc03d7cda24e9dcfbf444aa0473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDirection: {x: -10, y: 0, z: 0}
 --- !u!1 &3569861864164598388
 GameObject:
   m_ObjectHideFlags: 0

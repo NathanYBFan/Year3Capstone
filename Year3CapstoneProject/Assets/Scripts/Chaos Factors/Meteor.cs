@@ -57,13 +57,9 @@ public class Meteor : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.GetComponentInChildren<CapsuleCollider>() != null && collision.gameObject.GetComponentInChildren<CapsuleCollider>().CompareTag("Player")) 
         {
-            Debug.Log("player detected by meteor");
             collision.gameObject.transform.GetComponent<PlayerStats>().TakeDamage(damage);
-
-
         }
 
         StartCoroutine(boom());

@@ -194,6 +194,7 @@ public class PlayerBody : MonoBehaviour
 			Debug.Log("I love arson :3c");
 		}
 	}
+
 	public void FireBullet()
 	{
 		if (Time.time >= stats.NextFireTime)
