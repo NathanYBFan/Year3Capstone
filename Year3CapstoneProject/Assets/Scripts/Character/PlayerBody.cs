@@ -44,6 +44,7 @@ public class PlayerBody : MonoBehaviour
 	#region Getters & Setters
 	public bool OnIce { get { return onIce; } set { onIce = value; } }
 	public int PlayerIndex { get { return playerIndex; } }
+	public bool IsRolling { get { return isRolling; } }
 	#endregion Getters & Setters
 	#region Private Variables
 	Animation headAnim;
@@ -179,23 +180,41 @@ public class PlayerBody : MonoBehaviour
 
 	public void Roll()
 	{
-		isRolling = true;
-		int odds = Random.Range(1, 4);
+		
+
+		float amount = stats.MaxEnergy;
+		// Power saving
+        if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
+		// Has enough energy to roll
+        if (stats.CurrentEnergy - amount < 0) return;
+        isRolling = true;
+
+        // Using energy before doing action
+        stats.UseEnergy(amount);
+        
+
+        int odds = Random.Range(1, 4);
 		if (odds == 1) 
 		{
-			Debug.Log(":3");
+			Debug.Log("KYS tehe :3");
 		}
 		else if (odds == 2)
 		{
-			Debug.Log(">:3");
+			Debug.Log("Meow");
 		}
 		else if (odds == 3)
 		{
-			Debug.Log("I love arson :3c");
+			Debug.Log("Benguin");
 		}
+<<<<<<< Updated upstream
 	}
 
 	public void FireBullet()
+=======
+        
+    }
+    public void FireBullet()
+>>>>>>> Stashed changes
 	{
 		if (Time.time >= stats.NextFireTime)
 		{
@@ -220,12 +239,17 @@ public class PlayerBody : MonoBehaviour
 	public void PerformDash()
 	{
 		isDashing = true;
-		float amount = (2 * stats.MaxEnergy) / 3;
-		if (stats.IsPowerSaving) amount /= 2;
-		if (stats.CurrentEnergy - amount < 0) return;
-		stats.UseEnergy(amount);
+        float amount = stats.MaxEnergy / 2.0f;
+        // Power saving
+        if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
+                                                         // Has enough energy to dash
+        if (stats.CurrentEnergy - amount < 0) return;
 
-		Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
+        // Using energy before doing action
+        stats.UseEnergy(amount);
+        
+
+        Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
 		if (moveDirection.magnitude > 1)
 			moveDirection.Normalize();
 

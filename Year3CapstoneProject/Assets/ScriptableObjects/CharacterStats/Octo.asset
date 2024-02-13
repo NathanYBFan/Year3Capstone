@@ -16,7 +16,7 @@ MonoBehaviour:
   playerModelHead: {fileID: 7790932299923587947, guid: 4ba7e37aba810e04d8fd626a5ec48883, type: 3}
   playerModelBody: {fileID: 7790932299923587947, guid: febf456ca1fa45d4787cdcd998fca5da, type: 3}
   MaxHealth: 80
-  DefaultMoveSpeed: 20
-  DefaultFireRate: 7
-  MaxEnergy: 20
+  DefaultMoveSpeed: 12
+  DefaultFireRate: 5
+  MaxEnergy: 100
   EnergyRegenRate: 1

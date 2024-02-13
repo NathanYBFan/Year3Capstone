@@ -22,7 +22,8 @@ public class Bars : MonoBehaviour
 
     private void UseEnergy()
     {
-        energyBar.fillAmount = playerStats.CurrentEnergy/playerStats.MaxEnergy;
+
+        energyBar.fillAmount = (float) playerStats.CurrentEnergy /(float)playerStats.MaxEnergy;
     }
 
     private void Update()

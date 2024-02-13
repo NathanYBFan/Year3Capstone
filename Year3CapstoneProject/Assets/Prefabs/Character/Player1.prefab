@@ -183,17 +183,17 @@ MonoBehaviour:
   burning: {fileID: 1219497896550078896}
   maxHealth: 80
   currHealth: 80
-  movementSpeed: 20
-  dashSpeed: 250
+  movementSpeed: 0
+  dashSpeed: 200
   fireRate: 4
-  maxEnergy: 20
-  currEnergy: 20
+  maxEnergy: 100
+  currEnergy: 100
   timer: 0
   rate: 1
-  replenishAmount: 1
+  replenishAmount: 20
   giveableDebuff: {fileID: 0}
   inflictedDebuff: {fileID: 0}
-  modifiers: []
+  modifiersOnPlayer: []
   canSelfDestruct: 0
   triShot: 0
   isPowerSaving: 0

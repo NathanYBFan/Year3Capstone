@@ -36,9 +36,11 @@ public class PlayerController : MonoBehaviour
 
 	public void OnRoll(CallbackContext ctx)
 	{
+		if (!ctx.performed) return;
 		if (!GameManager._Instance.InGame) return;
 		if (body == null) return;
         if (body.GetComponent<PlayerStats>().IsDead) return;
+		if (body.IsRolling) return;
 
         body.Roll();
 	}
@@ -63,7 +65,8 @@ public class PlayerController : MonoBehaviour
 
 	public void OnDash(CallbackContext ctx)
 	{
-		if (!GameManager._Instance.InGame) return;
+        if (!ctx.performed) return;
+        if (!GameManager._Instance.InGame) return;
 		if (body == null) return;
         if (body.GetComponent<PlayerStats>().IsDead) return;
 
