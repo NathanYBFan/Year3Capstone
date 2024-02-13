@@ -143,6 +143,7 @@ public class ChaosFactorManager : MonoBehaviour
     // Public method to completely reset all chaos factors
     public void Reset()
     {
+        StopAllCoroutines();
         // Reset timer to 0
         ResetChaosFactorTimer();
         // Remove any active Chaos Factor

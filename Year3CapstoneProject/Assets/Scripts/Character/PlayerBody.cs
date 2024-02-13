@@ -1,7 +1,6 @@
 using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PlayerBody : MonoBehaviour
 {
@@ -113,8 +112,14 @@ public class PlayerBody : MonoBehaviour
 			rb.AddForce(newForceDirection - velocity, ForceMode.VelocityChange);
 		}
 	}
+    public void Death()
+    {
+        headAnim.Play("Death");
+        DeathSound();
+        StartCoroutine(DestroyPlayer());
+    }
 
-	private IEnumerator DestroyPlayer()
+    private IEnumerator DestroyPlayer()
 	{
 		while (headAnim.IsPlaying("Death"))
 		{
@@ -123,13 +128,7 @@ public class PlayerBody : MonoBehaviour
 		//Destroy(gameObject);
         GameManager._Instance.PlayerDied(this.gameObject);
     }
-
-    public void Death()
-	{
-		headAnim.Play("Death");
-		DeathSound();
-		StartCoroutine("DestroyPlayer");
-	}
+    
 	private void UpdateAnimations()
 	{
 		if (!GameManager._Instance.InGame) return;

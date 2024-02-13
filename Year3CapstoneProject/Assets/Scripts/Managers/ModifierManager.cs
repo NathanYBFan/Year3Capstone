@@ -50,5 +50,8 @@ public class ModifierManager : MonoBehaviour
         Time.timeScale = 1;
         modifierMenu.SetActive(false);
         playerToModify = null;
+
+        // Start next Game
+        GameManager._Instance.StartNewGame();
     }
 }

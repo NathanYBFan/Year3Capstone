@@ -2,6 +2,7 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 
@@ -78,6 +79,12 @@ public class GameManager : MonoBehaviour
 		SpawnPlayersAtSpawnpoint();
 
 		// Start Player stuff
+        deadPlayerList.Clear();
+        foreach (GameObject player in players)
+		{
+			player.SetActive(true);
+			player.GetComponentInChildren<PlayerStats>().IsDead = false;
+		}
 	}
 
 	// Reset everything when game ends
@@ -88,12 +95,13 @@ public class GameManager : MonoBehaviour
 		QuitToMainMenu();
     }
 
-    public void PauseGame()
+    public void PauseGame(bool enablePauseMenu)
 	{
 		if (!inGame) return;
 
 		isPaused = !isPaused;
-		pauseMenu.SetActive(isPaused);
+		if (enablePauseMenu)
+			pauseMenu.SetActive(isPaused);
 
 		if (isPaused)
 			Time.timeScale = 0f;
@@ -105,13 +113,13 @@ public class GameManager : MonoBehaviour
 	{
 		// go to end screen
 		// reset players
-		EndGame();
-	}
+		//if (roundsAt >= 7) EndGame();
+    }
 
 	// Method to reset everything when quitting to main menu
 	private void QuitToMainMenu()
 	{
-        PauseGame();
+        PauseGame(false);
 		inGame = false;
 		ResetPlayersToVoid();
 		RemovePlayerModels();
@@ -120,9 +128,10 @@ public class GameManager : MonoBehaviour
     public void PlayerDied(GameObject playerThatDied)
     {
         deadPlayerList.Add(playerThatDied);
-
-        if (deadPlayerList.Count >= players.Count - 1)
-            EndRound();
+		ResetPlayerToVoid(playerThatDied);
+		if (deadPlayerList.Count < players.Count - 1) return;
+        
+		EndRound();
     }
 
     /// <summary>
@@ -200,6 +209,8 @@ public class GameManager : MonoBehaviour
 		{
             player.GetComponent<Rigidbody>().velocity = Vector3.zero;
 			player.transform.position = stageSpawnPoints[player.GetComponent<PlayerBody>().PlayerIndex].position;
+			player.GetComponentInChildren<CapsuleCollider>().enabled = true;
+			player.GetComponentInChildren<Rigidbody>().useGravity = true;
 			player.SetActive(true);
         }
     }
@@ -210,11 +221,21 @@ public class GameManager : MonoBehaviour
         foreach (GameObject player in Players)
         {
             player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+			player.GetComponentInChildren<CapsuleCollider>().enabled = true;
             player.transform.position = new Vector3(-100, 0, 0);
+			player.GetComponentInChildren<Rigidbody>().useGravity = false;
         }
     }
 
-	private void RemovePlayerModels()
+	private void ResetPlayerToVoid(GameObject player)
+	{
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+		player.GetComponentInChildren<CapsuleCollider>().enabled = true;
+        player.transform.position = new Vector3(-100, 0, 0);
+        player.GetComponentInChildren<Rigidbody>().useGravity = false;
+    }
+
+    private void RemovePlayerModels()
 	{
 		foreach(GameObject player in Players)
             player.GetComponent<PlayerStats>().ResetPlayer(); // Remove player model

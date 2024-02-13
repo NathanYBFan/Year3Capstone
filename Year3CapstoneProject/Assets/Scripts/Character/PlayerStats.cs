@@ -214,8 +214,9 @@ public class PlayerStats : MonoBehaviour
 
 	public void TakeDamage(int amount)
 	{
-		// Make sure health never hits negative
-		if (currHealth - amount > 0) currHealth -= amount;
+		if (isDead) return;
+        // Make sure health never hits negative
+        if (currHealth - amount > 0) currHealth -= amount;
 		else currHealth = 0;
 
 		// If still has Hp no need to continue
@@ -234,7 +235,10 @@ public class PlayerStats : MonoBehaviour
         currHealth = 0;
 
         // Debug Death Message in logs.
-        Debug.Log("Player " + gameObject.GetComponent<PlayerBody>().PlayerIndex + " has died!");
+        Debug.Log("Player " + (gameObject.GetComponent<PlayerBody>().PlayerIndex + 1) + " has died!");
+		gameObject.GetComponentInChildren<CapsuleCollider>().enabled = false;
+        gameObject.GetComponent<Rigidbody>().useGravity = false;
+
         gameObject.GetComponent<PlayerBody>().Death();
     }
 
