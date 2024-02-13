@@ -571,6 +571,7 @@ MonoBehaviour:
   modifierImage: {fileID: 7395085453166885995}
   modifierDescriptionText: {fileID: 4506850461233477450}
   modifierNameText: {fileID: 7851884485339219104}
+  buttonObject: {fileID: 4055215138855887116}
   playerToModify: {fileID: 0}
 --- !u!1 &6246683143549825332
 GameObject:

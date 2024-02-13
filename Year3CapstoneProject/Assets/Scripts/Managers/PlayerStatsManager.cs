@@ -20,9 +20,9 @@ public class PlayerStatsManager : MonoBehaviour
     [Foldout("Stats"), Tooltip("Array of kills each player has done")]
     private int[] playerDeaths;
 
-    [SerializeField, ReadOnly]
+    [SerializeField]
     [Foldout("Stats"), Tooltip("Number of points needed to Win")]
-    private int pointsThreashold;
+    private int pointsThreashold = 20;
 
     [SerializeField]
     [Foldout("Stats"), Tooltip("Number of points to assign for order First place = 0")]
