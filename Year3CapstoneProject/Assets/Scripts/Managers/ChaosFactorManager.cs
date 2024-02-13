@@ -67,6 +67,12 @@ public class ChaosFactorManager : MonoBehaviour
             StartCoroutine(RunChaosFactor(chaosFactorList[2]));
         }
 
+        if (Input.GetKeyDown("[4]"))
+        {
+            Debug.Log("Input recived: Numpad 4");
+            StartCoroutine(RunChaosFactor(chaosFactorList[3]));
+        }
+
         if (Input.GetKeyDown(KeyCode.O))
         {
 

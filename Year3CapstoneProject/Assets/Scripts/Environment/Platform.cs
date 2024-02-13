@@ -70,7 +70,7 @@ public class Platform : MonoBehaviour
 
     public void fakeRespawn()
     {
-        Debug.Log("fake respawn called");
+        //Debug.Log("fake respawn called");
         StopAllCoroutines();
         GetComponent<MeshRenderer>().enabled = true;
         GetComponent<Collider>().enabled = true;
