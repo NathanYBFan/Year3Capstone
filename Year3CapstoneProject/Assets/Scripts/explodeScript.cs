@@ -13,3 +13,5 @@ public class explodeScript : MonoBehaviour
     }
 
 }
+
+//credits to: https://www.youtube.com/watch?v=EgNV0PWVaS8
