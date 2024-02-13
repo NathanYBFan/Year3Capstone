@@ -19,7 +19,7 @@ public class PlayerShooting : MonoBehaviour
 		PlayerStats stats = this.gameObject.GetComponent<PlayerStats>();
 
 		
-		if (stats.triShot)
+		if (stats.TriShot)
 		{
 			// They have Trifecta
 			for (int i = 0; i < firePoint.Length; i++)

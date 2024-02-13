@@ -8,15 +8,21 @@ public class PlayerStats : MonoBehaviour
 {
 	#region Serialize Fields
 	[SerializeField, ReadOnly]
-	[Foldout("Dependencies"), Tooltip("")]	private CharacterStatsSO characterStat;
+	[Foldout("Dependencies"), Tooltip("Character Stat scriptable object of stats to assign")]
+	private CharacterStatsSO characterStat;
+	
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]	private Transform playerMeshGO;
+	[Foldout("Dependencies"), Tooltip("")]
+	private Transform playerMeshGO;
+	
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]	private Transform playerLegGO;
+	[Foldout("Dependencies"), Tooltip("")]
+	private Transform playerLegGO;
 
 	[Header("Effects")]
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")]	private ParticleSystem burning; // The particle system prefabs for debuff effects
+	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
+	private ParticleSystem burning;
 
 	[Header("Character Stats")]
 	[SerializeField]
@@ -34,7 +40,6 @@ public class PlayerStats : MonoBehaviour
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("Player Dash speed.")]
 	private int dashSpeed = 250;
-
 
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("Player max firerate")]		
@@ -64,41 +69,56 @@ public class PlayerStats : MonoBehaviour
 	[Header("Debuffs")]
 	[SerializeField, ReadOnly]
 	[Foldout("Player Stats"), Tooltip("The debuff that this player can give to other players.")]
-	public Debuff giveableDebuff;
+	private Debuff giveableDebuff;
 
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("The debuff that this player is currently suffering from.")]
-	public Debuff inflictedDebuff;
+	private Debuff inflictedDebuff;
 
 	[Header("Modifiers")]
 	[SerializeField]
-	[Foldout("Player Stats"), Tooltip("")]	public List<Modifier> modifiers;
-	[ReadOnly]
-	[Foldout("Player Stats"), Tooltip("")]	public bool canSelfDestruct = false;
-	[ReadOnly]
-	[Foldout("Player Stats"), Tooltip("")]	public bool triShot = false;
-	[ReadOnly]
-	[Foldout("Player Stats"), Tooltip("")]	public bool isPowerSaving = false;
-	[ReadOnly]
-	[Foldout("Player Stats"), Tooltip("")]	public bool fragmentBullets = false;
-	[ReadOnly]
-	[Foldout("Player Stats"), Tooltip("")]	public bool homingBullets = false;
-	[ReadOnly]
-	[Foldout("Player Stats"), Tooltip("")]	public bool explodingBullets = false;
+	[Foldout("Player Stats"), Tooltip("")]
+	private List<Modifier> modifiersOnPlayer;
+	
+	[SerializeField, ReadOnly]
+	[Foldout("Player Stats"), Tooltip("")]
+	private bool canSelfDestruct = false;
+
+	[SerializeField, ReadOnly]
+	[Foldout("Player Stats"), Tooltip("")]
+	private bool triShot = false;
+	
+	[SerializeField, ReadOnly]
+	[Foldout("Player Stats"), Tooltip("")]
+	private bool isPowerSaving = false;
+	
+	[SerializeField, ReadOnly]
+	[Foldout("Player Stats"), Tooltip("")]
+	private bool fragmentBullets = false;
+	
+	[SerializeField, ReadOnly]
+	[Foldout("Player Stats"), Tooltip("")]
+	private bool homingBullets = false;
+	
+	[SerializeField, ReadOnly]
+	[Foldout("Player Stats"), Tooltip("")]	
+	private bool explodingBullets = false;
 
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("How accurate a homing bullet would be to hitting its target.\nNOTE: A value of 0 means it will have a 0% chance to hit the target."), Range(0, 1f)]
-	public float homingAccuracy = 0.8f;
+	private float homingAccuracy = 0.8f;
+
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("The speed of which a homing bullet will rotate at to aim towards it's target.\nNOTE: Lower speed values means it takes longer to adjust its rotation to face the target -> Less Accuracy")]
-	public float homingBulletRotSpeed = 200f;
+	private float homingBulletRotSpeed = 200f;
 	#endregion Serialize Fields
+
 	#region Private Variables
 	private bool isDead = false;
 	private Coroutine debuffCoroutine;
-	bool messageSent = false;
 	private float nextFireTime = 0;
 	#endregion Private Variables
+	
 	#region Getters & Setters
 	public bool IsDead { get { return isDead; } set { isDead = value; } }
 	public int MaxHealth { get { return maxHealth; } }
@@ -111,114 +131,126 @@ public class PlayerStats : MonoBehaviour
 	public float Timer { get { return timer; } }
 	public float Rate { get { return rate; } }
 	public float NextFireTime { get { return nextFireTime; } set { nextFireTime = value; } }
-	#endregion Getters & Setters
+    public Debuff GiveableDebuff { get { return giveableDebuff; } set { giveableDebuff = value; } }
+	public Debuff InflictedDebuff
+	{ 
+		get { return inflictedDebuff; }
+		set 
+		{
+            // Debuff was inflicted on the player, activate the debuffs effects!
+            inflictedDebuff = value;
 
-	private void OnEnable()
+			// If there was a debuff assigned
+			if (inflictedDebuff != null) return;
+			// If there isnt already a debuff running
+			if (debuffCoroutine != null) return;
+            
+			// Start coroutine
+			debuffCoroutine = StartCoroutine(ApplyDebuffEffects());
+            // Activate debuff effects
+			ActivateEffects();
+        } 
+	}
+    public List<Modifier> ModifiersOnPlayer { get { return modifiersOnPlayer; } set { modifiersOnPlayer = value; } }
+	public bool CanSelfDestruct { get { return canSelfDestruct; } set { canSelfDestruct = value; } }
+	public bool TriShot { get { return triShot; } set { triShot = value; } }
+	public bool IsPowerSaving { get { return isPowerSaving; } set { isPowerSaving = value; } }
+    public bool FragmentBullets { get { return fragmentBullets; } set { fragmentBullets = value; } }
+    public bool HomingBullets { get { return homingBullets; } set { homingBullets = value; } }
+    public bool ExplodingBullets { get { return explodingBullets; } set { explodingBullets = value; } }
+    public float HomingAccuracy { get { return homingAccuracy; } set { homingAccuracy = value; } }
+	public float HomingBulletRotSpeed { get { return homingBulletRotSpeed; } set { homingBulletRotSpeed = value; } }
+    public CharacterStatsSO CharacterStat
+    {
+        set
+        {
+            // Don't do work already done.
+            if (characterStat == value) return;
+
+            characterStat = value;
+
+            // Assign proper stats
+            maxHealth = characterStat.MaxHealth;
+            movementSpeed = characterStat.DefaultMoveSpeed;
+            fireRate = characterStat.DefaultFireRate;
+            maxEnergy = characterStat.MaxEnergy;
+            rate = characterStat.EnergyRegenRate;
+
+			// Reset to Max
+            currHealth = maxHealth;
+            currEnergy = maxEnergy;
+
+			// Instantiate proper body parts
+            GameObject.Instantiate(characterStat.playerModelHead, playerMeshGO.position, Quaternion.identity, playerMeshGO);
+            GameObject.Instantiate(characterStat.playerModelBody, playerLegGO.position, Quaternion.identity, playerLegGO);
+        }
+    }
+    #endregion Getters & Setters
+
+    private void OnEnable()
 	{
 		DeactivateEffects(ParticleSystemStopBehavior.StopEmittingAndClear);
 	}
+
 	private void Update()
 	{
 		// Energy bar regen.
-		if (currEnergy < maxEnergy)
-		{
-			timer += Time.deltaTime;
-			if (timer >= Rate)
-			{
-				currEnergy += replenishAmount;
-				timer = 0;
-			}
-		}
-
-		// Debuff was inflicted on the player, activate the debuffs effects!
-		if (inflictedDebuff != null)
-		{
-			if (debuffCoroutine == null)
-			{
-				debuffCoroutine = StartCoroutine(ApplyDebuffEffects());
-				ActivateEffects();
-			}
-		}
-
-		// Death.
-		if (currHealth <= 0)
-		{
-			currHealth = 0;
-			if (!canSelfDestruct)
-			{
-				isDead = true;
-				StartDeath();
-			}
-		}
-
-		// Debug Death Message in logs.
-		if (isDead && !messageSent)
-		{
-			Debug.Log("Player " + gameObject.GetComponent<PlayerBody>().PlayerIndex + " has died!");
-			messageSent = true;
-		}
+		// If energy is maxed out, return;
+		if (currEnergy >= maxEnergy) return;
+		
+		// Tick the timer
+		timer += Time.deltaTime;
+		
+		// Ff timer is less than the rate needed to increae energy, return;
+		if (timer < Rate) return;
+		// Increase energy and reset timer
+		currEnergy += replenishAmount;
+		timer = 0;
 	}
 
-	private void DeactivateEffects(ParticleSystemStopBehavior behaviour)	{		burning.Stop(true, behaviour);	}
+	private void DeactivateEffects(ParticleSystemStopBehavior behaviour) { burning.Stop(true, behaviour); }
 
-	private void ActivateEffects()	{		burning.Play();	}
-
-	public void SetCharacterStats(CharacterStatsSO newCharacterStat)
-	{
-		// Don't do work already done.
-		if (newCharacterStat == characterStat) return;
-		characterStat = newCharacterStat;
-
-		// Instantiate model.
-		maxHealth = newCharacterStat.MaxHealth;
-		movementSpeed = newCharacterStat.DefaultMoveSpeed;
-		fireRate = newCharacterStat.DefaultFireRate;
-		maxEnergy = newCharacterStat.MaxEnergy;
-		rate = newCharacterStat.EnergyRegenRate;
-	}
-
-	public void StartDeath()
-	{
-		currHealth = 0;
-		isDead = true;
-
-		gameObject.GetComponent<PlayerBody>().Death();
-	}
+	private void ActivateEffects()	{ burning.Play(); }
 
 	public void TakeDamage(int amount)
 	{
+		// Make sure health never hits negative
 		if (currHealth - amount > 0) currHealth -= amount;
 		else currHealth = 0;
-	}
-	public void UseEnergy(float amount)	{		currEnergy -= amount;	}
+
+		// If still has Hp no need to continue
+		if (!(currHealth == 0)) return;
+
+        // If can self destruct dont start death (Not sure why, probably a separate coroutine?)
+        if (canSelfDestruct) return; 
+        
+		// Is truly dead
+		isDead = true;
+        StartDeath();
+    }
+    
+	private void StartDeath()
+    {
+        currHealth = 0;
+
+        // Debug Death Message in logs.
+        Debug.Log("Player " + gameObject.GetComponent<PlayerBody>().PlayerIndex + " has died!");
+        gameObject.GetComponent<PlayerBody>().Death();
+    }
+
+    public void UseEnergy(float amount)	{ currEnergy -= amount;	}
 
 	public void ActivateEffects(Modifier modifier)
 	{
 		modifier.AddEffects();
-		modifiers.Add(modifier);
-	}
-
-	public void ApplyStats(CharacterStatsSO charStat)
-	{
-		maxHealth = charStat.MaxHealth;
-		movementSpeed = charStat.DefaultMoveSpeed;
-		fireRate = charStat.DefaultFireRate;
-		maxEnergy = charStat.MaxEnergy;
-		rate = charStat.EnergyRegenRate;
-
-		currHealth = maxHealth;
-		currEnergy = maxEnergy;
-
-		GameObject.Instantiate(charStat.playerModelHead, playerMeshGO.position, Quaternion.identity, playerMeshGO);
-		GameObject.Instantiate(charStat.playerModelBody, playerLegGO.position, Quaternion.identity, playerLegGO);
+        modifiersOnPlayer.Add(modifier);
 	}
 
 	public void ResetPlayer()
 	{
 		for (int i = 0; i < playerMeshGO.childCount; i++) // Destroy the player Models attached to the player
             Destroy(playerMeshGO.GetChild(0).gameObject);
-
-		// No need to reset stats?
+		// No need to reset stats
     }
 
 	/// <summary>

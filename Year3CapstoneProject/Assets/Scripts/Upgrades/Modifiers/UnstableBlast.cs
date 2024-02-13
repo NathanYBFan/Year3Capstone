@@ -8,12 +8,12 @@ public class UnstableBlast : Modifier
 		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
 		if (playerStats != null)
 		{
-			playerStats.explodingBullets = true;
+			playerStats.ExplodingBullets = true;
 		}
 	}
 
 	public override void AddEffects(PlayerStats playerStats)
 	{
-		playerStats.explodingBullets = true;
+		playerStats.ExplodingBullets = true;
 	}
 }

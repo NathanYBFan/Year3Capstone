@@ -50,7 +50,7 @@ public class BulletBehaviour : MonoBehaviour
 		if (playerOwner != null)
 		{
 			// We want the bullets to get a target as soon as they are used from the object pool, if the player has homing bullets enabled.
-			if (playerOwner.homingBullets)
+			if (playerOwner.HomingBullets)
 				FindClosestPlayer();
 		}
 	}
@@ -58,7 +58,7 @@ public class BulletBehaviour : MonoBehaviour
 	private void Update()
 	{
 		
-		if (playerOwner.homingBullets)
+		if (playerOwner.HomingBullets)
 		{
 			// If these bullets are to be homing bullets, then their direction will be altered to aim towards a defined target.
 			if (target != null)
@@ -66,9 +66,9 @@ public class BulletBehaviour : MonoBehaviour
 				Vector3 direction = target.position - transform.position;
 				direction.y += 2; // Centers bullet to player body (roughly).
 
-				Vector3 inaccurateDir = Vector3.Slerp(direction.normalized, Random.onUnitSphere, 1 - playerOwner.homingAccuracy);
+				Vector3 inaccurateDir = Vector3.Slerp(direction.normalized, Random.onUnitSphere, 1 - playerOwner.HomingAccuracy);
 				Quaternion toRotation = Quaternion.LookRotation(inaccurateDir, Vector3.up);
-				bulletRootObject.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerOwner.homingBulletRotSpeed * Time.deltaTime);
+				bulletRootObject.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerOwner.HomingBulletRotSpeed * Time.deltaTime);
 			}
 		}
 		// Otherwise make bullet move default direction
@@ -83,17 +83,17 @@ public class BulletBehaviour : MonoBehaviour
 				if (other.transform.parent.parent.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
 				{
 					// Check to see if these bullets should have a burn effect.
-					if (playerOwner.giveableDebuff != null)
+					if (playerOwner.GiveableDebuff != null)
 					{
-						if (other.transform.parent.parent.GetComponent<PlayerStats>().inflictedDebuff == null)
+						if (other.transform.parent.parent.GetComponent<PlayerStats>().InflictedDebuff == null)
 						{
-							other.transform.parent.parent.GetComponent<PlayerStats>().inflictedDebuff = new Debuff
+							other.transform.parent.parent.GetComponent<PlayerStats>().InflictedDebuff = new Debuff
 							{
-								debuffName = playerOwner.giveableDebuff.name,
-								debuffDuration = playerOwner.giveableDebuff.debuffDuration,
-								damageInterval = playerOwner.giveableDebuff.damageInterval,
-								damage = playerOwner.giveableDebuff.damage,
-								shouldKill = playerOwner.giveableDebuff.shouldKill
+								debuffName = playerOwner.GiveableDebuff.name,
+								debuffDuration = playerOwner.GiveableDebuff.debuffDuration,
+								damageInterval = playerOwner.GiveableDebuff.damageInterval,
+								damage = playerOwner.GiveableDebuff.damage,
+								shouldKill = playerOwner.GiveableDebuff.shouldKill
 							};
 						}
 					}
@@ -107,7 +107,7 @@ public class BulletBehaviour : MonoBehaviour
 				break;
 			case "StageNormal":
 				// If the player has Fragmentation and the bullet that hit the stage is fragmentable, split the bullet!
-				if (playerOwner.fragmentBullets && isFragmentable)
+				if (playerOwner.FragmentBullets && isFragmentable)
 				{
 					// Assigning fragmented bullets the stats that the parent bullet had.
 					for (int i = 0; i < 3; i++)
@@ -124,7 +124,7 @@ public class BulletBehaviour : MonoBehaviour
 					}
 				}
 				// Check if player has Unstable Blast, and if they do, make this bullet explode!
-				if (playerOwner.explodingBullets)
+				if (playerOwner.ExplodingBullets)
 				{
 					GameObject explosion = Instantiate(explosionRadius, transform.position, Quaternion.identity);
 					explosion.GetComponent<Explosive>().PlayerOwner = this.playerOwner;

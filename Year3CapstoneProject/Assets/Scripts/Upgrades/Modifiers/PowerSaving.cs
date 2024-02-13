@@ -8,12 +8,12 @@ public class PowerSaving : Modifier
 		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
 		if (playerStats != null)
 		{
-			playerStats.isPowerSaving = true;
+			playerStats.IsPowerSaving = true;
 		}
 	}
 
 	public override void AddEffects(PlayerStats playerStats)
 	{
-		playerStats.isPowerSaving = true;
+		playerStats.IsPowerSaving = true;
 	}
 }

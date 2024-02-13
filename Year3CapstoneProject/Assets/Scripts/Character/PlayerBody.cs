@@ -49,7 +49,7 @@ public class PlayerBody : MonoBehaviour
 	Animation headAnim;
 	Animation legAnim;
 	private bool hasExploded = false;
-	private bool isDashing = false, isShooting = false, isDead = false, isRolling = false;
+	private bool isDashing = false, isShooting = false, isRolling = false;
 	private Vector2 moveDir, aimDir, legDir; //The current movement direction of this player.
 	#endregion Private Variables
 
@@ -64,7 +64,7 @@ public class PlayerBody : MonoBehaviour
 		// Begin self-destruct (if possible)
 		if (stats.CurrentHealth <= 0 && !stats.IsDead)
 		{
-			if (stats.canSelfDestruct) InitiateSelfDestruct();
+			if (stats.CanSelfDestruct) InitiateSelfDestruct();
 		}
 	}
 
@@ -126,7 +126,6 @@ public class PlayerBody : MonoBehaviour
 
     public void Death()
 	{
-		isDead = true;
 		headAnim.Play("Death");
 		DeathSound();
 		StartCoroutine("DestroyPlayer");
@@ -181,6 +180,19 @@ public class PlayerBody : MonoBehaviour
 	public void Roll()
 	{
 		isRolling = true;
+		int odds = Random.Range(1, 4);
+		if (odds == 1) 
+		{
+			Debug.Log(":3");
+		}
+		else if (odds == 2)
+		{
+			Debug.Log(">:3");
+		}
+		else if (odds == 3)
+		{
+			Debug.Log("I love arson :3c");
+		}
 	}
 	public void FireBullet()
 	{
@@ -194,7 +206,7 @@ public class PlayerBody : MonoBehaviour
 
 	public void InitiateSelfDestruct()
 	{
-		if (stats.canSelfDestruct && !hasExploded)
+		if (stats.CanSelfDestruct && !hasExploded)
 		{
 			GameObject explosionRadius = Instantiate(explosion, transform.position, Quaternion.identity);
 			explosionRadius.GetComponent<Explosive>().OriginalPlayerIndex = playerIndex;
@@ -208,7 +220,7 @@ public class PlayerBody : MonoBehaviour
 	{
 		isDashing = true;
 		float amount = (2 * stats.MaxEnergy) / 3;
-		if (stats.isPowerSaving) amount /= 2;
+		if (stats.IsPowerSaving) amount /= 2;
 		if (stats.CurrentEnergy - amount < 0) return;
 		stats.UseEnergy(amount);
 
