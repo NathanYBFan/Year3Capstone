@@ -20,9 +20,9 @@ public class PlayerStatsManager : MonoBehaviour
     [Foldout("Stats"), Tooltip("Array of kills each player has done")]
     private int[] playerDeaths;
 
-    [SerializeField]
+    [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("Number of points needed to Win")]
-    private int pointsThreashold = 20;
+    private int pointsThreashold;
 
     [SerializeField]
     [Foldout("Stats"), Tooltip("Number of points to assign for order First place = 0")]
@@ -103,6 +103,7 @@ public class PlayerStatsManager : MonoBehaviour
         // Fill local variables
         for (int i = 0; i < playerPoints.Length; i++)
             localPoints.Add(playerPoints[i]);
+
 
         // For the number of players there are
         for (int j = 0; j < playerPoints.Length; j++)

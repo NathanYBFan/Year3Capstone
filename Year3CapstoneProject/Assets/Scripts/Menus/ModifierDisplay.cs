@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ModifierDisplay : MonoBehaviour
 {
-    #region SerializeFields
+    // Serialze Fields
     [SerializeField, ReadOnly]
     [Foldout("Dependencies"), Tooltip("")]
     private Modifier modifier;
@@ -21,19 +21,10 @@ public class ModifierDisplay : MonoBehaviour
     [SerializeField, Required]
     [Foldout("Dependencies"), Tooltip("")]
     private TextMeshProUGUI modifierNameText;
-    
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private GameObject buttonObject;
 
     [SerializeField, ReadOnly]
     [Foldout("Dependencies"), Tooltip("")]
     private GameObject playerToModify;
-    #endregion
-
-    #region Setters&Getters
-    public GameObject Buttonobject { get { return buttonObject; } }
-    #endregion
 
     public void ResetModifier(Modifier newModifier, GameObject newPlayerToModify)
     {
@@ -42,7 +33,7 @@ public class ModifierDisplay : MonoBehaviour
         playerToModify = newPlayerToModify;
 
         // Display proper data
-        // modifierImage.sprite = modifier.modifierImage.sprite;
+        modifierImage = modifier.modifierImage;
         modifierDescriptionText.text = modifier.modifierDescription;
         modifierNameText.text = modifier.modifierName;
     }
@@ -51,6 +42,5 @@ public class ModifierDisplay : MonoBehaviour
     {
         ModifierManager._Instance.PlayerToModify = playerToModify;
 		ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>().ActivateEffects(modifier);
-        ModifierManager._Instance.CloseModifierMenu();
     }
 }

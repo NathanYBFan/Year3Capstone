@@ -25,7 +25,7 @@ public class PausedMenu : MonoBehaviour
 
     public void ResumeButtonPressed()
     {
-        GameManager._Instance.PauseGame(true);
+        GameManager._Instance.PauseGame();
     }
 
     public void SettingsMenuPressed()
