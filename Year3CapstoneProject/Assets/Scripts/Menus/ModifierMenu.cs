@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ModifierMenu : MonoBehaviour
 {
@@ -42,6 +43,9 @@ public class ModifierMenu : MonoBehaviour
             for (int i = 0; i < numberOfDisplaysToSpawn; i++)
                 modifierDisplayList.Add(GameObject.Instantiate(modifierDisplayObj, modifierHolderTransform));
         ResetAllModifierSelection();
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(modifierDisplayList[0].GetComponent<ModifierDisplay>().Buttonobject);
     }
 
     private void ResetAllModifierSelection()

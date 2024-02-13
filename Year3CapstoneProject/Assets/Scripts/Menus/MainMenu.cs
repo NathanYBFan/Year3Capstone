@@ -8,6 +8,10 @@ public class MainMenu : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("First button to be selected - for controllers")]
     private GameObject firstButton;
 
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Sound to play when button is pressed")]
+    private AudioClip buttonSound;
+
     private void Start()
     {
         EventSystem.current.SetSelectedGameObject(null);
@@ -16,16 +20,19 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGamePressed()
     {
+        ButtonPressSFX();
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], true);
     }
 
     public void SettingsButtonPressed()
     {
+        ButtonPressSFX();
         LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[1]);
     }
 
     public void CreditsButtonPressed()
     {
+        ButtonPressSFX();
         LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[2]);
     }
 
@@ -39,4 +46,12 @@ public class MainMenu : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
+
+    //finds the UIAudioSource, and plays the button press sound
+    public void ButtonPressSFX()
+    {
+        AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
+        AudioManager._Instance.PlaySoundFX(buttonSound, buttonAudioSource);
+    }
+
 }
