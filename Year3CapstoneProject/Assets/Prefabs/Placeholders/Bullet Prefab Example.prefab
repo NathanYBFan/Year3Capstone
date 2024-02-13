@@ -129,7 +129,7 @@ MonoBehaviour:
   playerOwner: {fileID: 0}
   lifeTime: 5
   movementSpeed: 10
-  damageToDeal: 1
+  damageToDeal: 300
   isFragmentable: 1
   target: {fileID: 0}
 --- !u!54 &4483240422436281335

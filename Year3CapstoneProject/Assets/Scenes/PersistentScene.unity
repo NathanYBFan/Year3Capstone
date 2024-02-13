@@ -1447,6 +1447,7 @@ MonoBehaviour:
   chaosFactorList:
   - {fileID: 8732952394648480490, guid: 281bb21b1941c2949aa7316fe9cff7e8, type: 3}
   - {fileID: 852658246439149863, guid: 2303ff10ead46aa4cbd804c6899469b0, type: 3}
+  - {fileID: 2818179549119274978, guid: b61e86e78df4478489f36edd1df3b319, type: 3}
   nextChaosFactorTimerSeconds: 0
   chaosFactorMaxTimerSeconds: 30
   currentRunningChaosFactors: []
@@ -2498,6 +2499,7 @@ MonoBehaviour:
   - CharacterSelectMenu
   - MainGame
   - WickhamG
+  - TestField
 --- !u!1 &1071010891
 GameObject:
   m_ObjectHideFlags: 0
