@@ -8,8 +8,8 @@ public class explodeScript : MonoBehaviour
 
     void OnMouseDown()
     {
-        Instantiate(destroyedVersion, transform.position + new Vector3(2,0,2), transform.rotation);
-        //Destroy(gameObject);
+        Instantiate(destroyedVersion, transform.position, transform.rotation);
+        Destroy(gameObject);
     }
 
 }
