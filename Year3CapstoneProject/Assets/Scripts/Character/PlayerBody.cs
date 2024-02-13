@@ -206,15 +206,9 @@ public class PlayerBody : MonoBehaviour
 		{
 			Debug.Log("Benguin");
 		}
-<<<<<<< Updated upstream
 	}
-
+    
 	public void FireBullet()
-=======
-        
-    }
-    public void FireBullet()
->>>>>>> Stashed changes
 	{
 		if (Time.time >= stats.NextFireTime)
 		{
