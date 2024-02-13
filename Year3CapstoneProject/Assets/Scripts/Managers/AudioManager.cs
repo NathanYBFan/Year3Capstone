@@ -20,6 +20,10 @@ public class AudioManager : MonoBehaviour
     private AudioSource musicAudioSource;
 
     [SerializeField]
+    [Foldout("Dependencies"), Tooltip("The SFX Audio Source for UI and menu Buttons")]
+    private AudioSource uiAudioSource;
+
+    [SerializeField]
     [Foldout("Dependencies"), Tooltip("Sound FX list for the players")]
     private List<AudioClip> playerAudioList;
 
@@ -31,6 +35,8 @@ public class AudioManager : MonoBehaviour
     #region Getters&Setters
     public List<AudioSource> PlayerAudioSourceList { get { return playerAudioSourceList; } }
     public List<AudioClip> PlayerAudioList { get { return playerAudioList; } }
+
+    public AudioSource UIAudioSource { get { return uiAudioSource; } }
     public List<AudioClip> MusicList { get { return musicList; } }
     #endregion
     private void Awake()
