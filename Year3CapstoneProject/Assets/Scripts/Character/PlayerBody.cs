@@ -128,6 +128,7 @@ public class PlayerBody : MonoBehaviour
     public void Death()
 	{
 		headAnim.Play("Death");
+		legAnim.Play("Death");
 		DeathSound();
 		StartCoroutine("DestroyPlayer");
 	}
@@ -248,9 +249,8 @@ public class PlayerBody : MonoBehaviour
 			moveDirection.Normalize();
 
 		Vector3 velocity = rb.velocity;
-		Vector3 newForceDirection = (moveDirection * stats.MovementSpeed);
 		velocity.y = 0;
-		rb.AddForce(newForceDirection * stats.DashSpeed, ForceMode.Impulse);
+		rb.AddForce(moveDirection * stats.DashSpeed, ForceMode.Impulse);
 
 	}
     private void DeathSound()

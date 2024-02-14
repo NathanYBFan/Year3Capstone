@@ -45,7 +45,11 @@ public class PlayerStats : MonoBehaviour
     [Foldout("Player Stats"), Tooltip("Player max firerate")]
     private float fireRate = 0;
 
-    [Header("Energy Bar Stats")]
+	[SerializeField]
+	[Foldout("Player Stats"), Tooltip("Player damage amount.")]
+	private int damage = 1;
+
+	[Header("Energy Bar Stats")]
     [SerializeField]
     [Foldout("Player Stats"), Tooltip("Player max energy (the cooldown bar)")]
     private float maxEnergy = 10;
@@ -125,7 +129,8 @@ public class PlayerStats : MonoBehaviour
     public int CurrentHealth { get { return currHealth; } }
     public float MovementSpeed { get { return movementSpeed; } set { movementSpeed = value; } }
     public float FireRate { get { return fireRate; } set { fireRate = value; } }
-    public float MaxEnergy { get { return maxEnergy; } }
+	public int Damage { get { return damage; } set { damage = value; } }
+	public float MaxEnergy { get { return maxEnergy; } }
     public float CurrentEnergy { get { return currEnergy; } set { currEnergy = value; } }
     public int DashSpeed { get { return dashSpeed; } set { dashSpeed = value; } }
     public float Timer { get { return timer; } }
