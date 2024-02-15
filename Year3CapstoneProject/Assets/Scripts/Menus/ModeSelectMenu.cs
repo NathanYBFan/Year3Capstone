@@ -54,13 +54,24 @@ public class ModeSelectMenu : MonoBehaviour
 
     public void ContinueButtonPressed()
     {
+        ButtonPressSFX();
         GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
     }
 
     public void BackButtonPressed()
     {
+        ButtonPressSFX();
         GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[0], false);
     }
+
+
+    //finds the UIAudioSource, and plays the button press sound
+    public void ButtonPressSFX()
+    {
+        AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
+    }
+
 }

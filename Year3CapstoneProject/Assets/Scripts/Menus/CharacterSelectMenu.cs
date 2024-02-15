@@ -40,11 +40,13 @@ public class CharacterSelectMenu : MonoBehaviour
 
     public void BackButtonPressed()
     {
+        ButtonPressSFX();
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], false);
     }
     
     public void ContinueButtonPressed()
     {
+        ButtonPressSFX();
         GameManager._Instance.StartNewGame(); // Reset player stats
         LevelLoadManager._Instance.StartNewGame();
 
@@ -66,5 +68,11 @@ public class CharacterSelectMenu : MonoBehaviour
         {
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().CharacterStat = characterSelectedByPlayers[i];
         }
-    } 
+    }
+    //finds the UIAudioSource, and plays the button press sound
+    public void ButtonPressSFX()
+    {
+        AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
+    }
 }

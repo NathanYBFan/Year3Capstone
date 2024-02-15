@@ -1367,7 +1367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstButton: {fileID: 768347318}
-  buttonSound: {fileID: 8300000, guid: d9b389f77896b724c9e06c890ccae9d7, type: 3}
+  buttonSound: {fileID: 8300000, guid: 9ce325518541d0848a26c678536b5d28, type: 3}
 --- !u!114 &2011995970
 MonoBehaviour:
   m_ObjectHideFlags: 0

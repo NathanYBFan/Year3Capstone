@@ -1237,8 +1237,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -5372515452402877743, guid: 4eb8cde56a90f7d4cb9bebd8e88a527c, type: 2}
-  m_audioClip: {fileID: 8300000, guid: d9b389f77896b724c9e06c890ccae9d7, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 9ce325518541d0848a26c678536b5d28, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1909,6 +1909,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 92aa2295b64293b4aa2808610d2ddcb2, type: 3}
   - {fileID: 8300000, guid: bcb878bf7c05dc74b91f201d9fa24ea9, type: 3}
   - {fileID: 8300000, guid: 2f90e7f1cb927c048bf0d86bd971b329, type: 3}
+  uiAudioList:
+  - {fileID: 8300000, guid: f08c0bc44a1eba647927eece2bda269c, type: 3}
+  - {fileID: 8300000, guid: 9ce325518541d0848a26c678536b5d28, type: 3}
+  - {fileID: 8300000, guid: 232e6b44cdc2fe848b2ea8072f472ee6, type: 3}
   musicList: []
 --- !u!1 &872936915
 GameObject:

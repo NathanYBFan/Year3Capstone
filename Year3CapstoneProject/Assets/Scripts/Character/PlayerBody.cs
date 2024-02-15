@@ -265,11 +265,12 @@ public class PlayerBody : MonoBehaviour
 
 		isDashing = false;
 	}
+	//Plays the player death sound
     private void DeathSound()
     {
         float randPitch = Random.Range(0.8f, 1.5f);
         audioSource.pitch = randPitch;
-        audioSource.PlayOneShot(AudioManager._Instance.PlayerAudioList[2]);
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[2], audioSource);
     }
     public void SetMovementVector(Vector2 dir) { moveDir = dir; if (dir.x != 0 && dir.y != 0) legDir = dir; }
 
