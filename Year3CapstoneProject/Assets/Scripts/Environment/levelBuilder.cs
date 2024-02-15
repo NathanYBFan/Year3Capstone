@@ -83,7 +83,7 @@ public class levelBuilder : MonoBehaviour
 
                         if (levelInfo[i, j] < -20)
                         {
-                            Debug.Log(levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.x);
+                            //Debug.Log(levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.x);
                             Vector3 rot = new Vector3(levelAssets[levelInfo[i, j] *-1 - 21].transform.rotation.x, levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.y, levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.z);
                             temp = Instantiate(levelAssets[levelInfo[i, j] * -1 - 21], new Vector3(xVal, yVal + tileSize, zVal), Quaternion.Euler(new Vector3(rot.x - 90, rot.y, rot.z + 180)), this.transform);
 
@@ -119,7 +119,7 @@ public class levelBuilder : MonoBehaviour
     }
 
 
-    public void toIntArray(int lev)
+    private void toIntArray(int lev)
     {
         int i = 0;//row tracker
         int j = 0;//column tracker
