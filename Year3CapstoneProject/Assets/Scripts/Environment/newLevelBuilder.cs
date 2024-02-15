@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using NaughtyAttributes;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class newLevelBuilder : MonoBehaviour
 {
@@ -94,27 +95,27 @@ public class newLevelBuilder : MonoBehaviour
 
                 int sph = (t-1) * tileSize;
 
-                //decide prefab and spawn 
-                if (prefab == 6)
-                {
-                    temp = Instantiate(levelAssets[prefab - 1], new Vector3(xVal, yVal + sph, zVal), Quaternion.Euler(new Vector3(rot.x, r, rot.z)), this.transform);
+                    //decide prefab and spawn 
+                    if (prefab == 6)
+                    {
+                        temp = Instantiate(levelAssets[prefab - 1], new Vector3(xVal, yVal + sph, zVal), Quaternion.Euler(new Vector3(rot.x, r, rot.z)), this.transform);
+                    }
+                    else
+                    {
+                        temp = Instantiate(levelAssets[prefab - 1], new Vector3(xVal, yVal + sph, zVal), Quaternion.Euler(new Vector3(rot.x - 90, 0, rot.z + r)), this.transform);
+                    }
+                    //decide if it has something on top and if so spawn it
+
+                
+                    int topping = int.Parse(levelInfo[i, j, 3]);
+                    if (topping > 0)
+                    {
+                        Instantiate(levelAssets[topping - 1], new Vector3(xVal, yVal + sph + 4, zVal), Quaternion.Euler(new Vector3(rot.x - 90, 0, rot.z + r)), this.transform);
+                    }
                 }
-                else
-                    temp = Instantiate(levelAssets[prefab - 1], new Vector3(xVal, yVal + sph, zVal), Quaternion.Euler(new Vector3(rot.x-90, 0, rot.z+r)), this.transform);
-
-                //decide if it has something on top and if so spawn it
-                //int topping = int.Parse(levelInfo[i, j, 3]);
-
-                //if (topping > 0)
-                //{
-                //    Instantiate(levelAssets[topping - 1], new Vector3(xVal, yVal + sph+4, zVal), Quaternion.Euler(new Vector3(rot.x - 90, 0, rot.z + r)), this.transform);
-
-                //}
-
-                }
-
 
                 xVal = xVal + tileSize;
+
             }
 
             xVal = startX;

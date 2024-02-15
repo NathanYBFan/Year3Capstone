@@ -1374,8 +1374,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - {fileID: 4900000, guid: fd5d066619098ae4ab0eca0131c885f4, type: 3}
-  - {fileID: 4900000, guid: 9d63ae3d1003267458a7b4d5294248d4, type: 3}
+  - {fileID: 4900000, guid: 9e9093cdddf5f204b846e7e25506c7aa, type: 3}
+  - {fileID: 4900000, guid: 9b65c4fa8059af647a370c98aaf98ebd, type: 3}
+  - {fileID: 4900000, guid: 093443cfcfe76cd4abdec7698a24c1ae, type: 3}
+  - {fileID: 4900000, guid: 788c9daf627f66e43b7bd432cb20ea55, type: 3}
   levelAssets:
   - {fileID: 5499215989557754267, guid: 3b1b90876ff06a94eba847c7debb968d, type: 3}
   - {fileID: 1952934666896548472, guid: 7b3e6a1498c5aba4a87b414369be9be0, type: 3}
@@ -1384,7 +1386,7 @@ MonoBehaviour:
   - {fileID: 5499215989557754267, guid: 691b30727a72739428e36561ad5f0fc3, type: 3}
   - {fileID: 5841191079338777775, guid: 6a59f46d000738b4cb92af3cecd6e4da, type: 3}
   levelBuilderParent: {fileID: 1322166486}
-  levelToBuild: 1
+  levelToBuild: 3
   startX: -70
   startY: 0
   startZ: 0
@@ -1596,11 +1598,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1850314662375820772, guid: 6fb5e4cf5325f784dbbb718ccaa82d1c, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362698440545766085, guid: 6fb5e4cf5325f784dbbb718ccaa82d1c, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6362698440545766085, guid: 6fb5e4cf5325f784dbbb718ccaa82d1c, type: 3}
       propertyPath: levelToBuild
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
