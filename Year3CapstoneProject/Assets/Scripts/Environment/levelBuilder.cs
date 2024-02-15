@@ -62,8 +62,16 @@ public class levelBuilder : MonoBehaviour
                 temp = null;
                 if (levelInfo[i, j] != 0)
                 {
-                    
-                    if (levelInfo[i, j] > 20)
+                    if (levelInfo[i, j] > 200)
+                    {
+
+                        temp = Instantiate(levelAssets[levelInfo[i, j] - 201], new Vector3(xVal, yVal + tileSize, zVal), levelAssets[levelInfo[i, j] - 201].transform.rotation, this.transform);
+
+                    }
+
+
+
+                    else if (levelInfo[i, j] > 20)
                     {
 
                         temp = Instantiate(levelAssets[levelInfo[i, j] - 21], new Vector3(xVal, yVal + tileSize, zVal), levelAssets[levelInfo[i, j] - 21].transform.rotation, this.transform);
@@ -73,7 +81,7 @@ public class levelBuilder : MonoBehaviour
                     else if (levelInfo[i, j] < 0)
                     {
 
-                        if (levelInfo[i, j] < -20) // Thing that goes wrong
+                        if (levelInfo[i, j] < -20)
                         {
                             Debug.Log(levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.x);
                             Vector3 rot = new Vector3(levelAssets[levelInfo[i, j] *-1 - 21].transform.rotation.x, levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.y, levelAssets[levelInfo[i, j] * -1 - 21].transform.rotation.z);
