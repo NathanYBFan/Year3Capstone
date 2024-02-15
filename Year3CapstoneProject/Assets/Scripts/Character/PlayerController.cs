@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
 		if (body == null) return;
         if (body.GetComponent<PlayerStats>().IsDead) return;
 
-        body.PerformDash();
+        body.DashActionPressed();
 	}
 
 	public void OnAim(CallbackContext ctx)

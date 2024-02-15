@@ -184,12 +184,14 @@ MonoBehaviour:
   maxHealth: 80
   currHealth: 80
   movementSpeed: 0
-  dashSpeed: 200
+  dashSpeed: 32
   fireRate: 4
+  damage: 1
   maxEnergy: 100
   currEnergy: 100
   timer: 0
   rate: 1
+  dashDuration: 0.125
   replenishAmount: 20
   giveableDebuff: {fileID: 0}
   inflictedDebuff: {fileID: 0}

@@ -231,7 +231,7 @@ public class PlayerBody : MonoBehaviour
 		}
 	}
 
-	public void PerformDash()
+	public void DashActionPressed()
 	{
 		isDashing = true;
         float amount = stats.MaxEnergy / 2.0f;
@@ -248,10 +248,22 @@ public class PlayerBody : MonoBehaviour
 		if (moveDirection.magnitude > 1)
 			moveDirection.Normalize();
 
-		Vector3 velocity = rb.velocity;
-		velocity.y = 0;
-		rb.AddForce(moveDirection * stats.DashSpeed, ForceMode.Impulse);
+		StartCoroutine(PerformDash(moveDirection));
 
+	}
+	private IEnumerator PerformDash(Vector3 moveDir)
+	{
+		float elapsedTime = 0f;
+		while (elapsedTime < stats.DashDuration)
+		{
+			float distThisFrame = stats.DashSpeed * Time.deltaTime;
+
+			rb.MovePosition(rb.position + moveDir * distThisFrame);
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+
+		isDashing = false;
 	}
     private void DeathSound()
     {

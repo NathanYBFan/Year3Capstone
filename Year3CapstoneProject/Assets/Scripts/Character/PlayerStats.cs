@@ -39,7 +39,7 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField]
     [Foldout("Player Stats"), Tooltip("Player Dash speed.")]
-    private int dashSpeed = 250;
+    private int dashSpeed = 32;
 
     [SerializeField]
     [Foldout("Player Stats"), Tooltip("Player max firerate")]
@@ -66,7 +66,11 @@ public class PlayerStats : MonoBehaviour
     [Foldout("Player Stats"), Tooltip("The rate (in seconds) at which energy is replenished.\nEx. A value of 1 means this player regains x energy points per 1 second.")]
     private float rate = 1;
 
-    [SerializeField]
+	[SerializeField]
+	[Foldout("Player Stats"), Tooltip("Player Dash duration.")]
+	private float dashDuration = 0.125f;
+
+	[SerializeField]
     [Foldout("Player Stats"), Tooltip("The amount of energy points that gets replenished per iteration.")]
     private float replenishAmount = 1;
 
@@ -135,7 +139,8 @@ public class PlayerStats : MonoBehaviour
     public int DashSpeed { get { return dashSpeed; } set { dashSpeed = value; } }
     public float Timer { get { return timer; } }
     public float Rate { get { return rate; } }
-    public float NextFireTime { get { return nextFireTime; } set { nextFireTime = value; } }
+	public float DashDuration { get { return dashDuration; } }
+	public float NextFireTime { get { return nextFireTime; } set { nextFireTime = value; } }
     public Debuff GiveableDebuff { get { return giveableDebuff; } set { giveableDebuff = value; } }
     public Debuff InflictedDebuff
     {
