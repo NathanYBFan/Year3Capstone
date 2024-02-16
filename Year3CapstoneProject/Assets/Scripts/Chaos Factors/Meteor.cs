@@ -1,11 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
-using static UnityEngine.UI.Image;
 
 public class Meteor : MonoBehaviour
 {
+    [SerializeField]
+    private int damage;
 
     [SerializeField]
     private int spawnHeight;
@@ -40,7 +39,6 @@ public class Meteor : MonoBehaviour
     void Awake()
     {
         transform.position = new Vector3(Random.Range(minSpawnX, maxSpawnX), spawnHeight, Random.Range(minSpawnZ, maxSpawnZ));
-        // fallMarker.transform.position = new Vector3(transform.position.x, markerSpawnHeight, transform.position.z);
         markerInstance = Instantiate(fallMarker, new Vector3(transform.position.x, markerSpawnHeight+4, transform.position.z), transform.rotation);
         rb = GetComponent<Rigidbody>();
     }
@@ -59,7 +57,25 @@ public class Meteor : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.GetComponentInChildren<CapsuleCollider>() != null && collision.gameObject.GetComponentInChildren<CapsuleCollider>().CompareTag("Player")) 
+        {
+            collision.gameObject.transform.GetComponent<PlayerStats>().TakeDamage(damage);
+        }
+
         StartCoroutine(boom());
+    }
+
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            UnityEngine.Debug.Log("player detected by meteor");
+            other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(10);
+
+
+        }
     }
 
 

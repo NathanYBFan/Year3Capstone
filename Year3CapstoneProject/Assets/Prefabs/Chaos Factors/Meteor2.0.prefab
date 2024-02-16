@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f865b2f7ffa0b2b43b484d2acc7f936b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 100
   spawnHeight: 160
   maxSpawnX: 28
   minSpawnX: 28

@@ -46,7 +46,7 @@ public class PlayerShooting : MonoBehaviour
 		}
 
 		int playerIndex = GetComponent<PlayerBody>().PlayerIndex;
-		if (AudioManager._Instance.PlayerAudioSourceList.Count < playerIndex || AudioManager._Instance.PlayerAudioList.Count < 0)
+		if (AudioManager._Instance.PlayerAudioSourceList.Count > playerIndex || AudioManager._Instance.PlayerAudioList.Count > 0)
 	        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[0], AudioManager._Instance.PlayerAudioSourceList[playerIndex]);
 	}
 }

@@ -44,6 +44,7 @@ public class PlayerBody : MonoBehaviour
 	#region Getters & Setters
 	public bool OnIce { get { return onIce; } set { onIce = value; } }
 	public int PlayerIndex { get { return playerIndex; } }
+	public bool IsRolling { get { return isRolling; } }
 	#endregion Getters & Setters
 	#region Private Variables
 	Animation headAnim;
@@ -127,6 +128,7 @@ public class PlayerBody : MonoBehaviour
     public void Death()
 	{
 		headAnim.Play("Death");
+		legAnim.Play("Death");
 		DeathSound();
 		StartCoroutine("DestroyPlayer");
 	}
@@ -179,21 +181,34 @@ public class PlayerBody : MonoBehaviour
 
 	public void Roll()
 	{
-		isRolling = true;
-		int odds = Random.Range(1, 4);
+		
+
+		float amount = stats.MaxEnergy;
+		// Power saving
+        if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
+		// Has enough energy to roll
+        if (stats.CurrentEnergy - amount < 0) return;
+        isRolling = true;
+
+        // Using energy before doing action
+        stats.UseEnergy(amount);
+        
+
+        int odds = Random.Range(1, 4);
 		if (odds == 1) 
 		{
-			Debug.Log(":3");
+			Debug.Log("KYS tehe :3");
 		}
 		else if (odds == 2)
 		{
-			Debug.Log(">:3");
+			Debug.Log("Meow");
 		}
 		else if (odds == 3)
 		{
-			Debug.Log("I love arson :3c");
+			Debug.Log("Benguin");
 		}
 	}
+    
 	public void FireBullet()
 	{
 		if (Time.time >= stats.NextFireTime)
@@ -216,29 +231,46 @@ public class PlayerBody : MonoBehaviour
 		}
 	}
 
-	public void PerformDash()
+	public void DashActionPressed()
 	{
 		isDashing = true;
-		float amount = (2 * stats.MaxEnergy) / 3;
-		if (stats.IsPowerSaving) amount /= 2;
-		if (stats.CurrentEnergy - amount < 0) return;
-		stats.UseEnergy(amount);
+        float amount = stats.MaxEnergy / 2.0f;
+        // Power saving
+        if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
+                                                         // Has enough energy to dash
+        if (stats.CurrentEnergy - amount < 0) return;
 
-		Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
+        // Using energy before doing action
+        stats.UseEnergy(amount);
+        
+
+        Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
 		if (moveDirection.magnitude > 1)
 			moveDirection.Normalize();
 
-		Vector3 velocity = rb.velocity;
-		Vector3 newForceDirection = (moveDirection * stats.MovementSpeed);
-		velocity.y = 0;
-		rb.AddForce(newForceDirection * stats.DashSpeed, ForceMode.Impulse);
+		StartCoroutine(PerformDash(moveDirection));
 
 	}
+	private IEnumerator PerformDash(Vector3 moveDir)
+	{
+		float elapsedTime = 0f;
+		while (elapsedTime < stats.DashDuration)
+		{
+			float distThisFrame = stats.DashSpeed * Time.deltaTime;
+
+			rb.MovePosition(rb.position + moveDir * distThisFrame);
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+
+		isDashing = false;
+	}
+	//Plays the player death sound
     private void DeathSound()
     {
         float randPitch = Random.Range(0.8f, 1.5f);
         audioSource.pitch = randPitch;
-        audioSource.PlayOneShot(AudioManager._Instance.PlayerAudioList[2]);
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[2], audioSource);
     }
     public void SetMovementVector(Vector2 dir) { moveDir = dir; if (dir.x != 0 && dir.y != 0) legDir = dir; }
 

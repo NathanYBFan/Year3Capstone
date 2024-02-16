@@ -51,7 +51,7 @@ public class MainMenu : MonoBehaviour
     public void ButtonPressSFX()
     {
         AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
-        AudioManager._Instance.PlaySoundFX(buttonSound, buttonAudioSource);
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
     }
 
 }

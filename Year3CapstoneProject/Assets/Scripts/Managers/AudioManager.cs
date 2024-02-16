@@ -28,6 +28,10 @@ public class AudioManager : MonoBehaviour
     private List<AudioClip> playerAudioList;
 
     [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Sound FX list for the UI")]
+    private List<AudioClip> uiAudioList;
+
+    [SerializeField]
     [Foldout("Dependencies"), Tooltip("Music track list")]
     private List<AudioClip> musicList;
     #endregion
@@ -35,6 +39,7 @@ public class AudioManager : MonoBehaviour
     #region Getters&Setters
     public List<AudioSource> PlayerAudioSourceList { get { return playerAudioSourceList; } }
     public List<AudioClip> PlayerAudioList { get { return playerAudioList; } }
+    public List<AudioClip> UIAudioList { get { return uiAudioList; } }
 
     public AudioSource UIAudioSource { get { return uiAudioSource; } }
     public List<AudioClip> MusicList { get { return musicList; } }

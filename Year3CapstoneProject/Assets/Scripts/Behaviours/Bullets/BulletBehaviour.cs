@@ -98,7 +98,7 @@ public class BulletBehaviour : MonoBehaviour
 						}
 					}
 					// Deal damage.
-					other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damageToDeal);
+					other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(playerOwner.Damage);
 
 					// If these bullets were instantiated from Fragmentation, then they should get destroyed. If not, then they can be readded to the bullet object pool.
 					if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);

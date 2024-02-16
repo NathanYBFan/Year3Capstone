@@ -15,8 +15,8 @@ MonoBehaviour:
   CharacterName: Cube
   playerModelHead: {fileID: 10016455477760288, guid: 4398b32f8053c1a44b6b668b258cd9df, type: 3}
   playerModelBody: {fileID: 10016455477760288, guid: 0f5129bef0cf299409ebb88038f5f57a, type: 3}
-  MaxHealth: 80
-  DefaultMoveSpeed: 20
-  DefaultFireRate: 4
-  MaxEnergy: 20
+  MaxHealth: 4
+  DefaultMoveSpeed: 17
+  DefaultFireRate: 3
+  MaxEnergy: 100
   EnergyRegenRate: 1

@@ -5048,3 +5048,5 @@ MonoBehaviour:
   snowBurst: {fileID: 3935702394848475510}
   snowBurst2: {fileID: 0}
   time: 0
+  maxHeight: 0
+  minHeight: 0
