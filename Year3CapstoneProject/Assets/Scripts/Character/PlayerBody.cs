@@ -24,6 +24,8 @@ public class PlayerBody : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")] private AudioSource audioSource;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private GameObject aimUI;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")] private GameObject playerShield;
 
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("")] private int playerIndex = -1; //Which number this player is.
@@ -181,8 +183,7 @@ public class PlayerBody : MonoBehaviour
 
 	public void Roll()
 	{
-		
-
+		int healing = 1;
 		float amount = stats.MaxEnergy;
 		// Power saving
         if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
@@ -194,18 +195,30 @@ public class PlayerBody : MonoBehaviour
         stats.UseEnergy(amount);
         
 
-        int odds = Random.Range(1, 4);
+        int odds = Random.Range(1, 5);
 		if (odds == 1) 
 		{
+			//Roll for damage boost
+			stats.Damage = stats.Damage + 1;
 			Debug.Log("KYS tehe :3");
 		}
 		else if (odds == 2)
 		{
+			//Roll for heal
+			stats.Heal(healing);
 			Debug.Log("Meow");
 		}
 		else if (odds == 3)
 		{
+			//Roll for movement speed boost
+			stats.MovementSpeed = stats.MovementSpeed + 5;
 			Debug.Log("Benguin");
+		}
+		else if (odds == 4)
+		{
+			//Roll for Shield
+			playerShield.SetActive(true);
+			Debug.Log("Huh");
 		}
 	}
     
@@ -234,7 +247,7 @@ public class PlayerBody : MonoBehaviour
 	public void DashActionPressed()
 	{
 		isDashing = true;
-        float amount = stats.MaxEnergy / 2.0f;
+        float amount = stats.MaxEnergy / 3.0f;
         // Power saving
         if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
                                                          // Has enough energy to dash

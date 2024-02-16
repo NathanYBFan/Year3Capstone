@@ -26,6 +26,8 @@ public class CameraShake : MonoBehaviour
 
     public void ShakeCamera()
     {
+
+
         CinemachineBasicMultiChannelPerlin clamp = CinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         clamp.m_AmplitudeGain = ShakeIntensity;
         timer = ShakeDuration;

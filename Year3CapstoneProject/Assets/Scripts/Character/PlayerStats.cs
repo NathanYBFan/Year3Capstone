@@ -247,6 +247,14 @@ public class PlayerStats : MonoBehaviour
         StartDeath();
     }
 
+    public void Heal(int healing)
+    {
+        if(currHealth < maxHealth)
+        {
+            currHealth += healing;
+        }
+    }
+
     private void StartDeath()
     {
         currHealth = 0;
