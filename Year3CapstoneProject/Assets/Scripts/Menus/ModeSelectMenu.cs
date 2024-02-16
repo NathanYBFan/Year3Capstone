@@ -103,4 +103,9 @@ public class ModeSelectMenu : MenuNavigation
     {
         throw new System.NotImplementedException();
     }
+
+    public override void UpdateUI()
+    {
+        throw new System.NotImplementedException();
+    }
 }
