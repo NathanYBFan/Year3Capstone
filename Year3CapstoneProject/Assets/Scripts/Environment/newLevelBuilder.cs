@@ -112,6 +112,13 @@ public class newLevelBuilder : MonoBehaviour
                     {
                         Instantiate(levelAssets[topping - 1], new Vector3(xVal, yVal + sph + 4, zVal), Quaternion.Euler(new Vector3(rot.x - 90, 0, rot.z + r)), this.transform);
                     }
+
+
+
+                    if (temp.GetComponent<Platform>() != null)
+                    {
+                        GameManager._Instance.Platforms.Add(temp);
+                    }
                 }
 
                 xVal = xVal + tileSize;
@@ -159,7 +166,7 @@ public class newLevelBuilder : MonoBehaviour
                     foreach (string u in c)
                     {
 
-                        //Debug.Log(u);
+                        Debug.Log(u);
                         levelInfo[i, j, k] = u;
 
                         k++;

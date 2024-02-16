@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LaserLightShow : MonoBehaviour
 {
@@ -14,7 +16,11 @@ public class LaserLightShow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3 (30, 5.67f, 13);
+
+        Vector3 start = GameManager._Instance.Platforms[0].transform.position;
+        Vector3 end = GameManager._Instance.Platforms.Last().transform.position;
+
+        transform.position = new Vector3 ((start.x + end.x) /2, start.y+5.67f, (start.z + end.z)/2);
 
     }
 
