@@ -17,11 +17,15 @@ public class ModeSelectMenu : MenuNavigation
     [Foldout("Stats"), Tooltip("")]
     private int currentSelectedMode = 0;
 
+    private enum buttons { Mode, Continue, Back }
+    private buttons selectedButton;
+
     private void Start()
     {
         // Setup button hookups
         EventSystem.current.SetSelectedGameObject(arrayOfbuttons[0]);
         GameManager._Instance.MenuNavigation = this;
+        selectedButton = buttons.Mode;
 
         // Check if a mode is already selected
         for (int i = 0; i < modesToSelectFrom.Length; i++)
@@ -54,20 +58,18 @@ public class ModeSelectMenu : MenuNavigation
 
     public void ContinueButtonPressed()
     {
-        ButtonPressSFX();
         GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
     }
 
     public void BackButtonPressed()
     {
-        ButtonPressSFX();
         GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[0], false);
     }
 
 
-    //finds the UIAudioSource, and plays the button press sound
+    // Finds the UIAudioSource, and plays the button press sound
     public void ButtonPressSFX()
     {
         AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
@@ -76,36 +78,63 @@ public class ModeSelectMenu : MenuNavigation
 
     public override void UpPressed()
     {
-        throw new System.NotImplementedException();
+        selectedButton--;
+        UpdateUI();
     }
 
     public override void DownPressed()
     {
-        throw new System.NotImplementedException();
+        selectedButton++;
+        UpdateUI();
     }
 
     public override void LeftPressed()
     {
-        throw new System.NotImplementedException();
+        if (selectedButton == buttons.Mode)
+        {
+            LeftArrowPressed();
+            return;
+        }
+        selectedButton--;
+        UpdateUI();
     }
 
     public override void RightPressed()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override void SelectPressed()
-    {
-        throw new System.NotImplementedException();
+        if (selectedButton == buttons.Mode)
+        {
+            RightArrowPressed();
+            return;
+        }
+        selectedButton++;
+        UpdateUI();
     }
 
     public override void CancelPressed()
     {
-        throw new System.NotImplementedException();
+        BackButtonPressed();
+        UpdateUI();
     }
 
     public override void UpdateUI()
     {
-        throw new System.NotImplementedException();
+        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[(int)selectedButton]);
+    }
+
+    public override void SelectPressed()
+    {
+        ButtonPressSFX();
+        UpdateUI();
+        switch (selectedButton)
+        {
+            case buttons.Mode:
+                return; // Do nothing
+            case buttons.Back:
+                BackButtonPressed();
+                return;
+            case buttons.Continue:
+                ContinueButtonPressed();
+                break;
+        }
     }
 }

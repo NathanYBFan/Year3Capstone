@@ -26,20 +26,20 @@ public class MainMenu : MenuNavigation
     {
         EventSystem.current.SetSelectedGameObject(arrayOfbuttons[(int) selectedButton]);
         
-        switch (selectedButton)
-        {
-            case buttons.PlayButton:
-                break;
-            case buttons.SettingsButton:
-                EventSystem.current.SetSelectedGameObject(arrayOfbuttons[1]);
-                break;
-            case buttons.CreditsButton:
-                EventSystem.current.SetSelectedGameObject(arrayOfbuttons[2]);
-                break;
-            case buttons.QuitButton: 
-                EventSystem.current.SetSelectedGameObject(arrayOfbuttons[3]);
-                break;
-        }
+        //switch (selectedButton)
+        //{
+        //    case buttons.PlayButton:
+        //        break;
+        //    case buttons.SettingsButton:
+        //        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[1]);
+        //        break;
+        //    case buttons.CreditsButton:
+        //        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[2]);
+        //        break;
+        //    case buttons.QuitButton: 
+        //        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[3]);
+        //        break;
+        //}
     }
 
     public override void UpPressed()
