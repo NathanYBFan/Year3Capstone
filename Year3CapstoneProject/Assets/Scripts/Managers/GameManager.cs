@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     #region PrivateVariables
     private bool inGame;
     private bool isPaused;
+	[SerializeField, ReadOnly]
+	private MenuNavigation menuNavigation;
     #endregion
 
     #region Getters&Setters
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
 	public InputSystemUIInputModule UiInputModule { get { return uiInputModule; } }
 	public bool InGame { get { return inGame; } set { inGame = value; } }
 	public bool IsPaused { get { return isPaused; } set { isPaused = value; } }
+	public MenuNavigation MenuNavigation { get { return menuNavigation; } set {  menuNavigation = value; } }
     #endregion
 
     private void Awake()

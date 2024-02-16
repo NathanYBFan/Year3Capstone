@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class CharacterSelectMenu : MonoBehaviour
 {
+    #region SerializeFields
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private CharacterStatsSO[] listOfStats = new CharacterStatsSO[4];
@@ -19,14 +20,30 @@ public class CharacterSelectMenu : MonoBehaviour
     private GameObject firstButton;
 
     [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private GameObject[] uiGroups;
+
+    [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("Character to instantiate")]
     private CharacterStatsSO[] characterSelectedByPlayers = new CharacterStatsSO[4];
-    
+
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("Color to assign to players")]
+    private Color[] colorSelectedByPlayers = new Color[4];
+    #endregion
+
+    #region PrivateVariables
+    private enum selectState { characterSelect, colorSelect, lockedIn }
+    private selectState currentState = selectState.characterSelect;
+    #endregion
+
     private void Start()
     {
         EventSystem.current.SetSelectedGameObject(firstButton);
         for (int i = 0; i < listOfStats.Length; i++)
             SetCharacterStatAssignment(i, listOfStats[i]);
+        currentState = selectState.characterSelect;
+        UpdateDisplayUI();
     }
 
     private void SetCharacterStatAssignment(int characterIndex, CharacterStatsSO characterStatToAssign)
@@ -35,18 +52,92 @@ public class CharacterSelectMenu : MonoBehaviour
         displayParent[characterIndex].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "--" + characterStatToAssign.CharacterName + "--";
         displayParent[characterIndex].transform.GetChild(0).GetChild(1).GetChild(0).GetComponentInChildren<Slider>().value = characterStatToAssign.DefaultFireRate / 10;
         displayParent[characterIndex].transform.GetChild(0).GetChild(1).GetChild(1).GetComponentInChildren<Slider>().value = characterStatToAssign.DefaultMoveSpeed / 20;
-        displayParent[characterIndex].transform.GetChild(0).GetChild(1).GetChild(2).GetComponentInChildren<Slider>().value = (float) characterStatToAssign.MaxHealth / 100;
+        displayParent[characterIndex].transform.GetChild(0).GetChild(1).GetChild(2).GetComponentInChildren<Slider>().value = (float)characterStatToAssign.MaxHealth / 100;
+    }
+
+    private void SetColorAssignment(int colorIndex)
+    {
+
+    }
+
+    private void ConfirmSelected()
+    {
+        switch (currentState)
+        {
+            case selectState.characterSelect:
+
+                currentState = selectState.colorSelect;
+                break;
+            case selectState.colorSelect:
+
+                currentState = selectState.lockedIn;
+                break;
+            case selectState.lockedIn: return; // Do nothing
+            default:
+                Debug.Log("Error case reached, current state is null");
+                break;
+        }
+    }
+
+    private void CancelSelected()
+    {
+        switch (currentState)
+        {
+            case selectState.characterSelect: return; // Do nothing
+            case selectState.colorSelect:
+                currentState = selectState.characterSelect;
+                break;
+            case selectState.lockedIn:
+                currentState = selectState.colorSelect;
+                break;
+            default:
+                Debug.Log("Error case reached, current state is null");
+                break;
+        }
+        UpdateDisplayUI();
+    }
+
+    private void UpdateDisplayUI()
+    {
+        // Turn all UI off
+        ResetAllUI();
+
+        // Turn on depending on state
+        switch (currentState)
+        {
+            case selectState.characterSelect:
+                uiGroups[0].SetActive(true);
+                return;
+            case selectState.colorSelect:
+                uiGroups[1].SetActive(true);
+                return;
+            case selectState.lockedIn:
+                uiGroups[2].SetActive(true);
+                return;
+            default:
+                Debug.Log("Error case reached, current state is null");
+                break;
+        }
+    }
+
+    private void ResetAllUI()
+    {
+        foreach(GameObject uiElement in uiGroups)
+        {
+            uiElement.SetActive(false);
+        }
     }
 
     public void BackButtonPressed()
     {
-        ButtonPressSFX();
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], AudioManager._Instance.UIAudioSource);
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], false);
     }
     
     public void ContinueButtonPressed()
     {
-        ButtonPressSFX();
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], AudioManager._Instance.UIAudioSource);
+        
         GameManager._Instance.StartNewGame(); // Reset player stats
         LevelLoadManager._Instance.StartNewGame();
 
@@ -59,20 +150,11 @@ public class CharacterSelectMenu : MonoBehaviour
             LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[6], true);
         else if (GameManager._Instance.SelectedGameMode.CompareTo("FlatGround") == 0)
             LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
-
     }
 
     private void ApplyCharacterStats()
     {
         for (int i = 0; i < characterSelectedByPlayers.Length; i++)
-        {
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().CharacterStat = characterSelectedByPlayers[i];
-        }
-    }
-    //finds the UIAudioSource, and plays the button press sound
-    public void ButtonPressSFX()
-    {
-        AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
-        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
     }
 }

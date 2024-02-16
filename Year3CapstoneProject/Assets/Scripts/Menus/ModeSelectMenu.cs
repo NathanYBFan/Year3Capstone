@@ -3,12 +3,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class ModeSelectMenu : MonoBehaviour
+public class ModeSelectMenu : MenuNavigation
 {
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("First button to be selected - for controllers")]
-    private GameObject firstButton;
-
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
     private string[] modesToSelectFrom;
@@ -23,7 +19,11 @@ public class ModeSelectMenu : MonoBehaviour
 
     private void Start()
     {
-        EventSystem.current.SetSelectedGameObject(firstButton);
+        // Setup button hookups
+        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[0]);
+        GameManager._Instance.MenuNavigation = this;
+
+        // Check if a mode is already selected
         for (int i = 0; i < modesToSelectFrom.Length; i++)
         {
             if (GameManager._Instance.SelectedGameMode.CompareTo(modesToSelectFrom[i]) == 0)
@@ -74,4 +74,33 @@ public class ModeSelectMenu : MonoBehaviour
         AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
     }
 
+    public override void UpPressed()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void DownPressed()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void LeftPressed()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void RightPressed()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void SelectPressed()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void CancelPressed()
+    {
+        throw new System.NotImplementedException();
+    }
 }

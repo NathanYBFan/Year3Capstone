@@ -1901,7 +1901,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03845ce2712bd704894a72f5fa87c6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstButton: {fileID: 596964395}
+  arrayOfbuttons:
+  - {fileID: 677708972}
+  - {fileID: 1129568682}
+  - {fileID: 747077296}
   modesToSelectFrom:
   - FFA
   - MODELS
