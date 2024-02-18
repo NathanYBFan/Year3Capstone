@@ -165,7 +165,7 @@ MonoBehaviour:
   playerIndex: 0
   smoothFactor: 0.1
   onIce: 0
-  iceInertiaMultiplier: 0.5
+  iceInertiaMultiplier: 28.75
 --- !u!114 &4952783801461123959
 MonoBehaviour:
   m_ObjectHideFlags: 0

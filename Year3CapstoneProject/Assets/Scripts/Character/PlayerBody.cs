@@ -39,9 +39,9 @@ public class PlayerBody : MonoBehaviour
 	private bool onIce;
 
 	[SerializeField]
-	[Foldout("Physics Modifiers"), Range(0, 2), Tooltip("Float value that affects the amount of resistance the player experiences to move in a specific direction." +
+	[Foldout("Physics Modifiers"), Range(0, 100), Tooltip("Float value that affects the amount of resistance the player experiences to move in a specific direction." +
 		"\nNOTE: Higher values make the resistance against the player greater (and makes it harder to move).")]
-	private float iceInertiaMultiplier = 2f;
+	private float iceInertiaMultiplier = 50f;
 	#endregion Serialize Fields
 	#region Getters & Setters
 	public bool OnIce { get { return onIce; } set { onIce = value; } }
@@ -97,22 +97,18 @@ public class PlayerBody : MonoBehaviour
 		if (moveDirection.magnitude > 1)
 			moveDirection.Normalize();
 
+		Vector3 velocity = rb.velocity;
+		Vector3 newForceDirection = (moveDirection * stats.MovementSpeed) - collisionDetection.ContactNormal;
+		velocity.y = 0;
+
 		if (onIce)
 		{
-			// Ice Physics Movement.		
-			rb.velocity += (moveDirection * stats.MovementSpeed) - collisionDetection.ContactNormal * Time.deltaTime;
-			rb.velocity = Vector3.ClampMagnitude(rb.velocity, stats.MovementSpeed / 1.5f); // Cannot go above max speed.
-
-			Vector3 velocity = rb.velocity;
 			velocity.y = 0;
-			rb.velocity -= velocity * iceInertiaMultiplier * Time.deltaTime; // Apply resistance to the player's movement.
+			Vector3 iceVelocity = Vector3.Lerp(velocity, (newForceDirection - velocity) * 1.5f, iceInertiaMultiplier * Time.deltaTime);
+			rb.AddForce(iceVelocity, ForceMode.Acceleration);
 		}
 		else
 		{
-			// Default Movement.
-			Vector3 velocity = rb.velocity;
-			Vector3 newForceDirection = (moveDirection * stats.MovementSpeed) - collisionDetection.ContactNormal;
-			velocity.y = 0;
 			rb.AddForce(newForceDirection - velocity, ForceMode.VelocityChange);
 		}
 	}
