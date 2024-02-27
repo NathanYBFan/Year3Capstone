@@ -35,10 +35,11 @@ public class MenuInputManager : MonoBehaviour
     {
         currentButton += button;
 
-        if (currentButton < 0) currentButton = totalNumberOfbuttons;
+        if (currentButton < 0) currentButton = totalNumberOfbuttons - 1;
         else if (currentButton >= totalNumberOfbuttons) currentButton = 0;
 
         // Highlight selected button
+        Debug.Log(currentButton);
         GameManager._Instance.MenuNavigation.UpdateUI(GameManager._Instance.MenuNavigation.arrayOfbuttons[currentButton]);
     }
 
