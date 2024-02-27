@@ -25,21 +25,21 @@ public class MainMenu : MenuNavigation
     public override void UpdateUI()
     {
         EventSystem.current.SetSelectedGameObject(arrayOfbuttons[(int) selectedButton]);
-        
-        //switch (selectedButton)
-        //{
-        //    case buttons.PlayButton:
-        //        break;
-        //    case buttons.SettingsButton:
-        //        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[1]);
-        //        break;
-        //    case buttons.CreditsButton:
-        //        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[2]);
-        //        break;
-        //    case buttons.QuitButton: 
-        //        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[3]);
-        //        break;
-        //}
+
+        switch (selectedButton)
+        {
+            case buttons.PlayButton:
+                break;
+            case buttons.SettingsButton:
+                EventSystem.current.SetSelectedGameObject(arrayOfbuttons[1]);
+                break;
+            case buttons.CreditsButton:
+                EventSystem.current.SetSelectedGameObject(arrayOfbuttons[2]);
+                break;
+            case buttons.QuitButton:
+                EventSystem.current.SetSelectedGameObject(arrayOfbuttons[3]);
+                break;
+        }
     }
 
     public override void UpPressed()
@@ -95,4 +95,30 @@ public class MainMenu : MenuNavigation
 
     // No use in this class
     public override void CancelPressed() { return; }
+
+    public void PlayGamePressed()
+    {
+        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], true);
+    }
+
+    public void SettingsButtonPressed()
+    {
+        LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[1]);
+    }
+
+    public void CreditsbuttonPressed()
+    {
+        LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[2]);
+    }
+
+    public void QuitButtonPressed()
+    {
+#if UNITY_STANDALONE
+        Application.Quit();
+#endif
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
 }
