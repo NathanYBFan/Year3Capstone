@@ -10,7 +10,7 @@ public abstract class MenuNavigation : MonoBehaviour
     public abstract void DownPressed();
     public abstract void LeftPressed();
     public abstract void RightPressed();
-    public abstract void SelectPressed();
+    public abstract void SelectPressed(int buttonSelection);
     public abstract void CancelPressed();
-    public abstract void UpdateUI();
+    public abstract void UpdateUI(GameObject buttonSelection);
 }

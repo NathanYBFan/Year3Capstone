@@ -79,13 +79,11 @@ public class ModeSelectMenu : MenuNavigation
     public override void UpPressed()
     {
         selectedButton--;
-        UpdateUI();
     }
 
     public override void DownPressed()
     {
         selectedButton++;
-        UpdateUI();
     }
 
     public override void LeftPressed()
@@ -96,7 +94,6 @@ public class ModeSelectMenu : MenuNavigation
             return;
         }
         selectedButton--;
-        UpdateUI();
     }
 
     public override void RightPressed()
@@ -107,24 +104,21 @@ public class ModeSelectMenu : MenuNavigation
             return;
         }
         selectedButton++;
-        UpdateUI();
     }
 
     public override void CancelPressed()
     {
         BackButtonPressed();
-        UpdateUI();
     }
 
-    public override void UpdateUI()
+    public override void UpdateUI(GameObject buttonSelected)
     {
         EventSystem.current.SetSelectedGameObject(arrayOfbuttons[(int)selectedButton]);
     }
 
-    public override void SelectPressed()
+    public override void SelectPressed(int buttonSelected)
     {
         ButtonPressSFX();
-        UpdateUI();
         switch (selectedButton)
         {
             case buttons.Mode:

@@ -4,15 +4,13 @@ using UnityEngine.EventSystems;
 
 public class MainMenu : MenuNavigation
 {
-    private enum buttons { PlayButton, SettingsButton, CreditsButton, QuitButton }
-    private buttons selectedButton = buttons.PlayButton;
-
     private void Start()
     {
-        selectedButton = buttons.PlayButton;
         EventSystem.current.SetSelectedGameObject(arrayOfbuttons[0]);
         GameManager._Instance.MenuNavigation = this;
-        UpdateUI();
+        MenuInputManager._Instance.Reset();
+        MenuInputManager._Instance.TotalNumberOfButtons = 4;
+        UpdateUI(arrayOfbuttons[0]);
     }
 
     // Finds the UIAudioSource, and plays the button press sound
@@ -22,66 +20,51 @@ public class MainMenu : MenuNavigation
         AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
     }
 
-    public override void UpdateUI()
+    public override void UpdateUI(GameObject selection)
     {
-        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[(int) selectedButton]);
-
-        switch (selectedButton)
-        {
-            case buttons.PlayButton:
-                break;
-            case buttons.SettingsButton:
-                EventSystem.current.SetSelectedGameObject(arrayOfbuttons[1]);
-                break;
-            case buttons.CreditsButton:
-                EventSystem.current.SetSelectedGameObject(arrayOfbuttons[2]);
-                break;
-            case buttons.QuitButton:
-                EventSystem.current.SetSelectedGameObject(arrayOfbuttons[3]);
-                break;
-        }
+        ButtonPressSFX();
+        //EventSystem.current.SetSelectedGameObject(selection);
     }
 
     public override void UpPressed()
     {
-        selectedButton--;
-        UpdateUI();
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(-1);
     }
 
     public override void DownPressed()
     {
-        selectedButton++;
-        UpdateUI();
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(1);
     }
 
     public override void LeftPressed()
     {
-        selectedButton--;
-        UpdateUI();
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(-1);
     }
 
     public override void RightPressed()
     {
-        selectedButton++;
-        UpdateUI();
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(1);
     }
 
-    public override void SelectPressed()
+    public override void SelectPressed(int buttonSelection)
     {
         ButtonPressSFX();
-        UpdateUI();
-        switch (selectedButton)
+        switch (buttonSelection)
         {
-            case buttons.PlayButton:
+            case 0:
                 LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], true);
                 return;
-            case buttons.SettingsButton:
+            case 1:
                 LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[1]);
                 return;
-            case buttons.CreditsButton:
+            case 2:
                 LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[2]);
                 break;
-            case buttons.QuitButton:
+            case 3:
                 #if UNITY_STANDALONE
                 Application.Quit();
                 #endif
