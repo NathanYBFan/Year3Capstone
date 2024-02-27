@@ -17,15 +17,16 @@ public class ModeSelectMenu : MenuNavigation
     [Foldout("Stats"), Tooltip("")]
     private int currentSelectedMode = 0;
 
-    private enum buttons { Mode, Continue, Back }
-    private buttons selectedButton;
-
     private void Start()
     {
         // Setup button hookups
         EventSystem.current.SetSelectedGameObject(arrayOfbuttons[0]);
         GameManager._Instance.MenuNavigation = this;
-        selectedButton = buttons.Mode;
+
+        MenuInputManager._Instance.Reset();
+        MenuInputManager._Instance.TotalNumberOfButtons = 2;
+
+        UpdateUI(arrayOfbuttons[0]);
 
         // Check if a mode is already selected
         for (int i = 0; i < modesToSelectFrom.Length; i++)
@@ -78,32 +79,26 @@ public class ModeSelectMenu : MenuNavigation
 
     public override void UpPressed()
     {
-        selectedButton--;
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(-1);
     }
 
     public override void DownPressed()
     {
-        selectedButton++;
+        ButtonPressSFX(); 
+        MenuInputManager._Instance.moveSelection(1);
     }
 
     public override void LeftPressed()
     {
-        if (selectedButton == buttons.Mode)
-        {
-            LeftArrowPressed();
-            return;
-        }
-        selectedButton--;
+        ButtonPressSFX();
+        LeftArrowPressed();
     }
 
     public override void RightPressed()
     {
-        if (selectedButton == buttons.Mode)
-        {
-            RightArrowPressed();
-            return;
-        }
-        selectedButton++;
+        ButtonPressSFX();
+        RightArrowPressed();
     }
 
     public override void CancelPressed()
@@ -113,22 +108,20 @@ public class ModeSelectMenu : MenuNavigation
 
     public override void UpdateUI(GameObject buttonSelected)
     {
-        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[(int)selectedButton]);
+        // EventSystem.current.SetSelectedGameObject(arrayOfbuttons[(int)selectedButton]);
     }
 
     public override void SelectPressed(int buttonSelected)
     {
         ButtonPressSFX();
-        switch (selectedButton)
+        switch (buttonSelected)
         {
-            case buttons.Mode:
-                return; // Do nothing
-            case buttons.Back:
+            case 0:
+                ContinueButtonPressed();
+                return;
+            case 1:
                 BackButtonPressed();
                 return;
-            case buttons.Continue:
-                ContinueButtonPressed();
-                break;
         }
     }
 }

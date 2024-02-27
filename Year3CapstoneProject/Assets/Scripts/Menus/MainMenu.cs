@@ -22,20 +22,19 @@ public class MainMenu : MenuNavigation
 
     public override void UpdateUI(GameObject selection)
     {
-        ButtonPressSFX();
-        //EventSystem.current.SetSelectedGameObject(selection);
+        // EventSystem.current.SetSelectedGameObject(selection);
     }
 
     public override void UpPressed()
     {
         ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(-1);
+        MenuInputManager._Instance.moveSelection(1);
     }
 
     public override void DownPressed()
     {
         ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(1);
+        MenuInputManager._Instance.moveSelection(-1);
     }
 
     public override void LeftPressed()
@@ -50,28 +49,22 @@ public class MainMenu : MenuNavigation
         MenuInputManager._Instance.moveSelection(1);
     }
 
-    public override void SelectPressed(int buttonSelection)
+    public override void SelectPressed(int buttonSelected)
     {
         ButtonPressSFX();
-        switch (buttonSelection)
+        switch (buttonSelected)
         {
             case 0:
-                LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], true);
+                PlayGamePressed();
                 return;
             case 1:
-                LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[1]);
+                SettingsButtonPressed();
                 return;
             case 2:
-                LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[2]);
+                CreditsbuttonPressed();
                 break;
             case 3:
-                #if UNITY_STANDALONE
-                Application.Quit();
-                #endif
-
-                #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-                #endif
+                QuitButtonPressed();
                 return;
         }
     }

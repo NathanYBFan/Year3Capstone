@@ -12,6 +12,7 @@ public class MenuInputManager : MonoBehaviour
     private int totalNumberOfbuttons;
 
     public int TotalNumberOfButtons { get { return totalNumberOfbuttons; } set { totalNumberOfbuttons = value; } }
+    public int CurrentButton { get { return currentButton; } }
 
     private void Awake()
     {

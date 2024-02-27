@@ -115,10 +115,14 @@ public class PlayerController : MonoBehaviour
      
 		Vector2 input = ctx.ReadValue<Vector2>().normalized;
 		int singleInput = (int) (input.x + input.y);
-		
-		if (singleInput > 0)
-			MenuInputManager._Instance.moveSelection(-1);
-		else if (singleInput < 0)
-            MenuInputManager._Instance.moveSelection(1);
+
+		if (input.x > 0)
+			GameManager._Instance.MenuNavigation.RightPressed();
+		else if (input.x < 0)
+			GameManager._Instance.MenuNavigation.LeftPressed();
+        if (input.y > 0)
+			GameManager._Instance.MenuNavigation.DownPressed();
+		else if (input.y < 0)
+			GameManager._Instance.MenuNavigation.UpPressed();
     }
 }
