@@ -195,27 +195,28 @@ public class PlayerBody : MonoBehaviour
 		if (odds == 1) 
 		{
 			//Roll for damage boost
-			stats.Damage = stats.Damage + 1;
+			StartCoroutine(DmgBoost());
 			Debug.Log("KYS tehe :3");
 		}
 		else if (odds == 2)
 		{
-			//Roll for heal
+			//Roll for heal, needs animation still
 			stats.Heal(healing);
 			Debug.Log("Meow");
 		}
 		else if (odds == 3)
 		{
 			//Roll for movement speed boost
-			stats.MovementSpeed = stats.MovementSpeed + 5;
+			StartCoroutine(SpeedBoost());
 			Debug.Log("Benguin");
 		}
 		else if (odds == 4)
 		{
 			//Roll for Shield
-			playerShield.SetActive(true);
+			StartCoroutine(PlayerShield());
 			Debug.Log("Huh");
 		}
+		StopAllCoroutines();
 	}
     
 	public void FireBullet()
@@ -274,6 +275,50 @@ public class PlayerBody : MonoBehaviour
 
 		isDashing = false;
 	}
+
+	private IEnumerator DmgBoost()
+	{
+		//needs anim
+        stats.Damage = stats.Damage + 1;
+        yield return new WaitForSeconds(3f);
+		stats.Damage = stats.Damage - 1;
+	}
+
+	private IEnumerator SpeedBoost()
+	{
+		//needs to play animation still
+		
+        stats.MovementSpeed = stats.MovementSpeed + 2;
+		yield return new WaitForSeconds(3f);
+		stats.MovementSpeed = stats.MovementSpeed - 2;
+    }
+
+	private IEnumerator PlayerShield()
+	{
+		//im hoping this fades in and out the shield, duration of shield is 5s currently.
+		float shieldTime = 0f;
+		while(shieldTime < 5f)
+		{
+			playerShield.SetActive(true);
+			Color c = GetComponent<Renderer>().material.color;
+			for (float alpha = 0f; alpha >= 1; alpha += 0.1f)
+			{
+				c.a = alpha;
+				GetComponent<Renderer>().material.color = c;
+				yield return new WaitForSeconds(.1f);
+			}
+			shieldTime += Time.deltaTime;
+			yield return null;
+        }
+        Color s = GetComponent<Renderer>().material.color;
+        for (float alpha = 1f; alpha >= 0; alpha -= 0.1f)
+        {
+            s.a = alpha;
+            GetComponent<Renderer>().material.color = s;
+            yield return new WaitForSeconds(.1f);
+            playerShield.SetActive(false);
+        }
+    }
 	//Plays the player death sound
     private void DeathSound()
     {

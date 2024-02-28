@@ -79,6 +79,9 @@ public class BulletBehaviour : MonoBehaviour
 	{
 		switch (other.tag)
 		{
+			case "Shield":
+				Destroy(bulletRootObject.gameObject); 
+				break;
 			case "Player":
 				if (other.transform.parent.parent.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
 				{
