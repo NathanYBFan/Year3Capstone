@@ -26,6 +26,8 @@ public class PlayerBody : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")] private GameObject aimUI;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private GameObject playerShield;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")] private ParticleSystem dashEffect;
 
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("")] private int playerIndex = -1; //Which number this player is.
@@ -243,15 +245,17 @@ public class PlayerBody : MonoBehaviour
 
 	public void DashActionPressed()
 	{
-		isDashing = true;
         float amount = stats.MaxEnergy / 3.0f;
         // Power saving
         if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
                                                          // Has enough energy to dash
         if (stats.CurrentEnergy - amount < 0) return;
 
-        // Using energy before doing action
-        stats.UseEnergy(amount);
+		isDashing = true;
+		dashEffect.Play(true);
+		dashEffect.playbackSpeed = 4;
+		// Using energy before doing action
+		stats.UseEnergy(amount);
         
 
         Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
@@ -274,6 +278,8 @@ public class PlayerBody : MonoBehaviour
 		}
 
 		isDashing = false;
+		dashEffect.playbackSpeed = 1;
+		dashEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 	}
 
 	private IEnumerator DmgBoost()
