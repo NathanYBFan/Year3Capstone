@@ -166,7 +166,7 @@ public class PlayerBody : MonoBehaviour
 		else if (!headAnim.IsPlaying("Death") && !headAnim.IsPlaying("Dash") && !headAnim.IsPlaying("Shoot") && !headAnim.IsPlaying("Roll") && moveDir.magnitude == 0) headAnim.Play("Idle");
 
 
-		legAnim = transform.GetChild(2).GetChild(1).GetChild(0).GetChild(0).GetComponent<Animation>();
+		legAnim = transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Animation>();
 		if (legAnim == null) return;
 
 		if (isDashing)

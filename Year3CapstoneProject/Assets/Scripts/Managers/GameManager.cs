@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
 	[Foldout("Dependencies"), Tooltip("List of all platforms")]
     private List<GameObject> platforms;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("List of all HUD elements")]
+    private List<GameObject> hudBars;
 
     [SerializeField]
 	[Foldout("Dependencies"), Tooltip("Pause Menu GameObject")]
@@ -85,12 +88,21 @@ public class GameManager : MonoBehaviour
             player.SetActive(true);
             player.GetComponentInChildren<PlayerStats>().IsDead = false;
         }
+		foreach (GameObject h in hudBars)
+        {
+            h.SetActive(true);
+        }
+
     }
 
 	// Reset everything when game ends
 	public void EndGame()
 	{
-		pauseMenu.SetActive(false);
+        foreach (GameObject h in hudBars)
+        {
+            h.SetActive(false);
+        }
+        pauseMenu.SetActive(false);
         ChaosFactorManager._Instance.Reset();
         BulletObjectPoolManager._Instance.ResetAllBullets();
 		QuitToMainMenu();
@@ -243,8 +255,12 @@ public class GameManager : MonoBehaviour
 
 	private void EndRound()
 	{
-		// Make sure all players are in the list
-		for (int i = 0; i < players.Count; i++)
+        foreach (GameObject h in hudBars)
+        {
+            h.SetActive(false);
+        }
+        // Make sure all players are in the list
+        for (int i = 0; i < players.Count; i++)
         {
 			if (!deadPlayerList.Contains(players[i]))
 				deadPlayerList.Add(players[i]);
