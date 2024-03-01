@@ -311,14 +311,15 @@ public class PlayerBody : MonoBehaviour
 	{
 		//needs to play animation still
 		float buffTime = 0f;
-		stats.MovementSpeed = stats.MovementSpeed + 1;
+		stats.MovementSpeed = stats.MovementSpeed + 3;
 		speedEffect.Play();
 		while (buffTime < 7f)
 		{
 			buffTime += Time.deltaTime;
 			yield return null;
 		}
-		stats.MovementSpeed = stats.MovementSpeed - 2;
+		stats.MovementSpeed = stats.MovementSpeed - 3;
+		speedEffect.Stop();
 	}
 
 	private IEnumerator PlayerShield()
