@@ -114,7 +114,7 @@ public class BulletObjectPoolManager : MonoBehaviour
 	// Deactivates all bullets
 	public void ResetAllBullets()
 	{
-		foreach (GameObject bullet in activatedBullets)
-			ExpiredBullet(bullet);
-	}
+		for (int i = 0; i < activatedBullets.Count; i++)
+			ExpiredBullet(activatedBullets[i]);
+    }
 }

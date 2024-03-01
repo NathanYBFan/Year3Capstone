@@ -27,14 +27,6 @@ public class SettingsMenu : MenuNavigation
 
     [Foldout("Dependencies"), Tooltip("")]
     [SerializeField, Required]
-    private GameObject inGameControls;
-
-    [Foldout("Dependencies"), Tooltip("")]
-    [SerializeField, Required]
-    private Image controlsButton;
-
-    [Foldout("Dependencies"), Tooltip("")]
-    [SerializeField, Required]
     private GameObject firstSelectedButton;
 
     [SerializeField]
@@ -59,7 +51,6 @@ public class SettingsMenu : MenuNavigation
 
         videoControls.SetActive(true);
         audioControls.SetActive(false);
-        inGameControls.SetActive(false);
     }
 
     private void OnDisable()
@@ -80,26 +71,14 @@ public class SettingsMenu : MenuNavigation
             case 1: // Video settings
                 videoButton.color = selectedButtonColor;
                 audioButton.color = deselectedButtonColor;
-                controlsButton.color = deselectedButtonColor;
                 videoControls.SetActive(true);
                 audioControls.SetActive(false);
-                inGameControls.SetActive(false);
                 break;
             case 2: // Audio settings
                 videoButton.color = deselectedButtonColor;
                 audioButton.color = selectedButtonColor;
-                controlsButton.color = deselectedButtonColor;
                 videoControls.SetActive(false);
                 audioControls.SetActive(true);
-                inGameControls.SetActive(false);
-                break;
-            case 3: // Control settings
-                videoButton.color = deselectedButtonColor;
-                audioButton.color = deselectedButtonColor;
-                controlsButton.color = selectedButtonColor;
-                videoControls.SetActive(false);
-                audioControls.SetActive(false);
-                inGameControls.SetActive(true);
                 break;
             default: // Error
                 Debug.Log("Invalid button selected");
@@ -107,24 +86,35 @@ public class SettingsMenu : MenuNavigation
         }
     }
 
+    // Finds the UIAudioSource, and plays the button press sound
+    private void ButtonPressSFX()
+    {
+        AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
+    }
+
     public override void UpPressed()
     {
-        throw new System.NotImplementedException();
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(1);
     }
 
     public override void DownPressed()
     {
-        throw new System.NotImplementedException();
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(-1);
     }
 
     public override void LeftPressed()
     {
-        throw new System.NotImplementedException();
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(-1);
     }
 
     public override void RightPressed()
     {
-        throw new System.NotImplementedException();
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(1);
     }
 
     public override void SelectPressed(int buttonSelection)
@@ -134,11 +124,16 @@ public class SettingsMenu : MenuNavigation
 
     public override void CancelPressed()
     {
-        throw new System.NotImplementedException();
+        UnloadScene();
     }
 
-    public override void UpdateUI(GameObject buttonSelection)
+    public override void UpdateUI(GameObject selection)
     {
-        throw new System.NotImplementedException();
+        UIRead();
+    }
+
+    private void UIRead()
+    {
+
     }
 }

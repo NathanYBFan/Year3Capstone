@@ -9,17 +9,15 @@ public class AudioSettings : MonoBehaviour
     [SerializeField, Required] private Slider masterVolumeSlider;
     [SerializeField, Required] private Slider musicVolumeSlider;
     [SerializeField, Required] private Slider playerVolumeSlider;
-    [SerializeField, Required] private Slider enemyVolumeSlider;
     [SerializeField, Required] private Slider systemVolumeSlider;
 
     // Start is called before the first frame update
     void Awake()
     {
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("masterVolume");
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        playerVolumeSlider.value = PlayerPrefs.GetFloat("playerVolume");
-        enemyVolumeSlider.value = PlayerPrefs.GetFloat("enemyVolume");
-        systemVolumeSlider.value = PlayerPrefs.GetFloat("systemVolume");
+        masterVolumeSlider.value = PlayerPrefs.GetFloat("masterVolume", 20);
+        musicVolumeSlider.value = PlayerPrefs.GetFloat("musicVolume", 20);
+        playerVolumeSlider.value = PlayerPrefs.GetFloat("playerVolume", 20);
+        systemVolumeSlider.value = PlayerPrefs.GetFloat("systemVolume", 20);
     }
 
     public void MasterVolumeChanged()
@@ -45,14 +43,6 @@ public class AudioSettings : MonoBehaviour
             audioMixer.SetFloat("Player", -80f);
         else
             audioMixer.SetFloat("Player", Mathf.Log(playerVolumeSlider.value) * 20f);
-    }
-    public void EnemyVolumeChanged()
-    {
-        PlayerPrefs.SetFloat("enemyVolume", enemyVolumeSlider.value);
-        if (Mathf.Log(enemyVolumeSlider.value) * 20f == Mathf.NegativeInfinity)
-            audioMixer.SetFloat("Enemy", -80f);
-        else
-            audioMixer.SetFloat("Enemy", Mathf.Log(enemyVolumeSlider.value) * 20f);
     }
     public void SystemVolumeChanged()
     {
