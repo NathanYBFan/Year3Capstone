@@ -19,6 +19,9 @@ public class Furnace : MonoBehaviour
     [SerializeField]
     private float burnTime;
 
+    //not to be confused with damage, this is whether or not a player has been damaged
+    private bool damaged;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,15 +33,15 @@ public class Furnace : MonoBehaviour
     {
         if (isOn)
         {
-            for(int i = 0; i < flameArray.Length; i++)
+            for (int i = 0; i < flameArray.Length; i++)
             {
                 if (!flameArray[i].isPlaying)
                 {
                     flameArray[i].Play();
                 }
-               
+
             }
-            
+
             StartCoroutine(OnOffCycle());
         }
         else if (isOn == false)
@@ -49,25 +52,37 @@ public class Furnace : MonoBehaviour
                 flameArray[i].Stop(true, ParticleSystemStopBehavior.StopEmitting);
 
             }
-                
+
         }
-        
+
     }
 
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         //if the colliding object is a player (check tag), try to deal damage
-        if(other.gameObject.GetComponentInChildren<CapsuleCollider>() != null && other.gameObject.GetComponentInChildren<CapsuleCollider>().CompareTag("Player"))
+        if (other.gameObject.GetComponentInChildren<CapsuleCollider>() != null && other.gameObject.GetComponentInChildren<CapsuleCollider>().CompareTag("Player"))
         {
             //damage the player that made contact, only if the fire is on
-            if (isOn)
+            if (isOn && !damaged)
             {
-                other.gameObject.transform.GetComponent<PlayerStats>().TakeDamage(damage);
+                other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage);
+                damaged = true;
+                StartCoroutine(AllowDamage());
             }
-            
+
         }
 
+    }
+
+    //if damaged is true, wait a second and then turn it false
+    private IEnumerator AllowDamage()
+    {
+        if (damaged)
+        {
+            yield return new WaitForSeconds(1f);
+            damaged = false;
+        }
     }
 
     //alternates the furnace between being on for (burnTime), then off for (delay)
@@ -78,6 +93,7 @@ public class Furnace : MonoBehaviour
             yield return new WaitForSeconds(burnTime);
             //turn off fire
             isOn = false;
+            damaged = false;
         }
         yield return new WaitForSeconds(delay);
         //turn on fire

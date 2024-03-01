@@ -252,6 +252,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4484570103172695107}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7798131391755848078}
   m_SourcePrefab: {fileID: 100100000, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
 --- !u!1 &3530932798347127462 stripped
 GameObject:
@@ -322,6 +325,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0225319, y: 1.0225307, z: 2.288817}
   m_Center: {x: -0.0011219382, y: 0.00047284365, z: 0.63863206}
+--- !u!114 &7798131391755848078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530932798347127462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b17aff17fa3a112439662d634931d833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iceTop: {fileID: 0}
+  iceTop2: {fileID: 0}
+  snowBurst: {fileID: 0}
+  snowBurst2: {fileID: 0}
+  time: 0
+  maxHeight: 0
+  minHeight: 0
 --- !u!4 &4200648992665759772 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
