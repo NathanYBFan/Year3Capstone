@@ -54,7 +54,7 @@ public class PlayerBody : MonoBehaviour
 	Animation headAnim;
 	Animation legAnim;
 	private bool hasExploded = false;
-	private bool isDashing = false, isShooting = false, isRolling = false;
+	private bool isDashing = false, isShooting = false, isRolling = false, canMove = true;
 	private Vector2 moveDir, aimDir, legDir; //The current movement direction of this player.
 	#endregion Private Variables
 
@@ -94,24 +94,27 @@ public class PlayerBody : MonoBehaviour
 		float bodyAngle = Mathf.Atan2(legDir.x, legDir.y) * Mathf.Rad2Deg;
 		legPivot.transform.rotation = Quaternion.Euler(0, bodyAngle, 0);
 
-		// Movement of the player.
-		Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
-		if (moveDirection.magnitude > 1)
-			moveDirection.Normalize();
-
-		Vector3 velocity = rb.velocity;
-		Vector3 newForceDirection = (moveDirection * stats.MovementSpeed) - collisionDetection.ContactNormal;
-		velocity.y = 0;
-
-		if (onIce)
+		if (canMove)
 		{
+			// Movement of the player.
+			Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
+			if (moveDirection.magnitude > 1)
+				moveDirection.Normalize();
+
+			Vector3 velocity = rb.velocity;
+			Vector3 newForceDirection = (moveDirection * stats.MovementSpeed) - collisionDetection.ContactNormal;
 			velocity.y = 0;
-			Vector3 iceVelocity = Vector3.Lerp(velocity, (newForceDirection - velocity) * 1.5f, iceInertiaMultiplier * Time.deltaTime);
-			rb.AddForce(iceVelocity, ForceMode.Acceleration);
-		}
-		else
-		{
-			rb.AddForce(newForceDirection - velocity, ForceMode.VelocityChange);
+
+			if (onIce)
+			{
+				velocity.y = 0;
+				Vector3 iceVelocity = Vector3.Lerp(velocity, (newForceDirection - velocity) * 1.5f, iceInertiaMultiplier * Time.deltaTime);
+				rb.AddForce(iceVelocity, ForceMode.Acceleration);
+			}
+			else
+			{
+				rb.AddForce(newForceDirection - velocity, ForceMode.VelocityChange);
+			}
 		}
 	}
 
@@ -122,10 +125,10 @@ public class PlayerBody : MonoBehaviour
 			yield return null;
 		}
 		//Destroy(gameObject);
-        GameManager._Instance.PlayerDied(this.gameObject);
-    }
+		GameManager._Instance.PlayerDied(this.gameObject);
+	}
 
-    public void Death()
+	public void Death()
 	{
 		headAnim.Play("Death");
 		legAnim.Play("Death");
@@ -153,8 +156,8 @@ public class PlayerBody : MonoBehaviour
 			headAnim.Play("Roll");
 			isRolling = false;
 		}
-		else if (moveDir.magnitude != 0 && !headAnim.IsPlaying("Death") && !headAnim.IsPlaying("Dash") && !headAnim.IsPlaying("Shoot") && !headAnim.IsPlaying("Roll")) headAnim.Play("Walk");
-		else if (!headAnim.IsPlaying("Death") && !headAnim.IsPlaying("Dash") && !headAnim.IsPlaying("Shoot") && !headAnim.IsPlaying("Roll") && !headAnim.IsPlaying("Walk")) headAnim.Play("Idle");
+		else if (canMove && moveDir.magnitude != 0 && !headAnim.IsPlaying("Death") && !headAnim.IsPlaying("Dash") && !headAnim.IsPlaying("Shoot") && !headAnim.IsPlaying("Roll")) headAnim.Play("Walk");
+		else if (!headAnim.IsPlaying("Death") && !headAnim.IsPlaying("Dash") && !headAnim.IsPlaying("Shoot") && !headAnim.IsPlaying("Roll") && moveDir.magnitude == 0) headAnim.Play("Idle");
 
 
 		legAnim = transform.GetChild(2).GetChild(1).GetChild(0).GetChild(0).GetComponent<Animation>();
@@ -175,26 +178,31 @@ public class PlayerBody : MonoBehaviour
 			legAnim.Play("Roll");
 			isRolling = false;
 		}
-		else if (moveDir.magnitude != 0 && !legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll")) legAnim.Play("Walk");
-		else if (!legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll") && !legAnim.IsPlaying("Walk")) legAnim.Play("Idle");
+		else if (canMove && moveDir.magnitude != 0 && !legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll")) legAnim.Play("Walk");
+		else if (!legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll") && moveDir.magnitude == 0) legAnim.Play("Idle");
+
+		if (!headAnim.IsPlaying("Roll")) canMove = true;
+
 	}
 
 	public void Roll()
 	{
+
 		int healing = 1;
 		float amount = stats.MaxEnergy;
 		// Power saving
-        if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
-		// Has enough energy to roll
-        if (stats.CurrentEnergy - amount < 0) return;
-        isRolling = true;
+		if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
+														 // Has enough energy to roll
+		if (stats.CurrentEnergy - amount < 0) return;
+		isRolling = true;
+		canMove = false;
 
-        // Using energy before doing action
-        stats.UseEnergy(amount);
-        
+		// Using energy before doing action
+		stats.UseEnergy(amount);
 
-        int odds = Random.Range(1, 5);
-		if (odds == 1) 
+
+		int odds = Random.Range(1, 5);
+		if (odds == 1)
 		{
 			//Roll for damage boost
 			StartCoroutine(DmgBoost());
@@ -219,7 +227,7 @@ public class PlayerBody : MonoBehaviour
 			Debug.Log("Huh");
 		}
 	}
-    
+
 	public void FireBullet()
 	{
 		if (Time.time >= stats.NextFireTime)
@@ -244,19 +252,19 @@ public class PlayerBody : MonoBehaviour
 
 	public void DashActionPressed()
 	{
-        float amount = stats.MaxEnergy / 3.0f;
-        // Power saving
-        if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
-                                                         // Has enough energy to dash
-        if (stats.CurrentEnergy - amount < 0) return;
+		float amount = stats.MaxEnergy / 3.0f;
+		// Power saving
+		if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
+														 // Has enough energy to dash
+		if (stats.CurrentEnergy - amount < 0) return;
 
 		isDashing = true;
 		dashEffect.Play(true);
 		// Using energy before doing action
 		stats.UseEnergy(amount);
-        
 
-        Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
+
+		Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
 		if (moveDirection.magnitude > 1)
 			moveDirection.Normalize();
 
@@ -282,54 +290,56 @@ public class PlayerBody : MonoBehaviour
 	private IEnumerator DmgBoost()
 	{
 		//needs anim
-        stats.Damage = stats.Damage + 1;
-        yield return new WaitForSeconds(3f);
+		stats.Damage = stats.Damage + 1;
+		yield return new WaitForSeconds(3f);
 		stats.Damage = stats.Damage - 1;
 	}
 
 	private IEnumerator SpeedBoost()
 	{
 		//needs to play animation still
-		
-        stats.MovementSpeed = stats.MovementSpeed + 2;
+
+		stats.MovementSpeed = stats.MovementSpeed + 2;
 		yield return new WaitForSeconds(3f);
 		stats.MovementSpeed = stats.MovementSpeed - 2;
-    }
+	}
 
 	private IEnumerator PlayerShield()
 	{
 		//im hoping this fades in and out the shield, duration of shield is 5s currently.
 		float shieldTime = 0f;
-        playerShield.SetActive(true);
-        Color c = playerShield.GetComponent<Renderer>().material.color;
-        for (float alpha = 0f; alpha >= 1; alpha += 0.1f)
-        {
-            c.a = alpha;
-            playerShield.GetComponent<Renderer>().material.color = c;
-            yield return new WaitForSeconds(.1f);
-        }
-        while (shieldTime < 5f)
-		{		
+		playerShield.SetActive(true);
+		Color c = playerShield.GetComponent<Renderer>().material.color;
+		for (float alpha = 0f; alpha >= 1; alpha += 0.1f)
+		{
+			c.a = alpha;
+			playerShield.GetComponent<Renderer>().material.color = c;
+			yield return new WaitForSeconds(.1f);
+		}
+		while (shieldTime < 5f)
+		{
 			shieldTime += Time.deltaTime;
 			yield return null;
-        }
-        Color s = playerShield.GetComponent<Renderer>().material.color;
-        for (float alpha = 1f; alpha >= 0; alpha -= 0.1f)
-        {
-            s.a = alpha;
-            playerShield.GetComponent<Renderer>().material.color = s;
-            yield return new WaitForSeconds(.1f);
-        }
-        playerShield.SetActive(false);
-    }
+		}
+		Color s = playerShield.GetComponent<Renderer>().material.color;
+		for (float alpha = 1f; alpha >= 0; alpha -= 0.1f)
+		{
+			s.a = alpha;
+			playerShield.GetComponent<Renderer>().material.color = s;
+			yield return new WaitForSeconds(.1f);
+		}
+		playerShield.SetActive(false);
+		canMove = true;
+	}
 	//Plays the player death sound
-    private void DeathSound()
-    {
-        float randPitch = Random.Range(0.8f, 1.5f);
-        audioSource.pitch = randPitch;
-        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[2], audioSource);
-    }
-    public void SetMovementVector(Vector2 dir) { moveDir = dir; if (dir.x != 0 && dir.y != 0) legDir = dir; }
+	private void DeathSound()
+	{
+		float randPitch = Random.Range(0.8f, 1.5f);
+		audioSource.pitch = randPitch;
+		AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[2], audioSource);
+	}
+	public void SetMovementVector(Vector2 dir) { moveDir = dir; if (dir.x != 0 && dir.y != 0) legDir = dir; }
+
 
 	public void SetFiringDirection(Vector2 dir) { if (dir.x != 0 && dir.y != 0) aimDir = dir; }
 }
