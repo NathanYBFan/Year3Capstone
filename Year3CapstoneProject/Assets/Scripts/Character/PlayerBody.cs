@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.VFX;
@@ -33,6 +34,8 @@ public class PlayerBody : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")] private ParticleSystem healEffect;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private VisualEffect speedEffect;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")] private ParticleSystem dmgEffect;
 
 
 	[SerializeField]
@@ -213,25 +216,25 @@ public class PlayerBody : MonoBehaviour
 		{
 			//Roll for damage boost
 			StartCoroutine(DmgBoost());
-			Debug.Log("KYS tehe :3");
+			Debug.Log("KYS tehe :3 (dmg)");
 		}
 		else if (odds == 2)
 		{
 			stats.Heal(healing);
 			healEffect.Play();
-			Debug.Log("Meow");
+			Debug.Log("Meow (heal)");
 		}
 		else if (odds == 3)
 		{
 			//Roll for movement speed boost
 			StartCoroutine(SpeedBoost());
-			Debug.Log("Benguin");
+			Debug.Log("Benguin (speed)");
 		}
 		else if (odds == 4)
 		{
 			//Roll for Shield
 			StartCoroutine(PlayerShield());
-			Debug.Log("Huh");
+			Debug.Log("Huh (shield)");
 		}
 	}
 
@@ -299,12 +302,14 @@ public class PlayerBody : MonoBehaviour
 		//needs anim
 		float buffTime = 0f;
         stats.Damage = stats.Damage + 1;
+		dmgEffect.Play();
         while (buffTime < 7f)
 		{
 			buffTime += Time.deltaTime;
 			yield return null;
         }
         stats.Damage = stats.Damage - 1;
+		dmgEffect.Stop();
     }
 
 	private IEnumerator SpeedBoost()
