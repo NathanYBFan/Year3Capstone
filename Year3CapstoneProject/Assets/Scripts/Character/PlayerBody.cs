@@ -2,6 +2,7 @@ using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.VFX;
 
 public class PlayerBody : MonoBehaviour
 {
@@ -28,6 +29,11 @@ public class PlayerBody : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")] private GameObject playerShield;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private ParticleSystem dashEffect;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")] private ParticleSystem healEffect;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")] private VisualEffect speedEffect;
+
 
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("")] private int playerIndex = -1; //Which number this player is.
@@ -196,9 +202,10 @@ public class PlayerBody : MonoBehaviour
 		if (stats.CurrentEnergy - amount < 0) return;
 		isRolling = true;
 		canMove = false;
+        rb.velocity = new Vector3(0, rb.velocity.y, 0);
 
-		// Using energy before doing action
-		stats.UseEnergy(amount);
+        // Using energy before doing action
+        stats.UseEnergy(amount);
 
 
 		int odds = Random.Range(1, 5);
@@ -210,8 +217,8 @@ public class PlayerBody : MonoBehaviour
 		}
 		else if (odds == 2)
 		{
-			//Roll for heal, needs animation still
 			stats.Heal(healing);
+			healEffect.Play();
 			Debug.Log("Meow");
 		}
 		else if (odds == 3)
@@ -290,23 +297,33 @@ public class PlayerBody : MonoBehaviour
 	private IEnumerator DmgBoost()
 	{
 		//needs anim
-		stats.Damage = stats.Damage + 1;
-		yield return new WaitForSeconds(3f);
-		stats.Damage = stats.Damage - 1;
-	}
+		float buffTime = 0f;
+        stats.Damage = stats.Damage + 1;
+        while (buffTime < 7f)
+		{
+			buffTime += Time.deltaTime;
+			yield return null;
+        }
+        stats.Damage = stats.Damage - 1;
+    }
 
 	private IEnumerator SpeedBoost()
 	{
 		//needs to play animation still
-
-		stats.MovementSpeed = stats.MovementSpeed + 2;
-		yield return new WaitForSeconds(3f);
+		float buffTime = 0f;
+		stats.MovementSpeed = stats.MovementSpeed + 1;
+		speedEffect.Play();
+		while (buffTime < 7f)
+		{
+			buffTime += Time.deltaTime;
+			yield return null;
+		}
 		stats.MovementSpeed = stats.MovementSpeed - 2;
 	}
 
 	private IEnumerator PlayerShield()
 	{
-		//im hoping this fades in and out the shield, duration of shield is 5s currently.
+		//fading doesnt work cause its a shader, will find fix eventually i hope
 		float shieldTime = 0f;
 		playerShield.SetActive(true);
 		Color c = playerShield.GetComponent<Renderer>().material.color;
@@ -316,7 +333,7 @@ public class PlayerBody : MonoBehaviour
 			playerShield.GetComponent<Renderer>().material.color = c;
 			yield return new WaitForSeconds(.1f);
 		}
-		while (shieldTime < 5f)
+		while (shieldTime < 10f)
 		{
 			shieldTime += Time.deltaTime;
 			yield return null;
