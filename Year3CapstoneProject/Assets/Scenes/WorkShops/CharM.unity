@@ -501,7 +501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4780c6c90e7d24f4698faee7eebbb665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyedVersion: {fileID: 7865626069351280341, guid: f5541f78cfb9bdd4e9a0af0b589f36e3, type: 3}
+  destroyedVersion: {fileID: 7261750473376301442, guid: 39379884aac2c9045bd65d46abbe79ce, type: 3}
 --- !u!54 &1413113087
 Rigidbody:
   m_ObjectHideFlags: 0
