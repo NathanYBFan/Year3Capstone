@@ -14,9 +14,14 @@ public class ScrollTextures : MonoBehaviour
 
     private void Update()
     {
-        float OffsetX = Time.time * scrollX;
-        float OffsetY = Time.time * scrollY;
+        if (transform.parent.GetComponent<Platform>().effectsActive == true)
+        {
+            float OffsetX = Time.time * scrollX;
+            float OffsetY = Time.time * scrollY;
+            GetComponent<MeshRenderer>().material.mainTextureOffset = new Vector2(OffsetX, OffsetY);
+        }
 
-        GetComponent<MeshRenderer>().material.mainTextureOffset = new Vector2(OffsetX, OffsetY);
+
+
     }
 }

@@ -29,15 +29,21 @@ public class Platform : MonoBehaviour
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
     float minHeight;
+    [SerializeField]
+    GameObject[] MiscChildren;
+
+    public bool effectsActive;
 
     // Getters & Setters
     public GameObject IceTop { get { return iceTop; } set { iceTop = value; } }
 
     private void Awake()
     {
+        effectsActive = true;
         time = 10;
         maxHeight = transform.position.y;
         minHeight = maxHeight - 20;
+        MiscChildren = new GameObject[MiscChildren.Length];
     }
 
 
@@ -63,6 +69,11 @@ public class Platform : MonoBehaviour
     {
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
+        foreach (GameObject child in MiscChildren)
+        {
+            child.GetComponent<MeshRenderer>().enabled = false;
+            child.GetComponent<Collider>().enabled = false;
+        }
         StartCoroutine(destory());
         
 
@@ -74,15 +85,24 @@ public class Platform : MonoBehaviour
         StopAllCoroutines();
         GetComponent<MeshRenderer>().enabled = true;
         GetComponent<Collider>().enabled = true;
+        foreach (GameObject child in MiscChildren)
+        {
+            child.GetComponent<MeshRenderer>().enabled = true;
+            child.GetComponent<Collider>().enabled = true;
+        }
         StartCoroutine(Up());
     }
 
     public void toggleIce(bool i)
     {
+        effectsActive = !i;
         if (i == true) 
         { 
-            snowBurst.Play(); 
-
+            
+            if (snowBurst != null)
+            {
+                snowBurst.Play();
+            }
             if (snowBurst2 != null) 
             { 
                 snowBurst2.Play();
@@ -121,7 +141,7 @@ public class Platform : MonoBehaviour
             elapsedTime += 0.5f * Time.deltaTime;
             yield return null;
         }
-
+        effectsActive = true;
         yield return null;
     }
 
@@ -147,7 +167,7 @@ public class Platform : MonoBehaviour
     {
         //Debug.Log("down called");
         float elapsedTime = 0;
-
+        effectsActive = false;
         Vector3 startPos = transform.position;
         Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);
         while (elapsedTime < time)

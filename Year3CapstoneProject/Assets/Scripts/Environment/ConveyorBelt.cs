@@ -11,9 +11,9 @@ public class ConveyorBelt : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.transform.GetComponent<CapsuleCollider>() != null && other.transform.GetComponent<CapsuleCollider>().CompareTag("Player") && other.transform.parent.parent.GetComponent<Rigidbody>() != null)
+        if (other.transform.GetComponent<CapsuleCollider>() != null && other.transform.GetComponent<CapsuleCollider>().CompareTag("Player") && other.transform.parent.parent.GetComponent<Rigidbody>() != null && transform.parent.parent.GetComponent<Platform>().effectsActive == true)
         {
-            Debug.Log(other.transform.parent.parent.name);
+            Debug.Log("");
             other.transform.parent.parent.GetComponent<Rigidbody>().AddForce(transform.right * 5f, ForceMode.VelocityChange);
         }
 
