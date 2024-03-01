@@ -157,7 +157,7 @@ public class PlayerBody : MonoBehaviour
 		else if (!headAnim.IsPlaying("Death") && !headAnim.IsPlaying("Dash") && !headAnim.IsPlaying("Shoot") && !headAnim.IsPlaying("Roll") && !headAnim.IsPlaying("Walk")) headAnim.Play("Idle");
 
 
-		legAnim = transform.GetChild(2).GetChild(0).GetChild(0).GetChild(0).GetComponent<Animation>();
+		legAnim = transform.GetChild(2).GetChild(1).GetChild(0).GetChild(0).GetComponent<Animation>();
 		if (legAnim == null) return;
 
 		if (isDashing)
@@ -218,7 +218,6 @@ public class PlayerBody : MonoBehaviour
 			StartCoroutine(PlayerShield());
 			Debug.Log("Huh");
 		}
-		StopAllCoroutines();
 	}
     
 	public void FireBullet()
@@ -253,7 +252,6 @@ public class PlayerBody : MonoBehaviour
 
 		isDashing = true;
 		dashEffect.Play(true);
-		dashEffect.playbackSpeed = 4;
 		// Using energy before doing action
 		stats.UseEnergy(amount);
         
@@ -278,7 +276,6 @@ public class PlayerBody : MonoBehaviour
 		}
 
 		isDashing = false;
-		dashEffect.playbackSpeed = 1;
 		dashEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 	}
 
@@ -303,27 +300,27 @@ public class PlayerBody : MonoBehaviour
 	{
 		//im hoping this fades in and out the shield, duration of shield is 5s currently.
 		float shieldTime = 0f;
-		while(shieldTime < 5f)
-		{
-			playerShield.SetActive(true);
-			Color c = GetComponent<Renderer>().material.color;
-			for (float alpha = 0f; alpha >= 1; alpha += 0.1f)
-			{
-				c.a = alpha;
-				GetComponent<Renderer>().material.color = c;
-				yield return new WaitForSeconds(.1f);
-			}
+        playerShield.SetActive(true);
+        Color c = playerShield.GetComponent<Renderer>().material.color;
+        for (float alpha = 0f; alpha >= 1; alpha += 0.1f)
+        {
+            c.a = alpha;
+            playerShield.GetComponent<Renderer>().material.color = c;
+            yield return new WaitForSeconds(.1f);
+        }
+        while (shieldTime < 5f)
+		{		
 			shieldTime += Time.deltaTime;
 			yield return null;
         }
-        Color s = GetComponent<Renderer>().material.color;
+        Color s = playerShield.GetComponent<Renderer>().material.color;
         for (float alpha = 1f; alpha >= 0; alpha -= 0.1f)
         {
             s.a = alpha;
-            GetComponent<Renderer>().material.color = s;
+            playerShield.GetComponent<Renderer>().material.color = s;
             yield return new WaitForSeconds(.1f);
-            playerShield.SetActive(false);
         }
+        playerShield.SetActive(false);
     }
 	//Plays the player death sound
     private void DeathSound()
