@@ -174,9 +174,6 @@ public class PlayerStats : MonoBehaviour
     {
         set
         {
-            // Don't do work already done.
-            if (characterStat == value) return;
-
             characterStat = value;
 
             // Assign proper stats
@@ -245,6 +242,14 @@ public class PlayerStats : MonoBehaviour
         // Is truly dead
         isDead = true;
         StartDeath();
+    }
+
+    public void Heal(int healing)
+    {
+        if(currHealth < maxHealth)
+        {
+            currHealth += healing;
+        }
     }
 
     private void StartDeath()

@@ -56,7 +56,8 @@ MonoBehaviour:
   - {fileID: 7489467434288890564, guid: 28e481e64644b9a458370625bb54d589, type: 3}
   - {fileID: 6297765103710325832, guid: 32765dfc7d3811d41a90ae1572497763, type: 3}
   - {fileID: 5499215989557754267, guid: 691b30727a72739428e36561ad5f0fc3, type: 3}
-  - {fileID: 5841191079338777775, guid: 6a59f46d000738b4cb92af3cecd6e4da, type: 3}
+  - {fileID: 4748749076728205467, guid: 5370fb05af0fe224c82ea9d2a24c0e69, type: 3}
+  - {fileID: 6721051393718211655, guid: a70737f8e3c63a748a512196489f84ea, type: 3}
   levelBuilderParent: {fileID: 1031196372573276941}
   levelToBuild: 4
   startX: 0

@@ -6,6 +6,10 @@ using UnityEngine.EventSystems;
 public class ModeSelectMenu : MenuNavigation
 {
     [SerializeField]
+    [Foldout("Dependencies"), Tooltip("DEBUG TO BE DELETED")] // TODO NATHAN F: REMOVE THIS
+    private CharacterStatsSO[] listOfStats = new CharacterStatsSO[4];
+
+    [SerializeField]
     [Foldout("Stats"), Tooltip("")]
     private string[] modesToSelectFrom;
 
@@ -22,6 +26,11 @@ public class ModeSelectMenu : MenuNavigation
         // Setup button hookups
         EventSystem.current.SetSelectedGameObject(arrayOfbuttons[0]);
         GameManager._Instance.MenuNavigation = this;
+
+        MenuInputManager._Instance.Reset();
+        MenuInputManager._Instance.TotalNumberOfButtons = 2;
+
+        UpdateUI(arrayOfbuttons[0]);
 
         // Check if a mode is already selected
         for (int i = 0; i < modesToSelectFrom.Length; i++)
@@ -54,20 +63,33 @@ public class ModeSelectMenu : MenuNavigation
 
     public void ContinueButtonPressed()
     {
-        ButtonPressSFX();
         GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
-        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
+        // LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
+
+        // ALL BELOW IS DEBUG
+        GameManager._Instance.StartNewGame(); // Reset player stats
+        LevelLoadManager._Instance.StartNewGame();
+
+        for (int i = 0; i < listOfStats.Length; i++)
+            GameManager._Instance.Players[i].GetComponent<PlayerStats>().CharacterStat = listOfStats[i];
+
+        // Load correct scene
+        if (GameManager._Instance.SelectedGameMode.CompareTo("FFA") == 0)
+            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[5], true);
+        else if (GameManager._Instance.SelectedGameMode.CompareTo("TDM") == 0)
+            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[6], true);
+        else if (GameManager._Instance.SelectedGameMode.CompareTo("FlatGround") == 0)
+            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
     }
 
     public void BackButtonPressed()
     {
-        ButtonPressSFX();
         GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[0], false);
     }
 
 
-    //finds the UIAudioSource, and plays the button press sound
+    // Finds the UIAudioSource, and plays the button press sound
     public void ButtonPressSFX()
     {
         AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
@@ -76,36 +98,49 @@ public class ModeSelectMenu : MenuNavigation
 
     public override void UpPressed()
     {
-        throw new System.NotImplementedException();
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(-1);
     }
 
     public override void DownPressed()
     {
-        throw new System.NotImplementedException();
+        ButtonPressSFX(); 
+        MenuInputManager._Instance.moveSelection(1);
     }
 
     public override void LeftPressed()
     {
-        throw new System.NotImplementedException();
+        ButtonPressSFX();
+        LeftArrowPressed();
     }
 
     public override void RightPressed()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override void SelectPressed()
-    {
-        throw new System.NotImplementedException();
+        ButtonPressSFX();
+        RightArrowPressed();
     }
 
     public override void CancelPressed()
     {
-        throw new System.NotImplementedException();
+        BackButtonPressed();
     }
 
-    public override void UpdateUI()
+    public override void UpdateUI(GameObject buttonSelected)
     {
-        throw new System.NotImplementedException();
+        // EventSystem.current.SetSelectedGameObject(arrayOfbuttons[(int)selectedButton]);
+    }
+
+    public override void SelectPressed(int buttonSelected)
+    {
+        ButtonPressSFX();
+        switch (buttonSelected)
+        {
+            case 0:
+                ContinueButtonPressed();
+                return;
+            case 1:
+                BackButtonPressed();
+                return;
+        }
     }
 }

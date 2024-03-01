@@ -101,4 +101,28 @@ public class PlayerController : MonoBehaviour
 
         GameManager._Instance.PauseGame(true);
     }	
+
+	public void OnSubmitClicked(CallbackContext ctx)
+	{
+		if (!ctx.performed) return;
+
+		MenuInputManager._Instance.ConfirmSelection();
+	}
+
+	public void OnNavigate(CallbackContext ctx)
+	{
+        if (!ctx.performed) return;
+     
+		Vector2 input = ctx.ReadValue<Vector2>().normalized;
+		int singleInput = (int) (input.x + input.y);
+
+		if (input.x > 0)
+			GameManager._Instance.MenuNavigation.RightPressed();
+		else if (input.x < 0)
+			GameManager._Instance.MenuNavigation.LeftPressed();
+        if (input.y > 0)
+			GameManager._Instance.MenuNavigation.DownPressed();
+		else if (input.y < 0)
+			GameManager._Instance.MenuNavigation.UpPressed();
+    }
 }

@@ -41,11 +41,14 @@ public class newLevelBuilder : MonoBehaviour
     private string[,,] levelInfo;
     private int rowCount;
     private int columnCount;
+     
+
 
     //temp start method for testing, final version will be called in gamemanager
     void Start()
     {
         buildLevel(levelToBuild);
+       
     }
 
     public void buildLevel(int lev)
@@ -53,10 +56,11 @@ public class newLevelBuilder : MonoBehaviour
         int xVal = startX;
         int yVal = startY;
         int zVal = startZ;
-
+        Transform tr;
         toIntArray(lev);
 
         GameObject temp;
+        GameObject temp2;
 
         for (int i = 0; i < rowCount; i++)
         {
@@ -98,7 +102,8 @@ public class newLevelBuilder : MonoBehaviour
                     //decide prefab and spawn 
                     if (prefab == 6)
                     {
-                        temp = Instantiate(levelAssets[prefab - 1], new Vector3(xVal, yVal + sph, zVal), Quaternion.Euler(new Vector3(rot.x, r, rot.z)), this.transform);
+                        //temp = Instantiate(levelAssets[prefab - 1], new Vector3(xVal, yVal + sph, zVal), Quaternion.Euler(new Vector3(rot.x, r, rot.z)), this.transform);
+                        temp = Instantiate(levelAssets[prefab - 1], new Vector3(xVal, yVal + sph - 0.25f, zVal), Quaternion.Euler(new Vector3(rot.x - 90, 0, rot.z + r)), this.transform);
                     }
                     else
                     {
@@ -110,7 +115,10 @@ public class newLevelBuilder : MonoBehaviour
                     int topping = int.Parse(levelInfo[i, j, 3]);
                     if (topping > 0)
                     {
-                        Instantiate(levelAssets[topping - 1], new Vector3(xVal, yVal + sph + 4, zVal), Quaternion.Euler(new Vector3(rot.x - 90, 0, rot.z + r)), this.transform);
+                        tr = temp.transform;
+                        //tr.localScale = new Vector3(1, 1, 1);
+                        temp2 = Instantiate(levelAssets[topping - 1], new Vector3(xVal, yVal + sph + 4, zVal), Quaternion.Euler(new Vector3(rot.x - 90, 0, rot.z + r)), temp.transform);
+                        temp2.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
                     }
 
 
@@ -166,7 +174,7 @@ public class newLevelBuilder : MonoBehaviour
                     foreach (string u in c)
                     {
 
-                        Debug.Log(u);
+                        //Debug.Log(u);
                         levelInfo[i, j, k] = u;
 
                         k++;

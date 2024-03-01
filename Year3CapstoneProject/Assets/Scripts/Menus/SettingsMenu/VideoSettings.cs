@@ -1,30 +1,13 @@
 using UnityEngine;
 using TMPro;
-using NaughtyAttributes;
 public class VideoSettings : MonoBehaviour
 {
-    [Header("FPS Initializations")]
-    [SerializeField, Required] private TMP_InputField fpsCap;
-    [Header("Vsync Initializations")]
-    [SerializeField, Required] private GameObject VSyncCheckmark;
-    private bool VSyncOn;
-
     // Start is called before the first frame update
     void Awake()
     {
+        QualitySettings.vSyncCount = 0; // VSync turned off
         WindowStateChanged(PlayerPrefs.GetInt("windowState", 1));
         ResolutionChanged(PlayerPrefs.GetInt("resolution", 2));
-        fpsCap.text = PlayerPrefs.GetInt("fpsCap", 60).ToString();
-        if (PlayerPrefs.GetInt("vSync", 0) == 0)
-        {
-            VSyncOn = false;
-            VSyncCheckmark.SetActive(VSyncOn);
-        }
-        else
-        {
-            VSyncOn = true;
-            VSyncCheckmark.SetActive(VSyncOn);
-        }
     }
     public void WindowStateChanged(TMP_Dropdown dropDown)
     {
@@ -66,28 +49,5 @@ public class VideoSettings : MonoBehaviour
                 Screen.SetResolution(1280, 720, fullscreen);
                 break;
         }
-    }
-
-    public void FPSCapChanged()
-    {
-        Application.targetFrameRate = int.Parse(fpsCap.text);
-        PlayerPrefs.SetInt("fpsCap", int.Parse(fpsCap.text));
-    }
-
-    public void VSyncChanged()
-    {
-        if (PlayerPrefs.GetInt("vSync", 0) == 1) // Turn VSync off
-        {
-            QualitySettings.vSyncCount = 0; // VSync turned off
-            VSyncCheckmark.SetActive(false);
-            PlayerPrefs.SetInt("vSync", 0);
-        }
-        else // Turn VSync on
-        {
-            QualitySettings.vSyncCount = 1; // Vsync On
-            VSyncCheckmark.SetActive(true);
-            PlayerPrefs.SetInt("vSync", 1);
-        }
-        VSyncOn = !VSyncOn;
     }
 }

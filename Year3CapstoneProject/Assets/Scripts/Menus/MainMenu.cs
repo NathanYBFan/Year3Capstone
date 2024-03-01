@@ -4,15 +4,13 @@ using UnityEngine.EventSystems;
 
 public class MainMenu : MenuNavigation
 {
-    private enum buttons { PlayButton, SettingsButton, CreditsButton, QuitButton }
-    private buttons selectedButton = buttons.PlayButton;
-
     private void Start()
     {
-        selectedButton = buttons.PlayButton;
         EventSystem.current.SetSelectedGameObject(arrayOfbuttons[0]);
         GameManager._Instance.MenuNavigation = this;
-        UpdateUI();
+        MenuInputManager._Instance.Reset();
+        MenuInputManager._Instance.TotalNumberOfButtons = 4;
+        UpdateUI(arrayOfbuttons[0]);
     }
 
     // Finds the UIAudioSource, and plays the button press sound
@@ -22,77 +20,81 @@ public class MainMenu : MenuNavigation
         AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
     }
 
-    public override void UpdateUI()
+    public override void UpdateUI(GameObject selection)
     {
-        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[(int) selectedButton]);
-        
-        switch (selectedButton)
-        {
-            case buttons.PlayButton:
-                break;
-            case buttons.SettingsButton:
-                EventSystem.current.SetSelectedGameObject(arrayOfbuttons[1]);
-                break;
-            case buttons.CreditsButton:
-                EventSystem.current.SetSelectedGameObject(arrayOfbuttons[2]);
-                break;
-            case buttons.QuitButton: 
-                EventSystem.current.SetSelectedGameObject(arrayOfbuttons[3]);
-                break;
-        }
+        // EventSystem.current.SetSelectedGameObject(selection);
     }
 
     public override void UpPressed()
     {
-        selectedButton--;
-        UpdateUI();
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(1);
     }
 
     public override void DownPressed()
     {
-        selectedButton++;
-        UpdateUI();
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(-1);
     }
 
     public override void LeftPressed()
     {
-        selectedButton--;
-        UpdateUI();
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(-1);
     }
 
     public override void RightPressed()
     {
-        selectedButton++;
-        UpdateUI();
+        ButtonPressSFX();
+        MenuInputManager._Instance.moveSelection(1);
     }
 
-    public override void SelectPressed()
+    public override void SelectPressed(int buttonSelected)
     {
         ButtonPressSFX();
-        UpdateUI();
-        switch (selectedButton)
+        switch (buttonSelected)
         {
-            case buttons.PlayButton:
-                LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], true);
+            case 0:
+                PlayGamePressed();
                 return;
-            case buttons.SettingsButton:
-                LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[1]);
+            case 1:
+                SettingsButtonPressed();
                 return;
-            case buttons.CreditsButton:
-                LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[2]);
+            case 2:
+                CreditsbuttonPressed();
                 break;
-            case buttons.QuitButton:
-                #if UNITY_STANDALONE
-                Application.Quit();
-                #endif
-
-                #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-                #endif
+            case 3:
+                QuitButtonPressed();
                 return;
         }
     }
 
     // No use in this class
     public override void CancelPressed() { return; }
+
+    public void PlayGamePressed()
+    {
+        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], true);
+    }
+
+    public void SettingsButtonPressed()
+    {
+        LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[1]);
+    }
+
+    public void CreditsbuttonPressed()
+    {
+        LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[2]);
+    }
+
+    public void QuitButtonPressed()
+    {
+#if UNITY_STANDALONE
+        Application.Quit();
+#endif
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
 }
