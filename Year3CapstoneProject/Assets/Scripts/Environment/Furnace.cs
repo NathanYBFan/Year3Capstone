@@ -13,6 +13,12 @@ public class Furnace : MonoBehaviour
     [SerializeField]
     private int damage;
 
+    [SerializeField]
+    private float delay;
+
+    [SerializeField]
+    private float burnTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,31 +55,31 @@ public class Furnace : MonoBehaviour
     }
 
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
         //if the colliding object is a player (check tag), try to deal damage
-        if(collision.gameObject.GetComponentInChildren<CapsuleCollider>() != null && collision.gameObject.GetComponentInChildren<CapsuleCollider>().CompareTag("Player"))
+        if(other.gameObject.GetComponentInChildren<CapsuleCollider>() != null && other.gameObject.GetComponentInChildren<CapsuleCollider>().CompareTag("Player"))
         {
             //damage the player that made contact, only if the fire is on
             if (isOn)
             {
-                collision.gameObject.transform.GetComponent<PlayerStats>().TakeDamage(damage);
+                other.gameObject.transform.GetComponent<PlayerStats>().TakeDamage(damage);
             }
             
         }
 
     }
 
-    //alternates the furnace between being on for 3s, then off for 5s
+    //alternates the furnace between being on for (burnTime), then off for (delay)
     private IEnumerator OnOffCycle()
     {
         if (isOn)
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(burnTime);
             //turn off fire
             isOn = false;
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(delay);
         //turn on fire
         isOn = true;
 
