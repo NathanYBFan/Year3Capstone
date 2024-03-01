@@ -6,6 +6,10 @@ using UnityEngine.EventSystems;
 public class ModeSelectMenu : MenuNavigation
 {
     [SerializeField]
+    [Foldout("Dependencies"), Tooltip("DEBUG TO BE DELETED")] // TODO NATHAN F: REMOVE THIS
+    private CharacterStatsSO[] listOfStats = new CharacterStatsSO[4];
+
+    [SerializeField]
     [Foldout("Stats"), Tooltip("")]
     private string[] modesToSelectFrom;
 
@@ -60,7 +64,24 @@ public class ModeSelectMenu : MenuNavigation
     public void ContinueButtonPressed()
     {
         GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
-        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
+        // LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
+
+        // all below is debug
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], AudioManager._Instance.UIAudioSource);
+
+        GameManager._Instance.StartNewGame(); // Reset player stats
+        LevelLoadManager._Instance.StartNewGame();
+
+        for (int i = 0; i < listOfStats.Length; i++)
+            GameManager._Instance.Players[i].GetComponent<PlayerStats>().CharacterStat = listOfStats[i];
+
+        // Load correct scene
+        if (GameManager._Instance.SelectedGameMode.CompareTo("FFA") == 0)
+            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[5], true);
+        else if (GameManager._Instance.SelectedGameMode.CompareTo("TDM") == 0)
+            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[6], true);
+        else if (GameManager._Instance.SelectedGameMode.CompareTo("FlatGround") == 0)
+            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
     }
 
     public void BackButtonPressed()

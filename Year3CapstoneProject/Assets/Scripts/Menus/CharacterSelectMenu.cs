@@ -21,7 +21,15 @@ public class CharacterSelectMenu : MonoBehaviour
 
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
-    private GameObject[] uiGroups;
+    private GameObject[] statGameObjects;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private GameObject[] ColorGameObjects;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private GameObject[] lockInGameObjects;
 
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("Character to instantiate")]
@@ -40,7 +48,7 @@ public class CharacterSelectMenu : MonoBehaviour
     private void Start()
     {
         EventSystem.current.SetSelectedGameObject(firstButton);
-        for (int i = 0; i < listOfStats.Length; i++)
+        for (int i = 0; i < characterSelectedByPlayers.Length; i++)
             SetCharacterStatAssignment(i, listOfStats[i]);
         currentState = selectState.characterSelect;
         UpdateDisplayUI();
@@ -49,10 +57,11 @@ public class CharacterSelectMenu : MonoBehaviour
     private void SetCharacterStatAssignment(int characterIndex, CharacterStatsSO characterStatToAssign)
     {
         characterSelectedByPlayers[characterIndex] = characterStatToAssign;
-        displayParent[characterIndex].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "--" + characterStatToAssign.CharacterName + "--";
-        displayParent[characterIndex].transform.GetChild(0).GetChild(1).GetChild(0).GetComponentInChildren<Slider>().value = characterStatToAssign.DefaultFireRate / 10;
-        displayParent[characterIndex].transform.GetChild(0).GetChild(1).GetChild(1).GetComponentInChildren<Slider>().value = characterStatToAssign.DefaultMoveSpeed / 20;
-        displayParent[characterIndex].transform.GetChild(0).GetChild(1).GetChild(2).GetComponentInChildren<Slider>().value = (float)characterStatToAssign.MaxHealth / 100;
+        Debug.Log(displayParent[characterIndex].name);
+        displayParent[characterIndex].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "--" + characterStatToAssign.CharacterName + "--";
+        displayParent[characterIndex].transform.GetChild(1).GetChild(0).GetComponentInChildren<Slider>().value = characterStatToAssign.DefaultFireRate / 10;
+        displayParent[characterIndex].transform.GetChild(1).GetChild(1).GetComponentInChildren<Slider>().value = characterStatToAssign.DefaultMoveSpeed / 20;
+        displayParent[characterIndex].transform.GetChild(1).GetChild(2).GetComponentInChildren<Slider>().value = (float)characterStatToAssign.MaxHealth / 100;
     }
 
     private void SetColorAssignment(int colorIndex)
@@ -106,13 +115,16 @@ public class CharacterSelectMenu : MonoBehaviour
         switch (currentState)
         {
             case selectState.characterSelect:
-                uiGroups[0].SetActive(true);
+                foreach (GameObject stat in statGameObjects)
+                    stat.SetActive(true);
                 return;
             case selectState.colorSelect:
-                uiGroups[1].SetActive(true);
+                foreach (GameObject color in ColorGameObjects)
+                    color.SetActive(true);
                 return;
             case selectState.lockedIn:
-                uiGroups[2].SetActive(true);
+                foreach (GameObject lockIn in lockInGameObjects)
+                    lockIn.SetActive(true);
                 return;
             default:
                 Debug.Log("Error case reached, current state is null");
@@ -122,10 +134,12 @@ public class CharacterSelectMenu : MonoBehaviour
 
     private void ResetAllUI()
     {
-        foreach(GameObject uiElement in uiGroups)
-        {
-            uiElement.SetActive(false);
-        }
+        foreach (GameObject stat in statGameObjects)
+            stat.SetActive(false);
+        foreach (GameObject color in ColorGameObjects)
+            color.SetActive(false);
+        foreach (GameObject lockIn in lockInGameObjects)
+            lockIn.SetActive(false);
     }
 
     public void BackButtonPressed()

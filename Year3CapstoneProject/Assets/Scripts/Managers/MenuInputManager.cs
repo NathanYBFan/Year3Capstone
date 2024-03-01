@@ -40,7 +40,6 @@ public class MenuInputManager : MonoBehaviour
         else if (currentButton >= totalNumberOfbuttons) currentButton = 0;
 
         // Highlight selected button
-        Debug.Log(currentButton);
         GameManager._Instance.MenuNavigation.UpdateUI(GameManager._Instance.MenuNavigation.arrayOfbuttons[currentButton]);
     }
 

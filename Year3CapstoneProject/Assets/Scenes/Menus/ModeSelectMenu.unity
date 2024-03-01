@@ -1300,6 +1300,11 @@ MonoBehaviour:
   arrayOfbuttons:
   - {fileID: 1129568682}
   - {fileID: 747077296}
+  listOfStats:
+  - {fileID: 11400000, guid: 46ad957a4215877409a217da43fccc32, type: 2}
+  - {fileID: 11400000, guid: 2cc7a1821c25fa44ea7c317ad7ef55b5, type: 2}
+  - {fileID: 11400000, guid: 5da0e338aff20224fafc512221a1e732, type: 2}
+  - {fileID: 11400000, guid: a2cd314d6dba3654689b6bccdf70e467, type: 2}
   modesToSelectFrom:
   - FFA
   - MODELS
