@@ -73,6 +73,8 @@ public class ModeSelectMenu : MenuNavigation
         for (int i = 0; i < listOfStats.Length; i++)
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().CharacterStat = listOfStats[i];
 
+        GameManager._Instance.MenuNavigation = null;
+
         // Load correct scene
         if (GameManager._Instance.SelectedGameMode.CompareTo("FFA") == 0)
             LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[5], true);

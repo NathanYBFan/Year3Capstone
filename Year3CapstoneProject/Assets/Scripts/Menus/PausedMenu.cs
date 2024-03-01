@@ -80,7 +80,8 @@ public class PausedMenu : MenuNavigation
                 ResumeButtonPressed();
                 return;
             case 1:
-                SettingsMenuPressed();
+                QuitButtonPressed();
+                //SettingsMenuPressed(); NATHANF DEBUG
                 return;
             case 2:
                 QuitButtonPressed();

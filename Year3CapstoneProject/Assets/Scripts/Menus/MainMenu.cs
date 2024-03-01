@@ -9,7 +9,7 @@ public class MainMenu : MenuNavigation
         EventSystem.current.SetSelectedGameObject(arrayOfbuttons[0]);
         GameManager._Instance.MenuNavigation = this;
         MenuInputManager._Instance.Reset();
-        MenuInputManager._Instance.TotalNumberOfButtons = 4;
+        MenuInputManager._Instance.TotalNumberOfButtons = 3;
         UpdateUI(arrayOfbuttons[0]);
     }
 
@@ -58,10 +58,12 @@ public class MainMenu : MenuNavigation
                 PlayGamePressed();
                 return;
             case 1:
-                SettingsButtonPressed();
+                CreditsbuttonPressed();
+                // SettingsButtonPressed(); NATHANF DEBUG
                 return;
             case 2:
-                CreditsbuttonPressed();
+                QuitButtonPressed();
+                // CreditsbuttonPressed(); NATHANF DEBUG
                 break;
             case 3:
                 QuitButtonPressed();

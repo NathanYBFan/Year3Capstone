@@ -22,6 +22,7 @@ namespace UI.SettingsMenu {
                 _ => Screen.fullScreenMode
             };
             bool fullscreen = PlayerPrefs.GetInt("windowState", 1) == 0 || PlayerPrefs.GetInt("windowState", 1) == 1;
+            
             PlayerPrefs.SetInt("resolution", value);
             switch (value)
             {
@@ -64,7 +65,7 @@ namespace UI.SettingsMenu {
             else
                 audioMixer.SetFloat("System", Mathf.Log(PlayerPrefs.GetFloat("systemVolume")) * 20f);
             
-            Destroy(this.gameObject.GetComponent<StartupScript>());
+            Destroy(this);
         }
     }
 }
