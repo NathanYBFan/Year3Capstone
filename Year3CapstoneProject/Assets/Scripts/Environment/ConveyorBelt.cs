@@ -8,13 +8,17 @@ public class ConveyorBelt : MonoBehaviour
     [SerializeField]
     [Foldout("Stats"), Tooltip("Direction the conveyorShouldPush")]
     private Vector3 moveDirection;
+
+
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log(other.gameObject.name);
-        if (other.GetComponentInChildren<CapsuleCollider>() == null) return;
+        if ((other.transform.GetComponent<CapsuleCollider>() != null && other.transform.GetComponent<CapsuleCollider>().CompareTag("Player")))
+        {
+            Debug.Log(other.transform.parent.parent.name);
+            other.transform.parent.parent.GetComponent<Rigidbody>().AddForce(transform.forward * 20f);
+        }
 
-        if (!other.GetComponentInChildren<CapsuleCollider>().CompareTag("Player")) return;
-
-        other.gameObject.transform.parent.parent.GetComponent<Rigidbody>().AddForce(moveDirection * Time.deltaTime);
     }
+
+
 }

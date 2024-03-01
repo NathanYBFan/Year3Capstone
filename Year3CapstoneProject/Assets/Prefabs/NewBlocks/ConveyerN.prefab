@@ -335,6 +335,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4610689757114137700}
+  - component: {fileID: 4648586493745027414}
   m_Layer: 0
   m_Name: ConveyerN
   m_TagString: StageNormal
@@ -358,3 +359,22 @@ Transform:
   - {fileID: 3899652845040116194}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+--- !u!114 &4648586493745027414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5841191079338777775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b17aff17fa3a112439662d634931d833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iceTop: {fileID: 0}
+  iceTop2: {fileID: 0}
+  snowBurst: {fileID: 0}
+  snowBurst2: {fileID: 0}
+  time: 0
+  maxHeight: 0
+  minHeight: 0

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4483240422436281335}
   m_Layer: 0
   m_Name: BulletBody
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 8334014978921442311}
   m_Layer: 0
   m_Name: Bullet Prefab Example
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -72,7 +72,7 @@ public class Meteor : MonoBehaviour
         if (other.tag == "Player")
         {
             UnityEngine.Debug.Log("player detected by meteor");
-            other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(10);
+            other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(100);
 
 
         }

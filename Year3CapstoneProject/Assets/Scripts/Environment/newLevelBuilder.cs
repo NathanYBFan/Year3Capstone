@@ -98,7 +98,8 @@ public class newLevelBuilder : MonoBehaviour
                     //decide prefab and spawn 
                     if (prefab == 6)
                     {
-                        temp = Instantiate(levelAssets[prefab - 1], new Vector3(xVal, yVal + sph, zVal), Quaternion.Euler(new Vector3(rot.x, r, rot.z)), this.transform);
+                        //temp = Instantiate(levelAssets[prefab - 1], new Vector3(xVal, yVal + sph, zVal), Quaternion.Euler(new Vector3(rot.x, r, rot.z)), this.transform);
+                        temp = Instantiate(levelAssets[prefab - 1], new Vector3(xVal, yVal + sph - 0.25f, zVal), Quaternion.Euler(new Vector3(rot.x - 90, 0, rot.z + r)), this.transform);
                     }
                     else
                     {

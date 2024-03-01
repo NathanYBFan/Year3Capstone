@@ -22,21 +22,33 @@ public class ExploiveBarrel : MonoBehaviour
     {
         //rb = destroyedVersion.GetComponent<Rigidbody>();
         expPos = transform.position;
-        Debug.Log(GetComponent<Rigidbody>().name);
+        //Debug.Log(GetComponent<Rigidbody>().name);
     }
 
-    void OnMouseDown()
-    {
-        GameObject dest = Instantiate(destroyedVersion, transform.position, transform.rotation);
-     
-        GetComponent<MeshRenderer>().enabled = false;
-
-
-
-    }
     private IEnumerator boom()
     {
-        yield return new WaitForSeconds(2f);
-        //Destroy(gameObject);
+        yield return new WaitForSeconds(6f);
+        Destroy(gameObject);
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.gameObject.name);
+
+        if ((other.transform.GetComponent<SphereCollider>() != null && other.transform.GetComponent<SphereCollider>().CompareTag("Bullet")))
+        {
+            GameObject dest = Instantiate(destroyedVersion, transform.position, transform.rotation);
+
+            GetComponent<MeshRenderer>().enabled = false;
+            //transform.position = new Vector3(transform.position.x, transform.position.y - 20, transform.position.z);
+            StartCoroutine(boom());
+           
+
+           
+
+        }
+    }
+
+
 }
