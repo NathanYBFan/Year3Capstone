@@ -6,12 +6,18 @@ public class explodeScript : MonoBehaviour
 {
     public GameObject destroyedVersion;
 
+
+    //credits to: https://www.youtube.com/watch?v=EgNV0PWVaS8
     void OnMouseDown()
     {
         Instantiate(destroyedVersion, transform.position, transform.rotation);
-        Destroy(gameObject);
+        if(gameObject != null)
+        {
+            Destroy(gameObject);
+        }
+        
     }
 
 }
 
-//credits to: https://www.youtube.com/watch?v=EgNV0PWVaS8
+
