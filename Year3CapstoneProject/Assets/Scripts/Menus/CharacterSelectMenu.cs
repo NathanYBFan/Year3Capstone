@@ -16,10 +16,6 @@ public class CharacterSelectMenu : MonoBehaviour
     private GameObject[] displayParent = new GameObject[4];
 
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("First button to be selected - for controllers")]
-    private GameObject firstButton;
-
-    [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private GameObject[] statGameObjects;
 
@@ -47,7 +43,6 @@ public class CharacterSelectMenu : MonoBehaviour
 
     private void Start()
     {
-        EventSystem.current.SetSelectedGameObject(firstButton);
         for (int i = 0; i < characterSelectedByPlayers.Length; i++)
             SetCharacterStatAssignment(i, listOfStats[i]);
         currentState = selectState.characterSelect;
@@ -57,7 +52,6 @@ public class CharacterSelectMenu : MonoBehaviour
     private void SetCharacterStatAssignment(int characterIndex, CharacterStatsSO characterStatToAssign)
     {
         characterSelectedByPlayers[characterIndex] = characterStatToAssign;
-        Debug.Log(displayParent[characterIndex].name);
         displayParent[characterIndex].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "--" + characterStatToAssign.CharacterName + "--";
         displayParent[characterIndex].transform.GetChild(1).GetChild(0).GetComponentInChildren<Slider>().value = characterStatToAssign.DefaultFireRate / 10;
         displayParent[characterIndex].transform.GetChild(1).GetChild(1).GetComponentInChildren<Slider>().value = characterStatToAssign.DefaultMoveSpeed / 20;

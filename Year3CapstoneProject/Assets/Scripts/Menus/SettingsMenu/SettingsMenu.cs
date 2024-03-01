@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class SettingsMenu : MonoBehaviour
+public class SettingsMenu : MenuNavigation
 {
     [Foldout("Dependencies"), Tooltip("")]
     [SerializeField]
@@ -37,11 +37,6 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField, Required]
     private GameObject firstSelectedButton;
 
-    [SerializeField, ReadOnly]
-    [Foldout("Dependencies"), Tooltip("")]
-    private GameObject savedSelectedButton;
-
-
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
     private Color selectedButtonColor;
@@ -50,14 +45,18 @@ public class SettingsMenu : MonoBehaviour
     [Foldout("Stats"), Tooltip("")]
     private Color deselectedButtonColor;
 
+    private GameObject savedSelectedButton;
+    private MenuNavigation savedMenuNavigation;
+
     // Start is called before the first frame update
     void Awake()
     {
         savedSelectedButton = EventSystem.current.currentSelectedGameObject;
         EventSystem.current.SetSelectedGameObject(firstSelectedButton);
-        videoButton.color = selectedButtonColor;
-        audioButton.color = deselectedButtonColor;
-        controlsButton.color = deselectedButtonColor;
+
+        savedMenuNavigation = GameManager._Instance.MenuNavigation;
+        GameManager._Instance.MenuNavigation = this;
+
         videoControls.SetActive(true);
         audioControls.SetActive(false);
         inGameControls.SetActive(false);
@@ -66,6 +65,7 @@ public class SettingsMenu : MonoBehaviour
     private void OnDisable()
     {
         EventSystem.current.SetSelectedGameObject(savedSelectedButton);
+        GameManager._Instance.MenuNavigation = savedMenuNavigation;
     }
 
     public void UnloadScene()
@@ -105,5 +105,40 @@ public class SettingsMenu : MonoBehaviour
                 Debug.Log("Invalid button selected");
                 break;
         }
+    }
+
+    public override void UpPressed()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void DownPressed()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void LeftPressed()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void RightPressed()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void SelectPressed(int buttonSelection)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void CancelPressed()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void UpdateUI(GameObject buttonSelection)
+    {
+        throw new System.NotImplementedException();
     }
 }

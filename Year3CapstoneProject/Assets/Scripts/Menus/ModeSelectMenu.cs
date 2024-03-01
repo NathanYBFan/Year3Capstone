@@ -66,9 +66,7 @@ public class ModeSelectMenu : MenuNavigation
         GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
         // LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
 
-        // all below is debug
-        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], AudioManager._Instance.UIAudioSource);
-
+        // ALL BELOW IS DEBUG
         GameManager._Instance.StartNewGame(); // Reset player stats
         LevelLoadManager._Instance.StartNewGame();
 

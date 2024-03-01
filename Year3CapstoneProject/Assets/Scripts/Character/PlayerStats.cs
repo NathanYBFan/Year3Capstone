@@ -174,9 +174,6 @@ public class PlayerStats : MonoBehaviour
     {
         set
         {
-            // Don't do work already done.
-            if (characterStat == value) return;
-
             characterStat = value;
 
             // Assign proper stats

@@ -67,9 +67,9 @@ public class LevelLoadManager : MonoBehaviour
     // Unload a menu
     public void UnloadMenuOverlay(string menuName)
     {
-        SceneManager.UnloadSceneAsync(currentLevelList[0]);
+        SceneManager.UnloadSceneAsync(menuName);
         currentLevelList.RemoveAt(0); // Remove first
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(currentLevelList[0])); // Set as active scene
+        // SceneManager.SetActiveScene(SceneManager.GetSceneByName(currentLevelList[0])); // Set as active scene
     }
 
     // Coroutine to load level properly

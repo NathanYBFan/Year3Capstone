@@ -135,7 +135,7 @@ public class PlayerBody : MonoBehaviour
 	private void UpdateAnimations()
 	{
 		if (!GameManager._Instance.InGame) return;
-		headAnim = mesh.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Animation>();
+		headAnim = mesh.transform.GetComponentInChildren<Animation>();
 		if (headAnim == null) return;
 
 		if (isDashing)

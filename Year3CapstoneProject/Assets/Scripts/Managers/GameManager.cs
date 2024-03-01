@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
 	// Reset everything when game ends
 	public void EndGame()
 	{
+		pauseMenu.SetActive(false);
         ChaosFactorManager._Instance.Reset();
         BulletObjectPoolManager._Instance.ResetAllBullets();
 		QuitToMainMenu();
