@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using UnityEngine;
 
@@ -60,6 +61,7 @@ public class Meteor : MonoBehaviour
         if (collision.gameObject.GetComponentInChildren<CapsuleCollider>() != null && collision.gameObject.GetComponentInChildren<CapsuleCollider>().CompareTag("Player")) 
         {
             collision.gameObject.transform.GetComponent<PlayerStats>().TakeDamage(damage);
+
         }
 
         StartCoroutine(boom());
@@ -86,7 +88,15 @@ public class Meteor : MonoBehaviour
         Destroy(markerInstance);
         MeteorVisual.enabled = false;
         GetComponentInChildren<MeshRenderer>().enabled = false;
+        if (GameObject.Find("VCam").GetComponent<CameraShake>() != null)
+        {
+            GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera();
+        }
         yield return new WaitForSeconds(1f);
+        if (GameObject.Find("VCam").GetComponent<CameraShake>() != null)
+        {
+            GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera();
+        }
         Destroy(gameObject);
         yield return null;
     }
