@@ -166,7 +166,7 @@ public class newLevelBuilder : MonoBehaviour
                     foreach (string u in c)
                     {
 
-                        Debug.Log(u);
+                        //Debug.Log(u);
                         levelInfo[i, j, k] = u;
 
                         k++;

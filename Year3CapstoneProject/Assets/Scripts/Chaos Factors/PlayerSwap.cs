@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosiveTag : MonoBehaviour
+public class PlayerSwap : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -15,12 +15,4 @@ public class ExplosiveTag : MonoBehaviour
     {
         
     }
-
-
-
-
-
-
-
-
 }

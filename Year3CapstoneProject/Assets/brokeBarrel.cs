@@ -7,18 +7,18 @@ public class brokeBarrel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        Debug.Log("brokeBarrel called");
         Collider[] colliders = Physics.OverlapSphere(transform.position, 3.0f);
         Debug.Log("Colliders hit: " + colliders.Length);
 
         foreach (Collider hit in colliders)
         {
             Rigidbody rb = hit.GetComponent<Rigidbody>();
-            //Debug.Log(hit.name);
+            Debug.Log(hit.name);
             if (rb != null)
             {
+                Debug.Log("Add explosion force called");
                 rb.AddExplosionForce(20f, transform.position, 3.0f, 1.0f, ForceMode.Force);
-
             }
 
         }

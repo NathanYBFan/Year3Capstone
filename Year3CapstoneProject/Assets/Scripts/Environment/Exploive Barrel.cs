@@ -31,11 +31,12 @@ public class ExploiveBarrel : MonoBehaviour
      
         GetComponent<MeshRenderer>().enabled = false;
 
-        StartCoroutine(boom());
+
+
     }
     private IEnumerator boom()
     {
         yield return new WaitForSeconds(2f);
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }
