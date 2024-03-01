@@ -25,7 +25,7 @@ public class brokeBarrel : MonoBehaviour
             if (rb != null)
             {
                     //Debug.Log("Add explosion force called");
-                    rb.AddExplosionForce(20f, transform.position, 3.0f, 1.0f, ForceMode.Force);
+                    rb.AddExplosionForce(30f, transform.position, 6.0f, 1.0f, ForceMode.Force);
             }
 
         }
