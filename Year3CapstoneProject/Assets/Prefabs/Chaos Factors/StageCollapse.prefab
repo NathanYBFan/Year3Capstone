@@ -47,3 +47,4 @@ MonoBehaviour:
   numberOfBlocks: 15
   dropInterval: 0.5
   endDelay: 5
+  timer: 30

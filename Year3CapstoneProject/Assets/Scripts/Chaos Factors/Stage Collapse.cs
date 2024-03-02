@@ -39,15 +39,15 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 
             GameObject dropping = GameManager._Instance.Platforms[randomNum];
             droppedPlatforms[i] = dropping;
-            Color c = dropping.GetComponent<Renderer>().material.color;
-            dropping.GetComponent<Renderer>().material.color = Color.clear;
+            //Color c = dropping.GetComponent<Renderer>().material.color;
+            //dropping.GetComponent<Renderer>().material.color = Color.clear;
 
             yield return new WaitForSeconds(0.85f);
 
             
             dropping.GetComponent<Platform>().collapse();
 
-            dropping.GetComponent<Renderer>().material.color = c;
+            //dropping.GetComponent<Renderer>().material.color = c;
 
             yield return new WaitForSeconds(dropInterval);
         }

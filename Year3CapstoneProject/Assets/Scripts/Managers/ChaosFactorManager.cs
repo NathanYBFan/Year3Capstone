@@ -117,6 +117,7 @@ public class ChaosFactorManager : MonoBehaviour
         currentRunningChaosFactors.Add(chaosFactor);
         //StartCoroutine(DestroyAfterTime(chaosFactor, 20)); // Destroy Chaos Factor after 1 minute
         StartCoroutine(DestroyAfterTime(chaosFactor, chaosFactor.GetComponent<ChaosFactor>().Timer)); // Destroy Chaos Factor after 1 minute
+       
 
         yield return new WaitForSeconds(20); // Wait for 20 seconds <-- These should be tuneable
         ResetChaosFactorTimer();
