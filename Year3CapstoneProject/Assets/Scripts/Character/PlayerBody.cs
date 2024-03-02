@@ -3,6 +3,7 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.PlayerLoop;
 using UnityEngine.VFX;
 
 public class PlayerBody : MonoBehaviour
@@ -86,9 +87,14 @@ public class PlayerBody : MonoBehaviour
 		{
 			if (stats.CanSelfDestruct) StartCoroutine("InitiateSelfDestruct");
         }
-	}
 
-	private void FixedUpdate()
+		if (Input.GetKeyDown(KeyCode.Alpha1)) Roll(1);
+		else if (Input.GetKeyDown(KeyCode.Alpha2)) Roll(2);
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) Roll(3);
+        else if (Input.GetKeyDown(KeyCode.Alpha4)) Roll(4);
+    }
+
+    private void FixedUpdate()
 	{
 
 		// Aim UI oriented so y-axis is parallel to the surface normal of the map.
@@ -226,30 +232,59 @@ public class PlayerBody : MonoBehaviour
 		{
 			//Roll for damage boost
 			StartCoroutine(DmgBoost());
-			Debug.Log("KYS tehe :3 (dmg)");
 		}
 		else if (odds == 2)
 		{
 
 			//Roll for Shield
 			StartCoroutine(PlayerShield());
-			Debug.Log("Huh (shield)");
 		}
 		else if (odds == 3)
 		{
 			//Roll for movement speed boost
 			StartCoroutine(SpeedBoost());
-			Debug.Log("Benguin (speed)");
 		}
 		else if (odds == 4)
 		{
 			stats.Heal(healing);
 			healEffect.Play();
-			Debug.Log("Meow (heal)");
 		}
 	}
 
-	public void FireBullet()
+    private void Roll(int input)
+    {
+        int healing = 1;
+        float amount = stats.MaxEnergy;
+        // Power saving
+        if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
+                                                         // Has enough energy to roll
+        if (stats.CurrentEnergy - amount < 0) return;
+        isRolling = true;
+        canMove = false;
+        rb.velocity = Vector3.zero;
+
+        // Using energy before doing action
+        stats.UseEnergy(amount);
+
+		switch (input)
+		{
+			case 1:
+                StartCoroutine(DmgBoost());
+                return;
+			case 2:
+                StartCoroutine(PlayerShield());
+                return;
+			case 3:
+                StartCoroutine(SpeedBoost());
+                return;
+			case 4:
+                stats.Heal(healing);
+                healEffect.Play();
+                return;
+        }
+    }
+
+    public void FireBullet()
 	{
 		if (Time.time >= stats.NextFireTime && canShoot == true)
 		{

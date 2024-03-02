@@ -24,6 +24,7 @@ public class MenuInputManager : MonoBehaviour
     #endregion
 
     private int totalNumberOfbuttons;
+    [SerializeField]
     private MenuNavigation menuNavigation;
     private bool inCharacterSelect = false;
     private CharacterSelectMenu characterSelectMenu;

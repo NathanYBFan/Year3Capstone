@@ -7,6 +7,8 @@ public class CharacterStatsSO : ScriptableObject
     public string CharacterName;
     public GameObject playerModelHead;
     public GameObject playerModelBody;
+    public Sprite characterSprite;
+    public Sprite characterBGSprite;
     public int MaxHealth;
     public float DefaultMoveSpeed;
     public float DefaultFireRate;
