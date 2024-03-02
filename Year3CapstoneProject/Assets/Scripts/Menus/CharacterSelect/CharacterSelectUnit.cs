@@ -1,8 +1,6 @@
 using NaughtyAttributes;
-using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class CharacterSelectUnit : MonoBehaviour
@@ -20,7 +18,7 @@ public class CharacterSelectUnit : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("")]
     private Color[] listOfAvailableColors;
 
-    // Data assignment
+    // Stats dependencies
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private TextMeshProUGUI displayCharacterName;
@@ -36,6 +34,11 @@ public class CharacterSelectUnit : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private Slider healthSlider;
+
+    // Color dependencies
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private Image colorDisplay;
 
     // Display Tab Game Objects
     [SerializeField]
@@ -57,14 +60,6 @@ public class CharacterSelectUnit : MonoBehaviour
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
     private int playerIndex;
-
-    [SerializeField, ReadOnly]
-    [Foldout("Stats"), Tooltip("Character to instantiate")]
-    private CharacterStatsSO characterSelectedByPlayer;
-
-    [SerializeField]
-    [Foldout("Stats"), Tooltip("Color to assign to players")]
-    private Color colorSelectedByPlayer;
     #endregion
 
     #region PrivateVariables
@@ -78,7 +73,7 @@ public class CharacterSelectUnit : MonoBehaviour
     {
         selectedCharacter = 0;
         SetCharacterStatAssignment(listOfStats[playerIndex]);
-
+        SetCharacterColorAssignment(listOfAvailableColors[0]);
         currentState = selectState.connectController;
 
         ResetDisplays();
@@ -95,11 +90,15 @@ public class CharacterSelectUnit : MonoBehaviour
 
     private void SetCharacterStatAssignment(CharacterStatsSO characterStatToAssign)
     {
-        characterSelectedByPlayer = characterStatToAssign;
         displayCharacterName.text = "--" + characterStatToAssign.CharacterName + "--";
         fireRateSlider.value = characterStatToAssign.DefaultFireRate / 10;
         moveSpeedSlider.value = characterStatToAssign.DefaultMoveSpeed / 20;
-        healthSlider.value = (float)characterStatToAssign.MaxHealth / 100;
+        healthSlider.value = (float)characterStatToAssign.MaxHealth / 6;
+    }
+
+    private void SetCharacterColorAssignment(Color colorToSet)
+    {
+        colorDisplay.color = colorToSet;
     }
 
     public void ControllerConnected()
@@ -110,9 +109,53 @@ public class CharacterSelectUnit : MonoBehaviour
         statGameObject.SetActive(true);
     }
 
-    private void ConfirmSelections()
+    public void ConfirmSelections()
     {
-        
+        switch (currentState)
+        {
+            case selectState.connectController:
+                currentState = selectState.characterSelect;
+                ResetDisplays();
+                statGameObject.SetActive(true);
+                return;
+            case selectState.characterSelect:
+                currentState = selectState.colorSelect;
+                characterSelectMenu.CharacterSelectedByPlayers[playerIndex] = listOfStats[selectedCharacter];
+                ResetDisplays();
+                colorGameObject.SetActive(true);
+                return;
+            case selectState.colorSelect:
+                currentState = selectState.lockedIn;
+                characterSelectMenu.ColorSelectedByPlayers[playerIndex] = listOfAvailableColors[selectedColor];
+                ResetDisplays();
+                lockInGameObject.SetActive(true);
+                characterSelectMenu.CheckForLockIn();
+                return;
+            case selectState.lockedIn:
+                return;
+        }
+    }
+
+    public void CancelSelection()
+    {
+        switch (currentState)
+        {
+            case selectState.connectController:
+                return;
+            case selectState.characterSelect:
+                characterSelectMenu.BackButtonPressed();
+                return;
+            case selectState.colorSelect:
+                currentState = selectState.characterSelect;
+                ResetDisplays();
+                statGameObject.SetActive(true);
+                return;
+            case selectState.lockedIn:
+                currentState = selectState.colorSelect;
+                ResetDisplays();
+                colorGameObject.SetActive(true);
+                return;
+        }
     }
 
     public void RightPressed()
@@ -127,6 +170,7 @@ public class CharacterSelectUnit : MonoBehaviour
                 return;
             case selectState.colorSelect:
                 IncrementColorSelect(1);
+                SetCharacterColorAssignment(listOfAvailableColors[selectedColor]);
                 return;
             case selectState.lockedIn:
                 return;
@@ -145,6 +189,7 @@ public class CharacterSelectUnit : MonoBehaviour
                 return;
             case selectState.colorSelect:
                 IncrementColorSelect(-1);
+                SetCharacterColorAssignment(listOfAvailableColors[selectedColor]);
                 return;
             case selectState.lockedIn:
                 return;
@@ -157,10 +202,16 @@ public class CharacterSelectUnit : MonoBehaviour
         if (selectedCharacter < 0) selectedCharacter = 3;
         if (selectedCharacter > 3) selectedCharacter = 0;
     }
+
     private void IncrementColorSelect(int number)
     {
         selectedColor += number;
-        if (selectedCharacter < 0) selectedColor = 3;
-        if (selectedCharacter > 3) selectedColor = 0;
+        if (selectedCharacter < 0) selectedColor = 5;
+        if (selectedCharacter > 5) selectedColor = 0;
+    }
+
+    public bool CheckIfLockedIn()
+    {
+        return currentState == selectState.lockedIn;
     }
 }

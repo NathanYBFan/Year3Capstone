@@ -18,6 +18,9 @@ public class CharacterSelectMenu : MonoBehaviour
     private Color[] colorSelectedByPlayers = new Color[4];
     #endregion
 
+    public CharacterStatsSO[] CharacterSelectedByPlayers { get { return characterSelectedByPlayers; } set { characterSelectedByPlayers = value; } }
+    public Color[] ColorSelectedByPlayers { get { return colorSelectedByPlayers; } set { colorSelectedByPlayers = value; } }
+
     private void Start()
     {
         MenuInputManager._Instance.CharacterSelectMenu = this;
@@ -28,6 +31,11 @@ public class CharacterSelectMenu : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+            ContinueButtonPressed();
+    }
     public void NewPlayerInputJoined()
     {
         for (int i = 0; i < MenuInputManager._Instance.PlayerInputs.Count; i++)
@@ -43,9 +51,11 @@ public class CharacterSelectMenu : MonoBehaviour
         AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
         AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
     }
+
     public void BackButtonPressed()
     {
         ButtonPressSFX();
+        MenuInputManager._Instance.InCharacterSelect = false;
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], false);
     }
     
@@ -57,6 +67,7 @@ public class CharacterSelectMenu : MonoBehaviour
         LevelLoadManager._Instance.StartNewGame();
 
         ApplyCharacterStats();
+        MenuInputManager._Instance.InCharacterSelect = false;
 
         // Load correct scene
         if (GameManager._Instance.SelectedGameMode.CompareTo("FFA") == 0)
@@ -71,5 +82,15 @@ public class CharacterSelectMenu : MonoBehaviour
     {
         for (int i = 0; i < characterSelectedByPlayers.Length; i++)
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().CharacterStat = characterSelectedByPlayers[i];
+    }
+
+    public void CheckForLockIn()
+    {
+        foreach(GameObject menu in characterSelectMenus)
+        {
+            if (!menu.GetComponent<CharacterSelectUnit>().CheckIfLockedIn()) return;
+        }
+
+        ContinueButtonPressed();
     }
 }

@@ -64,25 +64,8 @@ public class ModeSelectMenu : MenuNavigation
     public void ContinueButtonPressed()
     {
         GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
-        //MenuInputManager._Instance.InCharacterSelect = true;
-        //LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
-
-        // ALL BELOW IS DEBUG
-        GameManager._Instance.StartNewGame(); // Reset player stats
-        LevelLoadManager._Instance.StartNewGame();
-
-        for (int i = 0; i < listOfStats.Length; i++)
-            GameManager._Instance.Players[i].GetComponent<PlayerStats>().CharacterStat = listOfStats[i];
-
-        MenuInputManager._Instance.MenuNavigation = null;
-
-        // Load correct scene
-        if (GameManager._Instance.SelectedGameMode.CompareTo("FFA") == 0)
-            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[5], true);
-        else if (GameManager._Instance.SelectedGameMode.CompareTo("TDM") == 0)
-            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[6], true);
-        else if (GameManager._Instance.SelectedGameMode.CompareTo("FlatGround") == 0)
-            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
+        MenuInputManager._Instance.InCharacterSelect = true;
+        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
     }
 
     public void BackButtonPressed()

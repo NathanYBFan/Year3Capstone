@@ -55,17 +55,22 @@ public class MenuInputManager : MonoBehaviour
         else if (currentButton >= totalNumberOfbuttons) currentButton = 0;
 
         // Highlight selected button
-        MenuInputManager._Instance.MenuNavigation.UpdateUI(MenuInputManager._Instance.MenuNavigation.arrayOfbuttons[currentButton]);
+        menuNavigation.UpdateUI(menuNavigation.arrayOfbuttons[currentButton]);
     }
 
     public void ConfirmSelection()
     {
-        MenuInputManager._Instance.MenuNavigation.SelectPressed(currentButton);
+        menuNavigation.SelectPressed(currentButton);
+    }
+
+    public void CancelSelection()
+    {
+        menuNavigation.CancelPressed();
     }
 
     public void ControllerRejoinEvent()
     {
-        if (!MenuInputManager._Instance.inCharacterSelect) return;
+        if (!inCharacterSelect) return;
 
         characterSelectMenu.NewPlayerInputJoined();
     }

@@ -209,7 +209,19 @@ MonoBehaviour:
     m_ActionId: ae092f16-9ece-46b0-809e-326f2bec443a
     m_ActionName: Menu/Submit
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3589008200577592553}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnCancelClicked
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 04d49d9e-86a1-4369-a8a8-9c8a09351c5e
     m_ActionName: Menu/Cancel
   - m_PersistentCalls:

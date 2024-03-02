@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
 		fireAction = playerInput.currentActionMap.FindAction("Fire", true);
 
 		MenuInputManager._Instance.PlayerInputs.Add(this.gameObject);
+		MenuInputManager._Instance.ControllerRejoinEvent();
 	}
 
 	private void Update()
@@ -108,13 +109,33 @@ public class PlayerController : MonoBehaviour
 
 	public void OnSubmitClicked(CallbackContext ctx)
 	{
-		if (!ctx.performed) return;
-        if (MenuInputManager._Instance.MenuNavigation == null) return;
+        if (!ctx.performed) return;
+        if (MenuInputManager._Instance.MenuNavigation != null)
+        {
+            MenuInputManager._Instance.ConfirmSelection();
+            return;
+        }
 
-        MenuInputManager._Instance.ConfirmSelection();
-	}
+        if (!MenuInputManager._Instance.InCharacterSelect) return;
+        // In character select
+        GetComponent<MultiplayerEventSystem>().playerRoot.GetComponent<CharacterSelectUnit>().ConfirmSelections();
+    }
 
-	public void OnNavigate(CallbackContext ctx)
+    public void OnCancelClicked(CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+        if (MenuInputManager._Instance.MenuNavigation != null)
+        {
+            MenuInputManager._Instance.CancelSelection();
+            return;
+        }
+
+        if (!MenuInputManager._Instance.InCharacterSelect) return;
+        // In character select
+        GetComponent<MultiplayerEventSystem>().playerRoot.GetComponent<CharacterSelectUnit>().CancelSelection();
+    }
+
+    public void OnNavigate(CallbackContext ctx)
 	{
         if (!ctx.performed) return;
 
