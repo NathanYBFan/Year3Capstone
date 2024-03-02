@@ -58,6 +58,8 @@ public class PlayerBody : MonoBehaviour
 	public bool OnIce { get { return onIce; } set { onIce = value; } }
 	public int PlayerIndex { get { return playerIndex; } }
 	public bool IsRolling { get { return isRolling; } }
+
+	public GameObject Shield { get { return playerShield; } }
 	#endregion Getters & Setters
 	#region Private Variables
 	Animation headAnim;
@@ -78,8 +80,8 @@ public class PlayerBody : MonoBehaviour
 		// Begin self-destruct (if possible)
 		if (stats.CurrentHealth <= 0 && !stats.IsDead)
 		{
-			if (stats.CanSelfDestruct) InitiateSelfDestruct();
-		}
+			if (stats.CanSelfDestruct) StartCoroutine("InitiateSelfDestruct");
+        }
 	}
 
 	private void FixedUpdate()
@@ -139,6 +141,7 @@ public class PlayerBody : MonoBehaviour
 
 	public void Death()
 	{
+		moveDir = Vector3.zero;
 		headAnim.Play("Death");
 		legAnim.Play("Death");
 		DeathSound();
@@ -218,7 +221,7 @@ public class PlayerBody : MonoBehaviour
 			StartCoroutine(DmgBoost());
 			Debug.Log("KYS tehe :3 (dmg)");
 		}
-		else if (odds == 2)
+		else if (odds == 2 && stats.CurrentHealth != stats.MaxHealth)
 		{
 			stats.Heal(healing);
 			healEffect.Play();
@@ -248,19 +251,25 @@ public class PlayerBody : MonoBehaviour
 		}
 	}
 
-	public void InitiateSelfDestruct()
-	{
-		if (stats.CanSelfDestruct && !hasExploded)
-		{
-			GameObject explosionRadius = Instantiate(explosion, transform.position, Quaternion.identity);
-			explosionRadius.GetComponent<Explosive>().OriginalPlayerIndex = playerIndex;
-			explosionRadius.GetComponent<Explosive>().PlayerOwner = stats;
-			explosionRadius.GetComponent<Explosive>().StartExpansion(true);
-			hasExploded = true;
-		}
-	}
+    public IEnumerator InitiateSelfDestruct()
+    {
+        if (stats.CanSelfDestruct && !hasExploded)
+        {
+            hasExploded = true;
+            GameObject explosionRadius = Instantiate(explosion, transform.position, Quaternion.identity);
+            explosionRadius.GetComponent<Explosive>().OriginalPlayerIndex = playerIndex;
+            explosionRadius.GetComponent<Explosive>().PlayerOwner = stats;
+            explosionRadius.GetComponent<Explosive>().StartExpansion(true);
+            while (explosionRadius != null)
+            {
+                yield return null;
+            }
+            Death();
+        }
+        else yield return null;
+    }
 
-	public void DashActionPressed()
+    public void DashActionPressed()
 	{
 		float amount = stats.MaxEnergy / 3.0f;
 		// Power saving
@@ -299,7 +308,7 @@ public class PlayerBody : MonoBehaviour
 
 	private IEnumerator DmgBoost()
 	{
-		//needs anim
+		
 		float buffTime = 0f;
         stats.Damage = stats.Damage + 1;
 		dmgEffect.Play();
@@ -314,7 +323,7 @@ public class PlayerBody : MonoBehaviour
 
 	private IEnumerator SpeedBoost()
 	{
-		//needs to play animation still
+		
 		float buffTime = 0f;
 		stats.MovementSpeed = stats.MovementSpeed + 3;
 		speedEffect.Play();
@@ -339,7 +348,7 @@ public class PlayerBody : MonoBehaviour
 			playerShield.GetComponent<Renderer>().material.color = c;
 			yield return new WaitForSeconds(.1f);
 		}
-		while (shieldTime < 10f)
+		while (shieldTime < 8f)
 		{
 			shieldTime += Time.deltaTime;
 			yield return null;

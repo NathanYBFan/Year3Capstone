@@ -5054,9 +5054,6 @@ PrefabInstance:
       addedObject: {fileID: 246838604141368966}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 234029037326587646}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2385830104729024891}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
       insertIndex: -1
@@ -5094,27 +5091,8 @@ MonoBehaviour:
   time: 0
   maxHeight: 0
   minHeight: 0
---- !u!65 &234029037326587646
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5499215989557754267}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.0225317, y: 1.0225306, z: 2.151124}
-  m_Center: {x: -0.0011222363, y: 0.000472188, z: 0.57556176}
+  MiscChildren: []
+  effectsActive: 0
 --- !u!65 &2385830104729024891
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5163,6 +5141,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   breakTime: 3
   respawnTime: 4
-  theCollider: {fileID: 2385830104729024891}
-  theTrigger: {fileID: 234029037326587646}
+  boxCollider: {fileID: 2385830104729024891}
+  crumbleTrigger: {fileID: 5844214364534722986}
   destroyedVersion: {fileID: 2856710481410785694}

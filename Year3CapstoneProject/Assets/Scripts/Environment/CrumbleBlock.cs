@@ -11,10 +11,10 @@ public class CrumbleBlock : MonoBehaviour
     private float respawnTime;
 
     [SerializeField]
-    Collider theCollider;
+    Collider boxCollider;
 
     [SerializeField]
-    Collider theTrigger;
+    Collider crumbleTrigger;
 
     public GameObject destroyedVersion;
 
@@ -57,9 +57,9 @@ public class CrumbleBlock : MonoBehaviour
         if (gameObject != null)
         {
             thePlatform.collapse();
-            theCollider.enabled = false;
+            boxCollider.enabled = false;
             theMesh.enabled = false;
-            theTrigger.enabled = false;
+            crumbleTrigger.enabled = false;
         }
 
         yield return new WaitForSeconds(respawnTime);
@@ -68,9 +68,9 @@ public class CrumbleBlock : MonoBehaviour
         if (gameObject != null)
         {
             thePlatform.rise();
-            theCollider.enabled = true;
+            boxCollider.enabled = true;
             theMesh.enabled = true;
-            theTrigger.enabled = true;
+            crumbleTrigger.enabled = true;
         }
     }
 }

@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System.Collections;
+using System.Net;
 using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
@@ -80,7 +81,10 @@ public class BulletBehaviour : MonoBehaviour
 		switch (other.tag)
 		{
 			case "Shield":
-				Destroy(bulletRootObject.gameObject); 
+				if(other.gameObject != playerOwner.gameObject.GetComponent<PlayerBody>().Shield)
+				{
+                    Destroy(bulletRootObject.gameObject);
+                }
 				break;
 			case "Player":
 				if (other.transform.parent.parent.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)

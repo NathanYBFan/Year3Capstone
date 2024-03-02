@@ -8,14 +8,14 @@ public class Overcharged : Modifier
 		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
 		if (playerStats != null)
 		{
-			playerStats.MovementSpeed += 5;
-			playerStats.FireRate += 5;
+			playerStats.MovementSpeed += 3;
+			playerStats.FireRate += .5f;
 		}
 	}
 
 	public override void AddEffects(PlayerStats playerStats)
 	{
-		playerStats.MovementSpeed += 5;
-		playerStats.FireRate += 5;
+		playerStats.MovementSpeed += 3;
+		playerStats.FireRate += .5f;
 	}
 }

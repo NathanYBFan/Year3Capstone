@@ -64,8 +64,8 @@ public class PlayerController : MonoBehaviour
 		if (body == null || holdTime < holdDuration) return;
         if (body.GetComponent<PlayerStats>().IsDead) return;
 
-        body.InitiateSelfDestruct();
-	}
+        body.StartCoroutine("InitiateSelfDestruct");
+    }
 
 	public void OnDash(CallbackContext ctx)
 	{

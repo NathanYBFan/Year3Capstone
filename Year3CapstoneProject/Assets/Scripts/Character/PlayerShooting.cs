@@ -26,10 +26,8 @@ public class PlayerShooting : MonoBehaviour
 			{
 				GameObject bullet = BulletObjectPoolManager._Instance.FiredBullet();
 				bullet.transform.position = firePoint[i].position;
-				Vector3 bulletRot = bullet.transform.rotation.eulerAngles;
-				bulletRot.y = playerRotation.rotation.eulerAngles.y + firePoint[i].rotation.eulerAngles.y;
-				bullet.transform.rotation = Quaternion.Euler(bulletRot);
-				bullet.GetComponentInChildren<BulletBehaviour>().ResetPlayerOwner(this.gameObject.GetComponent<PlayerBody>().PlayerIndex, this.gameObject.GetComponent<PlayerStats>());
+				bullet.transform.rotation = Quaternion.LookRotation(firePoint[i].forward);
+                bullet.GetComponentInChildren<BulletBehaviour>().ResetPlayerOwner(this.gameObject.GetComponent<PlayerBody>().PlayerIndex, this.gameObject.GetComponent<PlayerStats>());
 				bullet.SetActive(true);
 			}
 		}		
