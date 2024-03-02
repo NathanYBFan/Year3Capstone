@@ -217,20 +217,23 @@ public class PlayerBody : MonoBehaviour
 
         // Using energy before doing action
         stats.UseEnergy(amount);
-
-
-		int odds = Random.Range(1, 5);
+		int odds;
+		if (stats.CurrentHealth == stats.MaxHealth)
+			odds = Random.Range(1, 4);
+		else
+			odds = Random.Range(1, 5);
 		if (odds == 1)
 		{
 			//Roll for damage boost
 			StartCoroutine(DmgBoost());
 			Debug.Log("KYS tehe :3 (dmg)");
 		}
-		else if (odds == 2 && stats.CurrentHealth != stats.MaxHealth)
+		else if (odds == 2)
 		{
-			stats.Heal(healing);
-			healEffect.Play();
-			Debug.Log("Meow (heal)");
+
+			//Roll for Shield
+			StartCoroutine(PlayerShield());
+			Debug.Log("Huh (shield)");
 		}
 		else if (odds == 3)
 		{
@@ -240,9 +243,9 @@ public class PlayerBody : MonoBehaviour
 		}
 		else if (odds == 4)
 		{
-			//Roll for Shield
-			StartCoroutine(PlayerShield());
-			Debug.Log("Huh (shield)");
+			stats.Heal(healing);
+			healEffect.Play();
+			Debug.Log("Meow (heal)");
 		}
 	}
 
