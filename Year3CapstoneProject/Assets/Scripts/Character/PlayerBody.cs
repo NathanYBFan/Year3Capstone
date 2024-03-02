@@ -61,13 +61,15 @@ public class PlayerBody : MonoBehaviour
 
 	public bool CanMove { get { return canMove; } }
 
+	public bool CanShoot { get { return canShoot; } set { canShoot = value; } }
+
 	public GameObject Shield { get { return playerShield; } }
 	#endregion Getters & Setters
 	#region Private Variables
 	Animation headAnim;
 	Animation legAnim;
 	private bool hasExploded = false;
-	private bool isDashing = false, isShooting = false, isRolling = false, canMove = true;
+	private bool isDashing = false, isShooting = false, isRolling = false, canMove = true, canShoot = true;
 	private Vector2 moveDir, aimDir, legDir; //The current movement direction of this player.
 	#endregion Private Variables
 
@@ -149,6 +151,7 @@ public class PlayerBody : MonoBehaviour
 		DeathSound();
 		StartCoroutine("DestroyPlayer");
 	}
+
 	private void UpdateAnimations()
 	{
 		if (!GameManager._Instance.InGame) return;
@@ -245,7 +248,7 @@ public class PlayerBody : MonoBehaviour
 
 	public void FireBullet()
 	{
-		if (Time.time >= stats.NextFireTime)
+		if (Time.time >= stats.NextFireTime && canShoot == true)
 		{
 			GetComponent<PlayerShooting>().FireBullet();
 			isShooting = true;

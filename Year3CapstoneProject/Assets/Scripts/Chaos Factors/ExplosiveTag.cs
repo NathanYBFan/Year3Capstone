@@ -35,12 +35,15 @@ public class ExplosiveTag : MonoBehaviour
         {
             holdSpeeds[i] = GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed;
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = playerSpeed;
+            GameManager._Instance.Players[i].GetComponent<PlayerBody>().CanShoot = false;
+
         }
 
         int random = Random.Range(0,3);
 
         targetPlayer = GameManager._Instance.Players[0];
 
+        
         //spawn bomb belt on player
         Spawnedbelt = Instantiate(UnSpawnedbelt, new Vector3 (targetPlayer.transform.position.x, targetPlayer.transform.position.y+2, targetPlayer.transform.position.z), Quaternion.Euler(new Vector3(-90, 0, 0)), this.transform);
     }
@@ -52,7 +55,6 @@ public class ExplosiveTag : MonoBehaviour
         //move with target player
         Spawnedbelt.transform.position = new Vector3(targetPlayer.transform.position.x, targetPlayer.transform.position.y + 2, targetPlayer.transform.position.z);
         Spawnedbelt.transform.Rotate(new Vector3(0, 0, beltRotSpeed) * Time.deltaTime);
-        //if collide with player, swap to that player, and play and effect
 
     }
 
@@ -67,7 +69,7 @@ public class ExplosiveTag : MonoBehaviour
         for (int i = 0; i < GameManager._Instance.Players.Count; i++)
         {
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = holdSpeeds[i];
-      
+            GameManager._Instance.Players[i].GetComponent<PlayerBody>().CanShoot = true;
         }
         targetPlayer.GetComponent<PlayerStats>().TakeDamage(damage);
     }

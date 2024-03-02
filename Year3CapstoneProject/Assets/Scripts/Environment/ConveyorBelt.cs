@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class ConveyorBelt : MonoBehaviour
 {
-    [SerializeField]
-    [Foldout("Stats"), Tooltip("push force")]
-    private float Cforce = 20f;
 
     private void OnTriggerStay(Collider other)
     {
