@@ -68,10 +68,10 @@ public class MenuInputManager : MonoBehaviour
         menuNavigation.CancelPressed();
     }
 
-    public void ControllerRejoinEvent()
+    public void ControllerRejoinEvent(int playerIndex)
     {
         if (!inCharacterSelect) return;
 
-        characterSelectMenu.NewPlayerInputJoined();
+        characterSelectMenu.NewPlayerInputJoined(playerIndex);
     }
 }

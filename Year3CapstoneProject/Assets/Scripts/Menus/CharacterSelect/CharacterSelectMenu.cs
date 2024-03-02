@@ -36,13 +36,12 @@ public class CharacterSelectMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M))
             ContinueButtonPressed();
     }
-    public void NewPlayerInputJoined()
+
+    public void NewPlayerInputJoined(int playerIndex)
     {
-        for (int i = 0; i < MenuInputManager._Instance.PlayerInputs.Count; i++)
-        {
-            MenuInputManager._Instance.PlayerInputs[i].GetComponent<MultiplayerEventSystem>().playerRoot = characterSelectMenus[i];
-            characterSelectMenus[i].GetComponent<CharacterSelectUnit>().ControllerConnected();
-        }
+        Debug.Log(playerIndex);
+        MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<MultiplayerEventSystem>().playerRoot = characterSelectMenus[playerIndex];
+        characterSelectMenus[playerIndex].GetComponent<CharacterSelectUnit>().ControllerConnected();
     }
 
     // Finds the UIAudioSource, and plays the button press sound

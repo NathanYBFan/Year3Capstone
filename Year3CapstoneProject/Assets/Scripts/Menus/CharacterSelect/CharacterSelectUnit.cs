@@ -179,6 +179,7 @@ public class CharacterSelectUnit : MonoBehaviour
 
     public void LeftPressed()
     {
+        Debug.Log("Controller + " + playerIndex + " is pressing left");
         switch (currentState)
         {
             case selectState.connectController:

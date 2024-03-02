@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 		fireAction = playerInput.currentActionMap.FindAction("Fire", true);
 
 		MenuInputManager._Instance.PlayerInputs.Add(this.gameObject);
-		MenuInputManager._Instance.ControllerRejoinEvent();
+		MenuInputManager._Instance.ControllerRejoinEvent(body.PlayerIndex);
 	}
 
 	private void Update()
