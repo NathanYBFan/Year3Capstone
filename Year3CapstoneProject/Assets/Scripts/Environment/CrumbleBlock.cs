@@ -35,7 +35,7 @@ public class CrumbleBlock : MonoBehaviour
 	//If there is a player standing on this, call a timer coroutine that crumbles the block
 	void OnTriggerStay(Collider other)
 	{
-		if (other.CompareTag("Player") && hasRespawned)
+		if (other.CompareTag("Player") && hasRespawned && transform.parent.GetComponent<Platform>().effectsActive == true)
 		{
 			if (coroutine == null)
 			{
@@ -48,7 +48,7 @@ public class CrumbleBlock : MonoBehaviour
 	//If there is a player standing on this, call a timer coroutine that crumbles the block
 	void OnTriggerExit(Collider other)
 	{
-		if (other.CompareTag("Player"))
+		if (other.CompareTag("Player") && transform.parent.GetComponent<Platform>().effectsActive == true)
 		{
 			if (coroutine != null)
 			{

@@ -3,182 +3,200 @@ using System.Collections;
 using UnityEngine;
 public class Platform : MonoBehaviour
 {
-    // Serialize Fields
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private GameObject iceTop;
+	// Serialize Fields
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	private GameObject iceTop;
 
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private GameObject iceTop2;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	private GameObject iceTop2;
 
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private ParticleSystem snowBurst;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	private ParticleSystem snowBurst;
 
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private ParticleSystem snowBurst2;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	private ParticleSystem snowBurst2;
 
-    [SerializeField]
-    [Foldout("Stats"), Tooltip("")]
-    float time;
-    [SerializeField]
-    [Foldout("Stats"), Tooltip("")]
-    float maxHeight;
-    [SerializeField]
-    [Foldout("Stats"), Tooltip("")]
-    float minHeight;
-    [SerializeField]
-    GameObject[] MiscChildren;
+	[SerializeField]
+	[Foldout("Stats"), Tooltip("")]
+	float time;
+	[SerializeField]
+	[Foldout("Stats"), Tooltip("")]
+	float maxHeight;
+	[SerializeField]
+	[Foldout("Stats"), Tooltip("")]
+	float minHeight;
+	[SerializeField]
+	GameObject[] MiscChildren;
 
-    public bool effectsActive;
+	public bool effectsActive;
 
-    // Getters & Setters
-    public GameObject IceTop { get { return iceTop; } set { iceTop = value; } }
+	// Getters & Setters
+	public GameObject IceTop { get { return iceTop; } set { iceTop = value; } }
 
-    private void Awake()
-    {
-        effectsActive = true;
-        time = 10;
-        maxHeight = transform.position.y;
-        minHeight = maxHeight - 20;
-    }
+	private void Awake()
+	{
+		effectsActive = true;
+		time = 10;
+		maxHeight = transform.position.y;
+		minHeight = maxHeight - 20;
+	}
 
 
-    public void collapse()
-    {
-        //do visual thing as warning
+	public void collapse()
+	{
+		//do visual thing as warning
 
-        //
-        StartCoroutine(Down());
-        
-    }
-    public void rise()
+		//
+		StartCoroutine(Down());
+
+	}
+	public void rise()
 	{
 		StopAllCoroutines();
 		//do visual thing as warning
 
 		//
 		Debug.Log("Rise called");
-        StartCoroutine(Up());
+		StartCoroutine(Up());
 
-    }
+	}
 
-    public void fakeDestroy()
-    {
-        GetComponent<MeshRenderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
-        foreach (GameObject child in MiscChildren)
-        {
-            child.GetComponent<MeshRenderer>().enabled = false;
-            child.GetComponent<Collider>().enabled = false;
-        }
-        StartCoroutine(destory());
-        
+	public void fakeDestroy()
+	{
+		MeshRenderer r = GetComponent<MeshRenderer>();
+		if (r != null )
+		{
+			r.enabled = false;
+		}
+		else
+		{
+			r = transform.GetComponentInChildren<MeshRenderer>();
+			r.enabled = false;
+		}
+		GetComponent<Collider>().enabled = false;
+		foreach (GameObject child in MiscChildren)
+		{
+			child.GetComponent<MeshRenderer>().enabled = false;
+			child.GetComponent<Collider>().enabled = false;
+		}
+		StartCoroutine(destory());
 
-    }
 
-    public void fakeRespawn()
-    {
-        //Debug.Log("fake respawn called");
-        StopAllCoroutines();
-        GetComponent<MeshRenderer>().enabled = true;
-        GetComponent<Collider>().enabled = true;
-        foreach (GameObject child in MiscChildren)
-        {
-            child.GetComponent<MeshRenderer>().enabled = true;
-            child.GetComponent<Collider>().enabled = true;
-        }
-        StartCoroutine(Up());
-    }
+	}
 
-    public void toggleIce(bool i)
-    {
-        effectsActive = !i;
-        if (i == true) 
-        { 
-            
-            if (snowBurst != null)
-            {
-                snowBurst.Play();
-            }
-            if (snowBurst2 != null) 
-            { 
-                snowBurst2.Play();
-            }
+	public void fakeRespawn()
+	{
+		//Debug.Log("fake respawn called");
+		StopAllCoroutines(); 
+		MeshRenderer r = GetComponent<MeshRenderer>();
+		if (r != null)
+		{
+			r.enabled = true;
+		}
+		else
+		{
+			r = transform.GetComponentInChildren<MeshRenderer>();
+			r.enabled = true;
+		}
+		GetComponent<Collider>().enabled = true;
+		foreach (GameObject child in MiscChildren)
+		{
+			child.GetComponent<MeshRenderer>().enabled = true;
+			child.GetComponent<Collider>().enabled = true;
+		}
+		StartCoroutine(Up());
+	}
 
-        }
-        iceTop.GetComponent<MeshRenderer>().enabled = i;
+	public void toggleIce(bool i)
+	{
+		effectsActive = !i;
+		if (i == true)
+		{
 
-        if (iceTop2 != null)
-        {
-            iceTop2.GetComponent<MeshRenderer>().enabled = i;
-        }
+			if (snowBurst != null)
+			{
+				snowBurst.Play();
+			}
+			if (snowBurst2 != null)
+			{
+				snowBurst2.Play();
+			}
 
-    }
+		}
+		iceTop.GetComponent<MeshRenderer>().enabled = i;
 
-    private void OnCollisionEnter(Collision collision)
-    {
+		if (iceTop2 != null)
+		{
+			iceTop2.GetComponent<MeshRenderer>().enabled = i;
+		}
 
-        if (collision.gameObject.tag == "test")
-        {
-           
-            fakeDestroy();
+	}
 
-        }
-    }
+	private void OnCollisionEnter(Collision collision)
+	{
 
-    public IEnumerator Up()
-    {
-        //Debug.Log("up called");
-        float elapsedTime = 0;
-       
-        Vector3 endPos = new Vector3(transform.position.x, maxHeight, transform.position.z);
-        while (elapsedTime < time)
-        {
-            transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime /time));
-            elapsedTime += 0.5f * Time.deltaTime;
-            yield return null;
-        }
-        effectsActive = true;
-        yield return null;
-    }
+		if (collision.gameObject.tag == "test")
+		{
 
-    private IEnumerator destory()
-    {
-        //Debug.Log("down called");
-        float elapsedTime = 0;
-       
-        Vector3 startPos = transform.position;
-        Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);
-        while (elapsedTime < time) 
-        {
+			fakeDestroy();
 
-            transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime / time));
-            elapsedTime += 0.5f*Time.deltaTime;
-            yield return null;
-            //Debug.Log(elapsedTime);
-        }
-        fakeRespawn();
-    }
+		}
+	}
 
-    private IEnumerator Down()
-    {
-        //Debug.Log("down called");
-        float elapsedTime = 0;
-        effectsActive = false;
-        Vector3 startPos = transform.position;
-        Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);
-        while (elapsedTime < time)
-        {
+	public IEnumerator Up()
+	{
+		//Debug.Log("up called");
+		float elapsedTime = 0;
 
-            transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime / time));
-            elapsedTime += 0.5f * Time.deltaTime;
-            yield return null;
-            //Debug.Log(elapsedTime);
-        }
-      
-    }
+		Vector3 endPos = new Vector3(transform.position.x, maxHeight, transform.position.z);
+		while (elapsedTime < time)
+		{
+			transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime / time));
+			elapsedTime += 0.5f * Time.deltaTime;
+			yield return null;
+		}
+		effectsActive = true;
+		yield return null;
+	}
+
+	private IEnumerator destory()
+	{
+		//Debug.Log("down called");
+		float elapsedTime = 0;
+
+		Vector3 startPos = transform.position;
+		Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);
+		while (elapsedTime < time)
+		{
+
+			transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime / time));
+			elapsedTime += 0.5f * Time.deltaTime;
+			yield return null;
+			//Debug.Log(elapsedTime);
+		}
+		fakeRespawn();
+	}
+
+	private IEnumerator Down()
+	{
+		//Debug.Log("down called");
+		float elapsedTime = 0;
+		effectsActive = false;
+		Vector3 startPos = transform.position;
+		Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);
+		while (elapsedTime < time)
+		{
+
+			transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime / time));
+			elapsedTime += 0.5f * Time.deltaTime;
+			yield return null;
+			//Debug.Log(elapsedTime);
+		}
+
+	}
 
 }
