@@ -26,7 +26,7 @@ public class CharacterSelectMenu : MonoBehaviour
         MenuInputManager._Instance.CharacterSelectMenu = this;
         for (int i = 0; i < MenuInputManager._Instance.PlayerInputs.Count; i++)
         {
-            NewPlayerInputJoined(i);
+            // NewPlayerInputJoined(i);
         }
     }
 
