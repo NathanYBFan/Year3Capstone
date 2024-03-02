@@ -2,7 +2,7 @@ using Cinemachine;
 using System.Collections;
 using UnityEngine;
 
-public class Meteor : MonoBehaviour
+public class Meteor : MonoBehaviour, ChaosFactor
 {
     [SerializeField]
     private int damage;
@@ -35,8 +35,13 @@ public class Meteor : MonoBehaviour
     [SerializeField]
     private float markerSpawnHeight;
 
+    [SerializeField]
+    private float timer;
+
     private GameObject markerInstance;
 
+
+    public float Timer { get { return timer; } }
     void Awake()
     {
         transform.position = new Vector3(Random.Range(minSpawnX, maxSpawnX), spawnHeight, Random.Range(minSpawnZ, maxSpawnZ));

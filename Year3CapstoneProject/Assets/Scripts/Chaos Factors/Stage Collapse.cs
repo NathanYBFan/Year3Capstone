@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageCollapse : MonoBehaviour
+public class StageCollapse : MonoBehaviour, ChaosFactor
 {
 
     [SerializeField]
@@ -11,12 +11,15 @@ public class StageCollapse : MonoBehaviour
     private float dropInterval;
     [SerializeField]
     private float endDelay;
-
+    [SerializeField]
+    private float timer;
 
     int randomNum;
 
     GameObject[] droppedPlatforms;
 
+
+    public float Timer { get { return timer; } }
     // Start is called before the first frame update
     void Start()
     {

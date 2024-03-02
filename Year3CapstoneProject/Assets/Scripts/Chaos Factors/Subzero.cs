@@ -1,14 +1,18 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-public class Subzero : MonoBehaviour
+public class Subzero : MonoBehaviour, ChaosFactor
 {
+    [SerializeField]
+    private float timer;
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("Physics material for the floor")]
     PhysicMaterial material;
 
     private float hold;
 
+
+    public float Timer { get { return timer; } }
     private void Start()
     {
         hold = material.dynamicFriction;

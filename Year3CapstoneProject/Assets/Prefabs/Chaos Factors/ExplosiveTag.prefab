@@ -48,3 +48,4 @@ MonoBehaviour:
   beltRotSpeed: 60
   damage: 100
   playerSpeed: 16
+  timer: 20

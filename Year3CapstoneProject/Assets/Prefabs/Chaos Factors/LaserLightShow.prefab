@@ -347,6 +347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotSpeed: 15
   damage: 1
+  timer: 30
 --- !u!1 &7536396421568771380
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class LaserLightShow : MonoBehaviour
+public class LaserLightShow : MonoBehaviour, ChaosFactor
 {
 
     [SerializeField]
@@ -12,6 +12,14 @@ public class LaserLightShow : MonoBehaviour
 
     [SerializeField]
     private int damage;
+
+    [SerializeField]
+    public float timer;
+
+
+    public float Timer { get{ return timer; } }
+
+ 
 
     // Start is called before the first frame update
     void Start()

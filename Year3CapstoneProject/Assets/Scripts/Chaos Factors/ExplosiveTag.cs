@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
 
-public class ExplosiveTag : MonoBehaviour
+public class ExplosiveTag : MonoBehaviour, ChaosFactor
 {
     [SerializeField]
     private GameObject UnSpawnedbelt;
@@ -17,12 +17,14 @@ public class ExplosiveTag : MonoBehaviour
     [SerializeField]
     private int playerSpeed;
 
+    [SerializeField]
+    private float timer;
 
     private float[] holdSpeeds;
     private GameObject Spawnedbelt;
     private GameObject targetPlayer;
-    
 
+    public float Timer { get { return timer; } }
 
 
     // Start is called before the first frame update
