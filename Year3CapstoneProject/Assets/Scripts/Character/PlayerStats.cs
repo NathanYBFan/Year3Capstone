@@ -150,8 +150,6 @@ public class PlayerStats : MonoBehaviour
             // Debuff was inflicted on the player, activate the debuffs effects!
             inflictedDebuff = value;
 
-            // If there was a debuff assigned
-            if (inflictedDebuff != null) return;
             // If there isnt already a debuff running
             if (debuffCoroutine != null) return;
 
