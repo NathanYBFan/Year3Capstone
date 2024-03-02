@@ -4282,7 +4282,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 96534635265353722, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
       propertyPath: m_Name
-      value: PlayerSelect (1)
+      value: PlayerSelect (2)
       objectReference: {fileID: 0}
     - target: {fileID: 1378565705183287155, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5346,7 +5346,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 96534635265353722, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
       propertyPath: m_Name
-      value: PlayerSelect (1)
+      value: PlayerSelect (3)
       objectReference: {fileID: 0}
     - target: {fileID: 1378565705183287155, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
       propertyPath: m_AnchorMax.y
@@ -8081,7 +8081,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 96534635265353722, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
       propertyPath: m_Name
-      value: PlayerSelect (1)
+      value: PlayerSelect (0)
       objectReference: {fileID: 0}
     - target: {fileID: 1378565705183287155, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
       propertyPath: m_AnchorMax.y

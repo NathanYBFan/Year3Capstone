@@ -103,6 +103,7 @@ public class CharacterSelectUnit : MonoBehaviour
 
     public void ControllerConnected()
     {
+        Debug.Log("Player controller connected " + this.gameObject.name);
         currentState = selectState.characterSelect;
 
         ResetDisplays();
