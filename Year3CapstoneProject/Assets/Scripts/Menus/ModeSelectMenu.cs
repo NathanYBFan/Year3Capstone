@@ -25,7 +25,7 @@ public class ModeSelectMenu : MenuNavigation
     {
         // Setup button hookups
         EventSystem.current.SetSelectedGameObject(arrayOfbuttons[0]);
-        GameManager._Instance.MenuNavigation = this;
+        MenuInputManager._Instance.MenuNavigation = this;
 
         MenuInputManager._Instance.Reset();
         MenuInputManager._Instance.TotalNumberOfButtons = 2;
@@ -64,7 +64,8 @@ public class ModeSelectMenu : MenuNavigation
     public void ContinueButtonPressed()
     {
         GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
-        // LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
+        //MenuInputManager._Instance.InCharacterSelect = true;
+        //LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
 
         // ALL BELOW IS DEBUG
         GameManager._Instance.StartNewGame(); // Reset player stats
@@ -73,7 +74,7 @@ public class ModeSelectMenu : MenuNavigation
         for (int i = 0; i < listOfStats.Length; i++)
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().CharacterStat = listOfStats[i];
 
-        GameManager._Instance.MenuNavigation = null;
+        MenuInputManager._Instance.MenuNavigation = null;
 
         // Load correct scene
         if (GameManager._Instance.SelectedGameMode.CompareTo("FFA") == 0)

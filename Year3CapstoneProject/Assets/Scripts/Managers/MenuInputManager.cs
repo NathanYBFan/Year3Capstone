@@ -1,21 +1,36 @@
+using NaughtyAttributes;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 public class MenuInputManager : MonoBehaviour
 {
     public static MenuInputManager _Instance;
 
+    #region SerializeFields
     [SerializeField]
     private int currentButton;
 
-    private int totalNumberOfbuttons;
-
+    [SerializeField, ReadOnly]
+    private List<GameObject> playerInputs;
+    #endregion
+    
+    #region PublicVariables
     public int TotalNumberOfButtons { get { return totalNumberOfbuttons; } set { totalNumberOfbuttons = value; } }
     public int CurrentButton { get { return currentButton; } }
+    public List<GameObject> PlayerInputs { get { return playerInputs; } set { playerInputs = value; } }
+    public MenuNavigation MenuNavigation { get { return menuNavigation; } set { menuNavigation = value; } }
+    public bool InCharacterSelect { get { return inCharacterSelect; } set { inCharacterSelect = value; } }
+    public CharacterSelectMenu CharacterSelectMenu { get { return characterSelectMenu; } set { characterSelectMenu = value; } }
+    #endregion
 
+    private int totalNumberOfbuttons;
+    private MenuNavigation menuNavigation;
+    private bool inCharacterSelect = false;
+    private CharacterSelectMenu characterSelectMenu;
+    
     private void Awake()
     {
+        inCharacterSelect = false;
         if (_Instance != null && _Instance != this)
         {
             Debug.LogWarning("Destroyed a repeated MenuInput Manager");
@@ -40,11 +55,18 @@ public class MenuInputManager : MonoBehaviour
         else if (currentButton >= totalNumberOfbuttons) currentButton = 0;
 
         // Highlight selected button
-        GameManager._Instance.MenuNavigation.UpdateUI(GameManager._Instance.MenuNavigation.arrayOfbuttons[currentButton]);
+        MenuInputManager._Instance.MenuNavigation.UpdateUI(MenuInputManager._Instance.MenuNavigation.arrayOfbuttons[currentButton]);
     }
 
     public void ConfirmSelection()
     {
-        GameManager._Instance.MenuNavigation.SelectPressed(currentButton);
+        MenuInputManager._Instance.MenuNavigation.SelectPressed(currentButton);
+    }
+
+    public void ControllerRejoinEvent()
+    {
+        if (!MenuInputManager._Instance.inCharacterSelect) return;
+
+        characterSelectMenu.NewPlayerInputJoined();
     }
 }

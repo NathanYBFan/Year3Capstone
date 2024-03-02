@@ -7,7 +7,7 @@ public class MainMenu : MenuNavigation
     private void Start()
     {
         EventSystem.current.SetSelectedGameObject(arrayOfbuttons[0]);
-        GameManager._Instance.MenuNavigation = this;
+        MenuInputManager._Instance.MenuNavigation = this;
         MenuInputManager._Instance.Reset();
         MenuInputManager._Instance.TotalNumberOfButtons = 3;
         UpdateUI(arrayOfbuttons[0]);

@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerController : MonoBehaviour
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
 	public PlayerInputActions playerControl; // The player input in general
 	public float temp;
 	#endregion Public Variables
+
 	#region Private Variables
 	private PlayerInput playerInput;    // This corresponds to a "Player Input Component" that is attached to the GO with this script on it.
 	private PlayerBody body;            // A specific player that will be manipulated by this controller.
@@ -25,6 +27,8 @@ public class PlayerController : MonoBehaviour
 		body = bodies.FirstOrDefault(m => m.PlayerIndex == index); // The body that this controller corresponds to is the one whose index matches the player input index of this controller.
 		playerInput.uiInputModule = GameManager._Instance.UiInputModule;
 		fireAction = playerInput.currentActionMap.FindAction("Fire", true);
+
+		MenuInputManager._Instance.PlayerInputs.Add(this.gameObject);
 	}
 
 	private void Update()
@@ -105,7 +109,7 @@ public class PlayerController : MonoBehaviour
 	public void OnSubmitClicked(CallbackContext ctx)
 	{
 		if (!ctx.performed) return;
-        if (GameManager._Instance.MenuNavigation == null) return;
+        if (MenuInputManager._Instance.MenuNavigation == null) return;
 
         MenuInputManager._Instance.ConfirmSelection();
 	}
@@ -113,18 +117,28 @@ public class PlayerController : MonoBehaviour
 	public void OnNavigate(CallbackContext ctx)
 	{
         if (!ctx.performed) return;
-        if (GameManager._Instance.MenuNavigation == null) return;
 
         Vector2 input = ctx.ReadValue<Vector2>().normalized;
-		int singleInput = (int) (input.x + input.y);
 
-		if (input.x > 0)
-			GameManager._Instance.MenuNavigation.RightPressed();
-		else if (input.x < 0)
-			GameManager._Instance.MenuNavigation.LeftPressed();
-        if (input.y > 0)
-			GameManager._Instance.MenuNavigation.DownPressed();
-		else if (input.y < 0)
-			GameManager._Instance.MenuNavigation.UpPressed();
+        if (MenuInputManager._Instance.MenuNavigation != null) // 1 menu for everyone to interact with
+		{
+            if (input.x > 0)
+                MenuInputManager._Instance.MenuNavigation.RightPressed();
+            else if (input.x < 0)
+                MenuInputManager._Instance.MenuNavigation.LeftPressed();
+            if (input.y > 0)
+                MenuInputManager._Instance.MenuNavigation.DownPressed();
+            else if (input.y < 0)
+                MenuInputManager._Instance.MenuNavigation.UpPressed();
+			return;
+        }
+
+		if (!MenuInputManager._Instance.InCharacterSelect) return;
+		// In character select
+        if (input.x > 0)
+            GetComponent<MultiplayerEventSystem>().playerRoot.GetComponent<CharacterSelectUnit>().RightPressed();
+        else if (input.x < 0)
+            GetComponent<MultiplayerEventSystem>().playerRoot.GetComponent<CharacterSelectUnit>().LeftPressed();
+		// No up or down press
     }
 }

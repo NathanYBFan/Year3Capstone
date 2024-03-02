@@ -46,8 +46,8 @@ public class SettingsMenu : MenuNavigation
         savedSelectedButton = EventSystem.current.currentSelectedGameObject;
         EventSystem.current.SetSelectedGameObject(firstSelectedButton);
 
-        savedMenuNavigation = GameManager._Instance.MenuNavigation;
-        GameManager._Instance.MenuNavigation = this;
+        savedMenuNavigation = MenuInputManager._Instance.MenuNavigation;
+        MenuInputManager._Instance.MenuNavigation = this;
 
         videoControls.SetActive(true);
         audioControls.SetActive(false);
@@ -56,7 +56,7 @@ public class SettingsMenu : MenuNavigation
     private void OnDisable()
     {
         EventSystem.current.SetSelectedGameObject(savedSelectedButton);
-        GameManager._Instance.MenuNavigation = savedMenuNavigation;
+        MenuInputManager._Instance.MenuNavigation = savedMenuNavigation;
     }
 
     public void UnloadScene()

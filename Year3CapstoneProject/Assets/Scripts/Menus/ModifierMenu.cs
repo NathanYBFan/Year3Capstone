@@ -14,7 +14,7 @@ public class ModifierMenu : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("")]
     private Transform modifierHolderTransform;
 
-    [SerializeField, ReadOnly]
+    [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private List<GameObject> modifierDisplayList;
 
@@ -39,12 +39,12 @@ public class ModifierMenu : MonoBehaviour
 
     private void OnEnable()
     {
+        ResetLocalModifierList();
         if (modifierDisplayList.Count == 0)
             for (int i = 0; i < numberOfDisplaysToSpawn; i++)
                 modifierDisplayList.Add(GameObject.Instantiate(modifierDisplayObj, modifierHolderTransform));
         ResetAllModifierSelection();
 
-        EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(modifierDisplayList[0].GetComponent<ModifierDisplay>().Buttonobject);
     }
 
@@ -70,8 +70,6 @@ public class ModifierMenu : MonoBehaviour
     }
     public void SkipButtonPressed()
     {
-        Debug.Log(modifierDisplayList.Count);
-
         ModifierManager._Instance.CloseModifierMenu();
     }
 

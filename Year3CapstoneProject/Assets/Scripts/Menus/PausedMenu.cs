@@ -11,7 +11,7 @@ public class PausedMenu : MenuNavigation
             buttonWasOn = EventSystem.current.gameObject;
 
         EventSystem.current.SetSelectedGameObject(arrayOfbuttons[0]);
-        GameManager._Instance.MenuNavigation = this;
+        MenuInputManager._Instance.MenuNavigation = this;
 
         MenuInputManager._Instance.Reset();
         MenuInputManager._Instance.TotalNumberOfButtons = 3;
