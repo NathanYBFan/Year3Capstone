@@ -59,6 +59,8 @@ public class PlayerBody : MonoBehaviour
 	public int PlayerIndex { get { return playerIndex; } }
 	public bool IsRolling { get { return isRolling; } }
 
+	public bool CanMove { get { return canMove; } }
+
 	public GameObject Shield { get { return playerShield; } }
 	#endregion Getters & Setters
 	#region Private Variables
@@ -208,7 +210,7 @@ public class PlayerBody : MonoBehaviour
 		if (stats.CurrentEnergy - amount < 0) return;
 		isRolling = true;
 		canMove = false;
-        rb.velocity = new Vector3(0, rb.velocity.y, 0);
+		rb.velocity = Vector3.zero;
 
         // Using energy before doing action
         stats.UseEnergy(amount);
