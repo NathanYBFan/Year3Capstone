@@ -72,6 +72,6 @@ public class MenuInputManager : MonoBehaviour
     {
         if (!inCharacterSelect) return;
 
-        characterSelectMenu.NewPlayerInputJoined(playerIndex);
+        //characterSelectMenu.NewPlayerInputJoined(playerIndex);
     }
 }
