@@ -26,8 +26,7 @@ public class CharacterSelectMenu : MonoBehaviour
         MenuInputManager._Instance.CharacterSelectMenu = this;
         for (int i = 0; i < MenuInputManager._Instance.PlayerInputs.Count; i++)
         {
-            MenuInputManager._Instance.PlayerInputs[i].GetComponent<MultiplayerEventSystem>().playerRoot = characterSelectMenus[i];
-            characterSelectMenus[i].GetComponent<CharacterSelectUnit>().ControllerConnected();
+            // NewPlayerInputJoined(i);
         }
     }
 
@@ -39,7 +38,7 @@ public class CharacterSelectMenu : MonoBehaviour
 
     public void NewPlayerInputJoined(int playerIndex)
     {
-        Debug.Log(playerIndex);
+        Debug.Log("Player " + playerIndex + " joined and connected to " + characterSelectMenus[playerIndex].name);
         MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<MultiplayerEventSystem>().playerRoot = characterSelectMenus[playerIndex];
         characterSelectMenus[playerIndex].GetComponent<CharacterSelectUnit>().ControllerConnected();
     }
@@ -86,9 +85,7 @@ public class CharacterSelectMenu : MonoBehaviour
     public void CheckForLockIn()
     {
         foreach(GameObject menu in characterSelectMenus)
-        {
             if (!menu.GetComponent<CharacterSelectUnit>().CheckIfLockedIn()) return;
-        }
 
         ContinueButtonPressed();
     }
