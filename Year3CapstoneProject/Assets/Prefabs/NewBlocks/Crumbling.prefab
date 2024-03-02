@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2856710481410785694
+--- !u!1 &3690975886602110096
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3533522114694345992}
-  - component: {fileID: 5844214364534722986}
+  - component: {fileID: 3137745170543056624}
+  - component: {fileID: 1885858275074970831}
   m_Layer: 0
-  m_Name: CrumblingTrigger
-  m_TagString: Untagged
+  m_Name: Collider
+  m_TagString: StageNormal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3533522114694345992
+--- !u!4 &3137745170543056624
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2856710481410785694}
+  m_GameObject: {fileID: 3690975886602110096}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.465}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5123675132246401825}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5844214364534722986
+--- !u!65 &1885858275074970831
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2856710481410785694}
+  m_GameObject: {fileID: 3690975886602110096}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -47,12 +47,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9, y: 0.9, z: 0.1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.0225317, y: 1.0225306, z: 1.0000001}
+  m_Center: {x: -0.0011222064, y: 0.0004721583, z: -0.000000044703494}
 --- !u!1 &6640160003631028653
 GameObject:
   m_ObjectHideFlags: 0
@@ -5047,20 +5047,17 @@ PrefabInstance:
       addedObject: {fileID: 4310481185469025756}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3533522114694345992}
+      addedObject: {fileID: 3137745170543056624}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
       insertIndex: -1
       addedObject: {fileID: 246838604141368966}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2385830104729024891}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2074449653153222083}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2930242825022548460}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3895846255721848989}
   m_SourcePrefab: {fileID: 100100000, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
 --- !u!4 &5123675132246401825 stripped
 Transform:
@@ -5093,7 +5090,27 @@ MonoBehaviour:
   minHeight: 0
   MiscChildren: []
   effectsActive: 0
---- !u!65 &2385830104729024891
+--- !u!114 &2930242825022548460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499215989557754267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba16a9d27d3680d4ab12aeee4628c1db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakTime: 1.5
+  respawnTime: 4
+  boxCollider: {fileID: 1885858275074970831}
+  crumbleTrigger: {fileID: 3895846255721848989}
+  destroyedVersion: {fileID: 7261750473376301442, guid: 39379884aac2c9045bd65d46abbe79ce, type: 3}
+  instantiatedExplosion: {fileID: 0}
+  thePlatform: {fileID: 246838604141368966}
+  theMesh: {fileID: 6292056162725746766}
+--- !u!65 &3895846255721848989
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5108,39 +5125,14 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0225317, y: 1.0225306, z: 1.0000001}
-  m_Center: {x: -0.0011222064, y: 0.0004721583, z: -0.000000044703494}
---- !u!114 &2074449653153222083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_Size: {x: 0.9, y: 0.9, z: 1.01}
+  m_Center: {x: 0, y: -2.8352257e-17, z: 0.0136298835}
+--- !u!23 &6292056162725746766 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
+  m_PrefabInstance: {fileID: 4652299914572842186}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5499215989557754267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4780c6c90e7d24f4698faee7eebbb665, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyedVersion: {fileID: 2856710481410785694}
---- !u!114 &2930242825022548460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5499215989557754267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba16a9d27d3680d4ab12aeee4628c1db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakTime: 3
-  respawnTime: 4
-  boxCollider: {fileID: 2385830104729024891}
-  crumbleTrigger: {fileID: 5844214364534722986}
-  destroyedVersion: {fileID: 2856710481410785694}

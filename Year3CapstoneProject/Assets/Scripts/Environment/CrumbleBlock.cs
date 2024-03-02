@@ -4,73 +4,96 @@ using UnityEngine;
 
 public class CrumbleBlock : MonoBehaviour
 {
-    [SerializeField]
-    private float breakTime;
+	[SerializeField]
+	private float breakTime;
 
-    [SerializeField]
-    private float respawnTime;
+	[SerializeField]
+	private float respawnTime;
 
-    [SerializeField]
-    Collider boxCollider;
+	[SerializeField]
+	Collider boxCollider;
 
-    [SerializeField]
-    Collider crumbleTrigger;
+	[SerializeField]
+	Collider crumbleTrigger;
 
-    public GameObject destroyedVersion;
+	public GameObject destroyedVersion;
 
-    Platform thePlatform;
+	public GameObject instantiatedExplosion;
 
-    
+	[SerializeField]
+	Platform thePlatform;
 
-    MeshRenderer theMesh;
+	private Coroutine coroutine;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Platform thePlatform = gameObject.GetComponent<Platform>();
-        MeshRenderer theMesh = gameObject.GetComponent<MeshRenderer>();
-    }
+	private bool hasRespawned = true;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	[SerializeField]
+	MeshRenderer theMesh;
 
-    //If there is a player standing on this, call a timer coroutine that crumbles the block
-    void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.GetComponentInChildren<CapsuleCollider>() != null && other.gameObject.GetComponentInChildren<CapsuleCollider>().CompareTag("Player"))
-        {
-            StartCoroutine(CrumbleTimer());
-        }
-            
-    }
+	//If there is a player standing on this, call a timer coroutine that crumbles the block
+	void OnTriggerStay(Collider other)
+	{
+		if (other.CompareTag("Player") && hasRespawned)
+		{
+			if (coroutine == null)
+			{
+				Debug.Log("We are here~!");
+				coroutine = StartCoroutine(CrumbleTimer());
+			}
+		}
 
-    //Timer coroutine that waits breakTime, crumbles the block, then re-instantiates it.
-    private IEnumerator CrumbleTimer()
-    {
-        yield return new WaitForSeconds(breakTime);
+	}
+	//If there is a player standing on this, call a timer coroutine that crumbles the block
+	void OnTriggerExit(Collider other)
+	{
+		if (other.CompareTag("Player"))
+		{
+			if (coroutine != null)
+			{
+				StopCoroutine(coroutine);
+				coroutine = null;
+			}
+		}
 
-        //Crumble the block
-        Instantiate(destroyedVersion, transform.position, transform.rotation);
-        if (gameObject != null)
-        {
-            thePlatform.collapse();
-            boxCollider.enabled = false;
-            theMesh.enabled = false;
-            crumbleTrigger.enabled = false;
-        }
+	}
+	//Timer coroutine that waits breakTime, crumbles the block, then re-instantiates it.
+	private IEnumerator CrumbleTimer()
+	{
+		float currTime = breakTime;
+		while (currTime >= 0)
+		{
+			currTime -= Time.deltaTime;
+			yield return null;
+		}
 
-        yield return new WaitForSeconds(respawnTime);
+		//Crumble the block
+		instantiatedExplosion = Instantiate(destroyedVersion, transform.position, transform.rotation);
 
-        //Re-appear the block and move it into place
-        if (gameObject != null)
-        {
-            thePlatform.rise();
-            boxCollider.enabled = true;
-            theMesh.enabled = true;
-            crumbleTrigger.enabled = true;
-        }
-    }
+		thePlatform.collapse();
+		boxCollider.enabled = false;
+		theMesh.enabled = false;
+		crumbleTrigger.enabled = false;
+		hasRespawned = false;
+
+		StartCoroutine(RespawnBlock());
+	}
+
+	private IEnumerator RespawnBlock()
+	{
+		float currTime = respawnTime;
+		while (currTime >= 0)
+		{
+			currTime -= Time.deltaTime;
+			yield return null;
+		}
+		Destroy(instantiatedExplosion.gameObject);
+
+		boxCollider.enabled = true;
+		theMesh.enabled = true;
+		crumbleTrigger.enabled = true;
+		thePlatform.rise();
+
+		hasRespawned = true;
+		coroutine = null;
+	}
 }

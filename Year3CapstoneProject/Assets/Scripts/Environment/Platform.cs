@@ -43,7 +43,6 @@ public class Platform : MonoBehaviour
         time = 10;
         maxHeight = transform.position.y;
         minHeight = maxHeight - 20;
-        MiscChildren = new GameObject[MiscChildren.Length];
     }
 
 
@@ -56,11 +55,12 @@ public class Platform : MonoBehaviour
         
     }
     public void rise()
-    {
-        //do visual thing as warning
+	{
+		StopAllCoroutines();
+		//do visual thing as warning
 
-        //
-        Debug.Log("Rise called");
+		//
+		Debug.Log("Rise called");
         StartCoroutine(Up());
 
     }
