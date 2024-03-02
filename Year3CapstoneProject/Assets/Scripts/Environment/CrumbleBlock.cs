@@ -30,6 +30,8 @@ public class CrumbleBlock : MonoBehaviour
 	[SerializeField]
 	MeshRenderer theMesh;
 
+	public bool HasRespawned {  get { return hasRespawned; } }
+
 	//If there is a player standing on this, call a timer coroutine that crumbles the block
 	void OnTriggerStay(Collider other)
 	{
