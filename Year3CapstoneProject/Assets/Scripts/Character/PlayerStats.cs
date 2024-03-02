@@ -226,6 +226,11 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        // Play damage sound
+        AudioSource theSource = gameObject.GetComponentInChildren<AudioSource>();
+        DamageSound(theSource);
+        
+
         // Make sure health never hits negative
         if (isDead) return;
         if (currHealth - amount > 0) currHealth -= amount;
@@ -304,5 +309,13 @@ public class PlayerStats : MonoBehaviour
         inflictedDebuff = null;
         debuffCoroutine = null;
         DeactivateEffects(ParticleSystemStopBehavior.StopEmitting);
+    }
+
+    //Plays the player damage sound
+    private void DamageSound(AudioSource audioSource)
+    {
+        float randPitch = UnityEngine.Random.Range(0.8f, 1.5f);
+        audioSource.pitch = randPitch;
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[1], audioSource);
     }
 }
