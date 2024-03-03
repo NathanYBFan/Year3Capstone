@@ -32,11 +32,11 @@ public class PlayerStats : MonoBehaviour
     [Header("Character Stats")]
     [SerializeField]
     [Foldout("Player Stats"), Tooltip("Player max health")]
-    private int maxHealth = 100;
+    private float maxHealth = 100;
 
     [SerializeField]
     [Foldout("Player Stats"), Tooltip("Player current health")]
-    private int currHealth = 100;
+    private float currHealth = 100;
 
     [SerializeField]
     [Foldout("Player Stats"), Tooltip("Player max move speed")]
@@ -134,8 +134,8 @@ public class PlayerStats : MonoBehaviour
 
     #region Getters & Setters
     public bool IsDead { get { return isDead; } set { isDead = value; } }
-    public int MaxHealth { get { return maxHealth; } }
-    public int CurrentHealth { get { return currHealth; } }
+    public float MaxHealth { get { return maxHealth; } }
+    public float CurrentHealth { get { return currHealth; } }
     public float MovementSpeed { get { return movementSpeed; } set { movementSpeed = value; } }
     public float FireRate { get { return fireRate; } set { fireRate = value; } }
 	public int Damage { get { return damage; } set { damage = value; } }
