@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class SettingsMenu : MenuNavigation
+public class SettingsMenu : MonoBehaviour
 {
     [Foldout("Dependencies"), Tooltip("")]
     [SerializeField]
@@ -46,9 +46,6 @@ public class SettingsMenu : MenuNavigation
         savedSelectedButton = EventSystem.current.currentSelectedGameObject;
         EventSystem.current.SetSelectedGameObject(firstSelectedButton);
 
-        savedMenuNavigation = MenuInputManager._Instance.MenuNavigation;
-        MenuInputManager._Instance.MenuNavigation = this;
-
         videoControls.SetActive(true);
         audioControls.SetActive(false);
     }
@@ -56,7 +53,6 @@ public class SettingsMenu : MenuNavigation
     private void OnDisable()
     {
         EventSystem.current.SetSelectedGameObject(savedSelectedButton);
-        MenuInputManager._Instance.MenuNavigation = savedMenuNavigation;
     }
 
     public void UnloadScene()
@@ -91,49 +87,5 @@ public class SettingsMenu : MenuNavigation
     {
         AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
         AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
-    }
-
-    public override void UpPressed()
-    {
-        ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(1);
-    }
-
-    public override void DownPressed()
-    {
-        ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(-1);
-    }
-
-    public override void LeftPressed()
-    {
-        ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(-1);
-    }
-
-    public override void RightPressed()
-    {
-        ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(1);
-    }
-
-    public override void SelectPressed(int buttonSelection)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void CancelPressed()
-    {
-        UnloadScene();
-    }
-
-    public override void UpdateUI(GameObject selection)
-    {
-        UIRead();
-    }
-
-    private void UIRead()
-    {
-
     }
 }

@@ -3,11 +3,11 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class ModeSelectMenu : MenuNavigation
+public class ModeSelectMenu : MonoBehaviour
 {
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("DEBUG TO BE DELETED")] // TODO NATHAN F: REMOVE THIS
-    private CharacterStatsSO[] listOfStats = new CharacterStatsSO[4];
+    [Foldout("Dependencies"), Tooltip("")]
+    private GameObject firstButton;
 
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
@@ -24,13 +24,7 @@ public class ModeSelectMenu : MenuNavigation
     private void Start()
     {
         // Setup button hookups
-        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[0]);
-        MenuInputManager._Instance.MenuNavigation = this;
-
-        MenuInputManager._Instance.Reset();
-        MenuInputManager._Instance.TotalNumberOfButtons = 2;
-
-        UpdateUI(arrayOfbuttons[0]);
+        EventSystem.current.SetSelectedGameObject(firstButton);
 
         // Check if a mode is already selected
         for (int i = 0; i < modesToSelectFrom.Length; i++)
@@ -45,8 +39,16 @@ public class ModeSelectMenu : MenuNavigation
         modeTextDisplay.text = modesToSelectFrom[currentSelectedMode];
     }
 
+    // Finds the UIAudioSource, and plays the button press sound
+    private void ButtonPressSFX()
+    {
+        AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
+    }
+
     public void LeftArrowPressed()
     {
+        ButtonPressSFX();
         currentSelectedMode -= 1;
         if (currentSelectedMode < 0)
             currentSelectedMode = modesToSelectFrom.Length - 1;
@@ -55,6 +57,7 @@ public class ModeSelectMenu : MenuNavigation
 
     public void RightArrowPressed()
     {
+        ButtonPressSFX();
         currentSelectedMode += 1;
         if (currentSelectedMode > modesToSelectFrom.Length - 1)
             currentSelectedMode = 0;
@@ -63,70 +66,15 @@ public class ModeSelectMenu : MenuNavigation
 
     public void ContinueButtonPressed()
     {
+        ButtonPressSFX();
         GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
-        MenuInputManager._Instance.InCharacterSelect = true;
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
     }
 
     public void BackButtonPressed()
     {
+        ButtonPressSFX();
         GameManager._Instance.SelectedGameMode = modesToSelectFrom[currentSelectedMode];
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[0], false);
-    }
-
-
-    // Finds the UIAudioSource, and plays the button press sound
-    public void ButtonPressSFX()
-    {
-        AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
-        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
-    }
-
-    public override void UpPressed()
-    {
-        ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(-1);
-    }
-
-    public override void DownPressed()
-    {
-        ButtonPressSFX(); 
-        MenuInputManager._Instance.moveSelection(1);
-    }
-
-    public override void LeftPressed()
-    {
-        ButtonPressSFX();
-        LeftArrowPressed();
-    }
-
-    public override void RightPressed()
-    {
-        ButtonPressSFX();
-        RightArrowPressed();
-    }
-
-    public override void CancelPressed()
-    {
-        BackButtonPressed();
-    }
-
-    public override void UpdateUI(GameObject buttonSelected)
-    {
-        // EventSystem.current.SetSelectedGameObject(arrayOfbuttons[(int)selectedButton]);
-    }
-
-    public override void SelectPressed(int buttonSelected)
-    {
-        ButtonPressSFX();
-        switch (buttonSelected)
-        {
-            case 0:
-                ContinueButtonPressed();
-                return;
-            case 1:
-                BackButtonPressed();
-                return;
-        }
     }
 }

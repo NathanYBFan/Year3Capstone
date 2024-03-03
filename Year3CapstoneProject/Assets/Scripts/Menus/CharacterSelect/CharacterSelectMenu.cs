@@ -1,5 +1,6 @@
- using NaughtyAttributes;
+using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
 public class CharacterSelectMenu : MonoBehaviour
@@ -8,6 +9,10 @@ public class CharacterSelectMenu : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private GameObject[] characterSelectMenus = new GameObject[4];
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private InputSystemUIInputModule[] uiInputModules = new InputSystemUIInputModule[4];
 
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("Character to instantiate")]
@@ -28,15 +33,21 @@ public class CharacterSelectMenu : MonoBehaviour
 
     private void Start()
     {
-        MenuInputManager._Instance.MenuNavigation = null;
+        MenuInputManager._Instance.InCharacterSelect = true;
         MenuInputManager._Instance.CharacterSelectMenu = this;
+
         for (int i = 0; i < MenuInputManager._Instance.PlayerInputs.Count; i++)
-        {
             NewPlayerInputJoined(i);
-        }
+        MenuInputManager._Instance.EnterCharacterSelectScreen();
     }
 
-    private void Update()
+    private void OnDisable()
+    {
+        MenuInputManager._Instance.ExitCharacterSelectScreen();
+        MenuInputManager._Instance.InCharacterSelect = false;
+    }
+
+    private void Update() // Debug
     {
         if (Input.GetKeyDown(KeyCode.M))
             ContinueButtonPressed();
@@ -44,7 +55,7 @@ public class CharacterSelectMenu : MonoBehaviour
 
     public void NewPlayerInputJoined(int playerIndex)
     {
-        MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<MultiplayerEventSystem>().playerRoot = characterSelectMenus[playerIndex];
+        MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModules[playerIndex];
         characterSelectMenus[playerIndex].GetComponent<CharacterSelectUnit>().ControllerConnected();
     }
 
@@ -58,7 +69,6 @@ public class CharacterSelectMenu : MonoBehaviour
     public void BackButtonPressed()
     {
         ButtonPressSFX();
-        MenuInputManager._Instance.InCharacterSelect = false;
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], false);
     }
     
@@ -70,7 +80,6 @@ public class CharacterSelectMenu : MonoBehaviour
         LevelLoadManager._Instance.StartNewGame();
 
         ApplyCharacterStats();
-        MenuInputManager._Instance.InCharacterSelect = false;
 
         // Load correct scene
         if (GameManager._Instance.SelectedGameMode.CompareTo("FFA") == 0)

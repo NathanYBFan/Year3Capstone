@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PausedMenu : MenuNavigation
+public class PausedMenu : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject firstButton;
+
     private GameObject buttonWasOn;
 
     private void OnEnable()
@@ -10,13 +13,7 @@ public class PausedMenu : MenuNavigation
         if (EventSystem.current.gameObject != null)
             buttonWasOn = EventSystem.current.gameObject;
 
-        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[0]);
-        MenuInputManager._Instance.MenuNavigation = this;
-
-        MenuInputManager._Instance.Reset();
-        MenuInputManager._Instance.TotalNumberOfButtons = 3;
-
-        UpdateUI(arrayOfbuttons[0]);
+        EventSystem.current.SetSelectedGameObject(firstButton);
     }
 
     private void OnDisable()
@@ -33,66 +30,20 @@ public class PausedMenu : MenuNavigation
     
     public void ResumeButtonPressed()
     {
+        ButtonPressSFX();
         GameManager._Instance.PauseGame(true);
     }
 
     public void SettingsMenuPressed()
     {
+        ButtonPressSFX();
         LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[1]);
     }
 
     public void QuitButtonPressed()
     {
+        ButtonPressSFX();
         GameManager._Instance.EndGame();
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[0], true);
-    }
-
-    public override void UpPressed()
-    {
-        ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(1);
-    }
-
-    public override void DownPressed()
-    {
-        ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(-1);
-    }
-
-    public override void LeftPressed()
-    {
-        ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(-1);
-    }
-
-    public override void RightPressed()
-    {
-        ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(1);
-    }
-
-    public override void SelectPressed(int buttonSelected)
-    {
-        ButtonPressSFX();
-        switch (buttonSelected)
-        {
-            case 0:
-                ResumeButtonPressed();
-                return;
-            case 1:
-                QuitButtonPressed();
-                //SettingsMenuPressed(); NATHANF DEBUG
-                return;
-            case 2:
-                QuitButtonPressed();
-                break;
-        }
-    }
-
-    public override void CancelPressed() { ResumeButtonPressed(); }
-
-    public override void UpdateUI(GameObject buttonSelection)
-    {
-        return;
     }
 }

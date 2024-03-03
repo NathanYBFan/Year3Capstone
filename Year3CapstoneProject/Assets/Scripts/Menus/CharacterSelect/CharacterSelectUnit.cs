@@ -84,6 +84,16 @@ public class CharacterSelectUnit : MonoBehaviour
         connectGameControllerObject.SetActive(true);
     }
 
+    public void ControllerConnected()
+    {
+        Debug.Log("Controller connected");
+        currentState = selectState.characterSelect;
+
+        ResetDisplays();
+        Debug.Log(statGameObject.name);
+        statGameObject.SetActive(true);
+    }
+
     private void ResetDisplays()
     {
         connectGameControllerObject.SetActive(false);
@@ -103,14 +113,6 @@ public class CharacterSelectUnit : MonoBehaviour
     private void SetCharacterColorAssignment(Texture2D colorToSet)
     {
         colorDisplay.sprite = Sprite.Create(colorToSet, new Rect(0, 0, 50, 50), Vector2.zero);
-    }
-
-    public void ControllerConnected()
-    {
-        currentState = selectState.characterSelect;
-
-        ResetDisplays();
-        statGameObject.SetActive(true);
     }
 
     public void ConfirmSelections()

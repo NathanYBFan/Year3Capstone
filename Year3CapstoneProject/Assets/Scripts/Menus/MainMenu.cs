@@ -1,16 +1,13 @@
-using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MainMenu : MenuNavigation
+public class MainMenu : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject firstButton;
     private void Start()
     {
-        EventSystem.current.SetSelectedGameObject(arrayOfbuttons[0]);
-        MenuInputManager._Instance.MenuNavigation = this;
-        MenuInputManager._Instance.Reset();
-        MenuInputManager._Instance.TotalNumberOfButtons = 3;
-        UpdateUI(arrayOfbuttons[0]);
+        EventSystem.current.SetSelectedGameObject(firstButton);
     }
 
     // Finds the UIAudioSource, and plays the button press sound
@@ -20,77 +17,27 @@ public class MainMenu : MenuNavigation
         AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
     }
 
-    public override void UpdateUI(GameObject selection)
-    {
-        // EventSystem.current.SetSelectedGameObject(selection);
-    }
-
-    public override void UpPressed()
-    {
-        ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(1);
-    }
-
-    public override void DownPressed()
-    {
-        ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(-1);
-    }
-
-    public override void LeftPressed()
-    {
-        ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(-1);
-    }
-
-    public override void RightPressed()
-    {
-        ButtonPressSFX();
-        MenuInputManager._Instance.moveSelection(1);
-    }
-
-    public override void SelectPressed(int buttonSelected)
-    {
-        ButtonPressSFX();
-        switch (buttonSelected)
-        {
-            case 0:
-                PlayGamePressed();
-                return;
-            case 1:
-                CreditsbuttonPressed();
-                // SettingsButtonPressed(); NATHANF DEBUG
-                return;
-            case 2:
-                QuitButtonPressed();
-                // CreditsbuttonPressed(); NATHANF DEBUG
-                break;
-            case 3:
-                QuitButtonPressed();
-                return;
-        }
-    }
-
-    // No use in this class
-    public override void CancelPressed() { return; }
-
     public void PlayGamePressed()
     {
+        ButtonPressSFX();
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], true);
     }
 
     public void SettingsButtonPressed()
     {
+        ButtonPressSFX();
         LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[1]);
     }
 
     public void CreditsbuttonPressed()
     {
+        ButtonPressSFX();
         LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[2]);
     }
 
     public void QuitButtonPressed()
     {
+        ButtonPressSFX();
 #if UNITY_STANDALONE
         Application.Quit();
 #endif

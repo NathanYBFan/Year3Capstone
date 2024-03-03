@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,12 +29,12 @@ public class PlayerController : MonoBehaviour
 		fireAction = playerInput.currentActionMap.FindAction("Fire", true);
 
 		MenuInputManager._Instance.PlayerInputs.Add(this.gameObject);
-		MenuInputManager._Instance.ControllerRejoinEvent(body.PlayerIndex);
-	}
+		MenuInputManager._Instance.ControllerRejoinEvent(playerInput.playerIndex);
+    }
 
 	private void Update()
 	{
-		OnFire();
+        OnFire();
 	}
 
 	public void OnDebugPressed(CallbackContext ctx) { DebugMenu._Instance.OnDebugPressed(); }
@@ -107,60 +106,4 @@ public class PlayerController : MonoBehaviour
 
         GameManager._Instance.PauseGame(true);
     }	
-
-	public void OnSubmitClicked(CallbackContext ctx)
-	{
-        if (!ctx.performed) return;
-        if (MenuInputManager._Instance.MenuNavigation != null)
-        {
-            MenuInputManager._Instance.ConfirmSelection();
-            return;
-        }
-
-        if (!MenuInputManager._Instance.InCharacterSelect) return;
-        // In character select
-        GetComponent<MultiplayerEventSystem>().playerRoot.GetComponent<CharacterSelectUnit>().ConfirmSelections();
-    }
-
-    public void OnCancelClicked(CallbackContext ctx)
-    {
-        if (!ctx.performed) return;
-        if (MenuInputManager._Instance.MenuNavigation != null)
-        {
-            MenuInputManager._Instance.CancelSelection();
-            return;
-        }
-
-        if (!MenuInputManager._Instance.InCharacterSelect) return;
-        // In character select
-        GetComponent<MultiplayerEventSystem>().playerRoot.GetComponent<CharacterSelectUnit>().CancelSelection();
-    }
-
-    public void OnNavigate(CallbackContext ctx)
-	{
-        if (!ctx.performed) return;
-
-        Vector2 input = ctx.ReadValue<Vector2>().normalized;
-
-        if (MenuInputManager._Instance.MenuNavigation != null) // 1 menu for everyone to interact with
-		{
-            if (input.x > 0)
-                MenuInputManager._Instance.MenuNavigation.RightPressed();
-            else if (input.x < 0)
-                MenuInputManager._Instance.MenuNavigation.LeftPressed();
-            if (input.y > 0)
-                MenuInputManager._Instance.MenuNavigation.DownPressed();
-            else if (input.y < 0)
-                MenuInputManager._Instance.MenuNavigation.UpPressed();
-			return;
-        }
-        if (!MenuInputManager._Instance.InCharacterSelect) return;
-
-        // In character select
-        if (input.x > 0)
-            GetComponent<MultiplayerEventSystem>().playerRoot.GetComponent<CharacterSelectUnit>().RightPressed();
-        else if (input.x < 0)
-            GetComponent<MultiplayerEventSystem>().playerRoot.GetComponent<CharacterSelectUnit>().LeftPressed();
-		// No up or down press
-    }
 }

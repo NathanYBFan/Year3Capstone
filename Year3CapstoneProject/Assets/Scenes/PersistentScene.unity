@@ -2838,7 +2838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 2
-  m_MaxPlayerCount: -1
+  m_MaxPlayerCount: 4
   m_AllowJoining: 1
   m_JoinBehavior: 0
   m_PlayerJoinedEvent:
@@ -2895,7 +2895,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentButton: 0
   playerInputs: []
-  menuNavigation: {fileID: 0}
+  mainUIEventSystem: {fileID: 1943807980}
 --- !u!1001 &908831669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3212,6 +3212,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Points
       objectReference: {fileID: 0}
+    - target: {fileID: 5447739473009469597, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5675077955166553387, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 41
@@ -3296,6 +3300,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8949373656184161344, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3321,6 +3329,10 @@ PrefabInstance:
     - target: {fileID: 4441461058323109070, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
       propertyPath: m_text
       value: Points
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447739473009469597, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5675077955166553387, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3406,6 +3418,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8949373656184161344, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3470,8 +3486,8 @@ MonoBehaviour:
   - ModeSelectMenu
   - CharacterSelectMenu
   - MainGame
-  - WickhamG
   - TestField
+  - WinScene
 --- !u!1 &1071010891
 GameObject:
   m_ObjectHideFlags: 0
@@ -3885,6 +3901,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Points
       objectReference: {fileID: 0}
+    - target: {fileID: 5447739473009469597, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5675077955166553387, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 41
@@ -3968,6 +3988,10 @@ PrefabInstance:
     - target: {fileID: 6423969008026666782, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949373656184161344, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4371,10 +4395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1fe71789b1ab374791eab5843ba9bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrayOfbuttons:
-  - {fileID: 1479080603}
-  - {fileID: 1797492169}
-  - {fileID: 1598880699}
+  firstButton: {fileID: 0}
 --- !u!114 &1337232931 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2846075306886439870, guid: 9c4d5ef6ba8601e40833d4bbb79e9bec, type: 3}
@@ -4707,7 +4728,7 @@ MonoBehaviour:
   - {fileID: 37866473}
   - {fileID: 146538160}
   - {fileID: 1428580754}
-  uiInputModule: {fileID: 1943807979}
+  uiInputModule: {fileID: 0}
   selectedGameMode: 
   deadPlayerList: []
 --- !u!1 &1478896578
@@ -6795,12 +6816,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1943807977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Script: {fileID: 11500000, guid: b16c6f78230fa4964a222622d8aae332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
+  m_PlayerRoot: {fileID: 0}
 --- !u!1 &2003279498
 GameObject:
   m_ObjectHideFlags: 0
@@ -7387,6 +7409,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Points
       objectReference: {fileID: 0}
+    - target: {fileID: 5447739473009469597, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5675077955166553387, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 41
@@ -7470,6 +7496,10 @@ PrefabInstance:
     - target: {fileID: 6423969008026666782, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949373656184161344, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

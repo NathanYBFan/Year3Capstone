@@ -79,7 +79,6 @@ public class GameManager : MonoBehaviour
 		ChaosFactorManager._Instance.Reset();
 		ChaosFactorManager._Instance.StartChaosFactor();
 		BulletObjectPoolManager._Instance.ResetAllBullets();
-		MenuInputManager._Instance.InCharacterSelect = false;
 
 		SpawnPlayersAtSpawnpoint();
 

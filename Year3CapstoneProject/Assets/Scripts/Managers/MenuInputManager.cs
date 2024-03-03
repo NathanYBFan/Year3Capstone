@@ -1,6 +1,7 @@
-using NaughtyAttributes;
+ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MenuInputManager : MonoBehaviour
 {
@@ -12,26 +13,22 @@ public class MenuInputManager : MonoBehaviour
 
     [SerializeField, ReadOnly]
     private List<GameObject> playerInputs;
+
+    [SerializeField]
+    private EventSystem mainUIEventSystem;
     #endregion
     
     #region PublicVariables
-    public int TotalNumberOfButtons { get { return totalNumberOfbuttons; } set { totalNumberOfbuttons = value; } }
-    public int CurrentButton { get { return currentButton; } }
     public List<GameObject> PlayerInputs { get { return playerInputs; } set { playerInputs = value; } }
-    public MenuNavigation MenuNavigation { get { return menuNavigation; } set { menuNavigation = value; } }
     public bool InCharacterSelect { get { return inCharacterSelect; } set { inCharacterSelect = value; } }
     public CharacterSelectMenu CharacterSelectMenu { get { return characterSelectMenu; } set { characterSelectMenu = value; } }
     #endregion
 
-    private int totalNumberOfbuttons;
-    [SerializeField]
-    private MenuNavigation menuNavigation;
     private bool inCharacterSelect = false;
     private CharacterSelectMenu characterSelectMenu;
-    
+
     private void Awake()
     {
-        inCharacterSelect = false;
         if (_Instance != null && _Instance != this)
         {
             Debug.LogWarning("Destroyed a repeated MenuInput Manager");
@@ -42,31 +39,14 @@ public class MenuInputManager : MonoBehaviour
             _Instance = this;
     }
 
-
-    public void Reset()
+    public void EnterCharacterSelectScreen()
     {
-        currentButton = 0;
+        mainUIEventSystem.gameObject.SetActive(false);
     }
 
-    public void moveSelection(int button)
+    public void ExitCharacterSelectScreen()
     {
-        currentButton += button;
-
-        if (currentButton < 0) currentButton = totalNumberOfbuttons - 1;
-        else if (currentButton >= totalNumberOfbuttons) currentButton = 0;
-
-        // Highlight selected button
-        menuNavigation.UpdateUI(menuNavigation.arrayOfbuttons[currentButton]);
-    }
-
-    public void ConfirmSelection()
-    {
-        menuNavigation.SelectPressed(currentButton);
-    }
-
-    public void CancelSelection()
-    {
-        menuNavigation.CancelPressed();
+        mainUIEventSystem.gameObject.SetActive(true);
     }
 
     public void ControllerRejoinEvent(int playerIndex)
@@ -74,5 +54,7 @@ public class MenuInputManager : MonoBehaviour
         if (!inCharacterSelect) return;
 
         characterSelectMenu.NewPlayerInputJoined(playerIndex);
+
+        mainUIEventSystem.gameObject.SetActive(true);
     }
 }

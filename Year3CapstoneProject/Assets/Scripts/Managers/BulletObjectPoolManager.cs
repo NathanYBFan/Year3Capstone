@@ -45,12 +45,6 @@ public class BulletObjectPoolManager : MonoBehaviour
 			_Instance = this;
 	}
 
-    private void Update()
-    {
-		if (Input.GetKeyDown(KeyCode.E))
-			ResetAllBullets();
-    }
-
     private void Start()
 	{
 		activatedBullets.Clear();

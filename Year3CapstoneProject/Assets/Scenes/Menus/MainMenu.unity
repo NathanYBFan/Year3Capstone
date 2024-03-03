@@ -205,7 +205,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8130741}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2011995969}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: CreditsbuttonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8130741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,7 +404,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 143378979}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2011995969}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: QuitButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &143378979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,7 +537,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 222338467}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2011995969}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: SettingsButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &222338467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -768,7 +804,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 768347321}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2011995969}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: PlayGamePressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &768347321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1318,11 +1366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cdc46cf9c8d0cb40a568bc96d4fb8ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrayOfbuttons:
-  - {fileID: 768347318}
-  - {fileID: 222338464}
-  - {fileID: 8130738}
-  - {fileID: 143378976}
+  firstButton: {fileID: 768347318}
 --- !u!114 &2011995970
 MonoBehaviour:
   m_ObjectHideFlags: 0
