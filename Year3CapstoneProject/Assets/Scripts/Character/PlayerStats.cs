@@ -3,6 +3,7 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private Transform playerLegGO;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
+    private Material playerGlowMaterial;
 
     [Header("Effects")]
     [SerializeField]
@@ -187,8 +192,28 @@ public class PlayerStats : MonoBehaviour
             currEnergy = maxEnergy;
 
             // Instantiate proper body parts
-            GameObject.Instantiate(characterStat.playerModelHead, playerMeshGO.position, Quaternion.identity, playerMeshGO);
-            GameObject.Instantiate(characterStat.playerModelBody, playerLegGO.position, Quaternion.identity, playerLegGO);
+            GameObject head = GameObject.Instantiate(characterStat.playerModelHead, playerMeshGO.position, Quaternion.identity, playerMeshGO);
+            GameObject legs = GameObject.Instantiate(characterStat.playerModelBody, playerLegGO.position, Quaternion.identity, playerLegGO);
+
+            playerGlowMaterial.SetColor("_EmissionColor", playerColor);
+
+            List<Material> listOfMaterials = new List<Material>();
+            head.GetComponentInChildren<MeshRenderer>().GetMaterials(listOfMaterials);
+            for (int i = 0; i < listOfMaterials.Count; i++)
+            {
+                if (listOfMaterials[i].name.Contains("Light"))
+                    listOfMaterials[i] = playerGlowMaterial;
+            }
+            head.GetComponentInChildren<MeshRenderer>().SetMaterials(listOfMaterials);
+
+            listOfMaterials = new List<Material>();
+            legs.GetComponentInChildren<MeshRenderer>().GetMaterials(listOfMaterials);
+            for (int i = 0; i < listOfMaterials.Count; i++)
+            {
+                if (listOfMaterials[i].name.Contains("Light"))
+                    listOfMaterials[i] = playerGlowMaterial;
+            }
+            legs.GetComponentInChildren<MeshRenderer>().SetMaterials(listOfMaterials);
         }
         get { return characterStat; }
     }
@@ -197,6 +222,7 @@ public class PlayerStats : MonoBehaviour
     private void OnEnable()
     {
         ResetPlayer();
+        playerGlowMaterial.EnableKeyword("_EMISSION");
     }
 
     private void Update()
@@ -289,7 +315,6 @@ public class PlayerStats : MonoBehaviour
         DeactivateEffects(ParticleSystemStopBehavior.StopEmittingAndClear);
         currHealth = maxHealth;
         currEnergy = MaxEnergy;
-
     }
 
     /// <summary>

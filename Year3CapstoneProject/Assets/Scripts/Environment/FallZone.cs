@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class FallZone : MonoBehaviour
 {
@@ -18,18 +19,18 @@ public class FallZone : MonoBehaviour
 
         foreach (GameObject platform in GameManager._Instance.Platforms)
         {
-            CrumbleBlock crumble = platform.GetComponent<CrumbleBlock>();
-            if (crumble != null)
+            // If its not a crumbling block
+            if (!CheckIfCrumblingBlock(platform))
             {
-                if (!crumble.HasRespawned) continue;
-            }
-            var d = (other.transform.parent.parent.position - platform.transform.position).sqrMagnitude;
-            if (d < distance)
-            {
-                closestObject = platform;
-                distance = d;
+                var d = (other.transform.parent.parent.position - platform.transform.position).sqrMagnitude;
+                if (d < distance)
+                {
+                    closestObject = platform;
+                    distance = d;
+                }
             }
         }
+
         // Get correct Location
         Vector3 temp = closestObject.transform.position;
         temp.y += 1f;
@@ -39,11 +40,16 @@ public class FallZone : MonoBehaviour
         
         // Deal Damage
         PlayerStats stats = other.transform.parent.parent.GetComponent<PlayerStats>();
-        if (stats.CurrentHealth <= 1)
-        {
-            return;
-        }
+        if (stats.CurrentHealth <= 1) return;
         stats.TakeDamage(damageToDeal);
+    }
 
+    private bool CheckIfCrumblingBlock(GameObject platform)
+    {
+        CrumbleBlock crumble = platform.GetComponent<CrumbleBlock>();
+
+        // is a crumble block and hasnt respawned return true
+        if (crumble != null) return true;
+        return false;
     }
 }
