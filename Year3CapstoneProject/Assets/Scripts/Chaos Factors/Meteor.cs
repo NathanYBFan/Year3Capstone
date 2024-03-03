@@ -1,5 +1,6 @@
 using Cinemachine;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class Meteor : MonoBehaviour, ChaosFactor
@@ -9,14 +10,14 @@ public class Meteor : MonoBehaviour, ChaosFactor
 
     [SerializeField]
     private int spawnHeight;
-    [SerializeField]
-    private int maxSpawnX;
-    [SerializeField]
-    private int minSpawnX;
-    [SerializeField]
-    private int maxSpawnZ;
-    [SerializeField]
-    private int minSpawnZ;
+    //[SerializeField]
+    //private int maxSpawnX;
+    //[SerializeField]
+    //private int minSpawnX;
+    //[SerializeField]
+    //private int maxSpawnZ;
+    //[SerializeField]
+    //private int minSpawnZ;
 
     [SerializeField]
     private int fallForce;
@@ -44,6 +45,14 @@ public class Meteor : MonoBehaviour, ChaosFactor
     public float Timer { get { return timer; } }
     void Awake()
     {
+
+        Vector3 start = GameManager._Instance.Platforms[0].transform.position;
+        Vector3 end = GameManager._Instance.Platforms.Last().transform.position;
+        float maxSpawnX = end.x;
+        float minSpawnX = start.x;
+        float maxSpawnZ = start.z;
+        float minSpawnZ = end.z;
+
         transform.position = new Vector3(Random.Range(minSpawnX, maxSpawnX), spawnHeight, Random.Range(minSpawnZ, maxSpawnZ));
         markerInstance = Instantiate(fallMarker, new Vector3(transform.position.x, markerSpawnHeight+4, transform.position.z), transform.rotation);
         rb = GetComponent<Rigidbody>();
