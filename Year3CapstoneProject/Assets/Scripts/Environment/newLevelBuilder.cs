@@ -1,7 +1,5 @@
-using JetBrains.Annotations;
 using NaughtyAttributes;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public class newLevelBuilder : MonoBehaviour
 {
@@ -47,8 +45,8 @@ public class newLevelBuilder : MonoBehaviour
     //temp start method for testing, final version will be called in gamemanager
     void Start()
     {
-        buildLevel(levelToBuild);
-       
+        GameManager._Instance.LevelBuilder = this;
+        GameManager._Instance.StartNewGame();
     }
 
     public void buildLevel(int lev)
@@ -139,60 +137,60 @@ public class newLevelBuilder : MonoBehaviour
     }
 
 
-        //new format: direction,elevation,prefabIndex,hasSomethingOnTop
-        //e.g. n,2,1,0
+    //new format: direction,elevation,prefabIndex,hasSomethingOnTop
+    //e.g. n,2,1,0
 
-        private void toIntArray(int lev)
+    private void toIntArray(int lev)
+    {
+        int i = 0;//row tracker
+        int j = 0;//column tracker
+        int k = 0;
+
+        string level = levels[lev].ToString();
+
+
+        string[] rSplit = level.Split('\n');
+        rowCount = rSplit.Length;
+
+        //
+        string[] temp = rSplit[0].Split("\t");
+        columnCount = temp.Length;
+
+
+
+        levelInfo = new string[rowCount, columnCount, 4];
+
+        foreach (string s in rSplit)
         {
-            int i = 0;//row tracker
-            int j = 0;//column tracker
-            int k = 0;
+            string[] t = s.Split("\t");
 
-            string level = levels[lev].ToString();
-
-
-            string[] rSplit = level.Split('\n');
-            rowCount = rSplit.Length;
-
-            //
-            string[] temp = rSplit[0].Split("\t");
-            columnCount = temp.Length;
-
-
-
-            levelInfo = new string[rowCount, columnCount, 4];
-
-            foreach (string s in rSplit)
+            foreach (string r in t)
             {
-                string[] t = s.Split("\t");
 
-                foreach (string r in t)
+                string[] c = r.Split(",");
+
+                foreach (string u in c)
                 {
 
-                    string[] c = r.Split(",");
+                    //Debug.Log(u);
+                    levelInfo[i, j, k] = u;
 
-                    foreach (string u in c)
-                    {
-
-                        //Debug.Log(u);
-                        levelInfo[i, j, k] = u;
-
-                        k++;
-                    }
-
-
-
-
-                    k = 0;
-                    j++;
-
+                    k++;
                 }
 
-                i++;
-                j = 0;
+
+
+
+                k = 0;
+                j++;
+
             }
 
-
+            i++;
+            j = 0;
         }
+
+
+    }
  }
 

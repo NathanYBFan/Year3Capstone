@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ExploiveBarrel : MonoBehaviour
 {
-
     [SerializeField]
     private GameObject destroyedVersion;
 
@@ -37,8 +35,6 @@ public class ExploiveBarrel : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
-
         if (other.transform.GetComponent<SphereCollider>() != null && other.transform.GetComponent<SphereCollider>().CompareTag("Bullet") && !exploded)
         {
             GameObject dest = Instantiate(destroyedVersion, transform.position, transform.rotation);
@@ -48,9 +44,6 @@ public class ExploiveBarrel : MonoBehaviour
             //transform.position = new Vector3(transform.position.x, transform.position.y - 20, transform.position.z);
             exploded = true;
             StartCoroutine(boom());
-           
         }
     }
-
-
 }

@@ -312,7 +312,6 @@ public class PlayerStats : MonoBehaviour
         currHealth = 0;
 
         // Debug Death Message in logs.
-        Debug.Log("Player " + (gameObject.GetComponent<PlayerBody>().PlayerIndex + 1) + " has died!");
         gameObject.GetComponent<Rigidbody>().useGravity = false;
         gameObject.GetComponent<PlayerBody>().Death();
     }

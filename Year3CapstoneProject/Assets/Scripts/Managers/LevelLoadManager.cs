@@ -116,8 +116,8 @@ public class LevelLoadManager : MonoBehaviour
     {
         GameManager._Instance.InGame = true;
 
-        // RESET STAGE   TODO NATHANF: MAKE A RESET STAGE METHOD
-
+        // RESET STAGE
+        GameManager._Instance.RemoveStage();
 
         // RESET PLAYERS
         GameManager._Instance.StartNewGame();

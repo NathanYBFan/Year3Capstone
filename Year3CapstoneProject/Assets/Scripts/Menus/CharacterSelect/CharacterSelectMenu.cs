@@ -40,8 +40,6 @@ public class CharacterSelectMenu : MonoBehaviour
         for (int i = 0; i < MenuInputManager._Instance.PlayerInputs.Count; i++)
             NewPlayerInputJoined(i);
         MenuInputManager._Instance.EnterCharacterSelectScreen();
-
-
     }
 
     private void OnDisable()
@@ -78,9 +76,9 @@ public class CharacterSelectMenu : MonoBehaviour
     public void ContinueButtonPressed()
     {
         ButtonPressSFX();
-        
-        GameManager._Instance.StartNewGame(); // Reset player stats
+
         LevelLoadManager._Instance.StartNewGame();
+        GameManager._Instance.StartNewGame(); // Reset player stats
 
         ApplyCharacterStats();
 

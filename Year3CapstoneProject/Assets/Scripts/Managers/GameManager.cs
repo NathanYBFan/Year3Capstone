@@ -1,6 +1,5 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 
@@ -53,6 +52,7 @@ public class GameManager : MonoBehaviour
     #region PrivateVariables
     private bool inGame;
     private bool isPaused;
+    private newLevelBuilder levelBuilder;
     #endregion
 
     #region Getters&Setters
@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
 	public bool IsPaused { get { return isPaused; } set { isPaused = value; } }
 	public int CurrentRound { get { return currentRound; } set { currentRound = value; } }
 	public int MaxRounds { get { return maxRounds; } set { maxRounds = value; } }
+	public newLevelBuilder LevelBuilder { get { return levelBuilder; } set { levelBuilder = value; } }
     #endregion
 
     private void Awake()
@@ -83,27 +84,33 @@ public class GameManager : MonoBehaviour
     // Play game initial setups
     public void StartNewGame()
 	{
-		foreach (GameObject player in players)
+        RemoveStage();
+
+        foreach (GameObject player in players)
 			player.GetComponent<PlayerStats>().ResetPlayer();
-		
-		ChaosFactorManager._Instance.Reset();
+
+        if (levelBuilder != null)
+            levelBuilder.buildLevel(currentRound % 3);
+
+        ChaosFactorManager._Instance.Reset();
 		ChaosFactorManager._Instance.StartChaosFactor();
 		BulletObjectPoolManager._Instance.ResetAllBullets();
 
 		SpawnPlayersAtSpawnpoint();
 
-        // Start Player stuff
+        // Clear dead player list
         deadPlayerList.Clear();
+
+        // Initialize Players
         foreach (GameObject player in players)
         {
             player.SetActive(true);
             player.GetComponentInChildren<PlayerStats>().IsDead = false;
             player.GetComponentInChildren<PlayerStats>().ResetMaterialEmissionColor();
         }
+        // Enable Player HUD's
 		foreach (GameObject h in hudBars)
-        {
             h.SetActive(true);
-        }
     }
 
     public void PlayerDied(GameObject playerThatDied)
@@ -143,7 +150,6 @@ public class GameManager : MonoBehaviour
         {
             if (!deadPlayerList.Contains(players[i]))
                 deadPlayerList.Add(players[i]);
-            Debug.Log(deadPlayerList[i].name);
         }
         // Remove players from stage
         ResetPlayersToVoid();
@@ -330,5 +336,12 @@ public class GameManager : MonoBehaviour
 	{
 		foreach(GameObject player in Players)
             player.GetComponent<PlayerStats>().FullResetPlayer(); // Remove player model
+    }
+
+    public void RemoveStage()
+    {
+        for (int i = 0; i < platforms.Count; i++)
+            Destroy(platforms[i]);
+        platforms.Clear();
     }
 }
