@@ -15,11 +15,16 @@ public class CharacterSelectMenu : MonoBehaviour
 
     [SerializeField]
     [Foldout("Stats"), Tooltip("Color to assign to players")]
-    private Color[] colorSelectedByPlayers = new Color[4];
+    private Texture[] colorSelectedByPlayers = new Texture[4];
+
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("Color to assign to players")]
+    private Color[] uiColorSelectedByPlayers = new Color[4];
     #endregion
 
     public CharacterStatsSO[] CharacterSelectedByPlayers { get { return characterSelectedByPlayers; } set { characterSelectedByPlayers = value; } }
-    public Color[] ColorSelectedByPlayers { get { return colorSelectedByPlayers; } set { colorSelectedByPlayers = value; } }
+    public Texture[] ColorSelectedByPlayers { get { return colorSelectedByPlayers; } set { colorSelectedByPlayers = value; } }
+    public Color[] UIColorSelectedByPlayers { get { return uiColorSelectedByPlayers; } set { uiColorSelectedByPlayers = value; } }
 
     private void Start()
     {
@@ -81,7 +86,8 @@ public class CharacterSelectMenu : MonoBehaviour
         for (int i = 0; i < characterSelectedByPlayers.Length; i++)
         {
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().CharacterStat = characterSelectedByPlayers[i];
-            GameManager._Instance.Players[i].GetComponent<PlayerStats>().playerColor = colorSelectedByPlayers[i];
+            GameManager._Instance.Players[i].GetComponent<PlayerStats>().PlayerColor = (Texture)colorSelectedByPlayers[i];
+            GameManager._Instance.Players[i].GetComponent<PlayerStats>().UIColor = uiColorSelectedByPlayers[i];
         }
     }
 

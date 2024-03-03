@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
         {
             player.SetActive(true);
             player.GetComponentInChildren<PlayerStats>().IsDead = false;
+            player.GetComponentInChildren<PlayerStats>().ResetMaterialEmissionColor();
         }
 		foreach (GameObject h in hudBars)
         {

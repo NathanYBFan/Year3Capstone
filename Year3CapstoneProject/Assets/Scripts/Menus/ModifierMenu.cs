@@ -8,14 +8,6 @@ public class ModifierMenu : MonoBehaviour
     #region SerializeFields
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
-    private GameObject modifierDisplayObj;
-
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private Transform modifierHolderTransform;
-
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
     private List<GameObject> modifierDisplayList;
 
     [SerializeField, ReadOnly]
@@ -24,7 +16,7 @@ public class ModifierMenu : MonoBehaviour
 
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
-    private int numberOfDisplaysToSpawn = 3;
+    private int numberOfDisplays = 3;
     #endregion
 
     #region Getters&Setters
@@ -40,9 +32,6 @@ public class ModifierMenu : MonoBehaviour
     private void OnEnable()
     {
         ResetLocalModifierList();
-        if (modifierDisplayList.Count == 0)
-            for (int i = 0; i < numberOfDisplaysToSpawn; i++)
-                modifierDisplayList.Add(GameObject.Instantiate(modifierDisplayObj, modifierHolderTransform));
         ResetAllModifierSelection();
 
         EventSystem.current.SetSelectedGameObject(modifierDisplayList[0].GetComponent<ModifierDisplay>().Buttonobject);
@@ -53,7 +42,7 @@ public class ModifierMenu : MonoBehaviour
         // Add all the modifiers to the list
         ResetLocalModifierList();
 
-        for (int i = 0; i < numberOfDisplaysToSpawn; i++)
+        for (int i = 0; i < numberOfDisplays; i++)
         {
             // Get Modifier number to choose
             int modifierSelected = Random.Range(0, localListOfModifiers.Count - 1);
@@ -72,6 +61,7 @@ public class ModifierMenu : MonoBehaviour
 
     private void ResetLocalModifierList()
     {
+        localListOfModifiers = new List<Modifier>();
         for (int i = 0; i < ModifierManager._Instance.ListOfModifiers.Count; i++)
             localListOfModifiers.Add(ModifierManager._Instance.ListOfModifiers[i]);
     }

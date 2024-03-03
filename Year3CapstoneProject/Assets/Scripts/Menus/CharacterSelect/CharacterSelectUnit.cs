@@ -13,10 +13,14 @@ public class CharacterSelectUnit : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private CharacterStatsSO[] listOfStats = new CharacterStatsSO[4];
+    
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private Color[] listOfColors;
 
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
-    private Color[] listOfAvailableColors;
+    private Texture2D[] listOfAvailableTextures;
 
     // Stats dependencies
     [SerializeField]
@@ -73,7 +77,7 @@ public class CharacterSelectUnit : MonoBehaviour
     {
         selectedCharacter = 0;
         SetCharacterStatAssignment(listOfStats[playerIndex]);
-        SetCharacterColorAssignment(listOfAvailableColors[0]);
+        SetCharacterColorAssignment(listOfAvailableTextures[0]);
         currentState = selectState.connectController;
 
         ResetDisplays();
@@ -96,9 +100,9 @@ public class CharacterSelectUnit : MonoBehaviour
         healthSlider.value = (float)characterStatToAssign.MaxHealth / 6;
     }
 
-    private void SetCharacterColorAssignment(Color colorToSet)
+    private void SetCharacterColorAssignment(Texture2D colorToSet)
     {
-        colorDisplay.color = colorToSet;
+        colorDisplay.sprite = Sprite.Create(colorToSet, new Rect(0, 0, 50, 50), Vector2.zero);
     }
 
     public void ControllerConnected()
@@ -126,7 +130,8 @@ public class CharacterSelectUnit : MonoBehaviour
                 return;
             case selectState.colorSelect:
                 currentState = selectState.lockedIn;
-                characterSelectMenu.ColorSelectedByPlayers[playerIndex] = listOfAvailableColors[selectedColor];
+                characterSelectMenu.ColorSelectedByPlayers[playerIndex] = listOfAvailableTextures[selectedColor];
+                characterSelectMenu.UIColorSelectedByPlayers[playerIndex] = listOfColors[selectedColor];
                 ResetDisplays();
                 lockInGameObject.SetActive(true);
                 characterSelectMenu.CheckForLockIn();
@@ -170,7 +175,7 @@ public class CharacterSelectUnit : MonoBehaviour
                 return;
             case selectState.colorSelect:
                 IncrementColorSelect(1);
-                SetCharacterColorAssignment(listOfAvailableColors[selectedColor]);
+                SetCharacterColorAssignment(listOfAvailableTextures[selectedColor]);
                 return;
             case selectState.lockedIn:
                 return;
@@ -189,7 +194,7 @@ public class CharacterSelectUnit : MonoBehaviour
                 return;
             case selectState.colorSelect:
                 IncrementColorSelect(-1);
-                SetCharacterColorAssignment(listOfAvailableColors[selectedColor]);
+                SetCharacterColorAssignment(listOfAvailableTextures[selectedColor]);
                 return;
             case selectState.lockedIn:
                 return;
@@ -206,8 +211,8 @@ public class CharacterSelectUnit : MonoBehaviour
     private void IncrementColorSelect(int number)
     {
         selectedColor += number;
-        if (selectedColor < 0) selectedColor = listOfAvailableColors.Length - 1;
-        if (selectedColor > listOfAvailableColors.Length - 1) selectedColor = 0;
+        if (selectedColor < 0) selectedColor = listOfAvailableTextures.Length - 1;
+        if (selectedColor > listOfAvailableTextures.Length - 1) selectedColor = 0;
     }
 
     public bool CheckIfLockedIn()

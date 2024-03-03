@@ -27,7 +27,7 @@ public class Bars : MonoBehaviour
     private void Start()
     {
         characterGlow.sprite = playerStats.CharacterStat.characterSprite;
-        characterGlow.color = playerStats.playerColor;
+        characterGlow.color = playerStats.UIColor;
         characterBG.sprite = playerStats.CharacterStat.characterBGSprite;
     }
 

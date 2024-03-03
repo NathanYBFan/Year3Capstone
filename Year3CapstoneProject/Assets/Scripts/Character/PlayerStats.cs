@@ -130,6 +130,8 @@ public class PlayerStats : MonoBehaviour
     private bool isDead = false;
     private Coroutine debuffCoroutine;
     private float nextFireTime = 0;
+    private Texture playerColor;
+    private Color uiColor;
     #endregion Private Variables
 
     #region Getters & Setters
@@ -173,29 +175,14 @@ public class PlayerStats : MonoBehaviour
     public bool ExplodingBullets { get { return explodingBullets; } set { explodingBullets = value; } }
     public float HomingAccuracy { get { return homingAccuracy; } set { homingAccuracy = value; } }
     public float HomingBulletRotSpeed { get { return homingBulletRotSpeed; } set { homingBulletRotSpeed = value; } }
-    public Color playerColor;
-    public CharacterStatsSO CharacterStat
-    {
-        set
-        {
-            characterStat = value;
-
-            // Assign proper stats
-            maxHealth = characterStat.MaxHealth;
-            movementSpeed = characterStat.DefaultMoveSpeed;
-            fireRate = characterStat.DefaultFireRate;
-            maxEnergy = characterStat.MaxEnergy;
-            rate = characterStat.EnergyRegenRate;
-
-            // Reset to Max
-            currHealth = maxHealth;
-            currEnergy = maxEnergy;
-
+    public Color UIColor { get { return uiColor; } set { uiColor = value; } }
+    public Texture PlayerColor { 
+        get { return playerColor; } 
+        set {
+            playerColor = value;
             // Instantiate proper body parts
             GameObject head = GameObject.Instantiate(characterStat.playerModelHead, playerMeshGO.position, Quaternion.identity, playerMeshGO);
             GameObject legs = GameObject.Instantiate(characterStat.playerModelBody, playerLegGO.position, Quaternion.identity, playerLegGO);
-
-            playerGlowMaterial.SetColor("_EmissionColor", playerColor);
 
             List<Material> listOfMaterials = new List<Material>();
             head.GetComponentInChildren<MeshRenderer>().GetMaterials(listOfMaterials);
@@ -214,6 +201,27 @@ public class PlayerStats : MonoBehaviour
                     listOfMaterials[i] = playerGlowMaterial;
             }
             legs.GetComponentInChildren<MeshRenderer>().SetMaterials(listOfMaterials);
+
+            ResetMaterialEmissionColor();
+        }
+    }
+
+    public CharacterStatsSO CharacterStat
+    {
+        set
+        {
+            characterStat = value;
+
+            // Assign proper stats
+            maxHealth = characterStat.MaxHealth;
+            movementSpeed = characterStat.DefaultMoveSpeed;
+            fireRate = characterStat.DefaultFireRate;
+            maxEnergy = characterStat.MaxEnergy;
+            rate = characterStat.EnergyRegenRate;
+
+            // Reset to Max
+            currHealth = maxHealth;
+            currEnergy = maxEnergy;
         }
         get { return characterStat; }
     }
@@ -222,12 +230,19 @@ public class PlayerStats : MonoBehaviour
     private void OnEnable()
     {
         ResetPlayer();
+    }
+
+    public void ResetMaterialEmissionColor()
+    {
+        playerGlowMaterial.SetTexture("_EmissionMap", playerColor);
         playerGlowMaterial.EnableKeyword("_EMISSION");
     }
 
     private void Update()
     {
         // Energy bar regen.
+        if (Input.GetKeyDown(KeyCode.Q))
+            ResetMaterialEmissionColor();
 
         // Tick the timer
         timer += Time.deltaTime;
