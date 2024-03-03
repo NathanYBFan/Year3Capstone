@@ -30,6 +30,7 @@ public class CharacterSelectMenu : MonoBehaviour
     public CharacterStatsSO[] CharacterSelectedByPlayers { get { return characterSelectedByPlayers; } set { characterSelectedByPlayers = value; } }
     public Texture[] ColorSelectedByPlayers { get { return colorSelectedByPlayers; } set { colorSelectedByPlayers = value; } }
     public Color[] UIColorSelectedByPlayers { get { return uiColorSelectedByPlayers; } set { uiColorSelectedByPlayers = value; } }
+    public GameObject[] CharacterSelectMenus { get { return characterSelectMenus; } set { characterSelectMenus = value; } }
 
     private void Start()
     {
@@ -39,6 +40,8 @@ public class CharacterSelectMenu : MonoBehaviour
         for (int i = 0; i < MenuInputManager._Instance.PlayerInputs.Count; i++)
             NewPlayerInputJoined(i);
         MenuInputManager._Instance.EnterCharacterSelectScreen();
+
+
     }
 
     private void OnDisable()

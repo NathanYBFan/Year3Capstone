@@ -105,5 +105,38 @@ public class PlayerController : MonoBehaviour
         if (body.GetComponent<PlayerStats>().IsDead) return;
 
         GameManager._Instance.PauseGame(true);
-    }	
+    }
+    public void OnSubmitClicked(CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+
+        if (!MenuInputManager._Instance.InCharacterSelect) return;
+        // In character select
+        MenuInputManager._Instance.CharacterSelectMenu.CharacterSelectMenus[playerInput.playerIndex].GetComponent<MultiplayerEventSystem>().playerRoot.GetComponent<CharacterSelectUnit>().ConfirmSelections();
+    }
+
+    public void OnCancelClicked(CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+
+        if (!MenuInputManager._Instance.InCharacterSelect) return;
+        // In character select
+        MenuInputManager._Instance.CharacterSelectMenu.CharacterSelectMenus[playerInput.playerIndex].GetComponent<MultiplayerEventSystem>().playerRoot.GetComponent<CharacterSelectUnit>().CancelSelection();
+    }
+
+    public void OnNavigate(CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+
+        Vector2 input = ctx.ReadValue<Vector2>().normalized;
+
+        if (!MenuInputManager._Instance.InCharacterSelect) return;
+
+        // In character select
+        if (input.x > 0)
+			MenuInputManager._Instance.CharacterSelectMenu.CharacterSelectMenus[playerInput.playerIndex].GetComponent<CharacterSelectUnit>().RightPressed();
+        else if (input.x < 0)
+            MenuInputManager._Instance.CharacterSelectMenu.CharacterSelectMenus[playerInput.playerIndex].GetComponent<CharacterSelectUnit>().LeftPressed();
+        // No up or down press
+    }
 }

@@ -46,7 +46,8 @@ public class MenuInputManager : MonoBehaviour
 
     public void ExitCharacterSelectScreen()
     {
-        mainUIEventSystem.gameObject.SetActive(true);
+        if (mainUIEventSystem.gameObject != null)
+            mainUIEventSystem.gameObject.SetActive(true);
     }
 
     public void ControllerRejoinEvent(int playerIndex)

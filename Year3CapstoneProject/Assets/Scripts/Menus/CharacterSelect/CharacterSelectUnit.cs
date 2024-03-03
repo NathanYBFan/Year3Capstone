@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class CharacterSelectUnit : MonoBehaviour
@@ -86,11 +87,9 @@ public class CharacterSelectUnit : MonoBehaviour
 
     public void ControllerConnected()
     {
-        Debug.Log("Controller connected");
         currentState = selectState.characterSelect;
 
         ResetDisplays();
-        Debug.Log(statGameObject.name);
         statGameObject.SetActive(true);
     }
 
