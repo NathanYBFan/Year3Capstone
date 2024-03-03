@@ -59,6 +59,7 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         ResetAudioSources();
+        PlayMusic(musicList[0]);
     }
 
     // Reset and grab all the Player Audio Sources
