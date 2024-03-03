@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 
@@ -69,9 +70,12 @@ public class GameManager : MonoBehaviour
 		platforms = new List<GameObject>();
 	}
 
-	// Play game initial setups
-	public void StartNewGame()
+    // Play game initial setups
+    public void StartNewGame()
 	{
+		foreach (GameObject player in players)
+			player.GetComponent<PlayerStats>().ResetPlayer();
+		
 		ChaosFactorManager._Instance.Reset();
 		ChaosFactorManager._Instance.StartChaosFactor();
 		BulletObjectPoolManager._Instance.ResetAllBullets();
@@ -93,49 +97,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-	// Reset everything when game ends
-	public void EndGame()
-	{
-        foreach (GameObject h in hudBars)
-        {
-            h.SetActive(false);
-        }
-        pauseMenu.SetActive(false);
-        ChaosFactorManager._Instance.Reset();
-        BulletObjectPoolManager._Instance.ResetAllBullets();
-		QuitToMainMenu();
-    }
-
-    public void PauseGame(bool enablePauseMenu)
-    {
-		if (!inGame) return;
-
-		isPaused = !isPaused;
-        if (enablePauseMenu)
-            pauseMenu.SetActive(isPaused);
-
-        if (isPaused)
-			Time.timeScale = 0f;
-		else
-			Time.timeScale = 1f;
-	}
-
-	public void WinConditionMet(List<int> playerWinOrder) // TODO NATHANF: FILL OUT
-	{
-        // go to end screen
-        // reset players
-        //if (roundsAt >= 7) EndGame();
-    }
-
-    // Method to reset everything when quitting to main menu
-    private void QuitToMainMenu()
-	{
-        PauseGame(false);
-		inGame = false;
-		ResetPlayersToVoid();
-		RemovePlayerModels();
-    }
-
     public void PlayerDied(GameObject playerThatDied)
     {
         deadPlayerList.Add(playerThatDied);
@@ -146,6 +107,80 @@ public class GameManager : MonoBehaviour
         EndRound();
     }
 
+    public void PauseGame(bool enablePauseMenu)
+    {
+        if (!inGame) return;
+
+        isPaused = !isPaused;
+        if (enablePauseMenu)
+            pauseMenu.SetActive(isPaused);
+
+        if (isPaused)
+            Time.timeScale = 0f;
+        else
+            Time.timeScale = 1f;
+    }
+
+    private void EndRound()
+    {
+        foreach (GameObject h in hudBars)
+            h.SetActive(false);
+
+        // Make sure all players are in the list
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (!deadPlayerList.Contains(players[i]))
+                deadPlayerList.Add(players[i]);
+        }
+        // Remove players from stage
+        ResetPlayersToVoid();
+
+        // Bring up modifier Menu;
+        ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
+        ModifierManager._Instance.OpenModifierMenu(); // Open modifier menu for dead player
+
+        // Assign points
+        PlayerStatsManager._Instance.IncreasePoints(0, PlayerStatsManager._Instance.PointsToGiveForPosition[3]); // First to die,	least points
+        PlayerStatsManager._Instance.IncreasePoints(1, PlayerStatsManager._Instance.PointsToGiveForPosition[2]); // Second to die,	some points
+        PlayerStatsManager._Instance.IncreasePoints(2, PlayerStatsManager._Instance.PointsToGiveForPosition[1]); // Third to die,	more points
+        PlayerStatsManager._Instance.IncreasePoints(3, PlayerStatsManager._Instance.PointsToGiveForPosition[0]); // Last one alive, most points
+
+        // TODO NATHANF: Reset stage
+    }
+
+    public void WinConditionMet(List<int> playerWinOrder) // TODO NATHANF: FILL OUT
+    {
+        // Go to end screen
+        ModifierManager._Instance.CloseModifierMenu(); // Open modifier menu for dead player
+
+        // reset players
+        ResetPlayersToVoid();
+
+        EndGame();
+        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
+    }
+
+    // Reset everything when game ends
+    public void EndGame()
+	{
+        foreach (GameObject h in hudBars)
+            h.SetActive(false);
+        pauseMenu.SetActive(false);
+        ChaosFactorManager._Instance.Reset();
+        BulletObjectPoolManager._Instance.ResetAllBullets();
+		QuitToMainMenu();
+    }
+
+    // Method to reset everything when quitting to main menu
+    private void QuitToMainMenu()
+	{
+        if (Time.timeScale == 0)
+            PauseGame(false);
+		inGame = false;
+		ResetPlayersToVoid();
+		RemovePlayerModels();
+    }
+    
     /// <summary>
     /// This is to give functionality to the "Give" command for the Command Prompt menu. (Debug purposes)
     /// </summary>
@@ -237,6 +272,7 @@ public class GameManager : MonoBehaviour
             player.GetComponentInChildren<CapsuleCollider>().enabled = true;
         }
     }
+
     private void ResetPlayerToVoid(GameObject player)
     {
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -245,37 +281,10 @@ public class GameManager : MonoBehaviour
         player.GetComponentInChildren<Rigidbody>().useGravity = false;
     }
 
+    // Remove Player Models
     private void RemovePlayerModels()
 	{
 		foreach(GameObject player in Players)
-            player.GetComponent<PlayerStats>().ResetPlayer(); // Remove player model
-    }
-
-	private void EndRound()
-	{
-        foreach (GameObject h in hudBars)
-        {
-            h.SetActive(false);
-        }
-        // Make sure all players are in the list
-        for (int i = 0; i < players.Count; i++)
-        {
-			if (!deadPlayerList.Contains(players[i]))
-				deadPlayerList.Add(players[i]);
-		}
-		// Remove players from stage
-		ResetPlayersToVoid();
-
-		// Bring up modifier Menu;
-		ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
-		ModifierManager._Instance.OpenModifierMenu(); // Open modifier menu for dead player
-
-		// Assign points
-		PlayerStatsManager._Instance.IncreasePoints(0, PlayerStatsManager._Instance.PointsToGiveForPosition[3]); // First to die,	least points
-        PlayerStatsManager._Instance.IncreasePoints(1, PlayerStatsManager._Instance.PointsToGiveForPosition[2]); // Second to die,	some points
-        PlayerStatsManager._Instance.IncreasePoints(2, PlayerStatsManager._Instance.PointsToGiveForPosition[1]); // Third to die,	more points
-        PlayerStatsManager._Instance.IncreasePoints(3, PlayerStatsManager._Instance.PointsToGiveForPosition[0]); // Last one alive, most points
-
-        // TODO NATHANF: Reset stage
+            player.GetComponent<PlayerStats>().FullResetPlayer(); // Remove player model
     }
 }

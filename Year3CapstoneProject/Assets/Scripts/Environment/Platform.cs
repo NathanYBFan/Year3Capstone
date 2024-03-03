@@ -59,10 +59,7 @@ public class Platform : MonoBehaviour
 		StopAllCoroutines();
 		//do visual thing as warning
 
-		//
-		Debug.Log("Rise called");
 		StartCoroutine(Up());
-
 	}
 
 	public void fakeDestroy()

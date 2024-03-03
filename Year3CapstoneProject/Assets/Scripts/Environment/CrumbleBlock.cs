@@ -39,7 +39,6 @@ public class CrumbleBlock : MonoBehaviour
 		{
 			if (coroutine == null)
 			{
-				Debug.Log("We are here~!");
 				coroutine = StartCoroutine(CrumbleTimer());
 			}
 		}

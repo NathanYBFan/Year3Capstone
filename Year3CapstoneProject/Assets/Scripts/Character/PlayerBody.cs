@@ -145,7 +145,6 @@ public class PlayerBody : MonoBehaviour
 		{
 			yield return null;
 		}
-		//Destroy(gameObject);
 		GameManager._Instance.PlayerDied(this.gameObject);
 	}
 
@@ -155,7 +154,7 @@ public class PlayerBody : MonoBehaviour
 		headAnim.Play("Death");
 		legAnim.Play("Death");
 		DeathSound();
-		StartCoroutine("DestroyPlayer");
+		StartCoroutine(DestroyPlayer());
 	}
 
 	private void UpdateAnimations()

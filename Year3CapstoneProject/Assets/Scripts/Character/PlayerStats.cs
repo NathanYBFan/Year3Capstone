@@ -168,6 +168,7 @@ public class PlayerStats : MonoBehaviour
     public bool ExplodingBullets { get { return explodingBullets; } set { explodingBullets = value; } }
     public float HomingAccuracy { get { return homingAccuracy; } set { homingAccuracy = value; } }
     public float HomingBulletRotSpeed { get { return homingBulletRotSpeed; } set { homingBulletRotSpeed = value; } }
+    public Color playerColor;
     public CharacterStatsSO CharacterStat
     {
         set
@@ -189,18 +190,18 @@ public class PlayerStats : MonoBehaviour
             GameObject.Instantiate(characterStat.playerModelHead, playerMeshGO.position, Quaternion.identity, playerMeshGO);
             GameObject.Instantiate(characterStat.playerModelBody, playerLegGO.position, Quaternion.identity, playerLegGO);
         }
+        get { return characterStat; }
     }
     #endregion Getters & Setters
 
     private void OnEnable()
     {
-        DeactivateEffects(ParticleSystemStopBehavior.StopEmittingAndClear);
+        ResetPlayer();
     }
 
     private void Update()
     {
         // Energy bar regen.
-
 
         // Tick the timer
         timer += Time.deltaTime;
@@ -250,9 +251,7 @@ public class PlayerStats : MonoBehaviour
     public void Heal(int healing)
     {
         if(currHealth < maxHealth)
-        {
             currHealth += healing;
-        }
     }
 
     private void StartDeath()
@@ -261,7 +260,6 @@ public class PlayerStats : MonoBehaviour
 
         // Debug Death Message in logs.
         Debug.Log("Player " + (gameObject.GetComponent<PlayerBody>().PlayerIndex + 1) + " has died!");
-        gameObject.GetComponentInChildren<CapsuleCollider>().enabled = false;
         gameObject.GetComponent<Rigidbody>().useGravity = false;
         gameObject.GetComponent<PlayerBody>().Death();
     }
@@ -279,11 +277,19 @@ public class PlayerStats : MonoBehaviour
         modifiersOnPlayer.Add(modifier);
     }
 
-    public void ResetPlayer()
+    public void FullResetPlayer()
     {
         for (int i = 0; i < playerMeshGO.childCount; i++) // Destroy the player Models attached to the player
             Destroy(playerMeshGO.GetChild(0).gameObject);
         // No need to reset stats
+    }
+
+    public void ResetPlayer()
+    {
+        DeactivateEffects(ParticleSystemStopBehavior.StopEmittingAndClear);
+        currHealth = maxHealth;
+        currEnergy = MaxEnergy;
+
     }
 
     /// <summary>

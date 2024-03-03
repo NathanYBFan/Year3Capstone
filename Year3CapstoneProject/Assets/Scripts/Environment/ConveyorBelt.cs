@@ -1,6 +1,3 @@
-using NaughtyAttributes;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ConveyorBelt : MonoBehaviour
@@ -10,7 +7,6 @@ public class ConveyorBelt : MonoBehaviour
     {
         if (other.CompareTag("Player") && other.transform.parent.parent.GetComponent<Rigidbody>() != null && transform.parent.parent.GetComponent<Platform>().effectsActive == true)
         {
-            Debug.Log("Zoom");
 			Vector3 velocity = other.transform.parent.parent.GetComponent<Rigidbody>().velocity;
             PlayerBody body = other.transform.parent.parent.GetComponent<PlayerBody>();
             if (body == null) return;
@@ -32,6 +28,4 @@ public class ConveyorBelt : MonoBehaviour
 				other.transform.parent.parent.GetComponent<Rigidbody>().velocity = Vector3.zero;
 		}
 	}
-
-
 }

@@ -57,11 +57,8 @@ public class ModifierMenu : MonoBehaviour
         {
             // Get Modifier number to choose
             int modifierSelected = Random.Range(0, localListOfModifiers.Count - 1);
-            Debug.Log(modifierSelected);
             // Get associated modifier from number
             Modifier selectedModifier = localListOfModifiers[modifierSelected];
-            
-            Debug.Log(selectedModifier.name);
             
             localListOfModifiers.RemoveAt(modifierSelected);
 

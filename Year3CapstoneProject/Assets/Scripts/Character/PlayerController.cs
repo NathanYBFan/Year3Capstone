@@ -139,7 +139,6 @@ public class PlayerController : MonoBehaviour
     public void OnNavigate(CallbackContext ctx)
 	{
         if (!ctx.performed) return;
-		Debug.Log("Player " + playerInput.playerIndex + " is navigating the menu");
 
         Vector2 input = ctx.ReadValue<Vector2>().normalized;
 
@@ -155,9 +154,7 @@ public class PlayerController : MonoBehaviour
                 MenuInputManager._Instance.MenuNavigation.UpPressed();
 			return;
         }
-        Debug.Log("Player " + playerInput.playerIndex + " is not navigating a menu");
         if (!MenuInputManager._Instance.InCharacterSelect) return;
-        Debug.Log("Player " + playerInput.playerIndex + " is navigating character select");
 
         // In character select
         if (input.x > 0)

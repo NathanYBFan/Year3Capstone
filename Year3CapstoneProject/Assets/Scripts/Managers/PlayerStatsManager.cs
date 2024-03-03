@@ -87,13 +87,11 @@ public class PlayerStatsManager : MonoBehaviour
     // Check to see if any player has met the win condition
     private void CheckWinCondition()
     {
+        // Check if any player has over the threashold
         for (int i = 0; i < PlayerPoints.Length; i++)
-        {
-            if (PlayerPoints[i] >= pointsThreashold)
-                WinConditionMet();
-        }
+            if (PlayerPoints[i] >= pointsThreashold) WinConditionMet();
     }
-
+    
     private void WinConditionMet()
     {
         // Make local variables
@@ -104,6 +102,7 @@ public class PlayerStatsManager : MonoBehaviour
         for (int i = 0; i < playerPoints.Length; i++)
             localPoints.Add(playerPoints[i]);
 
+        ModifierManager._Instance.OpenModifierMenu(); // Open modifier menu for dead player
 
         // For the number of players there are
         for (int j = 0; j < playerPoints.Length; j++)

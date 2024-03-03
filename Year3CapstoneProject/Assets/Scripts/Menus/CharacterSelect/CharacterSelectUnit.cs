@@ -103,7 +103,6 @@ public class CharacterSelectUnit : MonoBehaviour
 
     public void ControllerConnected()
     {
-        Debug.Log("Player controller connected " + this.gameObject.name);
         currentState = selectState.characterSelect;
 
         ResetDisplays();
@@ -180,7 +179,6 @@ public class CharacterSelectUnit : MonoBehaviour
 
     public void LeftPressed()
     {
-        Debug.Log("Controller + " + playerIndex + " is pressing left");
         switch (currentState)
         {
             case selectState.connectController:
@@ -201,15 +199,15 @@ public class CharacterSelectUnit : MonoBehaviour
     private void IncrementChracterSelect(int number)
     {
         selectedCharacter += number;
-        if (selectedCharacter < 0) selectedCharacter = 3;
-        if (selectedCharacter > 3) selectedCharacter = 0;
+        if (selectedCharacter < 0) selectedCharacter = listOfStats.Length - 1;
+        if (selectedCharacter > listOfStats.Length - 1) selectedCharacter = 0;
     }
 
     private void IncrementColorSelect(int number)
     {
         selectedColor += number;
-        if (selectedCharacter < 0) selectedColor = 5;
-        if (selectedCharacter > 5) selectedColor = 0;
+        if (selectedColor < 0) selectedColor = listOfAvailableColors.Length - 1;
+        if (selectedColor > listOfAvailableColors.Length - 1) selectedColor = 0;
     }
 
     public bool CheckIfLockedIn()
