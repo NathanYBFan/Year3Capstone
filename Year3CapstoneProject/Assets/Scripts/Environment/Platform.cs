@@ -146,16 +146,14 @@ public class Platform : MonoBehaviour
 
 	public IEnumerator Up()
 	{
-		//Debug.Log("up called");
-		float elapsedTime = 0;
-
 		Vector3 endPos = new Vector3(transform.position.x, maxHeight, transform.position.z);
-		while (elapsedTime < time)
+		while (Vector3.Distance(transform.position, endPos) > 0.01f)
 		{
-			transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime / time));
-			elapsedTime += 0.5f * Time.deltaTime;
+			transform.position = Vector3.MoveTowards(transform.position, endPos, 20 * Time.deltaTime);
+			
 			yield return null;
 		}
+		Debug.Log("up called");
 		effectsActive = true;
 		yield return null;
 	}
@@ -167,13 +165,11 @@ public class Platform : MonoBehaviour
 
 		Vector3 startPos = transform.position;
 		Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);
-		while (elapsedTime < time)
+		while (Vector3.Distance(transform.position, endPos) > 0.01f)
 		{
+			transform.position = Vector3.MoveTowards(transform.position, endPos, 20 * Time.deltaTime);
 
-			transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime / time));
-			elapsedTime += 0.5f * Time.deltaTime;
 			yield return null;
-			//Debug.Log(elapsedTime);
 		}
 		fakeRespawn();
 	}
@@ -185,13 +181,11 @@ public class Platform : MonoBehaviour
 		effectsActive = false;
 		Vector3 startPos = transform.position;
 		Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);
-		while (elapsedTime < time)
+		while (Vector3.Distance(transform.position, endPos) > 0.01f)
 		{
-
-			transform.position = Vector3.Lerp(transform.position, endPos, (elapsedTime / time));
-			elapsedTime += 0.5f * Time.deltaTime;
+			transform.position = Vector3.MoveTowards(transform.position, endPos, 20 * Time.deltaTime);
+			
 			yield return null;
-			//Debug.Log(elapsedTime);
 		}
 
 	}
