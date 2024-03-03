@@ -52,7 +52,7 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 				dropping.GetComponent<Renderer>().material.color = Color.clear;
 			}
 
-			yield return new WaitForSeconds(0.85f);
+			yield return new WaitForSeconds(1.1f);
 
 
 			dropping.GetComponent<Platform>().collapse();
