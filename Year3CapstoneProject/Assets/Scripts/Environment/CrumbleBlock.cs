@@ -70,11 +70,11 @@ public class CrumbleBlock : MonoBehaviour
 		//Crumble the block
 		instantiatedExplosion = Instantiate(destroyedVersion, transform.position, transform.rotation);
 
+		hasRespawned = false;
 		thePlatform.collapse();
 		boxCollider.enabled = false;
 		theMesh.enabled = false;
 		crumbleTrigger.enabled = false;
-		hasRespawned = false;
 
 		StartCoroutine(RespawnBlock());
 	}
