@@ -52,7 +52,7 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 				dropping.GetComponent<Renderer>().material.color = Color.clear;
 			}
 
-			yield return new WaitForSeconds(1.2f);
+			yield return new WaitForSeconds(0.85f);
 
 
 			dropping.GetComponent<Platform>().collapse();
@@ -65,9 +65,14 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 			yield return new WaitForSeconds(dropInterval);
 		}
 
-		yield return new WaitForSeconds(endDelay);
+		float elapsedTime = 0;
+		while (elapsedTime < endDelay)
+		{
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
 		c();
-
+		Debug.Log("Crikey");
 	}
 
 
