@@ -124,8 +124,11 @@ public class GameManager : MonoBehaviour
 
     private void EndRound()
     {
+        // Deactivete player Health 
         foreach (GameObject h in hudBars)
             h.SetActive(false);
+
+        BulletObjectPoolManager._Instance.ResetAllBullets();
 
         // Make sure all players are in the list
         for (int i = 0; i < players.Count; i++)

@@ -279,13 +279,14 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        // Make sure health never hits negative
+        if (isDead) return;
+
         // Play damage sound
         AudioSource theSource = gameObject.GetComponentInChildren<AudioSource>();
         DamageSound(theSource);
-        
 
-        // Make sure health never hits negative
-        if (isDead) return;
+        // Make sure health stays in the bounds
         if (currHealth - amount > 0) currHealth -= amount;
         else currHealth = 0;
 

@@ -45,7 +45,13 @@ public class BulletObjectPoolManager : MonoBehaviour
 			_Instance = this;
 	}
 
-	private void Start()
+    private void Update()
+    {
+		if (Input.GetKeyDown(KeyCode.E))
+			ResetAllBullets();
+    }
+
+    private void Start()
 	{
 		activatedBullets.Clear();
 		PropogateList(deactivatedBullets, defaultBullet);
@@ -93,8 +99,8 @@ public class BulletObjectPoolManager : MonoBehaviour
 		bulletToReturn = deactivatedBullets[0];
 
 		// Add and remove from poper lists:
-		deactivatedBullets.Remove(bulletToReturn);
 		activatedBullets.Add(bulletToReturn);
+        deactivatedBullets.Remove(bulletToReturn);
 
 		return bulletToReturn; // Return fired bullet
 	}
@@ -103,18 +109,19 @@ public class BulletObjectPoolManager : MonoBehaviour
 	public void ExpiredBullet(GameObject bullet)
 	{
 		if (!bullet.GetComponentInChildren<BulletBehaviour>().isFragmentable) Destroy(bullet);
+
+        // Filter into correct list
+        activatedBullets.Remove(bullet);
+		deactivatedBullets.Add(bullet);
         
 		// Deactivate the bullet
         bullet.SetActive(false);
-		// Filter into correct list
-		deactivatedBullets.Add(bullet);
-		activatedBullets.Remove(bullet);
 	}
 
 	// Deactivates all bullets
 	public void ResetAllBullets()
 	{
-		for (int i = 0; i < activatedBullets.Count; i++)
-			ExpiredBullet(activatedBullets[i]);
+		while (activatedBullets.Count != 0)
+            ExpiredBullet(activatedBullets[0]);
     }
 }

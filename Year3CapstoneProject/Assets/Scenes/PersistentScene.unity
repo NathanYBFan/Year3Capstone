@@ -3705,22 +3705,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ModifierDisplay
       objectReference: {fileID: 0}
-    - target: {fileID: 6091568261159255077, guid: 9c4d5ef6ba8601e40833d4bbb79e9bec, type: 3}
-      propertyPath: m_Color.a
-      value: 0.49803922
-      objectReference: {fileID: 0}
-    - target: {fileID: 6091568261159255077, guid: 9c4d5ef6ba8601e40833d4bbb79e9bec, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6091568261159255077, guid: 9c4d5ef6ba8601e40833d4bbb79e9bec, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6091568261159255077, guid: 9c4d5ef6ba8601e40833d4bbb79e9bec, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6101,7 +6085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
