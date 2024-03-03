@@ -597,7 +597,6 @@ MonoBehaviour:
   playerPoints: 00000000000000000000000000000000
   playerKills: 00000000000000000000000000000000
   playerDeaths: 00000000000000000000000000000000
-  pointsThreashold: 20
   pointsToGiveForPosition: 07000000040000000300000001000000
 --- !u!1 &210767186
 GameObject:
@@ -4731,6 +4730,8 @@ MonoBehaviour:
   uiInputModule: {fileID: 0}
   selectedGameMode: 
   deadPlayerList: []
+  currentRound: 0
+  maxRounds: 7
 --- !u!1 &1478896578
 GameObject:
   m_ObjectHideFlags: 0

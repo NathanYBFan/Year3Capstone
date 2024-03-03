@@ -21,10 +21,6 @@ public class PlayerStatsManager : MonoBehaviour
     private int[] playerDeaths;
 
     [SerializeField]
-    [Foldout("Stats"), Tooltip("Number of points needed to Win")]
-    private int pointsThreashold = 20;
-
-    [SerializeField]
     [Foldout("Stats"), Tooltip("Number of points to assign for order First place = 0")]
     private int[] pointsToGiveForPosition;
     #endregion
@@ -34,7 +30,6 @@ public class PlayerStatsManager : MonoBehaviour
     public int[] PlayerKills { get { return playerKills; } set { playerKills = value; } }
     public int[] PlayerDeaths { get { return playerDeaths; } set { playerDeaths = value; } }
     public int[] PointsToGiveForPosition { get { return pointsToGiveForPosition; } set { pointsToGiveForPosition = value; } }
-    //public int[] PlayerFourPoints { get { return playerFourPoints; } set {  playerFourPoints = value; } }
     #endregion
 
     private void Awake()
@@ -71,7 +66,6 @@ public class PlayerStatsManager : MonoBehaviour
     public void IncreasePoints(int playerNumber, int amount)
     {
         playerPoints[playerNumber] += amount;
-        CheckWinCondition();
     }
 
     public void IncreaseKillCounter(int playerNumber, int amount)
@@ -82,48 +76,5 @@ public class PlayerStatsManager : MonoBehaviour
     public void IncreaseDeathCounter(int playerNumber, int amount)
     {
         playerDeaths[playerNumber] += amount;
-    }
-
-    // Check to see if any player has met the win condition
-    private void CheckWinCondition()
-    {
-        // Check if any player has over the threashold
-        for (int i = 0; i < PlayerPoints.Length; i++)
-            if (PlayerPoints[i] >= pointsThreashold) WinConditionMet();
-    }
-    
-    private void WinConditionMet()
-    {
-        // Make local variables
-        List<int> playerWinOrder = new List<int>();
-        List<int> localPoints = new List<int>();
-        
-        // Fill local variables
-        for (int i = 0; i < playerPoints.Length; i++)
-            localPoints.Add(playerPoints[i]);
-
-        ModifierManager._Instance.OpenModifierMenu(); // Open modifier menu for dead player
-
-        // For the number of players there are
-        for (int j = 0; j < playerPoints.Length; j++)
-        {
-            int max = 0; // Max number
-            int index = 0;
-
-            for (int i = 0; i < localPoints.Count; i++) // Check the points list
-            {
-                if (localPoints[i] > max)
-                {
-                    max = localPoints[i]; // Get max number
-                    index = i;
-                    localPoints[i] = -1;
-                }
-            }
-
-            playerWinOrder.Add(index);
-        }
-
-        // Pass win order to win screens
-        GameManager._Instance.WinConditionMet(playerWinOrder);
     }
 }

@@ -40,6 +40,14 @@ public class GameManager : MonoBehaviour
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("List of players who are dead")]
     private List<GameObject> deadPlayerList;
+
+    [SerializeField, ReadOnly]
+    [Foldout("Stats"), Tooltip("List of players who are dead")]
+    private int currentRound = 0;
+
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("List of players who are dead")]
+    private int maxRounds;
     #endregion
 
     #region PrivateVariables
@@ -55,6 +63,8 @@ public class GameManager : MonoBehaviour
 	public InputSystemUIInputModule UiInputModule { get { return uiInputModule; } }
 	public bool InGame { get { return inGame; } set { inGame = value; } }
 	public bool IsPaused { get { return isPaused; } set { isPaused = value; } }
+	public int CurrentRound { get { return currentRound; } set { currentRound = value; } }
+	public int MaxRounds { get { return maxRounds; } set { maxRounds = value; } }
     #endregion
 
     private void Awake()
@@ -94,7 +104,6 @@ public class GameManager : MonoBehaviour
         {
             h.SetActive(true);
         }
-
     }
 
     public void PlayerDied(GameObject playerThatDied)
@@ -123,7 +132,7 @@ public class GameManager : MonoBehaviour
 
     private void EndRound()
     {
-        // Deactivete player Health 
+        // Reset --------
         foreach (GameObject h in hudBars)
             h.SetActive(false);
 
@@ -134,30 +143,62 @@ public class GameManager : MonoBehaviour
         {
             if (!deadPlayerList.Contains(players[i]))
                 deadPlayerList.Add(players[i]);
+            Debug.Log(deadPlayerList[i].name);
         }
         // Remove players from stage
         ResetPlayersToVoid();
+
+        // Incriment round counter
+        currentRound++;
+
+        // Assign points
+        PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[0].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[3]); // First to die,	least points
+        PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[1].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[2]); // Second to die,	some points
+        PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[2].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[1]); // Third to die,	more points
+        PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[3].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[0]); // Last one alive, most points
 
         // Bring up modifier Menu;
         ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
         ModifierManager._Instance.OpenModifierMenu(); // Open modifier menu for dead player
 
-        // Assign points
-        PlayerStatsManager._Instance.IncreasePoints(0, PlayerStatsManager._Instance.PointsToGiveForPosition[3]); // First to die,	least points
-        PlayerStatsManager._Instance.IncreasePoints(1, PlayerStatsManager._Instance.PointsToGiveForPosition[2]); // Second to die,	some points
-        PlayerStatsManager._Instance.IncreasePoints(2, PlayerStatsManager._Instance.PointsToGiveForPosition[1]); // Third to die,	more points
-        PlayerStatsManager._Instance.IncreasePoints(3, PlayerStatsManager._Instance.PointsToGiveForPosition[0]); // Last one alive, most points
+        if (currentRound >= MaxRounds)
+        {
+            Debug.Log("Win condition met");
+            WinConditionMet();
+            return;
+        }
 
         // TODO NATHANF: Reset stage
     }
 
-    public void WinConditionMet(List<int> playerWinOrder) // TODO NATHANF: FILL OUT
+    public void WinConditionMet()
     {
-        // Go to end screen
-        ModifierManager._Instance.CloseModifierMenu(); // Open modifier menu for dead player
+        // Make local variables
+        List<int> playerWinOrder = new List<int>();     // Saved win order
+        List<int> localPoints = new List<int>();        // Local save of the points
 
-        // reset players
-        ResetPlayersToVoid();
+        // Fill local variables
+        for (int i = 0; i < PlayerStatsManager._Instance.PlayerPoints.Length; i++)
+            localPoints.Add(PlayerStatsManager._Instance.PlayerPoints[i]);
+        
+        // For the number of players there are
+        for (int j = 0; j < players.Count; j++)
+        {
+            int max = 0;    // Max saved number
+            int index = 0;  // Index max number is found
+
+            for (int i = 0; i < localPoints.Count; i++) // Check the points list
+            {
+                if (localPoints[i] > max)
+                {
+                    max = localPoints[i]; // Get max number
+                    index = i;
+                }
+            }
+            
+            localPoints[index] = -1;
+            playerWinOrder.Add(index); // Most points to smallest
+        }
 
         EndGame();
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
