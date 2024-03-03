@@ -83,6 +83,8 @@ public class ChaosFactorManager : MonoBehaviour
         {
 
         }
+
+        
     }
 
     // Start Chaos Factor
@@ -102,7 +104,7 @@ public class ChaosFactorManager : MonoBehaviour
                 ResetChaosFactorTimer();
             }
             else
-                nextChaosFactorTimerSeconds += Time.deltaTime;
+                //nextChaosFactorTimerSeconds += Time.deltaTime;
 
             yield return null;
         }
