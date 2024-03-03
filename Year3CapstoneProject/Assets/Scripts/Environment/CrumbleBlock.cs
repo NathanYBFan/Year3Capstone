@@ -60,7 +60,8 @@ public class CrumbleBlock : MonoBehaviour
 	//Timer coroutine that waits breakTime, crumbles the block, then re-instantiates it.
 	private IEnumerator CrumbleTimer()
 	{
-		float currTime = breakTime;
+		hasRespawned = false;
+        float currTime = breakTime;
 		while (currTime >= 0)
 		{
 			currTime -= Time.deltaTime;
@@ -70,7 +71,6 @@ public class CrumbleBlock : MonoBehaviour
 		//Crumble the block
 		instantiatedExplosion = Instantiate(destroyedVersion, transform.position, transform.rotation);
 
-		hasRespawned = false;
 		thePlatform.collapse();
 		boxCollider.enabled = false;
 		theMesh.enabled = false;

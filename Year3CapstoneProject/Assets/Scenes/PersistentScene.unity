@@ -783,6 +783,10 @@ PrefabInstance:
       propertyPath: currHealth
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: playerGlowMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 6f5e32d20e6095e4e848c3b04664ff71, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1819,6 +1823,10 @@ PrefabInstance:
       propertyPath: currHealth
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: playerGlowMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: e08b1ad221e293f45bfaca9cdeb38b0d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6089,6 +6097,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: playerGlowMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: eff313df697b19d49a15f6bb8162f132, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6285,6 +6297,10 @@ PrefabInstance:
       propertyPath: fireRate
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: playerGlowMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: f14760c440806b5488be4559a538e717, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
