@@ -9,6 +9,7 @@ public class SelfDestruct : Modifier
 		if (playerStats != null)
 		{
 			playerStats.CanSelfDestruct = true;
+
 		}
 	}
 

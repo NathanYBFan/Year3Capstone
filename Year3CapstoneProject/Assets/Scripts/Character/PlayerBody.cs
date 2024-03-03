@@ -209,7 +209,6 @@ public class PlayerBody : MonoBehaviour
 
 	public void Roll()
 	{
-
 		int healing = 1;
 		float amount = stats.MaxEnergy;
 		// Power saving
@@ -298,6 +297,7 @@ public class PlayerBody : MonoBehaviour
         if (stats.CanSelfDestruct && !hasExploded)
         {
             hasExploded = true;
+            canMove = false;
             GameObject explosionRadius = Instantiate(explosion, transform.position, Quaternion.identity);
             explosionRadius.GetComponent<Explosive>().OriginalPlayerIndex = playerIndex;
             explosionRadius.GetComponent<Explosive>().PlayerOwner = stats;

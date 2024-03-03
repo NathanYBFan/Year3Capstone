@@ -60,7 +60,6 @@ public class CrumbleBlock : MonoBehaviour
 	//Timer coroutine that waits breakTime, crumbles the block, then re-instantiates it.
 	private IEnumerator CrumbleTimer()
 	{
-		hasRespawned = false;
         float currTime = breakTime;
 		while (currTime >= 0)
 		{
@@ -75,8 +74,9 @@ public class CrumbleBlock : MonoBehaviour
 		boxCollider.enabled = false;
 		theMesh.enabled = false;
 		crumbleTrigger.enabled = false;
+        hasRespawned = false;
 
-		StartCoroutine(RespawnBlock());
+        StartCoroutine(RespawnBlock());
 	}
 
 	private IEnumerator RespawnBlock()
@@ -93,8 +93,8 @@ public class CrumbleBlock : MonoBehaviour
 		theMesh.enabled = true;
 		crumbleTrigger.enabled = true;
 		thePlatform.rise();
-
-		hasRespawned = true;
+        instantiatedExplosion = null;
+        hasRespawned = true;
 		coroutine = null;
 	}
 }

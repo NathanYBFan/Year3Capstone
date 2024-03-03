@@ -86,7 +86,6 @@ public class ChaosFactorManager : MonoBehaviour
             Debug.Log("Input recived: Numpad 6");
             timer = !timer;
             nextChaosFactorTimerSeconds = 30;
-
         }
 
         if (Input.GetKeyDown(KeyCode.O))

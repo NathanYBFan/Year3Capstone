@@ -4916,6 +4916,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 30ff1ae2cdde63742a1cd4493eb4a820, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2698514478116380561}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 30ff1ae2cdde63742a1cd4493eb4a820, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3771223433458320897}
   m_SourcePrefab: {fileID: 100100000, guid: 30ff1ae2cdde63742a1cd4493eb4a820, type: 3}
 --- !u!4 &1175975064149588162 stripped
 Transform:
@@ -4964,9 +4967,22 @@ MonoBehaviour:
   iceTop2: {fileID: 0}
   snowBurst: {fileID: 221907920038037822}
   snowBurst2: {fileID: 0}
-  time: 0
   maxHeight: 0
   minHeight: 0
+  MiscChildren: []
+  effectsActive: 0
+--- !u!114 &3771223433458320897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952934666896548472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a16a8130e7a9674f98e71c7d6b77714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5626458233764191966
 PrefabInstance:
   m_ObjectHideFlags: 0

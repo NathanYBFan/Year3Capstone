@@ -6,6 +6,10 @@ public class Explosive : MonoBehaviour
 {
 	#region Serialize Fields
 	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("Explosion particle")]
+	private ParticleSystem explosion;
+
+    [SerializeField]
 	[Foldout("Stats"), Tooltip("The damage the explosion deals to damageable entities.")]
 	private int damage;
 	[SerializeField, ReadOnly]
@@ -28,6 +32,7 @@ public class Explosive : MonoBehaviour
 	[SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("")]
 	private PlayerStats playerOwner;
+
 	#endregion Serialize Fields
 	#region Getters & Setters
 	public int OriginalPlayerIndex {  get { return originalPlayerIndex; } set {  originalPlayerIndex = value; } }
@@ -80,9 +85,10 @@ public class Explosive : MonoBehaviour
 	/// <returns></returns>
 	private IEnumerator Expand(bool isSelfDestruct)
 	{
-		yield return new WaitForSeconds(explosionDelay);
+        yield return new WaitForSeconds(explosionDelay);
 		while (gameObject.transform.localScale.x < maxScale)
 		{
+			explosion.Play();
 			float increaseAmount = explosionSpeed * Time.deltaTime;
 			gameObject.transform.localScale += new Vector3(increaseAmount, increaseAmount, increaseAmount);
 			yield return null;

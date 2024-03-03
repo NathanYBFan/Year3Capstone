@@ -118,10 +118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2b647a8417afc46af80d768a643e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  explosion: {fileID: 0}
+  damage: 2
   giveableDebuff: {fileID: 0}
   minScale: 0
-  maxScale: 3.5
+  maxScale: 5
   explosionSpeed: 5
+  explosionDelay: 0
   originalPlayerIndex: 0
   playerOwner: {fileID: 0}
