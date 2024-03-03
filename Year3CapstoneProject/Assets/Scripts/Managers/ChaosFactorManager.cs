@@ -34,8 +34,10 @@ public class ChaosFactorManager : MonoBehaviour
     public List<GameObject> ChaosFactorList { get { return chaosFactorList; } }
     #endregion
 
+    private bool timer;
     private void Awake()
     {
+        timer = false;
         if (_Instance != null && _Instance != this)
         {
             Debug.LogWarning("Destroyed a repeated ChaosFactorManager");
@@ -79,6 +81,12 @@ public class ChaosFactorManager : MonoBehaviour
             StartCoroutine(RunChaosFactor(chaosFactorList[4]));
         }
 
+        if (Input.GetKeyDown("[6]"))
+        {
+            Debug.Log("Input recived: Numpad 6");
+            timer = true;
+        }
+
         if (Input.GetKeyDown(KeyCode.O))
         {
 
@@ -103,8 +111,8 @@ public class ChaosFactorManager : MonoBehaviour
                 StartCoroutine(RunChaosFactor(chaosFactorList[chaosFactorToSpawn]));
                 ResetChaosFactorTimer();
             }
-            else
-                //nextChaosFactorTimerSeconds += Time.deltaTime;
+            else if (timer == true) { nextChaosFactorTimerSeconds += Time.deltaTime; }
+                //
 
             yield return null;
         }
