@@ -112,9 +112,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3422143649088910867, guid: 5d722350ce0d0844db5eaa088f27fa11, type: 3}
+      propertyPath: m_Name
+      value: LeftLegUpper
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5d722350ce0d0844db5eaa088f27fa11, type: 3}
       propertyPath: m_Name
       value: PyrLegsAnim
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910685301765675744, guid: 5d722350ce0d0844db5eaa088f27fa11, type: 3}
+      propertyPath: m_Name
+      value: RightLegUpper
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

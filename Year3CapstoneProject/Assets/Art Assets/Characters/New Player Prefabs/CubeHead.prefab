@@ -124,6 +124,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6258302975240687015, guid: a7f97615b8a4049478ac6f872a361604, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb266904251740c4f9e85657347ba91f, type: 2}
     - target: {fileID: 919132149155446097, guid: a7f97615b8a4049478ac6f872a361604, type: 3}
       propertyPath: m_Name
       value: CubeHeadAnim

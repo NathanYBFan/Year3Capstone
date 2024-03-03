@@ -112,6 +112,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1365969806490443020, guid: 9fb63e7699b6f984cb192bdec0857d37, type: 3}
+      propertyPath: m_Name
+      value: RightLegUpper
+      objectReference: {fileID: 0}
+    - target: {fileID: -242292902096225846, guid: 9fb63e7699b6f984cb192bdec0857d37, type: 3}
+      propertyPath: m_Name
+      value: LeftLegUpper
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9fb63e7699b6f984cb192bdec0857d37, type: 3}
       propertyPath: m_Name
       value: TwelveLegsAnim

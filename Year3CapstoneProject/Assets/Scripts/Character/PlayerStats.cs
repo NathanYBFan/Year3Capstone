@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Android;
+using UnityEngine.Rendering;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -193,19 +194,31 @@ public class PlayerStats : MonoBehaviour
             }
             head.GetComponentInChildren<MeshRenderer>().SetMaterials(listOfMaterials);
 
+            // Left Leg
             listOfMaterials = new List<Material>();
-            legs.GetComponentInChildren<MeshRenderer>().GetMaterials(listOfMaterials);
+            Debug.Log(legs.transform.GetChild(0).GetChild(0).GetChild(0).name);
+            legs.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
             for (int i = 0; i < listOfMaterials.Count; i++)
             {
                 if (listOfMaterials[i].name.Contains("Light"))
                     listOfMaterials[i] = playerGlowMaterial;
             }
-            legs.GetComponentInChildren<MeshRenderer>().SetMaterials(listOfMaterials);
+            legs.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
 
+            // Right Leg
+            listOfMaterials = new List<Material>();
+            Debug.Log(legs.transform.GetChild(0).GetChild(0).GetChild(1).name);
+            legs.transform.GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
+            for (int i = 0; i < listOfMaterials.Count; i++)
+            {
+                if (listOfMaterials[i].name.Contains("Light"))
+                    listOfMaterials[i] = playerGlowMaterial;
+            }
+            legs.transform.GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
+            
             ResetMaterialEmissionColor();
         }
     }
-
     public CharacterStatsSO CharacterStat
     {
         set
