@@ -2,6 +2,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class ModifierMenu : MonoBehaviour
 {
@@ -33,8 +34,29 @@ public class ModifierMenu : MonoBehaviour
     {
         ResetLocalModifierList();
         ResetAllModifierSelection();
+        
+        // If invalid player chosen, close menu
+        if (ModifierManager._Instance.PlayerToModify.GetComponent<PlayerBody>().PlayerIndex > MenuInputManager._Instance.PlayerInputs.Count)
+        {
+            ModifierManager._Instance.CloseModifierMenu();
+            return;
+        }
+
+        // Disable every input
+        foreach (GameObject input in MenuInputManager._Instance.PlayerInputs)
+            input.GetComponent<PlayerInput>().DeactivateInput();
+
+        // Enable single valid input
+        MenuInputManager._Instance.PlayerInputs[ModifierManager._Instance.PlayerToModify.GetComponent<PlayerBody>().PlayerIndex].GetComponent<PlayerInput>().ActivateInput();
 
         EventSystem.current.SetSelectedGameObject(modifierDisplayList[0].GetComponent<ModifierDisplay>().Buttonobject);
+    }
+
+    private void OnDisable()
+    {
+        // Reactivate all inputs
+        foreach (GameObject input in MenuInputManager._Instance.PlayerInputs)
+            input.GetComponent<PlayerInput>().ActivateInput();
     }
 
     private void ResetAllModifierSelection()

@@ -146,7 +146,6 @@ public class Platform : MonoBehaviour
 			
 			yield return null;
 		}
-		Debug.Log("up called");
 		effectsActive = true;
 		yield return null;
 	}
