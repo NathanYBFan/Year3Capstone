@@ -34,10 +34,6 @@ public class BulletBehaviour : MonoBehaviour
 
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("")]
-	private int damageToDeal = 1;
-
-	[SerializeField]
-	[Foldout("Stats"), Tooltip("")]
 	public bool isFragmentable = true;
 
 	[SerializeField]

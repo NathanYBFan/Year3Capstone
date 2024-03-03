@@ -22,9 +22,6 @@ public class Platform : MonoBehaviour
 
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("")]
-	float time;
-	[SerializeField]
-	[Foldout("Stats"), Tooltip("")]
 	float maxHeight;
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("")]
@@ -40,19 +37,15 @@ public class Platform : MonoBehaviour
 	private void Awake()
 	{
 		effectsActive = true;
-		time = 10;
 		maxHeight = transform.position.y;
 		minHeight = maxHeight - 20;
 	}
-
 
 	public void collapse()
 	{
 		//do visual thing as warning
 
-		//
 		StartCoroutine(Down());
-
 	}
 	public void rise()
 	{
@@ -161,7 +154,6 @@ public class Platform : MonoBehaviour
 	private IEnumerator destory()
 	{
 		//Debug.Log("down called");
-		float elapsedTime = 0;
 
 		Vector3 startPos = transform.position;
 		Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);
@@ -177,7 +169,6 @@ public class Platform : MonoBehaviour
 	private IEnumerator Down()
 	{
 		//Debug.Log("down called");
-		float elapsedTime = 0;
 		effectsActive = false;
 		Vector3 startPos = transform.position;
 		Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);

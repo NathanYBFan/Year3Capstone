@@ -196,7 +196,6 @@ public class PlayerStats : MonoBehaviour
 
             // Left Leg
             listOfMaterials = new List<Material>();
-            Debug.Log(legs.transform.GetChild(0).GetChild(0).GetChild(0).name);
             legs.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
             for (int i = 0; i < listOfMaterials.Count; i++)
             {
@@ -207,7 +206,6 @@ public class PlayerStats : MonoBehaviour
 
             // Right Leg
             listOfMaterials = new List<Material>();
-            Debug.Log(legs.transform.GetChild(0).GetChild(0).GetChild(1).name);
             legs.transform.GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
             for (int i = 0; i < listOfMaterials.Count; i++)
             {
