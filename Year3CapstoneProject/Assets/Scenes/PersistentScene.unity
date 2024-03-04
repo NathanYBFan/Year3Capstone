@@ -7251,18 +7251,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1827052649}
     m_Modifications:
-    - target: {fileID: -9041121234413992378, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
-      propertyPath: fill
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: -9041121234413992378, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
-      propertyPath: text
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: -9041121234413992378, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
-      propertyPath: pointSlider
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1527116299834800415, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
       propertyPath: m_Name
       value: PlayerPoints (1)
