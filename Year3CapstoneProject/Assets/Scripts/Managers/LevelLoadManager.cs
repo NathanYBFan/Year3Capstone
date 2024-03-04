@@ -79,7 +79,7 @@ public class LevelLoadManager : MonoBehaviour
         if (showLoadingScreen)
             loadingScreen.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
 
         // Unload all opened scenes (Not the persistent scene
         if (currentLevelList.Count != 0)

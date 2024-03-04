@@ -49,7 +49,7 @@ public class ModifierMenu : MonoBehaviour
         ResetAllModifierSelection();
         MenuInputManager._Instance.MainUIEventSystem.gameObject.SetActive(false);
 
-        MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
+        // MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
 
         uiInputModule.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstButton);
     }
