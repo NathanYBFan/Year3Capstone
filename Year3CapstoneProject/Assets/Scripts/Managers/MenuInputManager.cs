@@ -22,6 +22,7 @@ public class MenuInputManager : MonoBehaviour
     public List<GameObject> PlayerInputs { get { return playerInputs; } set { playerInputs = value; } }
     public bool InCharacterSelect { get { return inCharacterSelect; } set { inCharacterSelect = value; } }
     public CharacterSelectMenu CharacterSelectMenu { get { return characterSelectMenu; } set { characterSelectMenu = value; } }
+    public EventSystem MainUIEventSystem { get { return mainUIEventSystem; } set { mainUIEventSystem = value; } }
     #endregion
 
     private bool inCharacterSelect = false;

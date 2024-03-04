@@ -37,7 +37,7 @@ public class ExploiveBarrel : MonoBehaviour
     {
         if (other.transform.GetComponent<SphereCollider>() != null && other.transform.GetComponent<SphereCollider>().CompareTag("Bullet") && !exploded)
         {
-            GameObject dest = Instantiate(destroyedVersion, transform.position, transform.rotation);
+            GameObject dest = Instantiate(destroyedVersion, transform.position, transform.rotation, transform.parent.parent);
 
             GetComponent<MeshRenderer>().enabled = false;
             //GetComponent

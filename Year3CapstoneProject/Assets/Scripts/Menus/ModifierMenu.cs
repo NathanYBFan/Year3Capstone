@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.Windows;
 
 public class ModifierMenu : MonoBehaviour
 {
@@ -36,7 +38,7 @@ public class ModifierMenu : MonoBehaviour
         ResetAllModifierSelection();
         
         // If invalid player chosen, close menu
-        if (ModifierManager._Instance.PlayerToModify.GetComponent<PlayerBody>().PlayerIndex > MenuInputManager._Instance.PlayerInputs.Count)
+        if (ModifierManager._Instance.PlayerToModify.GetComponent<PlayerBody>().PlayerIndex >= MenuInputManager._Instance.PlayerInputs.Count)
         {
             ModifierManager._Instance.CloseModifierMenu();
             return;
@@ -44,11 +46,12 @@ public class ModifierMenu : MonoBehaviour
 
         // Disable every input
         foreach (GameObject input in MenuInputManager._Instance.PlayerInputs)
-            input.GetComponent<PlayerInput>().DeactivateInput();
+            input.GetComponent<PlayerInput>().uiInputModule = null;
 
-        // Enable single valid input
-        MenuInputManager._Instance.PlayerInputs[ModifierManager._Instance.PlayerToModify.GetComponent<PlayerBody>().PlayerIndex - 1].GetComponent<PlayerInput>().ActivateInput();
-
+        PlayerInput temp = MenuInputManager._Instance.PlayerInputs[ModifierManager._Instance.PlayerToModify.GetComponent<PlayerBody>().PlayerIndex].GetComponent<PlayerInput>();
+        
+        temp.uiInputModule = MenuInputManager._Instance.MainUIEventSystem.GetComponent<InputSystemUIInputModule>();
+        
         EventSystem.current.SetSelectedGameObject(modifierDisplayList[0].GetComponent<ModifierDisplay>().Buttonobject);
     }
 
