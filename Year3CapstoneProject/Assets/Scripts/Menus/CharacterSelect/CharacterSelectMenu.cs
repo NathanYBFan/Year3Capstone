@@ -14,7 +14,7 @@ public class CharacterSelectMenu : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("")]
     private InputSystemUIInputModule[] uiInputModules = new InputSystemUIInputModule[4];
 
-    [SerializeField, ReadOnly]
+    [SerializeField]
     [Foldout("Stats"), Tooltip("Character to instantiate")]
     private CharacterStatsSO[] characterSelectedByPlayers = new CharacterStatsSO[4];
 

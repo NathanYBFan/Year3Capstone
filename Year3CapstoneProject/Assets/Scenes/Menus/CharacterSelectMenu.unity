@@ -4486,6 +4486,22 @@ PrefabInstance:
       propertyPath: characterSelectMenu
       value: 
       objectReference: {fileID: 849699403}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfStats.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5da0e338aff20224fafc512221a1e732, type: 2}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfStats.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a2cd314d6dba3654689b6bccdf70e467, type: 2}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfStats.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 46ad957a4215877409a217da43fccc32, type: 2}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfStats.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2cc7a1821c25fa44ea7c317ad7ef55b5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5358,6 +5374,22 @@ PrefabInstance:
       propertyPath: characterSelectMenu
       value: 
       objectReference: {fileID: 849699403}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfStats.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2cc7a1821c25fa44ea7c317ad7ef55b5, type: 2}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfStats.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5da0e338aff20224fafc512221a1e732, type: 2}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfStats.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: a2cd314d6dba3654689b6bccdf70e467, type: 2}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfStats.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 46ad957a4215877409a217da43fccc32, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5620,6 +5652,22 @@ PrefabInstance:
       propertyPath: characterSelectMenu
       value: 
       objectReference: {fileID: 849699403}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfStats.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: a2cd314d6dba3654689b6bccdf70e467, type: 2}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfStats.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 46ad957a4215877409a217da43fccc32, type: 2}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfStats.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2cc7a1821c25fa44ea7c317ad7ef55b5, type: 2}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfStats.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5da0e338aff20224fafc512221a1e732, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
