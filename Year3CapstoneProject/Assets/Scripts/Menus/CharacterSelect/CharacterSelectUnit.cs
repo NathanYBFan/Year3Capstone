@@ -74,18 +74,21 @@ public class CharacterSelectUnit : MonoBehaviour
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
     private int playerIndex;
+
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("")]
+    private int selectedCharacter = 0;
     #endregion
 
     #region PrivateVariables
     private enum selectState { connectController, characterSelect, colorSelect, lockedIn }
     private selectState currentState = selectState.characterSelect;
-    private int selectedCharacter = 0;
+    
     private int selectedColor = 0;
     #endregion
 
     private void Start()
     {
-        selectedCharacter = 0;
         SetCharacterStatAssignment(listOfStats[playerIndex]);
         SetCharacterColorAssignment(listOfAvailableTextures[0]);
         currentState = selectState.connectController;
