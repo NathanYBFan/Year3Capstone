@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class SpawnBlocks : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private GameObject spawnLocation;
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        GameManager._Instance.StageSpawnPoints.Add(spawnLocation.transform);
     }
 }

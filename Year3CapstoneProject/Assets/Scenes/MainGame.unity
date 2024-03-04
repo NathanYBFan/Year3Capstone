@@ -242,30 +242,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2868105047042736513, guid: eb0513ce2bd5fb949866a47400f13372, type: 3}
-      propertyPath: startZ
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 2868105047042736513, guid: eb0513ce2bd5fb949866a47400f13372, type: 3}
-      propertyPath: levelToBuild
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2868105047042736513, guid: eb0513ce2bd5fb949866a47400f13372, type: 3}
-      propertyPath: levelAssets.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2868105047042736513, guid: eb0513ce2bd5fb949866a47400f13372, type: 3}
-      propertyPath: levelAssets.Array.data[3]
-      value: 
-      objectReference: {fileID: 3530932798347127462, guid: 63e8cad676972df499848d593318e738, type: 3}
-    - target: {fileID: 2868105047042736513, guid: eb0513ce2bd5fb949866a47400f13372, type: 3}
-      propertyPath: levelAssets.Array.data[4]
-      value: 
-      objectReference: {fileID: 8193771675660044526, guid: 691b30727a72739428e36561ad5f0fc3, type: 3}
-    - target: {fileID: 2868105047042736513, guid: eb0513ce2bd5fb949866a47400f13372, type: 3}
-      propertyPath: levelAssets.Array.data[7]
-      value: 
-      objectReference: {fileID: 1952934666896548472, guid: 2eba37e64901e3542933212561484a2b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

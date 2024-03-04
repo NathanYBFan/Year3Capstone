@@ -47,7 +47,7 @@ public class ModifierMenu : MonoBehaviour
             input.GetComponent<PlayerInput>().DeactivateInput();
 
         // Enable single valid input
-        MenuInputManager._Instance.PlayerInputs[ModifierManager._Instance.PlayerToModify.GetComponent<PlayerBody>().PlayerIndex].GetComponent<PlayerInput>().ActivateInput();
+        MenuInputManager._Instance.PlayerInputs[ModifierManager._Instance.PlayerToModify.GetComponent<PlayerBody>().PlayerIndex - 1].GetComponent<PlayerInput>().ActivateInput();
 
         EventSystem.current.SetSelectedGameObject(modifierDisplayList[0].GetComponent<ModifierDisplay>().Buttonobject);
     }

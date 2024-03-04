@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("array of spawnpoints")]
-    private Transform[] stageSpawnPoints; // TODO NATHANF: ADD SPAWNPOINTS ON STAGE INSTANTIATE
+    private List<Transform> stageSpawnPoints;
 
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("array of spawnpoints")]
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> Players { get { return players; } set { players = value; } }
     public List<GameObject> Platforms { get { return platforms; } set { platforms = value; } }
 	public string SelectedGameMode { get { return selectedGameMode; } set { selectedGameMode = value; } }
-    public Transform[] StageSpawnPoints { get { return stageSpawnPoints; } set { stageSpawnPoints = value; } }
+    public List<Transform> StageSpawnPoints { get { return stageSpawnPoints; } set { stageSpawnPoints = value; } }
 	public InputSystemUIInputModule UiInputModule { get { return uiInputModule; } }
 	public bool InGame { get { return inGame; } set { inGame = value; } }
 	public bool IsPaused { get { return isPaused; } set { isPaused = value; } }
@@ -90,13 +90,14 @@ public class GameManager : MonoBehaviour
 			player.GetComponent<PlayerStats>().ResetPlayer();
 
         if (levelBuilder != null)
+        {
             levelBuilder.buildLevel(currentRound % 3);
+            SpawnPlayersAtSpawnpoint();
+        }
 
         ChaosFactorManager._Instance.Reset();
 		ChaosFactorManager._Instance.StartChaosFactor();
 		BulletObjectPoolManager._Instance.ResetAllBullets();
-
-		SpawnPlayersAtSpawnpoint();
 
         // Clear dead player list
         deadPlayerList.Clear();
@@ -163,10 +164,6 @@ public class GameManager : MonoBehaviour
         PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[2].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[1]); // Third to die,	more points
         PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[3].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[0]); // Last one alive, most points
 
-        // Bring up modifier Menu;
-        ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
-        ModifierManager._Instance.OpenModifierMenu(); // Open modifier menu for dead player
-
         if (currentRound >= MaxRounds)
         {
             Debug.Log("Win condition met");
@@ -174,7 +171,9 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // TODO NATHANF: Reset stage
+        // Bring up modifier Menu;
+        ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
+        ModifierManager._Instance.OpenModifierMenu(); // Open modifier menu for dead player
     }
 
     public void WinConditionMet()
@@ -343,5 +342,6 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < platforms.Count; i++)
             Destroy(platforms[i]);
         platforms.Clear();
+        stageSpawnPoints.Clear();
     }
 }
