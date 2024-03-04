@@ -8,9 +8,9 @@ public class ModifierManager : MonoBehaviour
     public static ModifierManager _Instance;
 
     #region SerializeFields
-    [SerializeField, Required]
+    [SerializeField]
     [Foldout("Dependencies"), Tooltip("The menu to gain Modifiers")]
-    private GameObject modifierMenu;
+    private GameObject[] modifierMenus;
 
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("List of all modifiers obtainable in the game")]
@@ -37,18 +37,24 @@ public class ModifierManager : MonoBehaviour
             _Instance = this;
     }
 
+    public void CloseAllMenus()
+    {
+        foreach (GameObject menu in modifierMenus)
+            menu.SetActive(false);
+    }
+
     // Open Menu actions
-    public void OpenModifierMenu()
+    public void OpenModifierMenu(int playerIndexToOpen)
     {
         Time.timeScale = 0;
-        modifierMenu.SetActive(true);
+        modifierMenus[playerIndexToOpen].SetActive(true);
     }
 
     // Close Menu actions
     public void CloseModifierMenu()
     {
         Time.timeScale = 1;
-        modifierMenu.SetActive(false);
+        CloseAllMenus();
         playerToModify = null;
 
         GameManager._Instance.StartNewGame();

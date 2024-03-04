@@ -8,9 +8,6 @@ public class MenuInputManager : MonoBehaviour
     public static MenuInputManager _Instance;
 
     #region SerializeFields
-    [SerializeField]
-    private int currentButton;
-
     [SerializeField, ReadOnly]
     private List<GameObject> playerInputs;
 

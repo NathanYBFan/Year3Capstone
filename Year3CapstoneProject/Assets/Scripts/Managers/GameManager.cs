@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
 
         // Bring up modifier Menu;
         ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
-        ModifierManager._Instance.OpenModifierMenu(); // Open modifier menu for dead player
+        ModifierManager._Instance.OpenModifierMenu(deadPlayerList[0].GetComponent<PlayerBody>().PlayerIndex); // Open modifier menu for dead player
     }
 
     public void WinConditionMet()

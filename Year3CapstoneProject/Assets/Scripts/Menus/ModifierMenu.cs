@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
-using UnityEngine.Windows;
 
 public class ModifierMenu : MonoBehaviour
 {
     #region SerializeFields
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private GameObject firstButton;
+
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
     private List<GameObject> modifierDisplayList;
@@ -16,6 +19,14 @@ public class ModifierMenu : MonoBehaviour
     [SerializeField, ReadOnly]
     [Foldout("Dependencies"), Tooltip("")]
     private List<Modifier> localListOfModifiers;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private int playerIndex;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private InputSystemUIInputModule uiInputModule;
 
     [SerializeField]
     [Foldout("Stats"), Tooltip("")]
@@ -36,30 +47,17 @@ public class ModifierMenu : MonoBehaviour
     {
         ResetLocalModifierList();
         ResetAllModifierSelection();
-        
-        // If invalid player chosen, close menu
-        if (ModifierManager._Instance.PlayerToModify.GetComponent<PlayerBody>().PlayerIndex >= MenuInputManager._Instance.PlayerInputs.Count)
-        {
-            ModifierManager._Instance.CloseModifierMenu();
-            return;
-        }
+        MenuInputManager._Instance.MainUIEventSystem.gameObject.SetActive(false);
 
-        // Disable every input
-        foreach (GameObject input in MenuInputManager._Instance.PlayerInputs)
-            input.GetComponent<PlayerInput>().uiInputModule = null;
+        MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
 
-        PlayerInput temp = MenuInputManager._Instance.PlayerInputs[ModifierManager._Instance.PlayerToModify.GetComponent<PlayerBody>().PlayerIndex].GetComponent<PlayerInput>();
-        
-        temp.uiInputModule = MenuInputManager._Instance.MainUIEventSystem.GetComponent<InputSystemUIInputModule>();
-        
-        EventSystem.current.SetSelectedGameObject(modifierDisplayList[0].GetComponent<ModifierDisplay>().Buttonobject);
+        uiInputModule.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstButton);
     }
 
     private void OnDisable()
     {
-        // Reactivate all inputs
-        foreach (GameObject input in MenuInputManager._Instance.PlayerInputs)
-            input.GetComponent<PlayerInput>().ActivateInput();
+        EventSystem.current.SetSelectedGameObject(null);
+        MenuInputManager._Instance.MainUIEventSystem.gameObject.SetActive(true);
     }
 
     private void ResetAllModifierSelection()
