@@ -45,6 +45,15 @@ public class CharacterSelectUnit : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("")]
     private Image colorDisplay;
 
+    //Icon Dependencies
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Character icon")]
+    private Image iconDisplay;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Character bg icon")]
+    private Image iconBgDisplay;
+
     // Display Tab Game Objects
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("")]
@@ -103,6 +112,8 @@ public class CharacterSelectUnit : MonoBehaviour
 
     private void SetCharacterStatAssignment(CharacterStatsSO characterStatToAssign)
     {
+        iconDisplay.sprite = characterStatToAssign.characterSprite;
+        iconBgDisplay.sprite = characterStatToAssign.characterBGSprite;
         displayCharacterName.text = "--" + characterStatToAssign.CharacterName + "--";
         fireRateSlider.value = characterStatToAssign.DefaultFireRate / 10;
         moveSpeedSlider.value = characterStatToAssign.DefaultMoveSpeed / 20;

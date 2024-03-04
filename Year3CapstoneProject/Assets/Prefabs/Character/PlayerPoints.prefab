@@ -224,7 +224,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f6ab485d66b684389494934b751372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leaderboardBar: {fileID: 0}
+  playerNum: 0
+  pointSlider: {fileID: 7887045783026351211}
+  fill: {fileID: 4106838762014365123}
+  text: {fileID: 4441461058323109070}
 --- !u!1 &2969301866648811002
 GameObject:
   m_ObjectHideFlags: 0
