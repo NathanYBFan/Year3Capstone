@@ -17,9 +17,11 @@ public class Leaderboard : MonoBehaviour
     [SerializeField]
     Image fill;
 
+    [SerializeField]
+    TextMeshProUGUI playerName;
 
     [SerializeField]
-    TextMeshProUGUI text;
+    TextMeshProUGUI scoreText;
 
 
     private float maxPoints;
@@ -27,7 +29,7 @@ public class Leaderboard : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        maxPoints = 49;
+        maxPoints = 60;
         player = GameManager._Instance.Players[playerNum];
         fill.color = player.GetComponent<PlayerStats>().UIColor;
     }
@@ -35,10 +37,17 @@ public class Leaderboard : MonoBehaviour
 
     private void OnEnable()
     {
-        text.text = player.name + ": " + PlayerStatsManager._Instance.playerPoints[playerNum];
+        playerName.text = player.name;
+        scoreText.text = ""+PlayerStatsManager._Instance.playerPoints[playerNum];
         fill.color = player.GetComponent<PlayerStats>().UIColor;
         pointSlider.value = PlayerStatsManager._Instance.playerPoints[playerNum] / maxPoints;
 
+        if (pointSlider.value > 0.1f)
+        {
+            scoreText.gameObject.transform.position = new Vector3(scoreText.gameObject.transform.position.x, scoreText.gameObject.transform.position.y - 70, scoreText.gameObject.transform.position.z);
+        }
+
     }
+
 
 }

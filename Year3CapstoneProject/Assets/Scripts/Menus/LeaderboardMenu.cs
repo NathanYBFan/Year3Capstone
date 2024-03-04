@@ -7,23 +7,20 @@ using UnityEngine.UI;
 public class LeaderboardMenu : MonoBehaviour
 {
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("Character Stat scriptable object of stats to assign")]
-    private Slider[] playerPointSliders;
-    [SerializeField]
-    private int playerNum;
-    // Start is called before the first frame update
-    void Start()
-    {
+    private GameObject leaderboardMenu;
 
+    public void OpenScoreBoard()
+    {
+        leaderboardMenu.SetActive(true);
     }
 
-    private void Update()
+    // Close Menu actions
+    public void CloseScoreBoard()
     {
-        GetComponentInChildren<Slider>().value = PlayerStatsManager._Instance.PointsToGiveForPosition[playerNum] / 21;
+        Time.timeScale = 1;
+        leaderboardMenu.SetActive(false);
+        
 
+        GameManager._Instance.StartNewGame();
     }
-    private void OnEnable()
-    {
-    }
-
 }
