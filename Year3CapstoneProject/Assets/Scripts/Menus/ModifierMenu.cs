@@ -47,18 +47,23 @@ public class ModifierMenu : MonoBehaviour
     {
         ResetLocalModifierList();
         ResetAllModifierSelection();
-        MenuInputManager._Instance.MainUIEventSystem.gameObject.SetActive(false);
-
-        // MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
+        MenuInputManager._Instance.MainUIEventSystem.SetActive(false);
+        MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
 
         uiInputModule.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstButton);
+    }
+
+    private void Update()
+    {
+        if (isActiveAndEnabled && Input.GetKeyDown(KeyCode.Q))
+            uiInputModule.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstButton);
     }
 
     private void OnDisable()
     {
         EventSystem.current.SetSelectedGameObject(null);
         // MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = null;
-        MenuInputManager._Instance.MainUIEventSystem.gameObject.SetActive(true);
+        MenuInputManager._Instance.MainUIEventSystem.SetActive(true);
     }
 
     private void ResetAllModifierSelection()

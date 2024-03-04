@@ -2662,7 +2662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInputs: []
-  mainUIEventSystem: {fileID: 1943807980}
+  mainUIEventSystem: {fileID: 1943807977}
 --- !u!1001 &908831669
 PrefabInstance:
   m_ObjectHideFlags: 0
