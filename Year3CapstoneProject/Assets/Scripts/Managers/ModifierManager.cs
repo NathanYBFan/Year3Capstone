@@ -19,6 +19,10 @@ public class ModifierManager : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("The player to apply the modifier to")]
     private GameObject playerToModify;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("The player to apply the modifier to")]
+    private GameObject leaderboardRootObject;
     #endregion
 
     #region Getters&Setters
@@ -53,10 +57,15 @@ public class ModifierManager : MonoBehaviour
     // Close Menu actions
     public void CloseModifierMenu()
     {
-        Time.timeScale = 1;
         CloseAllMenus();
         playerToModify = null;
+        leaderboardRootObject.SetActive(true);
+    }
 
+    public void CloseLeaderBoardMenu()
+    {
+        Time.timeScale = 1;
+        leaderboardRootObject.SetActive(false);
         GameManager._Instance.StartNewGame();
     }
 }

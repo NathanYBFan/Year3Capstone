@@ -1,13 +1,13 @@
-using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Leaderboard : MonoBehaviour
 {
-    //[SerializeField]
-    //[Foldout("Leadboard Bars"), Tooltip("Drag in leaderboard bars here")]
-    //private Image leaderboardBar;
+    [SerializeField]
+    private GameObject firstButton;
+
     [SerializeField]
     private int playerNum;
 
@@ -23,7 +23,6 @@ public class Leaderboard : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI scoreText;
 
-
     private float maxPoints;
     private GameObject player;
     // Start is called before the first frame update
@@ -34,9 +33,9 @@ public class Leaderboard : MonoBehaviour
         fill.color = player.GetComponent<PlayerStats>().UIColor;
     }
 
-
     private void OnEnable()
     {
+        EventSystem.current.SetSelectedGameObject(firstButton);
         playerName.text = player.name;
         scoreText.text = ""+PlayerStatsManager._Instance.playerPoints[playerNum];
         fill.color = player.GetComponent<PlayerStats>().UIColor;
@@ -46,8 +45,10 @@ public class Leaderboard : MonoBehaviour
         {
             scoreText.gameObject.transform.position = new Vector3(scoreText.gameObject.transform.position.x, scoreText.gameObject.transform.position.y - 70, scoreText.gameObject.transform.position.z);
         }
-
     }
 
-
+    public void NextButtonPressed()
+    {
+        ModifierManager._Instance.CloseLeaderBoardMenu();
+    }
 }

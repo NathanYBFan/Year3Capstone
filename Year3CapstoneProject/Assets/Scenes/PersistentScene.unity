@@ -782,6 +782,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1944556be5cdcb240bc944a1ba793b33, type: 2}
   - {fileID: 11400000, guid: 5e02542a5a3b94e4699768eff2ac97db, type: 2}
   playerToModify: {fileID: 0}
+  leaderboardRootObject: {fileID: 743839865}
 --- !u!1 &222585821
 GameObject:
   m_ObjectHideFlags: 0
@@ -2777,6 +2778,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6423969008026666782, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
   m_PrefabInstance: {fileID: 3831790377238094133}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &926531335 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -9041121234413992378, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
+  m_PrefabInstance: {fileID: 3831790377238094133}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9f6ab485d66b684389494934b751372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &942415623 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7286971374116951020, guid: 641f2eef53ea98c4b9901ca4506f323f, type: 3}
@@ -2963,6 +2975,10 @@ PrefabInstance:
       propertyPath: playerNum
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -9041121234413992378, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
+      propertyPath: firstButton
+      value: 
+      objectReference: {fileID: 2003279498}
     - target: {fileID: 1527116299834800415, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
       propertyPath: m_Name
       value: PlayerPoints (2)
@@ -3272,6 +3288,10 @@ PrefabInstance:
       propertyPath: playerNum
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -9041121234413992378, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
+      propertyPath: firstButton
+      value: 
+      objectReference: {fileID: 2003279498}
     - target: {fileID: 1527116299834800415, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
       propertyPath: m_Name
       value: PlayerPoints (3)
@@ -3742,6 +3762,10 @@ PrefabInstance:
       propertyPath: playerNum
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -9041121234413992378, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
+      propertyPath: firstButton
+      value: 
+      objectReference: {fileID: 2003279498}
     - target: {fileID: 1527116299834800415, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
       propertyPath: m_Name
       value: PlayerPoints (4)
@@ -4531,7 +4555,6 @@ MonoBehaviour:
   - {fileID: 2037555917}
   - {fileID: 240257433}
   stageSpawnPoints: []
-  uiInputModule: {fileID: 0}
   selectedGameMode: 
   deadPlayerList: []
   currentRound: 0
@@ -6182,9 +6205,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 0, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -6204,9 +6227,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ModifierMenu, Assembly-CSharp
-        m_MethodName: SkipButtonPressed
+      - m_Target: {fileID: 926531335}
+        m_TargetAssemblyTypeName: Leaderboard, Assembly-CSharp
+        m_MethodName: NextButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7056,17 +7079,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 1827052649}
     m_Modifications:
     - target: {fileID: -9041121234413992378, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
-      propertyPath: fill
-      value: 
-      objectReference: {fileID: 3831790377238094135}
-    - target: {fileID: -9041121234413992378, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
       propertyPath: text
       value: 
       objectReference: {fileID: 3831790377238094134}
     - target: {fileID: -9041121234413992378, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
-      propertyPath: pointSlider
+      propertyPath: firstButton
       value: 
-      objectReference: {fileID: 3831790377238094136}
+      objectReference: {fileID: 2003279498}
     - target: {fileID: 1527116299834800415, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
       propertyPath: m_Name
       value: PlayerPoints (1)
@@ -7181,28 +7200,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3831790377238094135 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4106838762014365123, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
-  m_PrefabInstance: {fileID: 3831790377238094133}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3831790377238094136 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7887045783026351211, guid: 49d06236a85934e4daebf78956d7944a, type: 3}
-  m_PrefabInstance: {fileID: 3831790377238094133}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

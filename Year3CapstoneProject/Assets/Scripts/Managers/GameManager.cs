@@ -28,10 +28,6 @@ public class GameManager : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("array of spawnpoints")]
     private List<Transform> stageSpawnPoints;
 
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("array of spawnpoints")]
-    private InputSystemUIInputModule uiInputModule;
-
     [SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("Selectected game mode to load")]
 	private string selectedGameMode;
@@ -60,7 +56,6 @@ public class GameManager : MonoBehaviour
     public List<GameObject> Platforms { get { return platforms; } set { platforms = value; } }
 	public string SelectedGameMode { get { return selectedGameMode; } set { selectedGameMode = value; } }
     public List<Transform> StageSpawnPoints { get { return stageSpawnPoints; } set { stageSpawnPoints = value; } }
-	public InputSystemUIInputModule UiInputModule { get { return uiInputModule; } }
 	public bool InGame { get { return inGame; } set { inGame = value; } }
 	public bool IsPaused { get { return isPaused; } set { isPaused = value; } }
 	public int CurrentRound { get { return currentRound; } set { currentRound = value; } }

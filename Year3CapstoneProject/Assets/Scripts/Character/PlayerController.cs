@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
 		int index = playerInput.playerIndex;
 
 		body = bodies.FirstOrDefault(m => m.PlayerIndex == index); // The body that this controller corresponds to is the one whose index matches the player input index of this controller.
-		playerInput.uiInputModule = GameManager._Instance.UiInputModule;
 		fireAction = playerInput.currentActionMap.FindAction("Fire", true);
 
 		MenuInputManager._Instance.PlayerInputs.Add(this.gameObject);

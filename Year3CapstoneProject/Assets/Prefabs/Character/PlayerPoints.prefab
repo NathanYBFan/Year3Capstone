@@ -358,6 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f6ab485d66b684389494934b751372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstButton: {fileID: 0}
   playerNum: 0
   pointSlider: {fileID: 7887045783026351211}
   fill: {fileID: 4106838762014365123}
@@ -441,7 +442,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1095310946450742395}
   m_FillRect: {fileID: 8949373656184161344}
   m_HandleRect: {fileID: 5447739473009469597}
