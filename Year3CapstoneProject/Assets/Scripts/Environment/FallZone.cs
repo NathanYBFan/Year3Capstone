@@ -1,6 +1,5 @@
 using NaughtyAttributes;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class FallZone : MonoBehaviour
 {
