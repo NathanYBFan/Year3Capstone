@@ -33,6 +33,12 @@ public class Leaderboard : MonoBehaviour
         fill.color = player.GetComponent<PlayerStats>().UIColor;
     }
 
+
+    private void Update()
+    {
+        if (Input.anyKeyDown)
+            NextButtonPressed();
+    }
     private void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(firstButton);

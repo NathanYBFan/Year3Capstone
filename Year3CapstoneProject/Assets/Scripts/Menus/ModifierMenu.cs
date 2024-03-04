@@ -57,8 +57,8 @@ public class ModifierMenu : MonoBehaviour
     private void OnDisable()
     {
         EventSystem.current.SetSelectedGameObject(null);
+        // MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = null;
         MenuInputManager._Instance.MainUIEventSystem.gameObject.SetActive(true);
-        MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = null;
     }
 
     private void ResetAllModifierSelection()
