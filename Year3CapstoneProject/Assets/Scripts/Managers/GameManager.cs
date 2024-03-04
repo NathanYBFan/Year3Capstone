@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
     private bool inGame;
     private bool isPaused;
     private newLevelBuilder levelBuilder;
+    [SerializeField]
+    private int playerWinnerIndex = -1;
     #endregion
 
     #region Getters&Setters
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
 	public int CurrentRound { get { return currentRound; } set { currentRound = value; } }
 	public int MaxRounds { get { return maxRounds; } set { maxRounds = value; } }
 	public newLevelBuilder LevelBuilder { get { return levelBuilder; } set { levelBuilder = value; } }
+    public int PlayerWinnerIndex { get { return playerWinnerIndex; } }
     #endregion
 
     private void Awake()
@@ -199,7 +202,7 @@ public class GameManager : MonoBehaviour
             localPoints[index] = -1;
             playerWinOrder.Add(index); // Most points to smallest
         }
-
+        playerWinnerIndex = playerWinOrder[0];
         EndGame();
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
     }

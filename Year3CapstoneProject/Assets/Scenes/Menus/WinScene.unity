@@ -395,6 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstButton: {fileID: 1679658219}
+  textbox: {fileID: 1598578771}
 --- !u!1 &1309400062
 GameObject:
   m_ObjectHideFlags: 0
