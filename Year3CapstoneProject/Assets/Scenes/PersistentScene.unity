@@ -2072,9 +2072,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9ce325518541d0848a26c678536b5d28, type: 3}
   - {fileID: 8300000, guid: 232e6b44cdc2fe848b2ea8072f472ee6, type: 3}
   musicList:
-  - {fileID: 8300000, guid: 9786575c5761b4c4c8eb149671e7d7e9, type: 3}
-  - {fileID: 8300000, guid: 39570e7d179313445ac42fe0145c23fb, type: 3}
-  - {fileID: 8300000, guid: c704686080a8fff46865347c95908ab3, type: 3}
+  - {fileID: 8300000, guid: 8c12cf6c2cc6ed14191b5d52a255b752, type: 3}
+  - {fileID: 8300000, guid: 9b3b9458f33a9f84d829643066a22617, type: 3}
+  - {fileID: 8300000, guid: d3d46daa16c5e904d95ffd624e9cb91a, type: 3}
 --- !u!1 &872936915
 GameObject:
   m_ObjectHideFlags: 0
