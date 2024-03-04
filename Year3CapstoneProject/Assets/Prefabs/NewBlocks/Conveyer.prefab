@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 4282597749110108956}
   m_Layer: 0
   m_Name: Conveyer
-  m_TagString: Untagged
+  m_TagString: StageNormal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,7 +246,6 @@ MonoBehaviour:
   iceTop2: {fileID: 0}
   snowBurst: {fileID: 8456259375786365524}
   snowBurst2: {fileID: 0}
-  time: 0
   maxHeight: 0
   minHeight: 0
   MiscChildren:
@@ -5146,7 +5145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82880fc03d7cda24e9dcfbf444aa0473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cforce: 5
 --- !u!1001 &3305614523445547848
 PrefabInstance:
   m_ObjectHideFlags: 0

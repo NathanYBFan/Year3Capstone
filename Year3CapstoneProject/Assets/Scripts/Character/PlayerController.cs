@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
 		if (!GameManager._Instance.InGame) return;
 		if (body == null) return;
         if (body.GetComponent<PlayerStats>().IsDead) return;
+		if (body.IsRolling) return;
 
         if (fireAction.IsPressed()) body.FireBullet();
 	}

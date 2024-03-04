@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0097c9133fb23f948b8980c3906ee4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletGO: {fileID: 1615981789932428633}
   bulletRootObject: {fileID: 8334014978921442311}
   fragmentDirections:
   - {fileID: 7291704744719408704}
@@ -131,7 +132,6 @@ MonoBehaviour:
   playerOwner: {fileID: 0}
   lifeTime: 5
   movementSpeed: 20
-  damageToDeal: 1
   isFragmentable: 1
   target: {fileID: 0}
 --- !u!54 &4483240422436281335

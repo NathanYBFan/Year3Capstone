@@ -43,7 +43,7 @@ public class Leaderboard : MonoBehaviour
 
         if (pointSlider.value > 0.1f)
         {
-            scoreText.gameObject.transform.position = new Vector3(scoreText.gameObject.transform.position.x, scoreText.gameObject.transform.position.y - 70, scoreText.gameObject.transform.position.z);
+           // scoreText.gameObject.transform.position = new Vector3(scoreText.gameObject.transform.position.x, scoreText.gameObject.transform.position.y - 70, scoreText.gameObject.transform.position.z);
         }
     }
 

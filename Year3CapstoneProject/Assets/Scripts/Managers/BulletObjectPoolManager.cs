@@ -92,7 +92,7 @@ public class BulletObjectPoolManager : MonoBehaviour
 		// If there are still bullets in pool:
 		bulletToReturn = deactivatedBullets[0];
 
-		// Add and remove from poper lists:
+		// Add and remove from proper lists:
 		activatedBullets.Add(bulletToReturn);
         deactivatedBullets.Remove(bulletToReturn);
 
@@ -102,7 +102,11 @@ public class BulletObjectPoolManager : MonoBehaviour
 	// If a bullet is finished its lifespan (Hit object or times out)
 	public void ExpiredBullet(GameObject bullet)
 	{
-		if (!bullet.GetComponentInChildren<BulletBehaviour>().isFragmentable) Destroy(bullet);
+		if (!bullet.GetComponentInChildren<BulletBehaviour>().isFragmentable)
+		{
+			Destroy(bullet);
+			return;
+        }
 
         // Filter into correct list
         activatedBullets.Remove(bullet);
@@ -115,7 +119,7 @@ public class BulletObjectPoolManager : MonoBehaviour
 	// Deactivates all bullets
 	public void ResetAllBullets()
 	{
-		while (activatedBullets.Count != 0)
+		while (activatedBullets.Count > 0)
             ExpiredBullet(activatedBullets[0]);
     }
 }

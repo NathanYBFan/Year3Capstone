@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
 {
-	#region Serialize Fields
-	[SerializeField, Required]
+    #region Serialize Fields
+    [SerializeField, Required]
+    [Foldout("Dependencies"), Tooltip("")]
+    private GameObject bulletGO;
+    [SerializeField, Required]
 	[Foldout("Dependencies"), Tooltip("")]
 	private Transform bulletRootObject;
 	[SerializeField, Required]
@@ -79,7 +82,8 @@ public class BulletBehaviour : MonoBehaviour
 			case "Shield":
 				if(other.gameObject != playerOwner.gameObject.GetComponent<PlayerBody>().Shield)
 				{
-                    Destroy(bulletRootObject.gameObject);
+                    if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
+                    else Destroy(bulletRootObject.gameObject);
                 }
 				break;
 			case "Player":
@@ -115,7 +119,7 @@ public class BulletBehaviour : MonoBehaviour
 					// Assigning fragmented bullets the stats that the parent bullet had.
 					for (int i = 0; i < 3; i++)
 					{
-						GameObject bullet = Instantiate(gameObject.transform.parent.gameObject, fragmentDirections[i].position, Quaternion.identity);
+						GameObject bullet = Instantiate(bulletGO, fragmentDirections[i].position, Quaternion.identity);
 						bullet.GetComponentInChildren<BulletBehaviour>().playerOwner = this.playerOwner;
 						bullet.GetComponentInChildren<BulletBehaviour>().originalPlayerIndex = this.originalPlayerIndex;
 						bullet.GetComponentInChildren<BulletBehaviour>().isFragmentable = false;

@@ -168,10 +168,10 @@ public class PlayerBody : MonoBehaviour
 			headAnim.Play("Dash");
 			isDashing = false;
 		}
-		else if (isShooting)
+		else if (isShooting && canMove)
 		{
 			headAnim.Play("Shoot");
-			isShooting = false;
+            isShooting = false;
 		}
 		else if (isRolling)
 		{
@@ -190,10 +190,11 @@ public class PlayerBody : MonoBehaviour
 			legAnim.Play("Dash");
 			isDashing = false;
 		}
-		else if (isShooting)
+		else if (isShooting && canMove)
 		{
 			legAnim.Play("Shoot");
-			isShooting = false;
+            canShoot = true;
+            isShooting = false;
 		}
 		else if (isRolling)
 		{
@@ -203,12 +204,16 @@ public class PlayerBody : MonoBehaviour
 		else if (canMove && moveDir.magnitude != 0 && !legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll")) legAnim.Play("Walk");
 		else if (!legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll") && moveDir.magnitude == 0) legAnim.Play("Idle");
 
-		if (!headAnim.IsPlaying("Roll")) canMove = true;
-
+		if (!headAnim.IsPlaying("Roll"))
+		{
+			canMove = true;
+            canShoot = true;
+        }
 	}
 
 	public void Roll()
 	{
+		canShoot = false;
 		int healing = 1;
 		float amount = stats.MaxEnergy;
 		// Power saving
@@ -246,11 +251,12 @@ public class PlayerBody : MonoBehaviour
 		{
 			stats.Heal(healing);
 			healEffect.Play();
-		}
-	}
+        }		
+    }
 
     private void Roll(int input)
     {
+        canShoot = false;
         int healing = 1;
         float amount = stats.MaxEnergy;
         // Power saving
@@ -268,23 +274,23 @@ public class PlayerBody : MonoBehaviour
 		{
 			case 1:
                 StartCoroutine(DmgBoost());
-                return;
+                break;
 			case 2:
                 StartCoroutine(PlayerShield());
-                return;
+                break;
 			case 3:
                 StartCoroutine(SpeedBoost());
-                return;
+                break;
 			case 4:
                 stats.Heal(healing);
                 healEffect.Play();
-                return;
+                break;
         }
     }
 
     public void FireBullet()
 	{
-		if (Time.time >= stats.NextFireTime && canShoot == true)
+		if (Time.time >= stats.NextFireTime && canShoot)
 		{
 			GetComponent<PlayerShooting>().FireBullet();
 			isShooting = true;
@@ -376,7 +382,7 @@ public class PlayerBody : MonoBehaviour
 		}
 		stats.MovementSpeed = stats.MovementSpeed - 3;
 		speedEffect.Stop();
-	}
+    }
 
 	private IEnumerator PlayerShield()
 	{
@@ -404,7 +410,8 @@ public class PlayerBody : MonoBehaviour
 		}
 		playerShield.SetActive(false);
 		canMove = true;
-	}
+    }
+
 	//Plays the player death sound
 	private void DeathSound()
 	{
