@@ -10,7 +10,7 @@ public class PlayerStatsManager : MonoBehaviour
     #region SerializeFields
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("Array of points for each player")]
-    private int[] playerPoints;
+    public int[] playerPoints;
 
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("Array of kills each player has done")]
