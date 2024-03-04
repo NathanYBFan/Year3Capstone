@@ -79,40 +79,40 @@ public class AudioManager : MonoBehaviour
     // Switch music Tracks
     public void PlayMusic(AudioClip musicToPlay)
     {
-        StartCoroutine(TransitionMusic(musicToPlay, musicAudioSource, 5f));
+        StartCoroutine(TransitionMusic(musicToPlay, musicAudioSource, 0f));
         if (!musicAudioSource.isPlaying)
             musicAudioSource.Play();
     }
 
-    // Transition Coroutine to switch the music tracks
-    public IEnumerator TransitionMusic(AudioClip musicToPlay, float fadeOutDuration, float fadeInDuration)
-    {
-        // Local variables
-        float originalVolume = musicAudioSource.volume;     // Original volume to transition up to
-        float start = musicAudioSource.volume;              // Volume to change
-        float currentTime = 0;                              // Timer counter
+    //// Transition Coroutine to switch the music tracks
+    //public IEnumerator TransitionMusic(AudioClip musicToPlay, float fadeOutDuration, float fadeInDuration)
+    //{
+    //    // Local variables
+    //    float originalVolume = musicAudioSource.volume;     // Original volume to transition up to
+    //    float start = musicAudioSource.volume;              // Volume to change
+    //    float currentTime = 0;                              // Timer counter
 
-        while (currentTime < fadeOutDuration)
-        {
-            currentTime += Time.deltaTime;
-            musicAudioSource.volume = Mathf.Lerp(start, 0f, currentTime / fadeOutDuration);
-            yield return null;
-        }
+    //    while (currentTime < fadeOutDuration)
+    //    {
+    //        currentTime += Time.deltaTime;
+    //        musicAudioSource.volume = Mathf.Lerp(start, 0f, currentTime / fadeOutDuration);
+    //        yield return null;
+    //    }
 
-        // Switch Clip
-        musicAudioSource.clip = musicToPlay;
-        currentTime = 0;
+    //    // Switch Clip
+    //    musicAudioSource.clip = musicToPlay;
+    //    currentTime = 0;
 
-        // Fade in
-        while (currentTime < fadeInDuration)
-        {
-            currentTime += Time.deltaTime;
-            musicAudioSource.volume = Mathf.Lerp(start, originalVolume, currentTime / fadeInDuration);
-            yield return null;
-        }
+    //    // Fade in
+    //    while (currentTime < fadeInDuration)
+    //    {
+    //        currentTime += Time.deltaTime;
+    //        musicAudioSource.volume = Mathf.Lerp(start, originalVolume, currentTime / fadeInDuration);
+    //        yield return null;
+    //    }
 
-        yield break; // Exit Coroutine
-    }
+    //    yield break; // Exit Coroutine
+    //}
 
     // Transition Coroutine to switch the music tracks
     public IEnumerator TransitionMusic(AudioClip musicToPlay, AudioSource musicSource, float duration)
