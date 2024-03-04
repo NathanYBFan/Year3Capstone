@@ -164,7 +164,6 @@ public class GameManager : MonoBehaviour
 
         if (currentRound >= MaxRounds)
         {
-            Debug.Log("Win condition met");
             WinConditionMet();
             return;
         }
