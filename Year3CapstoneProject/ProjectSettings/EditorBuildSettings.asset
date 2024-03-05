@@ -30,6 +30,6 @@ EditorBuildSettings:
     path: Assets/Scenes/TestField.unity
     guid: bd49bdd73fdb6644c8c14bb91abb6b56
   - enabled: 1
-    path: Assets/Scenes/Menus/WinScene.unity
+    path: Assets/Scenes/Menus/WinScreenMenu.unity
     guid: ef94ff3bedb7cee4f89e05a368cc000d
   m_configObjects: {}
