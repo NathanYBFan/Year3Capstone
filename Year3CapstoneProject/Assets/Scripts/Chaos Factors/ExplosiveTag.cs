@@ -26,28 +26,6 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 
     public float Timer { get { return timer; } }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        holdSpeeds = new float[GameManager._Instance.Players.Count];
-        //get random player from the gamemanager player list, called target player
-        for (int i = 0; i < GameManager._Instance.Players.Count; i++)
-        {
-            holdSpeeds[i] = GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed;
-            GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = playerSpeed;
-            GameManager._Instance.Players[i].GetComponent<PlayerBody>().ChaosFactorCanShoot = false;
-        }
-
-        int random = Random.Range(0,3);
-
-        targetPlayer = GameManager._Instance.Players[0];
-
-        
-        //spawn bomb belt on player
-        Spawnedbelt = Instantiate(UnSpawnedbelt, new Vector3 (targetPlayer.transform.position.x, targetPlayer.transform.position.y+2, targetPlayer.transform.position.z), Quaternion.Euler(new Vector3(-90, 0, 0)), this.transform);
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -62,6 +40,26 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
     public void swapTarget(GameObject p)
     {
         targetPlayer = p;
+    }
+
+    private void OnEnable()
+    {
+        holdSpeeds = new float[GameManager._Instance.Players.Count];
+        //get random player from the gamemanager player list, called target player
+        for (int i = 0; i < GameManager._Instance.Players.Count; i++)
+        {
+            holdSpeeds[i] = GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed;
+            GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = playerSpeed;
+            GameManager._Instance.Players[i].GetComponent<PlayerBody>().ChaosFactorCanShoot = false;
+        }
+
+        int random = Random.Range(0, 3);
+
+        targetPlayer = GameManager._Instance.Players[0];
+
+
+        //spawn bomb belt on player
+        Spawnedbelt = Instantiate(UnSpawnedbelt, new Vector3(targetPlayer.transform.position.x, targetPlayer.transform.position.y + 2, targetPlayer.transform.position.z), Quaternion.Euler(new Vector3(-90, 0, 0)), this.transform);
     }
 
     private void OnDestroy()
