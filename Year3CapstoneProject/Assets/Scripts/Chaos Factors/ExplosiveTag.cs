@@ -70,7 +70,7 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
         {
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = holdSpeeds[i];
             GameManager._Instance.Players[i].GetComponent<PlayerBody>().CanShoot = true;
-            GameManager._Instance.Players[i].GetComponent<PlayerBody>().ChaosFactorCanShoot = false;
+            GameManager._Instance.Players[i].GetComponent<PlayerBody>().ChaosFactorCanShoot = true;
         }
         targetPlayer.GetComponent<PlayerStats>().TakeDamage(damage);
     }
