@@ -36,4 +36,18 @@ public class Overheated : Modifier
 			shouldKill = debuffToApply.shouldKill
 		};
 	}
+
+	public override void RemoveEffects()
+	{
+		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
+		if (playerStats != null)
+		{
+			playerStats.GiveableDebuff = null;
+		}
+	}
+
+	public override void RemoveEffects(PlayerStats playerStats)
+	{
+		playerStats.GiveableDebuff = null;
+	}
 }

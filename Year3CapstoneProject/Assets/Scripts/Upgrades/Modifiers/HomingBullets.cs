@@ -17,4 +17,18 @@ public class HomingBullets : Modifier
 	{
 		playerStats.HomingBullets = true;
 	}
+
+	public override void RemoveEffects()
+	{
+		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
+		if (playerStats != null)
+		{
+			playerStats.HomingBullets = false;
+		}
+	}
+
+	public override void RemoveEffects(PlayerStats playerStats)
+	{
+		playerStats.HomingBullets = false;
+	}
 }

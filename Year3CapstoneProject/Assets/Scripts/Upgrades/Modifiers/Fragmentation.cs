@@ -17,4 +17,18 @@ public class Fragmentation : Modifier
 	{
 		playerStats.FragmentBullets = true;
 	}
+
+	public override void RemoveEffects()
+	{
+		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
+		if (playerStats != null)
+		{
+			playerStats.FragmentBullets = false;
+		}
+	}
+
+	public override void RemoveEffects(PlayerStats playerStats)
+	{
+		playerStats.FragmentBullets = false;
+	}
 }

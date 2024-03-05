@@ -16,4 +16,18 @@ public class UnstableBlast : Modifier
 	{
 		playerStats.ExplodingBullets = true;
 	}
+
+	public override void RemoveEffects()
+	{
+		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
+		if (playerStats != null)
+		{
+			playerStats.ExplodingBullets = false;
+		}
+	}
+
+	public override void RemoveEffects(PlayerStats playerStats)
+	{
+		playerStats.ExplodingBullets = false;
+	}
 }

@@ -18,4 +18,20 @@ public class Overcharged : Modifier
 		playerStats.MovementSpeed += 3;
 		playerStats.FireRate += .5f;
 	}
+
+	public override void RemoveEffects()
+	{
+		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
+		if (playerStats != null)
+		{
+			playerStats.MovementSpeed -= 3;
+			playerStats.FireRate -= .5f;
+		}
+	}
+
+	public override void RemoveEffects(PlayerStats playerStats)
+	{
+		playerStats.MovementSpeed -= 3;
+		playerStats.FireRate -= .5f;
+	}
 }

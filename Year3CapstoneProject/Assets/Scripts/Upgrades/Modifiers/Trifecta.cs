@@ -16,4 +16,18 @@ public class Trifecta : Modifier
 	{
 		playerStats.TriShot = true;
 	}
+
+	public override void RemoveEffects()
+	{
+		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
+		if (playerStats != null)
+		{
+			playerStats.TriShot = false;
+		}
+	}
+
+	public override void RemoveEffects(PlayerStats playerStats)
+	{
+		playerStats.TriShot = false;
+	}
 }

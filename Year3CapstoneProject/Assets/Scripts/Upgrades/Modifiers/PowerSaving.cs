@@ -16,4 +16,18 @@ public class PowerSaving : Modifier
 	{
 		playerStats.IsPowerSaving = true;
 	}
+
+	public override void RemoveEffects()
+	{
+		PlayerStats playerStats = ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>();
+		if (playerStats != null)
+		{
+			playerStats.IsPowerSaving = false;
+		}
+	}
+
+	public override void RemoveEffects(PlayerStats playerStats)
+	{
+		playerStats.IsPowerSaving = false;
+	}
 }
