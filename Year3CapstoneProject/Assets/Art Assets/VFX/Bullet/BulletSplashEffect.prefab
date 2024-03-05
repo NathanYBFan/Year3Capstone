@@ -19554,7 +19554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6811218917548808237}
   m_Layer: 0
-  m_Name: Bullet Hit Effect
+  m_Name: BulletSplashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
