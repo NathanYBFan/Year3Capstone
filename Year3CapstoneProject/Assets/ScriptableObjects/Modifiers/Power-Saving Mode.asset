@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Power-Saving Mode
   m_EditorClassIdentifier: 
   modifierName: Power-Saving Mode
-  modifierImage: {fileID: 0}
+  modifierImage: {fileID: 21300000, guid: c26c33e7d9fdf8f40835decaf75f6ef5, type: 3}
   modifierDescription: Reduces energy consumption for dashes and rolls

@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 726881132559482509}
   - component: {fileID: 7395085453166885995}
   m_Layer: 5
-  m_Name: ImageOfCF
+  m_Name: ImageOfModifier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
