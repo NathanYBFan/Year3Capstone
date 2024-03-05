@@ -43,6 +43,7 @@ public class ModifierDisplay : MonoBehaviour
 
         // Display proper data
         modifierImage.sprite = modifier.modifierImage;
+        modifierImage.preserveAspect = true;
         modifierDescriptionText.text = modifier.modifierDescription;
         modifierNameText.text = modifier.modifierName;
     }

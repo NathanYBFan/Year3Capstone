@@ -776,11 +776,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9eead0c4e80adac4dab4b513c61899b5, type: 2}
   - {fileID: 11400000, guid: ad6904c5ff2711849945a11f4259157a, type: 2}
   - {fileID: 11400000, guid: d05584c3ab75df64697b86df76347b62, type: 2}
+  - {fileID: 11400000, guid: 5e02542a5a3b94e4699768eff2ac97db, type: 2}
   - {fileID: 11400000, guid: b790741006cd2454297ab5af0c7a0802, type: 2}
   - {fileID: 11400000, guid: a627b655536938545922e75ce611c666, type: 2}
   - {fileID: 11400000, guid: 886a83c9009fd764e98111557b6fd765, type: 2}
   - {fileID: 11400000, guid: 1944556be5cdcb240bc944a1ba793b33, type: 2}
-  - {fileID: 11400000, guid: 5e02542a5a3b94e4699768eff2ac97db, type: 2}
   playerToModify: {fileID: 0}
   leaderboardRootObject: {fileID: 743839865}
 --- !u!1 &222585821
@@ -4559,6 +4559,7 @@ MonoBehaviour:
   deadPlayerList: []
   currentRound: 0
   maxRounds: 7
+  playerWinnerIndex: -1
 --- !u!1 &1478896578
 GameObject:
   m_ObjectHideFlags: 0

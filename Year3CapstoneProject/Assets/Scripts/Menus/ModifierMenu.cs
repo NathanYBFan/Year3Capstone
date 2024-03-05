@@ -74,7 +74,7 @@ public class ModifierMenu : MonoBehaviour
         for (int i = 0; i < numberOfDisplays; i++)
         {
             // Get Modifier number to choose
-            int modifierSelected = Random.Range(0, localListOfModifiers.Count - 1);
+            int modifierSelected = Random.Range(0, localListOfModifiers.Count);
             // Get associated modifier from number
             Modifier selectedModifier = localListOfModifiers[modifierSelected];
             
