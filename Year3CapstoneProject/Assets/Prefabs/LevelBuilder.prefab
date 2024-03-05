@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1850314662375820772
+--- !u!1 &270652131412760134
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1849770044935815390}
-  - component: {fileID: 6362698440545766085}
+  - component: {fileID: 1031196372573276941}
+  - component: {fileID: 2868105047042736513}
   m_Layer: 0
   m_Name: LevelBuilder
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1849770044935815390
+--- !u!4 &1031196372573276941
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1850314662375820772}
+  m_GameObject: {fileID: 270652131412760134}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,39 +32,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6362698440545766085
+--- !u!114 &2868105047042736513
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1850314662375820772}
+  m_GameObject: {fileID: 270652131412760134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc638bd682b18044690a4a2216dfcd3f, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e4d39bf22a2a9548b082c2a2ef252c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - {fileID: 4900000, guid: 2db006cd7413db648847172fdda14a20, type: 3}
-  - {fileID: 4900000, guid: ce3c381c112d3a247b36aceeac07bbad, type: 3}
-  - {fileID: 4900000, guid: efc27542e7609b84cb397199666721f6, type: 3}
-  - {fileID: 4900000, guid: 9587aae1a53b67e48a797f6c585ba646, type: 3}
+  - {fileID: 4900000, guid: 9e9093cdddf5f204b846e7e25506c7aa, type: 3}
+  - {fileID: 4900000, guid: 9b65c4fa8059af647a370c98aaf98ebd, type: 3}
+  - {fileID: 4900000, guid: 093443cfcfe76cd4abdec7698a24c1ae, type: 3}
+  - {fileID: 4900000, guid: 788c9daf627f66e43b7bd432cb20ea55, type: 3}
+  - {fileID: 4900000, guid: 28eb357e162b21c4da6050c4c5fccf93, type: 3}
   levelAssets:
   - {fileID: 5499215989557754267, guid: 3b1b90876ff06a94eba847c7debb968d, type: 3}
   - {fileID: 1952934666896548472, guid: 7b3e6a1498c5aba4a87b414369be9be0, type: 3}
-  - {fileID: 7489467434288890564, guid: 02fc289b19215ef43b4c61d0e432943a, type: 3}
-  - {fileID: 5841191079338777775, guid: 6a59f46d000738b4cb92af3cecd6e4da, type: 3}
-  - {fileID: 5841191079338777775, guid: 8059d9f5417fc724da5b6848723b5a0b, type: 3}
-  - {fileID: 5841191079338777775, guid: 291d28794f7ce3245a4fbb6254cbf840, type: 3}
-  - {fileID: 5841191079338777775, guid: 07e340b7f2d7f104889bf47a644c18d8, type: 3}
   - {fileID: 7489467434288890564, guid: 28e481e64644b9a458370625bb54d589, type: 3}
-  - {fileID: 7489467434288890564, guid: 2bebf2d10e3bbb140b3416a02c3cbb6f, type: 3}
-  - {fileID: 6297765103710325832, guid: 32765dfc7d3811d41a90ae1572497763, type: 3}
-  - {fileID: 5499215989557754267, guid: 691b30727a72739428e36561ad5f0fc3, type: 3}
-  - {fileID: 4812827444204722772, guid: 5889099cbfc66674c903450869c051d0, type: 3}
-  levelBuilderParent: {fileID: 1849770044935815390}
-  levelToBuild: 1
+  - {fileID: 3530932798347127462, guid: 1dd818c3f29e5e144b2ab25ed6d7a3b7, type: 3}
+  - {fileID: 8193771675660044526, guid: 691b30727a72739428e36561ad5f0fc3, type: 3}
+  - {fileID: 4748749076728205467, guid: 5370fb05af0fe224c82ea9d2a24c0e69, type: 3}
+  - {fileID: 6721051393718211655, guid: a70737f8e3c63a748a512196489f84ea, type: 3}
+  - {fileID: 1952934666896548472, guid: 2eba37e64901e3542933212561484a2b, type: 3}
+  levelBuilderParent: {fileID: 1031196372573276941}
+  levelToBuild: 0
   startX: 0
   startY: 0
-  startZ: 0
+  startZ: 35
   tileSize: 4
