@@ -37,7 +37,7 @@ public class Platform : MonoBehaviour
 
 	// Getters & Setters
 	public GameObject IceTop { get { return iceTop; } set { iceTop = value; } }
-	public bool IsDropped { get { return isDropped; } set { IsDropped = value; } }
+	public bool IsDropped { get { return isDropped; } set { isDropped = value; } }
 
 	private void Awake()
 	{

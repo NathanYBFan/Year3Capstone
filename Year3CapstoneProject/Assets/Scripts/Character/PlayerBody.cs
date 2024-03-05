@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.PlayerLoop;
@@ -63,15 +64,23 @@ public class PlayerBody : MonoBehaviour
 	public bool CanMove { get { return canMove; } }
 
 	public bool CanShoot { get { return canShoot; } set { canShoot = value; } }
+	public bool ChaosFactorCanShoot { get { return chaosFactorCanShoot; } set { chaosFactorCanShoot = value; } }
 
-	public GameObject Shield { get { return playerShield; } }
+    public GameObject Shield { get { return playerShield; } }
 	#endregion Getters & Setters
 	#region Private Variables
 	Animation headAnim;
 	Animation legAnim;
 	private bool hasExploded = false;
-	private bool isDashing = false, isShooting = false, isRolling = false, canMove = true, canShoot = true;
+	private bool isDashing = false, isShooting = false, isRolling = false, canMove = true;
 	private Vector2 moveDir, aimDir, legDir; //The current movement direction of this player.
+
+	[SerializeField]
+	private bool canShoot = true;
+
+	[SerializeField]
+	private bool chaosFactorCanShoot = true;
+
 	#endregion Private Variables
 
 	private void Start()

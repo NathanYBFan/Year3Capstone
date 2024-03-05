@@ -30,15 +30,13 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
     // Start is called before the first frame update
     void Start()
     {
-
         holdSpeeds = new float[GameManager._Instance.Players.Count];
         //get random player from the gamemanager player list, called target player
         for (int i = 0; i < GameManager._Instance.Players.Count; i++)
         {
             holdSpeeds[i] = GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed;
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = playerSpeed;
-            GameManager._Instance.Players[i].GetComponent<PlayerBody>().CanShoot = false;
-
+            GameManager._Instance.Players[i].GetComponent<PlayerBody>().ChaosFactorCanShoot = false;
         }
 
         int random = Random.Range(0,3);
@@ -72,12 +70,8 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
         {
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = holdSpeeds[i];
             GameManager._Instance.Players[i].GetComponent<PlayerBody>().CanShoot = true;
+            GameManager._Instance.Players[i].GetComponent<PlayerBody>().ChaosFactorCanShoot = false;
         }
         targetPlayer.GetComponent<PlayerStats>().TakeDamage(damage);
     }
-
-
-
-
-
 }

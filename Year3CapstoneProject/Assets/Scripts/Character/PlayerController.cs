@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
 		if (body == null) return;
         if (body.GetComponent<PlayerStats>().IsDead) return;
 		if (body.IsRolling) return;
+		if (!body.CanShoot) return;
+		if (!body.ChaosFactorCanShoot) return;
 
         if (fireAction.IsPressed()) body.FireBullet();
 	}
