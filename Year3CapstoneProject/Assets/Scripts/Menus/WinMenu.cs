@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class WinMenu : MonoBehaviour
 {
@@ -10,10 +11,19 @@ public class WinMenu : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textbox;
 
+    [SerializeField]
+    private Image playerIcon;
+
+    [SerializeField]
+    private Image playerBgIcon;
+
     private void Start()
     {
         EventSystem.current.SetSelectedGameObject(firstButton);
         textbox.text = "Player " + (GameManager._Instance.PlayerWinnerIndex + 1) + " Wins!";
+        playerIcon.sprite = GameManager._Instance.Players[GameManager._Instance.PlayerWinnerIndex].GetComponent<PlayerStats>().CharacterStat.characterSprite;
+
+        playerBgIcon.sprite = GameManager._Instance.Players[GameManager._Instance.PlayerWinnerIndex].GetComponent<PlayerStats>().CharacterStat.characterBGSprite;
     }
     private void ButtonPressSFX()
     {
