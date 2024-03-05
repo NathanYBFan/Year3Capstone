@@ -42,7 +42,7 @@ public class ModifierDisplay : MonoBehaviour
         playerToModify = newPlayerToModify;
 
         // Display proper data
-        // modifierImage.sprite = modifier.modifierImage.sprite;
+        modifierImage.sprite = modifier.modifierImage;
         modifierDescriptionText.text = modifier.modifierDescription;
         modifierNameText.text = modifier.modifierName;
     }
