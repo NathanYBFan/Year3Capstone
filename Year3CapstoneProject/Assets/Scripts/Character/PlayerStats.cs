@@ -294,7 +294,11 @@ public class PlayerStats : MonoBehaviour
         if (!(currHealth == 0)) return;
 
         // If can self destruct dont start death (Not sure why, probably a separate coroutine?)
-        if (canSelfDestruct) return;
+        if (canSelfDestruct)
+        {
+            GetComponent<PlayerBody>().InitiateSelfDestruct();
+            return;
+        }
 
         // Is truly dead
         isDead = true;
@@ -307,7 +311,7 @@ public class PlayerStats : MonoBehaviour
             currHealth += healing;
     }
 
-    private void StartDeath()
+    public void StartDeath()
     {
         currHealth = 0;
 
@@ -341,7 +345,8 @@ public class PlayerStats : MonoBehaviour
         DeactivateEffects(ParticleSystemStopBehavior.StopEmittingAndClear);
         currHealth = maxHealth;
         currEnergy = MaxEnergy;
-    }
+		if (CanSelfDestruct) GetComponent<PlayerBody>().HasExploded = false;
+	}
 
     /// <summary>
     /// This coroutine applies the debuff's effects throughout it's duration before removing itself from the player.

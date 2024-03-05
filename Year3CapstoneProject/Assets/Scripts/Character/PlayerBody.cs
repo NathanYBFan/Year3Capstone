@@ -57,6 +57,7 @@ public class PlayerBody : MonoBehaviour
 	private float iceInertiaMultiplier = 50f;
 	#endregion Serialize Fields
 	#region Getters & Setters
+	public bool HasExploded { get { return hasExploded; } set { hasExploded = value; } }
 	public bool OnIce { get { return onIce; } set { onIce = value; } }
 	public int PlayerIndex { get { return playerIndex; } }
 	public bool IsRolling { get { return isRolling; } }
@@ -321,7 +322,7 @@ public class PlayerBody : MonoBehaviour
             {
                 yield return null;
             }
-            Death();
+            stats.StartDeath();
         }
         else yield return null;
     }
