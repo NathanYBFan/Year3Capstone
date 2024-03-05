@@ -19,7 +19,7 @@ public class FallZone : MonoBehaviour
         foreach (GameObject platform in GameManager._Instance.Platforms)
         {
             // If its not a crumbling block
-            if (!CheckIfCrumblingBlock(platform))
+            if (!CheckIfCrumblingBlock(platform) && !platform.GetComponent<Platform>().IsDropped)
             {
                 var d = (other.transform.parent.parent.position - platform.transform.position).sqrMagnitude;
                 if (d < distance)

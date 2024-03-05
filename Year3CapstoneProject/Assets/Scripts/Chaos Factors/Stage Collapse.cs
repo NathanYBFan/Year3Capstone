@@ -1,41 +1,38 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StageCollapse : MonoBehaviour, ChaosFactor
 {
-
 	[SerializeField]
 	private int numberOfBlocks;
+
 	[SerializeField]
 	private float dropInterval;
+
 	[SerializeField]
 	private float endDelay;
+
 	[SerializeField]
 	private float timer;
 
-	int randomNum;
+	private int randomNum;
+	private GameObject[] droppedPlatforms;
 
-	GameObject[] droppedPlatforms;
-
-
+	// Public getter/setters
 	public float Timer { get { return timer; } }
+	
 	// Start is called before the first frame update
 	void Start()
 	{
-		Debug.Log("Stage collapse started");
 		droppedPlatforms = new GameObject[numberOfBlocks];
 		StartCoroutine(collapse());
-
 	}
-
 
 	public IEnumerator collapse()
 	{
 		for (int i = 0; i < numberOfBlocks; i++)
 		{
 			randomNum = Random.Range(0, GameManager._Instance.Platforms.Count);
-
 
 			GameObject dropping = GameManager._Instance.Platforms[randomNum];
 			droppedPlatforms[i] = dropping;

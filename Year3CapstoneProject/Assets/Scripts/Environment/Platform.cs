@@ -29,10 +29,15 @@ public class Platform : MonoBehaviour
 	[SerializeField]
 	GameObject[] MiscChildren;
 
+	[SerializeField]
+	private bool isDropped = false;
+
+
 	public bool effectsActive;
 
 	// Getters & Setters
 	public GameObject IceTop { get { return iceTop; } set { iceTop = value; } }
+	public bool IsDropped { get { return isDropped; } set { IsDropped = value; } }
 
 	private void Awake()
 	{
@@ -44,14 +49,14 @@ public class Platform : MonoBehaviour
 	public void collapse()
 	{
 		//do visual thing as warning
-
+		isDropped = true;
 		StartCoroutine(Down());
 	}
 	public void rise()
 	{
 		StopAllCoroutines();
 		//do visual thing as warning
-
+		IsDropped = false;
 		StartCoroutine(Up());
 	}
 
