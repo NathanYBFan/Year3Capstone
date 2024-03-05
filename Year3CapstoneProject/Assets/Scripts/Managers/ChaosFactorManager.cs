@@ -48,6 +48,7 @@ public class ChaosFactorManager : MonoBehaviour
             _Instance = this;
 
         nextChaosFactorTimerSeconds = 0f;
+
     }
 
     private void Update() // TODO: DEBUG TO BE REMOVED
@@ -84,6 +85,12 @@ public class ChaosFactorManager : MonoBehaviour
         if (Input.GetKeyDown("[6]"))
         {
             Debug.Log("Input recived: Numpad 6");
+            StartCoroutine(RunChaosFactor(chaosFactorList[5]));
+        }
+
+        if (Input.GetKeyDown("[9]"))
+        {
+            Debug.Log("Input recived: Numpad 9");
             timer = !timer;
             nextChaosFactorTimerSeconds = 30;
         }

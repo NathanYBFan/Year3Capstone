@@ -67,6 +67,7 @@ public class PlayerBody : MonoBehaviour
 	public bool CanShoot { get { return canShoot; } set { canShoot = value; } }
 	public bool ChaosFactorCanShoot { get { return chaosFactorCanShoot; } set { chaosFactorCanShoot = value; } }
 
+    public bool BootCF { get { return bootCF; } set { bootCF = value; } }
     public GameObject Shield { get { return playerShield; } }
 	#endregion Getters & Setters
 	#region Private Variables
@@ -81,6 +82,8 @@ public class PlayerBody : MonoBehaviour
 
 	[SerializeField]
 	private bool chaosFactorCanShoot = true;
+
+	private bool bootCF = false;
 
 	#endregion Private Variables
 
@@ -300,12 +303,17 @@ public class PlayerBody : MonoBehaviour
 
     public void FireBullet()
 	{
-		if (Time.time >= stats.NextFireTime && canShoot)
+		if (Time.time >= stats.NextFireTime && !bootCF)
 		{
 			GetComponent<PlayerShooting>().FireBullet();
 			isShooting = true;
 			stats.NextFireTime = Time.time + 1f / stats.FireRate;
 		}
+		else if (Time.time >= stats.NextFireTime && bootCF == true)
+		{
+			GameObject.Find("Boot(Clone)").GetComponent<Boot>().Kick(gameObject);
+            stats.NextFireTime = Time.time + 1f / stats.FireRate;
+        }
 	}
 
     public IEnumerator InitiateSelfDestruct()
