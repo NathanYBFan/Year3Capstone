@@ -7,24 +7,24 @@ using static UnityEngine.InputSystem.InputAction;
 public class PlayerController : MonoBehaviour
 {
 	#region Public Variables
-	public PlayerInputActions playerControl; // The player input in general
-	public float temp;
-	#endregion Public Variables
+	public PlayerInputActions	playerControl;			// The player input in general
+	public float				temp;
+	#endregion
 
 	#region Private Variables
-	private PlayerInput playerInput;    // This corresponds to a "Player Input Component" that is attached to the GO with this script on it.
-	private PlayerBody body;            // A specific player that will be manipulated by this controller.
-	private float holdDuration = 0.6f;
-	InputAction fireAction;             // Input Action for firing bullets (to see if the button is held down).
-	#endregion Private Variables
+	private PlayerInput			playerInput;			// This corresponds to a "Player Input Component" that is attached to the GO with this script on it.
+	private PlayerBody			body;					// A specific player that will be manipulated by this controller.
+	private float				holdDuration = 0.6f;
+	private InputAction			fireAction;             // Input Action for firing bullets (to see if the button is held down).
+	#endregion
 
 	private void Awake()
 	{
 		playerInput = GetComponent<PlayerInput>();
-		var bodies = FindObjectsOfType<PlayerBody>(); // Getting an array of players...
+		var bodies = GameManager._Instance.Players; // Getting an array of players...
 		int index = playerInput.playerIndex;
 
-		body = bodies.FirstOrDefault(m => m.PlayerIndex == index); // The body that this controller corresponds to is the one whose index matches the player input index of this controller.
+		body = bodies[index].GetComponent<PlayerBody>(); // The body that this controller corresponds to is the one whose index matches the player input index of this controller.
 		fireAction = playerInput.currentActionMap.FindAction("Fire", true);
 
 		MenuInputManager._Instance.PlayerInputs.Add(this.gameObject);
@@ -40,11 +40,12 @@ public class PlayerController : MonoBehaviour
 
 	public void OnRoll(CallbackContext ctx)
 	{
+		// If action was actually performed
 		if (!ctx.performed) return;
-		if (!GameManager._Instance.InGame) return;
-		if (body == null) return;
-        if (body.GetComponent<PlayerStats>().IsDead) return;
-		if (body.IsRolling) return;
+		// Body exists check
+
+		if (!GameManager._Instance.InGame || body == null) return;
+        if (body.GetComponent<PlayerStats>().IsDead || body.IsRolling) return;
 
         body.Roll();
 	}
