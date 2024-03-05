@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modifierName: Homing Bullet
   modifierImage: {fileID: 0}
-  modifierDescription: 
+  modifierDescription: Bullets home towards nearest enemy

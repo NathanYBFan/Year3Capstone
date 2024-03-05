@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 033e3c16a415fe24ebab3e1a523468d9, type: 3}
   m_Name: Overheated
   m_EditorClassIdentifier: 
-  debuffToApply: {fileID: 11400000, guid: 583f2597d53480d4099e8b7784da733f, type: 2}
   modifierName: Overheated
   modifierImage: {fileID: 0}
-  modifierDescription: 
+  modifierDescription: Allows bullets to burn opponents, dealing an extra hit of
+    damage over time
+  debuffToApply: {fileID: 11400000, guid: 583f2597d53480d4099e8b7784da733f, type: 2}

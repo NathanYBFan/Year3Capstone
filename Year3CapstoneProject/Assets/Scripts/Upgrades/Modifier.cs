@@ -5,7 +5,7 @@ public abstract class Modifier : ScriptableObject
 {
 	public string modifierName;
 
-	public Image modifierImage;
+	public Sprite modifierImage;
 
 	public string modifierDescription;
 

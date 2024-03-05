@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modifierName: You're Going Down With Me!
   modifierImage: {fileID: 0}
-  modifierDescription: 
+  modifierDescription: Charge a powerful explosion by holding X, detonating you and
+    any surrouding opponents. Those caught in the explosion will be knocked-out first.

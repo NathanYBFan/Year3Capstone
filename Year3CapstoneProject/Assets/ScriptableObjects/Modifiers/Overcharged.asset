@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modifierName: Overcharged
   modifierImage: {fileID: 0}
-  modifierDescription: 
+  modifierDescription: Permanently increases movespeed and fire rate

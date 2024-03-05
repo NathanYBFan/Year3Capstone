@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modifierName: Trifecta
   modifierImage: {fileID: 0}
-  modifierDescription: 
+  modifierDescription: Bullets shoot from two additional points
