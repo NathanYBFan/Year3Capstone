@@ -973,6 +973,14 @@ PrefabInstance:
       propertyPath: playerGlowMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 6f5e32d20e6095e4e848c3b04664ff71, type: 2}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: playerAimUIMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ec1baadea7d6a241868831961c45a6a, type: 2}
+    - target: {fileID: 8208509187627753962, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1ec1baadea7d6a241868831961c45a6a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1955,6 +1963,14 @@ PrefabInstance:
       propertyPath: playerGlowMaterial
       value: 
       objectReference: {fileID: 2100000, guid: e08b1ad221e293f45bfaca9cdeb38b0d, type: 2}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: playerAimUIMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 612655264c09da2459e321ca08d948d4, type: 2}
+    - target: {fileID: 8208509187627753962, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 612655264c09da2459e321ca08d948d4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4556,6 +4572,7 @@ MonoBehaviour:
   - {fileID: 2037555917}
   - {fileID: 240257433}
   stageSpawnPoints: []
+  playerEmissionIntensity: 3.42
   selectedGameMode: 
   deadPlayerList: []
   currentRound: 0
@@ -6415,6 +6432,10 @@ PrefabInstance:
       propertyPath: playerGlowMaterial
       value: 
       objectReference: {fileID: 2100000, guid: eff313df697b19d49a15f6bb8162f132, type: 2}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: playerAimUIMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 164bfd2da01ca714f8dddce6ad3d5d0c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6615,6 +6636,14 @@ PrefabInstance:
       propertyPath: playerGlowMaterial
       value: 
       objectReference: {fileID: 2100000, guid: f14760c440806b5488be4559a538e717, type: 2}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: playerAimUIMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 9cce6bcc7e2242145865c040db92e4f2, type: 2}
+    - target: {fileID: 8208509187627753962, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9cce6bcc7e2242145865c040db92e4f2, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
