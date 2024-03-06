@@ -28,9 +28,6 @@ public class GameManager : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("array of spawnpoints")]
 	private List<Transform> stageSpawnPoints;
 
-	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("The intensity value to apply globally to all player emissions.")]
-	private float playerEmissionIntensity = 3.42f;
 
 	[SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("Selectected game mode to load")]
@@ -63,7 +60,6 @@ public class GameManager : MonoBehaviour
 	public List<GameObject> Platforms { get { return platforms; } set { platforms = value; } }
 	public string SelectedGameMode { get { return selectedGameMode; } set { selectedGameMode = value; } }
 	public List<Transform> StageSpawnPoints { get { return stageSpawnPoints; } set { stageSpawnPoints = value; } }
-	public float PlayerEmissionIntensity { get { return playerEmissionIntensity; } }
 	public bool InGame { get { return inGame; } set { inGame = value; } }
 	public bool IsPaused { get { return isPaused; } set { isPaused = value; } }
 	public int CurrentRound { get { return currentRound; } set { currentRound = value; } }
@@ -111,7 +107,7 @@ public class GameManager : MonoBehaviour
 		{
 			player.SetActive(true);
 			player.GetComponentInChildren<PlayerStats>().IsDead = false;
-			player.GetComponentInChildren<PlayerStats>().ResetMaterialEmissionColor(playerEmissionIntensity);
+			player.GetComponentInChildren<PlayerStats>().ResetMaterialEmissionColor();
 		}
 		// Enable Player HUD's
 		foreach (GameObject h in hudBars)

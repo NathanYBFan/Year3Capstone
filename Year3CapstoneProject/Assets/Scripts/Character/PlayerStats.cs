@@ -30,7 +30,11 @@ public class PlayerStats : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
     private Material playerAimUIMaterial;
 
-    [Header("Effects")]
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("The intensity value to apply globally to all player emissions.")]
+	private float playerEmissionIntensity = 3.42f;
+
+	[Header("Effects")]
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
     private ParticleSystem burning;
@@ -182,7 +186,8 @@ public class PlayerStats : MonoBehaviour
     public float HomingAccuracy { get { return homingAccuracy; } set { homingAccuracy = value; } }
     public float HomingBulletRotSpeed { get { return homingBulletRotSpeed; } set { homingBulletRotSpeed = value; } }
     public Color UIColor { get { return uiColor; } set { uiColor = value; } }
-    public Texture PlayerColor { 
+	public float PlayerEmissionIntensity { get { return playerEmissionIntensity; } }
+	public Texture PlayerColor { 
         get { return playerColor; } 
         set {
             playerColor = value;
@@ -218,7 +223,7 @@ public class PlayerStats : MonoBehaviour
             }
             legs.transform.GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
             
-            ResetMaterialEmissionColor(GameManager._Instance.PlayerEmissionIntensity);
+            ResetMaterialEmissionColor();
         }
     }
     public CharacterStatsSO CharacterStat
@@ -247,7 +252,7 @@ public class PlayerStats : MonoBehaviour
         ResetPlayer();
     }
 
-    public void ResetMaterialEmissionColor(float i)
+    public void ResetMaterialEmissionColor()
     {
         // Finding how close to white the player's colour is
         // Note that it is only divided by 2 * 255 and not 3
@@ -259,20 +264,20 @@ public class PlayerStats : MonoBehaviour
 		playerGlowMaterial.SetTexture("_EmissionMap", playerColor);
         playerGlowMaterial.SetColor("_BaseColor", uiColor);
 		playerGlowMaterial.EnableKeyword("_EMISSION");
-        playerGlowMaterial.SetColor("_EmissionColor", uiColor * (i - colourBrightness)); // To convert from the regular colour to HDR (with intensity), multiply the intensity value into the colour. We subtract colourBrightness from intensity so the lighter colours aren't as blown out.
+        playerGlowMaterial.SetColor("_EmissionColor", uiColor * (playerEmissionIntensity - colourBrightness)); // To convert from the regular colour to HDR (with intensity), multiply the intensity value into the colour. We subtract colourBrightness from intensity so the lighter colours aren't as blown out.
 
 		// Setting the aiming UI material values
 		playerAimUIMaterial.SetTexture("_EmissionMap", playerColor);
 		playerAimUIMaterial.SetColor("_BaseColor", uiColor);
 		playerAimUIMaterial.EnableKeyword("_EMISSION");
-		playerAimUIMaterial.SetColor("_EmissionColor", uiColor * ((i * 0.5f) - colourBrightness)); // Because the aim UI is thicker lined than the player lights, we're only going to consider half the intensity value. Again, removing colourBrightness from the emission to prevent blow out.
+		playerAimUIMaterial.SetColor("_EmissionColor", uiColor * ((playerEmissionIntensity * 0.5f) - colourBrightness)); // Because the aim UI is thicker lined than the player lights, we're only going to consider half the intensity value. Again, removing colourBrightness from the emission to prevent blow out.
 	}
 
     private void Update()
     {
         // Energy bar regen.
         if (Input.GetKeyDown(KeyCode.Q))
-            ResetMaterialEmissionColor(GameManager._Instance.PlayerEmissionIntensity);
+            ResetMaterialEmissionColor();
 
         // Tick the timer
         timer += Time.deltaTime;
