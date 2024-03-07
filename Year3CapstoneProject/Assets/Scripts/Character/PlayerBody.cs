@@ -405,26 +405,26 @@ public class PlayerBody : MonoBehaviour
 	private IEnumerator PlayerShield()
 	{
 		//fading doesnt work cause its a shader, will find fix eventually i hope
-		float shieldTime = 0f;
+		float currTime = 0f;
 		playerShield.SetActive(true);
-		Color c = playerShield.GetComponent<Renderer>().material.color;
-		for (float alpha = 0f; alpha >= 1; alpha += 0.1f)
+		while (currTime <= stats.ShieldScaleTime)
 		{
-			c.a = alpha;
-			playerShield.GetComponent<Renderer>().material.color = c;
-			yield return new WaitForSeconds(.1f);
-		}
-		while (shieldTime < 8f)
-		{
-			shieldTime += Time.deltaTime;
+			playerShield.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * stats.ShieldMaxSize, currTime / stats.ShieldScaleTime);
+			currTime += Time.deltaTime;
 			yield return null;
 		}
-		Color s = playerShield.GetComponent<Renderer>().material.color;
-		for (float alpha = 1f; alpha >= 0; alpha -= 0.1f)
+		currTime = 0;
+		while (currTime < stats.ShieldUpDuration)
 		{
-			s.a = alpha;
-			playerShield.GetComponent<Renderer>().material.color = s;
-			yield return new WaitForSeconds(.1f);
+			currTime += Time.deltaTime;
+			yield return null;
+		}
+		currTime = 0f;
+		while (currTime <= stats.ShieldScaleTime)
+		{
+			playerShield.transform.localScale = Vector3.Lerp(Vector3.one * stats.ShieldMaxSize, Vector3.zero, currTime / stats.ShieldScaleTime);
+			currTime += Time.deltaTime;
+			yield return null;
 		}
 		playerShield.SetActive(false);
 		canMove = true;

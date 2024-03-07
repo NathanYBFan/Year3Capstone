@@ -134,10 +134,23 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     [Foldout("Player Stats"), Tooltip("The speed of which a homing bullet will rotate at to aim towards it's target.\nNOTE: Lower speed values means it takes longer to adjust its rotation to face the target -> Less Accuracy")]
     private float homingBulletRotSpeed = 200f;
-    #endregion Serialize Fields
 
-    #region Private Variables
-    private bool isDead = false;
+
+	[Header("Rolling Stats")]
+	[SerializeField]
+	[Foldout("Rolling Stats")]
+	private float shieldScaleTime = 0.2f;
+	[SerializeField]
+	[Foldout("Rolling Stats")]
+	private float shieldUpDuration = 8f;
+	[SerializeField]
+	[Foldout("Rolling Stats")]
+	private float shieldMaxSize = 270f;
+
+	#endregion Serialize Fields
+
+	#region Private Variables
+	private bool isDead = false;
     private Coroutine debuffCoroutine;
     private float nextFireTime = 0;
     private Texture playerColor;
@@ -185,6 +198,9 @@ public class PlayerStats : MonoBehaviour
     public bool ExplodingBullets { get { return explodingBullets; } set { explodingBullets = value; } }
     public float HomingAccuracy { get { return homingAccuracy; } set { homingAccuracy = value; } }
     public float HomingBulletRotSpeed { get { return homingBulletRotSpeed; } set { homingBulletRotSpeed = value; } }
+    public float ShieldScaleTime { get { return shieldScaleTime; } }
+    public float ShieldUpDuration { get { return shieldUpDuration; } }
+    public float ShieldMaxSize { get { return shieldMaxSize; } }
     public Color UIColor { get { return uiColor; } set { uiColor = value; } }
 	public float PlayerEmissionIntensity { get { return playerEmissionIntensity; } }
 	public Texture PlayerColor { 
