@@ -74,7 +74,7 @@ public class Meteor : MonoBehaviour, ChaosFactor
     {
         if (collision.gameObject.GetComponentInChildren<CapsuleCollider>() != null && collision.gameObject.GetComponentInChildren<CapsuleCollider>().CompareTag("Player")) 
         {
-            collision.gameObject.transform.GetComponent<PlayerStats>().TakeDamage(damage);
+            collision.gameObject.transform.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
 
         }
 
@@ -88,7 +88,7 @@ public class Meteor : MonoBehaviour, ChaosFactor
         if (other.tag == "Player")
         {
             UnityEngine.Debug.Log("player detected by meteor");
-            other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(100);
+            other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(100, DamageType.ChaosFactor);
 
 
         }

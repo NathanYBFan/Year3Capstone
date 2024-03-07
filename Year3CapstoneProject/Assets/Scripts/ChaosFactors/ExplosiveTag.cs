@@ -50,7 +50,7 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
         {
             holdSpeeds[i] = GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed;
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = playerSpeed;
-            GameManager._Instance.Players[i].GetComponent<PlayerBody>().ChaosFactorCanShoot = false;
+            GameManager._Instance.Players[i].GetComponent<PlayerStats>().ChaosFactorCanShoot = false;
         }
 
         int random = Random.Range(0, 3);
@@ -67,9 +67,9 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
         for (int i = 0; i < GameManager._Instance.Players.Count; i++)
         {
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = holdSpeeds[i];
-            GameManager._Instance.Players[i].GetComponent<PlayerBody>().CanShoot = true;
-            GameManager._Instance.Players[i].GetComponent<PlayerBody>().ChaosFactorCanShoot = true;
+            GameManager._Instance.Players[i].GetComponent<PlayerStats>().CanShoot = true;
+            GameManager._Instance.Players[i].GetComponent<PlayerStats>().ChaosFactorCanShoot = true;
         }
-        targetPlayer.GetComponent<PlayerStats>().TakeDamage(damage);
+        targetPlayer.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
     }
 }

@@ -40,7 +40,7 @@ public class FallZone : MonoBehaviour
         // Deal Damage
         PlayerStats stats = other.transform.parent.parent.GetComponent<PlayerStats>();
         if (stats.CurrentHealth <= 1) return;
-        stats.TakeDamage(damageToDeal);
+        stats.TakeDamage(damageToDeal, DamageType.Falling);
     }
 
     private bool CheckIfCrumblingBlock(GameObject platform)

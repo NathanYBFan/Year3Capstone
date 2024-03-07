@@ -10,6 +10,6 @@ public class KillZone : MonoBehaviour
 
         // Deal Damage
         PlayerStats stats = other.transform.parent.parent.GetComponent<PlayerStats>();
-        stats.TakeDamage(9999999);
+        stats.TakeDamage(9999999, DamageType.Lethal);
     }
 }

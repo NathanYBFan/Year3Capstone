@@ -66,7 +66,7 @@ public class Furnace : MonoBehaviour
             //damage the player that made contact, only if the fire is on
             if (isOn && !damaged)
             {
-                other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage);
+                other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.Hazard);
                 damaged = true;
                 StartCoroutine(AllowDamage());
             }

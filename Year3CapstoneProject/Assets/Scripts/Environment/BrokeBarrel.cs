@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class brokeBarrel : MonoBehaviour
+public class BrokeBarrel : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,7 @@ public class brokeBarrel : MonoBehaviour
             if (hit.name == "PlayerMesh")
             {
 
-                hit.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(3);
+                hit.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(3, DamageType.Hazard);
             }
 
             if (rb != null)

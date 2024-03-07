@@ -2,6 +2,15 @@ using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
 
+public enum DamageType
+{
+	Bullet,
+	Hazard,
+	Explosive,
+	ChaosFactor,
+	Falling,
+	Lethal
+}
 public class Explosive : MonoBehaviour
 {
 	#region Serialize Fields
@@ -62,7 +71,7 @@ public class Explosive : MonoBehaviour
 
 						}
 					}
-					other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage);
+					other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.Explosive);
 				}
 				break;
 			case "StageNormal":
@@ -95,7 +104,7 @@ public class Explosive : MonoBehaviour
 		}
 		if (isSelfDestruct)
 		{
-			playerOwner.TakeDamage(9999999);
+			playerOwner.TakeDamage(9999999, DamageType.Explosive);
 			yield return new WaitForSeconds(0.01f);
 		}
 		Destroy(gameObject);

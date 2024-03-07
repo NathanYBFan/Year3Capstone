@@ -109,21 +109,27 @@ MonoBehaviour:
   characterStat: {fileID: 0}
   playerMeshGO: {fileID: 4217742652280652439}
   playerLegGO: {fileID: 2880135881502141341}
+  playerGlowMaterial: {fileID: 0}
+  playerAimUIMaterial: {fileID: 0}
+  playerEmissionIntensity: 3.42
   burning: {fileID: 1219497896550078896}
   maxHealth: 80
   currHealth: 80
   movementSpeed: 0
-  dashSpeed: 32
   fireRate: 4
   damage: 1
   maxEnergy: 100
   currEnergy: 100
   timer: 0
   rate: 1
-  dashDuration: 0.125
   replenishAmount: 10
+  dashSpeed: 32
+  dashDuration: 0.125
+  dashEnergyConsumption: 33.33
   giveableDebuff: {fileID: 0}
   inflictedDebuff: {fileID: 0}
+  canShoot: 1
+  chaosFactorCanShoot: 1
   modifiersOnPlayer: []
   canSelfDestruct: 0
   triShot: 0
@@ -133,6 +139,12 @@ MonoBehaviour:
   explodingBullets: 0
   homingAccuracy: 0.8
   homingBulletRotSpeed: 60
+  rollingEnergyConsumption: 100
+  shieldScaleTime: 0.2
+  shieldUpDuration: 8
+  shieldMaxSize: 270
+  damageBoostDuration: 7
+  speedBoostDuration: 7
 --- !u!114 &84036346594365571
 MonoBehaviour:
   m_ObjectHideFlags: 0

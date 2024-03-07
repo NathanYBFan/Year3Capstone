@@ -99,7 +99,7 @@ public class Boot : MonoBehaviour, ChaosFactor
         for (int i = 0; i < GameManager._Instance.Players.Count; i++)
         {
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = holdSpeeds[i];
-            GameManager._Instance.Players[i].GetComponent<PlayerBody>().CanShoot = true;
+            GameManager._Instance.Players[i].GetComponent<PlayerStats>().CanShoot = true;
             
             GameManager._Instance.Players[i].GetComponent<PlayerBody>().BootCF = false;
         }

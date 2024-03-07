@@ -64,11 +64,8 @@ public class PlayerBody : MonoBehaviour
 
 	public bool CanMove { get { return canMove; } }
 
-	public bool CanShoot { get { return canShoot; } set { canShoot = value; } }
-	public bool ChaosFactorCanShoot { get { return chaosFactorCanShoot; } set { chaosFactorCanShoot = value; } }
-
-    public bool BootCF { get { return bootCF; } set { bootCF = value; } }
-    public GameObject Shield { get { return playerShield; } }
+	public bool BootCF { get { return bootCF; } set { bootCF = value; } }
+	public GameObject Shield { get { return playerShield; } }
 	#endregion Getters & Setters
 	#region Private Variables
 	Animation headAnim;
@@ -76,40 +73,28 @@ public class PlayerBody : MonoBehaviour
 	private bool hasExploded = false;
 	private bool isDashing = false, isShooting = false, isRolling = false, canMove = true;
 	private Vector2 moveDir, aimDir, legDir; //The current movement direction of this player.
-
-	[SerializeField]
-	private bool canShoot = true;
-
-	[SerializeField]
-	private bool chaosFactorCanShoot = true;
-
 	private bool bootCF = false;
-
 	#endregion Private Variables
 
-	private void Start()
-	{
-		AudioManager._Instance.PlayerAudioSourceList.Add(audioSource);
-	}
-
+	private void Start() { AudioManager._Instance.PlayerAudioSourceList.Add(audioSource); }
 	private void Update()
 	{
 		UpdateAnimations();
+
 		// Begin self-destruct (if possible)
 		if (stats.CurrentHealth <= 0 && !stats.IsDead)
-		{
 			if (stats.CanSelfDestruct) StartCoroutine("InitiateSelfDestruct");
-        }
 
-		if (Input.GetKeyDown(KeyCode.Alpha1)) Roll(1);
-		else if (Input.GetKeyDown(KeyCode.Alpha2)) Roll(2);
-        else if (Input.GetKeyDown(KeyCode.Alpha3)) Roll(3);
-        else if (Input.GetKeyDown(KeyCode.Alpha4)) Roll(4);
-    }
 
-    private void FixedUpdate()
+		// Scripted roll outcomes
+		if (Input.GetKeyDown(KeyCode.Alpha1)) Roll(1);      // Damage boost
+		else if (Input.GetKeyDown(KeyCode.Alpha2)) Roll(2); // Shield
+		else if (Input.GetKeyDown(KeyCode.Alpha3)) Roll(3); // Speed boost
+		else if (Input.GetKeyDown(KeyCode.Alpha4)) Roll(4); // Heal
+	}
+
+	private void FixedUpdate()
 	{
-
 		// Aim UI oriented so y-axis is parallel to the surface normal of the map.
 		RaycastHit hit;
 		if (Physics.Raycast(aimUI.transform.position, Vector3.down, out hit))
@@ -154,10 +139,7 @@ public class PlayerBody : MonoBehaviour
 
 	private IEnumerator DestroyPlayer()
 	{
-		while (headAnim.IsPlaying("Death"))
-		{
-			yield return null;
-		}
+		while (headAnim.IsPlaying("Death")) yield return null;
 		GameManager._Instance.PlayerDied(this.gameObject);
 	}
 
@@ -176,6 +158,7 @@ public class PlayerBody : MonoBehaviour
 		headAnim = mesh.transform.GetComponentInChildren<Animation>();
 		if (headAnim == null) return;
 
+		// Updating head animations accordingly
 		if (isDashing)
 		{
 			headAnim.Play("Dash");
@@ -184,7 +167,7 @@ public class PlayerBody : MonoBehaviour
 		else if (isShooting && canMove)
 		{
 			headAnim.Play("Shoot");
-            isShooting = false;
+			isShooting = false;
 		}
 		else if (isRolling)
 		{
@@ -198,6 +181,7 @@ public class PlayerBody : MonoBehaviour
 		legAnim = transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Animation>();
 		if (legAnim == null) return;
 
+		// Updating leg animations accordingly
 		if (isDashing)
 		{
 			legAnim.Play("Dash");
@@ -206,8 +190,8 @@ public class PlayerBody : MonoBehaviour
 		else if (isShooting && canMove)
 		{
 			legAnim.Play("Shoot");
-            canShoot = true;
-            isShooting = false;
+			stats.CanShoot = true;
+			isShooting = false;
 		}
 		else if (isRolling)
 		{
@@ -219,17 +203,19 @@ public class PlayerBody : MonoBehaviour
 
 		if (!headAnim.IsPlaying("Roll"))
 		{
+			// They are no longer rolling, so we can give the rolling player movement and shooting again
 			canMove = true;
-            canShoot = true;
-        }
+			stats.CanShoot = true;
+		}
 	}
 
 	public void Roll()
-	{
-		canShoot = false;
+	{		
 		int healing = 1;
 		float amount = stats.MaxEnergy;
-		// Power saving
+		stats.CanShoot = false;
+
+		// Power-Saving Mode
 		if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
 														 // Has enough energy to roll
 		if (stats.CurrentEnergy - amount < 0) return;
@@ -237,8 +223,8 @@ public class PlayerBody : MonoBehaviour
 		canMove = false;
 		rb.velocity = Vector3.zero;
 
-        // Using energy before doing action
-        stats.UseEnergy(amount);
+		// Using energy before doing action
+		stats.UseEnergy(amount);
 		int odds;
 		if (stats.CurrentHealth == stats.MaxHealth)
 			odds = Random.Range(1, 4);
@@ -264,44 +250,40 @@ public class PlayerBody : MonoBehaviour
 		{
 			stats.Heal(healing);
 			healEffect.Play();
-        }		
-    }
+		}
+	}
 
-    private void Roll(int input)
-    {
-        canShoot = false;
-        int healing = 1;
-        float amount = stats.MaxEnergy;
-        // Power saving
-        if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
-                                                         // Has enough energy to roll
-        if (stats.CurrentEnergy - amount < 0) return;
-        isRolling = true;
-        canMove = false;
-        rb.velocity = Vector3.zero;
+	private void Roll(int input)
+	{
+		stats.CanShoot = false;
+		int healing = 1;
+		if (stats.CurrentEnergy - stats.RollingEnergyConsumption < 0) return;
+		isRolling = true;
+		canMove = false;
+		rb.velocity = Vector3.zero;
 
-        // Using energy before doing action
-        stats.UseEnergy(amount);
+		// Using energy before doing action
+		stats.UseEnergy(stats.RollingEnergyConsumption);
 
 		switch (input)
 		{
 			case 1:
-                StartCoroutine(DmgBoost());
-                break;
+				StartCoroutine(DmgBoost());
+				break;
 			case 2:
-                StartCoroutine(PlayerShield());
-                break;
+				StartCoroutine(PlayerShield());
+				break;
 			case 3:
-                StartCoroutine(SpeedBoost());
-                break;
+				StartCoroutine(SpeedBoost());
+				break;
 			case 4:
-                stats.Heal(healing);
-                healEffect.Play();
-                break;
-        }
-    }
+				stats.Heal(healing);
+				healEffect.Play();
+				break;
+		}
+	}
 
-    public void FireBullet()
+	public void FireBullet()
 	{
 		if (Time.time >= stats.NextFireTime && !bootCF)
 		{
@@ -312,42 +294,36 @@ public class PlayerBody : MonoBehaviour
 		else if (Time.time >= stats.NextFireTime && bootCF == true)
 		{
 			GameObject.Find("Boot(Clone)").GetComponent<Boot>().Kick(gameObject);
-            stats.NextFireTime = Time.time + 1f / stats.FireRate;
-        }
+			stats.NextFireTime = Time.time + 1f / stats.FireRate;
+		}
 	}
 
-    public IEnumerator InitiateSelfDestruct()
-    {
-        if (stats.CanSelfDestruct && !hasExploded)
-        {
-            hasExploded = true;
-            canMove = false;
-            GameObject explosionRadius = Instantiate(explosion, transform.position, Quaternion.identity);
-            explosionRadius.GetComponent<Explosive>().OriginalPlayerIndex = playerIndex;
-            explosionRadius.GetComponent<Explosive>().PlayerOwner = stats;
-            explosionRadius.GetComponent<Explosive>().StartExpansion(true);
-            while (explosionRadius != null)
-            {
-                yield return null;
-            }
-            stats.StartDeath();
-        }
-        else yield return null;
-    }
-
-    public void DashActionPressed()
+	public IEnumerator InitiateSelfDestruct()
 	{
-		float amount = stats.MaxEnergy / 3.0f;
-		// Power saving
-		if (stats.IsPowerSaving) amount = amount * 0.5f; // Must be done somewhere else/should run only once
-														 // Has enough energy to dash
-		if (stats.CurrentEnergy - amount < 0) return;
+		if (stats.CanSelfDestruct && !hasExploded)
+		{
+			hasExploded = true;
+			canMove = false;
+			GameObject explosionRadius = Instantiate(explosion, transform.position, Quaternion.identity);
+			explosionRadius.GetComponent<Explosive>().OriginalPlayerIndex = playerIndex;
+			explosionRadius.GetComponent<Explosive>().PlayerOwner = stats;
+			explosionRadius.GetComponent<Explosive>().StartExpansion(true);
+			while (explosionRadius != null)
+			{
+				yield return null;
+			}
+			stats.StartDeath();
+		}
+		else yield return null;
+	}
 
+	public void DashActionPressed()
+	{
+		if (stats.CurrentEnergy - stats.DashEnergyConsumption < 0) return;
 		isDashing = true;
 		dashEffect.Play(true);
 		// Using energy before doing action
-		stats.UseEnergy(amount);
-
+		stats.UseEnergy(stats.DashEnergyConsumption);
 
 		Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
 		if (moveDirection.magnitude > 1)
@@ -362,7 +338,6 @@ public class PlayerBody : MonoBehaviour
 		while (elapsedTime < stats.DashDuration)
 		{
 			float distThisFrame = stats.DashSpeed * Time.deltaTime;
-
 			rb.MovePosition(rb.position + moveDir * distThisFrame);
 			elapsedTime += Time.deltaTime;
 			yield return null;
@@ -374,61 +349,65 @@ public class PlayerBody : MonoBehaviour
 
 	private IEnumerator DmgBoost()
 	{
-		
 		float buffTime = 0f;
-        stats.Damage = stats.Damage + 1;
+		stats.Damage += 1;
 		dmgEffect.Play();
-        while (buffTime < 7f)
-		{
-			buffTime += Time.deltaTime;
-			yield return null;
-        }
-        stats.Damage = stats.Damage - 1;
-		dmgEffect.Stop();
-    }
-
-	private IEnumerator SpeedBoost()
-	{
-		
-		float buffTime = 0f;
-		stats.MovementSpeed = stats.MovementSpeed + 3;
-		speedEffect.Play();
-		while (buffTime < 7f)
+		while (buffTime < stats.DamageBoostDuration)
 		{
 			buffTime += Time.deltaTime;
 			yield return null;
 		}
-		stats.MovementSpeed = stats.MovementSpeed - 3;
+
+		stats.Damage -= 1;
+		dmgEffect.Stop();
+	}
+
+	private IEnumerator SpeedBoost()
+	{
+		float buffTime = 0f;
+		stats.MovementSpeed += 3;
+		speedEffect.Play();
+		while (buffTime < stats.SpeedBoostDuration)
+		{
+			buffTime += Time.deltaTime;
+			yield return null;
+		}
+
+		stats.MovementSpeed -= 3;
 		speedEffect.Stop();
-    }
+	}
 
 	private IEnumerator PlayerShield()
 	{
-		//fading doesnt work cause its a shader, will find fix eventually i hope
 		float currTime = 0f;
 		playerShield.SetActive(true);
+
 		while (currTime <= stats.ShieldScaleTime)
 		{
+			// Scale up with scale time
 			playerShield.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * stats.ShieldMaxSize, currTime / stats.ShieldScaleTime);
 			currTime += Time.deltaTime;
 			yield return null;
 		}
 		currTime = 0;
+
 		while (currTime < stats.ShieldUpDuration)
 		{
+			// Upkeep shield for shield duration time
 			currTime += Time.deltaTime;
 			yield return null;
 		}
 		currTime = 0f;
+
 		while (currTime <= stats.ShieldScaleTime)
 		{
+			// Scale down with scale time
 			playerShield.transform.localScale = Vector3.Lerp(Vector3.one * stats.ShieldMaxSize, Vector3.zero, currTime / stats.ShieldScaleTime);
 			currTime += Time.deltaTime;
 			yield return null;
 		}
 		playerShield.SetActive(false);
-		canMove = true;
-    }
+	}
 
 	//Plays the player death sound
 	private void DeathSound()
@@ -438,9 +417,14 @@ public class PlayerBody : MonoBehaviour
 		AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[2], audioSource);
 	}
 	public void SetMovementVector(Vector2 dir) { moveDir = dir; if (dir.x != 0 && dir.y != 0) legDir = dir; }
-
-
 	public void SetFiringDirection(Vector2 dir) { if (dir.x != 0 && dir.y != 0) aimDir = dir; }
+
+	public void ResetPlayer()
+	{
+		aimDir = Vector3.zero;
+		moveDir = Vector3.zero;
+		legDir = Vector3.zero;
+	}
 }
 
 
