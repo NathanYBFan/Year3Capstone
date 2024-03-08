@@ -18,6 +18,11 @@ public class Boot : MonoBehaviour, ChaosFactor
     private float[] holdSpeeds;
     public float Timer { get { return timer; } }
 
+    private int kickSpeed = 7;
+
+    private float kickTime = 0.5f;
+
+    private bool kicked = false;
 
     // Start is called before the first frame update
     void Start()
@@ -48,50 +53,39 @@ public class Boot : MonoBehaviour, ChaosFactor
     public void Kick(GameObject kicker)
     {
 
-        //Determin if player is in fron of you
-
-        //check distance
-
         foreach (GameObject p in GameManager._Instance.Players)
-        { 
-            if (p != kicker && p != null)
+        {
+            if (p == kicker || p == null) { break; }
+            //check distance
+            Vector3 distance = p.transform.position - kicker.transform.position;
+
+            //GET MAGNITUDE OF DISTANCE
+            float dist = distance.magnitude;
+
+            //get direction
+            Vector3 localDir = Quaternion.Inverse(kicker.transform.rotation) * (p.transform.position - kicker.transform.position);
+            
+            if (dist < 5 && localDir.z > 0 && !kicked)
             {
-                //gt player position
-
-                //check distance
-
-                Vector3 distance = p.transform.position - kicker.transform.position;
-
-                float dist = distance.magnitude;
-
-                
-                //print(p.name+": " + distance);
-
-
-                if (dist < 5)
-                {
-                    Vector3 localDir = Quaternion.Inverse(kicker.transform.rotation) * (p.transform.position - kicker.transform.position);
-
-
-                    if (localDir.z > 0)
-                    {
-                        print(p.name);
-                        p.GetComponent<Rigidbody>().AddForce((new Vector3(distance.x*10, 2, distance.z*10) * 15f), ForceMode.VelocityChange);
-
-                    }
-
-                }
-
-
+                print(p.name);
+                Vector3 kickDirect = new Vector3(distance.x, 1.3f, distance.z);
+                StartCoroutine(Kick(kickDirect, p.GetComponent<Rigidbody>()));
             }
         }
+    }
 
-
-        //Add force to them
-
-
-
-
+    private IEnumerator Kick(Vector3 kickDir, Rigidbody rb)
+    {
+        kicked = true;
+        float elapsedTime = 0f;
+        while (elapsedTime < kickTime)
+        {
+            float distThisFrame = kickSpeed * Time.deltaTime;
+            rb.MovePosition(rb.position + kickDir * distThisFrame);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        kicked = false;
     }
 
     private void OnDestroy()
@@ -103,6 +97,5 @@ public class Boot : MonoBehaviour, ChaosFactor
             
             GameManager._Instance.Players[i].GetComponent<PlayerBody>().BootCF = false;
         }
-        
     }
 }
