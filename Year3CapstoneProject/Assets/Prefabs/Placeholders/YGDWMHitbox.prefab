@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 646830661794653739}
   - component: {fileID: 91105053458831208}
   m_Layer: 0
-  m_Name: SelfDestructHitbox
+  m_Name: YGDWMHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
