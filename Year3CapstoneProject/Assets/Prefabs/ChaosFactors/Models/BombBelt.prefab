@@ -133,6 +133,6 @@ MonoBehaviour:
   lightColour: {r: 1, g: 0.039215688, b: 0.039215688, a: 1}
   bombBeltMat: {fileID: 2100000, guid: faf22149f8550584b81a291ac09387f6, type: 2}
   minEmissionIntensity: -4
-  maxEmissionIntensity: 4
+  maxEmissionIntensity: 6
   delay: 0
   flashSpeed: 0.5

@@ -5,7 +5,7 @@ using NaughtyAttributes;
 
 public class BombBelt : MonoBehaviour
 {
-
+	#region Serialize Fields
 	[Foldout("Bomb Belt Stats"), Tooltip("")]
 	[SerializeField]
 	private Color lightColour;
@@ -24,9 +24,16 @@ public class BombBelt : MonoBehaviour
     [Foldout("Bomb Belt Stats"), Tooltip("The time (in seconds) the flash takes to get from min to max intensity.")]
     [SerializeField]
     private float flashSpeed = 1f;
-
+	#endregion
+	#region Private Variables
+	private ExplosiveTag bombTagData;
+	private float currentTime = 0;
+	private float baseFlashSpeed = 0;
+	#endregion
 	private void Awake()
 	{
+		bombTagData = gameObject.transform.parent.GetComponent<ExplosiveTag>();
+		baseFlashSpeed = flashSpeed;
 		bombBeltMat.EnableKeyword("_EMISSION");
 		bombBeltMat.SetColor("_EmissionColor", lightColour * minEmissionIntensity);
 		StartCoroutine(FlashOn());
@@ -43,7 +50,9 @@ public class BombBelt : MonoBehaviour
             yield return null;
 		}
         yield return new WaitForSeconds(delay);
-        StartCoroutine(FlashOff());
+		currentTime += elapsedTime;
+		flashSpeed = baseFlashSpeed - ((currentTime / bombTagData.Timer) * baseFlashSpeed);
+		StartCoroutine(FlashOff());
 	}
     private IEnumerator FlashOff()
     {
@@ -57,7 +66,9 @@ public class BombBelt : MonoBehaviour
             yield return null;
 		}
         yield return new WaitForSeconds(delay);
-        StartCoroutine(FlashOn());
+		currentTime += elapsedTime;
+		flashSpeed = baseFlashSpeed - ((currentTime / bombTagData.Timer) * baseFlashSpeed);
+		StartCoroutine(FlashOn());
 	}
 	private void OnTriggerEnter(Collider other)
     {
