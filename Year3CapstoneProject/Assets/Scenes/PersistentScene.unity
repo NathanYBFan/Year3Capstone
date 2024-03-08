@@ -4572,7 +4572,6 @@ MonoBehaviour:
   - {fileID: 2037555917}
   - {fileID: 240257433}
   stageSpawnPoints: []
-  playerEmissionIntensity: 3.42
   selectedGameMode: 
   deadPlayerList: []
   currentRound: 0
@@ -4624,7 +4623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deactivatedBullets: []
   activatedBullets: []
-  defaultBullet: {fileID: 1615981789932428633, guid: d6f78f7a07df7074cb2e8143467a1490, type: 3}
+  defaultBullet: {fileID: 1615981789932428633, guid: 48d3f2ad7f49bfa4bbbba04085379f46, type: 3}
   totalBulletsInPool: 200
   bulletPoolCanGrow: 0
   hardCapBulletCount: 1000

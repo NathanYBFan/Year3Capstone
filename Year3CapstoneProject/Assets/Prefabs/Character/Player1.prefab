@@ -113,10 +113,12 @@ MonoBehaviour:
   playerAimUIMaterial: {fileID: 0}
   playerEmissionIntensity: 3.42
   burning: {fileID: 1219497896550078896}
+  invincibilityTime: 0.1
   maxHealth: 80
   currHealth: 80
   movementSpeed: 0
   fireRate: 4
+  rollSpeed: 1
   damage: 1
   maxEnergy: 100
   currEnergy: 100
@@ -157,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccad5507e2d9ec4d9382b230fc24bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletDisplay: {fileID: 1615981789932428633, guid: d6f78f7a07df7074cb2e8143467a1490, type: 3}
+  bulletDisplay: {fileID: 1615981789932428633, guid: 48d3f2ad7f49bfa4bbbba04085379f46, type: 3}
   firePoint:
   - {fileID: 3701887112060088975}
   - {fileID: 3716139878111463728}
