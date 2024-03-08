@@ -60,6 +60,10 @@ public class PlayerStats : MonoBehaviour
 	private float fireRate = 0;
 
 	[SerializeField]
+	[Foldout("Player Stats"), Tooltip("")]
+	private float rollSpeed = 1;
+
+	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("Player damage amount.")]
 	private int damage = 1;
 
@@ -226,6 +230,7 @@ public class PlayerStats : MonoBehaviour
 	public bool ChaosFactorCanShoot { get { return chaosFactorCanShoot; } set { chaosFactorCanShoot = value; } }
 	public List<Modifier> ModifiersOnPlayer { get { return modifiersOnPlayer; } set { modifiersOnPlayer = value; } }
 	public bool CanSelfDestruct { get { return canSelfDestruct; } set { canSelfDestruct = value; } }
+	public float RollSpeed { get { return rollSpeed; } set { rollSpeed = value; GetComponent<PlayerBody>().HeadAnim["Roll"].speed = rollSpeed; GetComponent<PlayerBody>().LegAnim["Roll"].speed = rollSpeed; } }
 	public bool TriShot { get { return triShot; } set { triShot = value; } }
 	public bool IsPowerSaving { get { return isPowerSaving; } set { isPowerSaving = value; } }
 	public bool FragmentBullets { get { return fragmentBullets; } set { fragmentBullets = value; } }

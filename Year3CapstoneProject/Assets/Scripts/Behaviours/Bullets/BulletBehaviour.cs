@@ -46,13 +46,16 @@ public class BulletBehaviour : MonoBehaviour
 
 	private void OnEnable()
 	{
-		StartCoroutine(LifetimeClock());
 		if (playerOwner != null)
 		{
 			// We want the bullets to get a target as soon as they are used from the object pool, if the player has homing bullets enabled.
 			if (playerOwner.HomingBullets)
 				FindClosestPlayer();
+			if (playerOwner.ExplodingBullets)
+				lifeTime = 2f;
+			else lifeTime = 5f;
 		}
+		StartCoroutine(LifetimeClock());
 	}
 
 	private void Update()
@@ -167,6 +170,13 @@ public class BulletBehaviour : MonoBehaviour
 	private IEnumerator LifetimeClock()
 	{
 		yield return new WaitForSeconds(lifeTime);
+		if (playerOwner.ExplodingBullets)
+		{
+			GameObject explosion = Instantiate(explosionRadius, transform.position, Quaternion.identity);
+			explosion.GetComponent<Explosive>().PlayerOwner = this.playerOwner;
+			explosion.GetComponent<Explosive>().OriginalPlayerIndex = this.originalPlayerIndex;
+			explosion.GetComponent<Explosive>().StartExpansion(false);
+		}
 		BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
 		yield break;
 	}

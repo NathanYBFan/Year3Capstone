@@ -39,7 +39,6 @@ public class PlayerBody : MonoBehaviour
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private ParticleSystem dmgEffect;
 
-
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("")] private int playerIndex = -1; //Which number this player is.
 
@@ -59,6 +58,8 @@ public class PlayerBody : MonoBehaviour
 	#region Getters & Setters
 	public bool HasExploded { get { return hasExploded; } set { hasExploded = value; } }
 	public bool OnIce { get { return onIce; } set { onIce = value; } }
+	public Animation HeadAnim { get { return headAnim; } set { headAnim = value; } }
+	public Animation LegAnim { get { return legAnim; } set { legAnim = value; } }
 	public int PlayerIndex { get { return playerIndex; } }
 	public bool IsRolling { get { return isRolling; } }
 

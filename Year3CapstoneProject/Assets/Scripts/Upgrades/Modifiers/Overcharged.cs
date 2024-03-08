@@ -9,14 +9,16 @@ public class Overcharged : Modifier
 		if (playerStats != null)
 		{
 			playerStats.MovementSpeed += 3;
-			playerStats.FireRate += .5f;
+			playerStats.RollSpeed = 2;
+			//playerStats.FireRate += .5f;
 		}
 	}
 
 	public override void AddEffects(PlayerStats playerStats)
 	{
 		playerStats.MovementSpeed += 3;
-		playerStats.FireRate += .5f;
+		playerStats.RollSpeed = 2;
+		//playerStats.FireRate += .5f;
 	}
 
 	public override void RemoveEffects()
@@ -25,13 +27,15 @@ public class Overcharged : Modifier
 		if (playerStats != null)
 		{
 			playerStats.MovementSpeed -= 3;
-			playerStats.FireRate -= .5f;
+			playerStats.RollSpeed = 1;
+			//playerStats.FireRate -= .5f;
 		}
 	}
 
 	public override void RemoveEffects(PlayerStats playerStats)
 	{
 		playerStats.MovementSpeed -= 3;
-		playerStats.FireRate -= .5f;
+		playerStats.RollSpeed = 1;
+		//playerStats.FireRate -= .5f;
 	}
 }
