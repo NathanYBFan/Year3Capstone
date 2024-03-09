@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class Bars : MonoBehaviour
 {
-    [SerializeField]
+	#region Serialize Fields
+	[SerializeField]
     [Tooltip("Player prefab go here")]
     private PlayerStats playerStats;
 
@@ -23,13 +24,17 @@ public class Bars : MonoBehaviour
     [SerializeField]
     [Foldout("UI Bars"), Tooltip("Drag in dark character image (no glow) here")]
     private Image characterBG;
+	#endregion
 
-    private void Start()
+    public Sprite CharacterGlow { set {  characterGlow.sprite = value; } }
+    public Sprite CharacterBG { set { characterBG.sprite = value; } }
+
+    public Color CharacterGlowColour { set { characterGlow.color = value; } }
+
+    public void SetHUDBarCharacter()
     {
-        characterGlow.sprite = playerStats.CharacterStat.characterSprite;
-        characterGlow.color = playerStats.UIColor;
-        characterBG.sprite = playerStats.CharacterStat.characterBGSprite;
-    }
+		characterGlow.color = playerStats.UIColor;
+	}
 
     private void TakeDamage()
     {

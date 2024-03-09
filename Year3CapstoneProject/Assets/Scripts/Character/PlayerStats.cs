@@ -29,6 +29,9 @@ public class PlayerStats : MonoBehaviour
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
 	private Material playerAimUIMaterial;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
+	private Bars playerHUD;
 
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("The intensity value to apply globally to all player emissions.")]
@@ -246,7 +249,7 @@ public class PlayerStats : MonoBehaviour
 	public float ShieldMaxSize { get { return shieldMaxSize; } }
 	public float DamageBoostDuration { get { return damageBoostDuration; } }
 	public float SpeedBoostDuration { get { return speedBoostDuration; } }
-	public Color UIColor { get { return uiColor; } set { uiColor = value; } }
+	public Color UIColor { get { return uiColor; } set { uiColor = value; playerHUD.CharacterGlowColour = value; } }
 	public float PlayerEmissionIntensity { get { return playerEmissionIntensity; } }
 	public Texture PlayerColor
 	{
@@ -305,6 +308,9 @@ public class PlayerStats : MonoBehaviour
 			// Reset to Max
 			currHealth = maxHealth;
 			currEnergy = maxEnergy;
+
+			playerHUD.CharacterGlow = characterStat.characterSprite;
+			playerHUD.CharacterBG = characterStat.characterBGSprite;
 		}
 		get { return characterStat; }
 	}
@@ -335,6 +341,7 @@ public class PlayerStats : MonoBehaviour
 		playerAimUIMaterial.EnableKeyword("_EMISSION");
 		playerAimUIMaterial.SetColor("_EmissionColor", uiColor * ((playerEmissionIntensity * 0.5f) - colourBrightness)); // Because the aim UI is thicker lined than the player lights, we're only going to consider half the intensity value. Again, removing colourBrightness from the emission to prevent blow out.
 	}
+
 
 	private void Update()
 	{
