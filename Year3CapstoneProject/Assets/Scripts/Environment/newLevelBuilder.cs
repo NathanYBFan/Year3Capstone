@@ -39,15 +39,22 @@ public class newLevelBuilder : MonoBehaviour
     private string[,,] levelInfo;
     private int rowCount;
     private int columnCount;
-     
 
+    public string CurrentLevelName
+    {
+        get
+        {
+            return levels[levelToBuild].name;
+        }
+    }
 
     //temp start method for testing, final version will be called in gamemanager
     void Start()
     {
         GameManager._Instance.LevelBuilder = this;
         GameManager._Instance.StartNewGame();
-    }
+
+	}
 
     public void buildLevel(int lev)
     {
@@ -60,6 +67,7 @@ public class newLevelBuilder : MonoBehaviour
         GameObject temp;
         GameObject temp2;
 
+        AudioManager._Instance.PlayMusic(lev + 1);
         for (int i = 0; i < rowCount; i++)
         {
             for (int j = 0; j < columnCount; j++)
