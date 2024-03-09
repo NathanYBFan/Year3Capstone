@@ -14,17 +14,23 @@ public class Furnace : MonoBehaviour
     private int damage;
 
     [SerializeField]
-    private float delay;
+    private float burnTime;
 
     [SerializeField]
-    private float burnTime;
+    AudioSource flameSoundSource;
 
     //not to be confused with damage, this is whether or not a player has been damaged
     private bool damaged;
 
+    //the time a block waits to re-ignite its fire
+    private float delay;
+
+    
     // Start is called before the first frame update
     void Start()
     {
+        delay = UnityEngine.Random.Range(2.0f,5.0f);
+
         StartCoroutine(OnOffCycle());
     }
 
@@ -38,6 +44,7 @@ public class Furnace : MonoBehaviour
                 if (!flameArray[i].isPlaying)
                 {
                     flameArray[i].Play();
+                    FlameSound();
                 }
 
             }
@@ -102,4 +109,19 @@ public class Furnace : MonoBehaviour
 
 
     }
+
+    //Plays the player damage sound
+    private void FlameSound()
+    {
+        float randPitch = UnityEngine.Random.Range(0.8f, 1.5f);
+        AudioSource audioSource = AudioManager._Instance.ChooseEnvAudioSource();
+        if(audioSource != null)
+        {
+            audioSource.pitch = randPitch;
+            AudioManager._Instance.PlaySoundFX(AudioManager._Instance.EnvAudioList[1], audioSource);
+        }
+       
+    }
+
+    
 }
