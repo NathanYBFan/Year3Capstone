@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modifierName: Overcharged
   modifierImage: {fileID: 21300000, guid: f63637872a1e65649a99d741df9d2416, type: 3}
-  modifierDescription: Permanently increases movespeed and fire rate
+  modifierDescription: Permanently increases movement speed and halves your roll
+    time
