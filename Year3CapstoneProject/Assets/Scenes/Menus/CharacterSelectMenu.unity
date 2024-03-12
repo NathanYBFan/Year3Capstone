@@ -2938,14 +2938,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a2cd314d6dba3654689b6bccdf70e467, type: 2}
   colorSelectedByPlayers:
   - {fileID: 2800000, guid: 70c226a391c59224fbef7770db137f4c, type: 3}
-  - {fileID: 2800000, guid: 70c226a391c59224fbef7770db137f4c, type: 3}
-  - {fileID: 2800000, guid: 70c226a391c59224fbef7770db137f4c, type: 3}
-  - {fileID: 2800000, guid: 70c226a391c59224fbef7770db137f4c, type: 3}
+  - {fileID: 2800000, guid: 0d23da0ce37b0a34f97af7dc59e434b5, type: 3}
+  - {fileID: 2800000, guid: d54ac420c9f789d4cb41c92aa000fa04, type: 3}
+  - {fileID: 2800000, guid: 7fd1cbb7e4a799e46b9581d0bc1804b6, type: 3}
   uiColorSelectedByPlayers:
   - {r: 0, g: 0.5019608, b: 0.92941177, a: 1}
-  - {r: 0, g: 0.5019608, b: 0.92941177, a: 1}
-  - {r: 0, g: 0.5019608, b: 0.92941177, a: 1}
-  - {r: 0, g: 0.5019608, b: 0.92941177, a: 1}
+  - {r: 0.5686275, g: 1, b: 0.39215687, a: 1}
+  - {r: 1, g: 0.5019608, b: 0, a: 1}
+  - {r: 1, g: 0.6117647, b: 0.84705883, a: 1}
 --- !u!1 &883035944
 GameObject:
   m_ObjectHideFlags: 0
@@ -4490,6 +4490,38 @@ PrefabInstance:
       propertyPath: characterSelectMenu
       value: 
       objectReference: {fileID: 849699403}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[0].b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[0].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[1].b
+      value: 0.92941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[1].g
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[1].r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[2].b
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[2].g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[2].r
+      value: 0.5686275
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5366,6 +5398,30 @@ PrefabInstance:
       propertyPath: characterSelectMenu
       value: 
       objectReference: {fileID: 849699403}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[0].b
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[0].g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[0].r
+      value: 0.5686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[1].b
+      value: 0.92941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[1].g
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[1].r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5632,6 +5688,50 @@ PrefabInstance:
       propertyPath: characterSelectMenu
       value: 
       objectReference: {fileID: 849699403}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[0].b
+      value: 0.84705883
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[0].g
+      value: 0.6117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[0].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[1].b
+      value: 0.92941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[1].g
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[1].r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[2].b
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[2].g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[2].r
+      value: 0.5686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[3].b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
+      propertyPath: listOfColors.Array.data[3].g
+      value: 0.5019608
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
