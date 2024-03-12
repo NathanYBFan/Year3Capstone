@@ -17,6 +17,9 @@ public class Furnace : MonoBehaviour
     private float burnTime;
 
     [SerializeField]
+    private BoxCollider trigger;
+
+    [SerializeField]
     AudioSource flameSoundSource;
 
     //not to be confused with damage, this is whether or not a player has been damaged
@@ -25,7 +28,9 @@ public class Furnace : MonoBehaviour
     //the time a block waits to re-ignite its fire
     private float delay;
 
-    
+    //Whether or not the warning puff of flame has been shown
+    private bool warned;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +44,7 @@ public class Furnace : MonoBehaviour
     {
         if (isOn)
         {
+            
             for (int i = 0; i < flameArray.Length; i++)
             {
                 if (!flameArray[i].isPlaying)
@@ -50,6 +56,7 @@ public class Furnace : MonoBehaviour
             }
 
             StartCoroutine(OnOffCycle());
+            trigger.enabled = true;
         }
         else if (isOn == false)
         {
@@ -59,6 +66,7 @@ public class Furnace : MonoBehaviour
                 flameArray[i].Stop(true, ParticleSystemStopBehavior.StopEmitting);
 
             }
+            trigger.enabled = false;
 
         }
 
@@ -67,6 +75,16 @@ public class Furnace : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
+        //if the colliding object is a bullet,  delete it if the fire is on
+        if(other.gameObject.GetComponentInChildren<CapsuleCollider>() != null && other.gameObject.GetComponentInChildren<BulletBehaviour>())
+        {
+            if (isOn)
+            {
+                BulletObjectPoolManager._Instance.ExpiredBullet(other.gameObject);
+            }
+                
+            
+        }
         //if the colliding object is a player (check tag), try to deal damage
         if (other.gameObject.GetComponentInChildren<CapsuleCollider>() != null && other.gameObject.GetComponentInChildren<CapsuleCollider>().CompareTag("Player"))
         {
@@ -101,9 +119,20 @@ public class Furnace : MonoBehaviour
             //turn off fire
             isOn = false;
             damaged = false;
+            warned = false;
         }
         yield return new WaitForSeconds(delay);
         //turn on fire
+        for (int i = 0; i < flameArray.Length; i++)
+        {
+            if (!warned)
+            {
+                flameArray[i].Emit(1);
+
+            }
+        }
+        warned = true;
+        yield return new WaitForSeconds(1);
         isOn = true;
 
 
@@ -122,6 +151,4 @@ public class Furnace : MonoBehaviour
         }
        
     }
-
-    
 }

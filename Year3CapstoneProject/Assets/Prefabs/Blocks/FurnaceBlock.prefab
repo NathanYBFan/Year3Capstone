@@ -5119,8 +5119,9 @@ MonoBehaviour:
   - {fileID: 5327814123349184895}
   - {fileID: 6531992527189850276}
   damage: 1
-  delay: 5
   burnTime: 3
+  trigger: {fileID: 4484570103172695107}
+  flameSoundSource: {fileID: 0}
 --- !u!65 &885816262386565235
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5161,8 +5162,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0225319, y: 1.0225307, z: 1.0535164}
-  m_Center: {x: -0.0011219382, y: 0.00047284365, z: 0.020981431}
+  m_Size: {x: 1.0225319, y: 1.0225307, z: 1.8106871}
+  m_Center: {x: -0.0011219382, y: 0.00047284365, z: 0.3995669}
 --- !u!114 &7798131391755848078
 MonoBehaviour:
   m_ObjectHideFlags: 0
