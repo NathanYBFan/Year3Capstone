@@ -140,7 +140,7 @@ MonoBehaviour:
   intensity: 2
   speed: 2
   currentColour: {r: 1, g: 0, b: 0, a: 1}
-  mat: {fileID: 2100000, guid: 7a831cd366a30594392937c2297cdc06, type: 2}
+  mats: []
 --- !u!1 &4748749076728205467
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +207,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: ea4fbb45b9ba6684685fdf8f6f38ea48, type: 2}
   - {fileID: 2100000, guid: aa2feb7e445012f439dac2712c84bcc0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

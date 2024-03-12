@@ -4975,6 +4975,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 67d8e3b62147d2845afbeb355f1c36aa, type: 2}
+    - target: {fileID: -2859109400176981367, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d203420c9c86154ca5aaf3ffe8a93ba, type: 2}
+    - target: {fileID: 533193074659131909, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 533193074659131909, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 533193074659131909, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
       propertyPath: m_Name
       value: DefaultBlock
@@ -4984,7 +5000,8 @@ PrefabInstance:
       value: StageNormal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -2845779275431937956, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: c6e158e030e25c2478af5fa5682b1d20, type: 3}
       insertIndex: -1
