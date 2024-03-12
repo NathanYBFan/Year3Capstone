@@ -66,7 +66,7 @@ public class newLevelBuilder : MonoBehaviour
 
         GameObject temp;
         GameObject temp2;
-
+        levelToBuild = lev;
         AudioManager._Instance.PlayMusic(lev + 1);
         for (int i = 0; i < rowCount; i++)
         {

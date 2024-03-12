@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
 	private GameObject pauseMenu;
 
 	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("Pause Menu GameObject")]
+	private CenterCamera cam;
+
+	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("All players as a referenceable gameobject")]
 	private List<GameObject> players;
 
@@ -93,6 +97,7 @@ public class GameManager : MonoBehaviour
 		{
 			levelBuilder.buildLevel(currentRound % 3);
 			SpawnPlayersAtSpawnpoint();
+			cam.Center();
 		}
 
 		ChaosFactorManager._Instance.Reset();

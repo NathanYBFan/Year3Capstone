@@ -4021,6 +4021,7 @@ GameObject:
   - component: {fileID: 1228130528}
   - component: {fileID: 1228130527}
   - component: {fileID: 1228130526}
+  - component: {fileID: 1228130529}
   m_Layer: 0
   m_Name: VCam
   m_TagString: Untagged
@@ -4097,6 +4098,18 @@ Transform:
   - {fileID: 1209700575}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 48.028, y: -0.469, z: 0.176}
+--- !u!114 &1228130529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228130525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd0567cb5b9aa84387652918db80263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1236081788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4896,6 +4909,7 @@ MonoBehaviour:
   - {fileID: 709461100}
   - {fileID: 942415623}
   pauseMenu: {fileID: 1333667569}
+  cam: {fileID: 1228130529}
   players:
   - {fileID: 2024259843}
   - {fileID: 766413478}
