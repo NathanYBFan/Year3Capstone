@@ -23,44 +23,66 @@ public class CrumbleBlock : MonoBehaviour
 	[SerializeField]
 	Platform thePlatform;
 
-	private Coroutine coroutine;
+	private Coroutine crumbleCoroutine;
+	private Coroutine shakeCoroutine;
 
 	private bool hasRespawned = true;
 
 	[SerializeField]
 	MeshRenderer theMesh;
 
-	public bool HasRespawned {  get { return hasRespawned; } }
+	float shakeDelay = 0.025f;
+	float shakeAmount = 0.25f;
+	float shakeDuration = 0.15f;
+	Vector3 startingPos;
+	public bool HasRespawned { get { return hasRespawned; } }
 
-	//If there is a player standing on this, call a timer coroutine that crumbles the block
+	private void Awake()
+	{
+		startingPos = transform.position;
+	}
+	//If there is a player standing on this, call a timer crumbleCoroutine that crumbles the block
 	void OnTriggerStay(Collider other)
 	{
 		if (other.CompareTag("Player") && hasRespawned && transform.parent.GetComponent<Platform>().effectsActive == true)
 		{
-			if (coroutine == null)
-			{
-				coroutine = StartCoroutine(CrumbleTimer());
-			}
+			if (crumbleCoroutine == null) crumbleCoroutine = StartCoroutine(CrumbleTimer());
 		}
 
 	}
-	//If there is a player standing on this, call a timer coroutine that crumbles the block
+	//If there is a player standing on this, call a timer crumbleCoroutine that crumbles the block
 	void OnTriggerExit(Collider other)
 	{
+		transform.localPosition = Vector3.zero;
 		if (other.CompareTag("Player") && transform.parent.GetComponent<Platform>().effectsActive == true)
 		{
-			if (coroutine != null)
+			if (crumbleCoroutine != null)
 			{
-				StopCoroutine(coroutine);
-				coroutine = null;
+				StopCoroutine(crumbleCoroutine);
+				crumbleCoroutine = null;
 			}
 		}
 
 	}
-	//Timer coroutine that waits breakTime, crumbles the block, then re-instantiates it.
+	private IEnumerator Shake()
+	{
+		float currTime = 0;
+		Vector3 randomPos;
+		while (currTime <= shakeDuration)
+		{
+			currTime += Time.deltaTime;
+			Vector2 xzRandomPos = Random.insideUnitCircle;
+			randomPos = startingPos + (new Vector3(xzRandomPos.x, 0, xzRandomPos.y) * shakeAmount);
+			transform.position = randomPos;
+			yield return new WaitForSeconds(shakeDelay);
+		}
+		transform.localPosition = Vector3.zero;
+	}
+	//Timer crumbleCoroutine that waits breakTime, crumbles the block, then re-instantiates it.
 	private IEnumerator CrumbleTimer()
 	{
-        float currTime = breakTime;
+		StartCoroutine(Shake());
+		float currTime = breakTime;
 		while (currTime >= 0)
 		{
 			currTime -= Time.deltaTime;
@@ -74,13 +96,14 @@ public class CrumbleBlock : MonoBehaviour
 		boxCollider.enabled = false;
 		theMesh.enabled = false;
 		crumbleTrigger.enabled = false;
-        hasRespawned = false;
+		hasRespawned = false;
 
-        StartCoroutine(RespawnBlock());
+		StartCoroutine(RespawnBlock());
 	}
 
 	private IEnumerator RespawnBlock()
 	{
+		transform.localPosition = Vector3.zero;
 		float currTime = respawnTime;
 		while (currTime >= 0)
 		{
@@ -93,8 +116,8 @@ public class CrumbleBlock : MonoBehaviour
 		theMesh.enabled = true;
 		crumbleTrigger.enabled = true;
 		thePlatform.rise();
-        instantiatedExplosion = null;
-        hasRespawned = true;
-		coroutine = null;
+		instantiatedExplosion = null;
+		hasRespawned = true;
+		crumbleCoroutine = null;
 	}
 }
