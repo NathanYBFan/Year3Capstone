@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6d7aa5e05b58fa24694d33bde8dce9fe, type: 2}
+  - {fileID: 2100000, guid: 5e13f294d42adf54a8f311f121466fb4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5028,10 +5028,10 @@ MonoBehaviour:
   iceTop2: {fileID: 0}
   snowBurst: {fileID: 1117218406817029072}
   snowBurst2: {fileID: 0}
-  time: 0
   maxHeight: 0
   minHeight: 0
   MiscChildren: []
+  isDropped: 0
   effectsActive: 0
 --- !u!114 &1688249784255532505
 MonoBehaviour:
