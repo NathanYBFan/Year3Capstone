@@ -83,6 +83,7 @@ public class Boot : MonoBehaviour, ChaosFactor
     {
         kicked = true;
         float elapsedTime = 0f;
+        rb.gameObject.GetComponent<PlayerStats>().Booted = true;
         while (elapsedTime < kickTime)
         {
             float distThisFrame = kickSpeed * Time.deltaTime;
@@ -91,16 +92,23 @@ public class Boot : MonoBehaviour, ChaosFactor
             yield return null;
         }
         kicked = false;
+
+        yield return new WaitForSeconds(0.20f);
+        rb.gameObject.GetComponent<PlayerStats>().Booted = false;
     }
 
     private void OnDestroy()
     {
         for (int i = 0; i < GameManager._Instance.Players.Count; i++)
         {
-            GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = holdSpeeds[i];
-            GameManager._Instance.Players[i].GetComponent<PlayerStats>().CanShoot = true;
-            
-            GameManager._Instance.Players[i].GetComponent<PlayerBody>().BootCF = false;
+            if (GameManager._Instance.Players[i] == null) 
+            {
+
+                GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = holdSpeeds[i];
+                GameManager._Instance.Players[i].GetComponent<PlayerStats>().CanShoot = true;
+                GameManager._Instance.Players[i].GetComponent<PlayerBody>().BootCF = false;
+            }
+
         }
     }
 }

@@ -193,6 +193,7 @@ public class PlayerStats : MonoBehaviour
 	private Texture playerColor;
 	private Color uiColor;
 	private float invincibilityTimer = 0f;
+	private bool booted = false;
 	#endregion Private Variables
 
 	#region Getters & Setters
@@ -211,7 +212,9 @@ public class PlayerStats : MonoBehaviour
 	public float DashDuration { get { return dashDuration; } }
 	public float DashEnergyConsumption { get { return dashEnergyConsumption; } set { dashEnergyConsumption = value; } }
 	public float NextFireTime { get { return nextFireTime; } set { nextFireTime = value; } }
-	public Debuff GiveableDebuff { get { return giveableDebuff; } set { giveableDebuff = value; } }
+
+	public bool Booted { get { return booted; } set { booted = value; } }
+    public Debuff GiveableDebuff { get { return giveableDebuff; } set { giveableDebuff = value; } }
 	public Debuff InflictedDebuff
 	{
 		get { return inflictedDebuff; }
@@ -383,8 +386,8 @@ public class PlayerStats : MonoBehaviour
 			AudioSource theSource = gameObject.GetComponentInChildren<AudioSource>();
 			DamageSound(theSource);
 		}
-
-		if (currHealth - amount <= 0 && type == DamageType.Falling) return;
+		print(booted);
+		if (currHealth - amount <= 0 && type == DamageType.Falling && !booted) return;
 		if (invincibilityTimer > 0 && (type == DamageType.Bullet || type == DamageType.Falling)) return;
 		invincibilityTimer = invincibilityTime;
 

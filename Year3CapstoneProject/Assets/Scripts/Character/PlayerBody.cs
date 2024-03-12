@@ -75,6 +75,7 @@ public class PlayerBody : MonoBehaviour
 	private bool isDashing = false, isShooting = false, isRolling = false, canMove = true;
 	private Vector2 moveDir, aimDir, legDir; //The current movement direction of this player.
 	private bool bootCF = false;
+	private bool isBooting = false;
 	#endregion Private Variables
 
 	private void Start() { AudioManager._Instance.PlayerAudioSourceList.Add(audioSource); }
@@ -199,8 +200,13 @@ public class PlayerBody : MonoBehaviour
 			legAnim.Play("Roll");
 			isRolling = false;
 		}
-		else if (canMove && moveDir.magnitude != 0 && !legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll")) legAnim.Play("Walk");
-		else if (!legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll") && moveDir.magnitude == 0) legAnim.Play("Idle");
+		else if (bootCF && isBooting)
+		{
+            legAnim.Play("Boot");
+            isBooting = false;
+        }
+        else if (canMove && moveDir.magnitude != 0 && !legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll") && !legAnim.IsPlaying("Boot")) legAnim.Play("Walk");
+		else if (!legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll") && !legAnim.IsPlaying("Boot") && moveDir.magnitude == 0) legAnim.Play("Idle");
 
 		if (!headAnim.IsPlaying("Roll"))
 		{
@@ -208,6 +214,8 @@ public class PlayerBody : MonoBehaviour
 			canMove = true;
 			stats.CanShoot = true;
 		}
+
+
 	}
 
 	public void Roll()
@@ -286,6 +294,8 @@ public class PlayerBody : MonoBehaviour
 
 	public void FireBullet()
 	{
+		if (!GameObject.Find("Boot(Clone)")) { bootCF = false; }
+
 		if (Time.time >= stats.NextFireTime && !bootCF)
 		{
 			GetComponent<PlayerShooting>().FireBullet();
@@ -294,8 +304,9 @@ public class PlayerBody : MonoBehaviour
 		}
 		else if (Time.time >= stats.NextFireTime && bootCF == true)
 		{
+            isBooting = true;
 			GameObject.Find("Boot(Clone)").GetComponent<Boot>().Kick(gameObject);
-			stats.NextFireTime = Time.time + 1f / stats.FireRate;
+            stats.NextFireTime = Time.time + 1f / stats.FireRate;
 		}
 	}
 

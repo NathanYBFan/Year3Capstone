@@ -15,7 +15,7 @@ public class FallZone : MonoBehaviour
 
         GameObject closestObject = null;
         float distance = float.PositiveInfinity;
-
+        PlayerStats stats = other.transform.parent.parent.GetComponent<PlayerStats>();
         foreach (GameObject platform in GameManager._Instance.Platforms)
         {
             // If its not a crumbling block
@@ -35,10 +35,10 @@ public class FallZone : MonoBehaviour
         temp.y += 1f;
 
         // Teleport
-        other.transform.parent.parent.position = temp;
+        if (!stats.Booted) { other.transform.parent.parent.position = temp; }
+        
         
         // Deal Damage
-        PlayerStats stats = other.transform.parent.parent.GetComponent<PlayerStats>();
         stats.TakeDamage(damageToDeal, DamageType.Falling);
     }
 
