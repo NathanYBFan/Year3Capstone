@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 653559579764325122}
   - component: {fileID: 7411552946287178823}
   - component: {fileID: 8332253256625243821}
+  - component: {fileID: 5791900474105187905}
   m_Layer: 0
   m_Name: Conveyer Belt
   m_TagString: Untagged
@@ -100,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollX: -0.5
   scrollY: 0
+  mat: {fileID: 2100000, guid: 7a831cd366a30594392937c2297cdc06, type: 2}
 --- !u!65 &8332253256625243821
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -121,6 +123,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.99806327, y: 1.000001, z: 0.14507316}
   m_Center: {x: 0, y: -0.00000002980233, z: 0.00000071525574}
+--- !u!114 &5791900474105187905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882950619998557846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363dfdb177d9e4845aa3903b22f5335e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minHue: 0
+  maxHue: 260
+  intensity: 2
+  speed: 2
+  currentColour: {r: 1, g: 0, b: 0, a: 1}
+  mat: {fileID: 2100000, guid: 7a831cd366a30594392937c2297cdc06, type: 2}
 --- !u!1 &4748749076728205467
 GameObject:
   m_ObjectHideFlags: 0
