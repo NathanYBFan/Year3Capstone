@@ -384,6 +384,7 @@ public class PlayerStats : MonoBehaviour
 			DamageSound(theSource);
 		}
 
+		if (currHealth - amount <= 0 && type == DamageType.Falling) return;
 		if (invincibilityTimer > 0 && (type == DamageType.Bullet || type == DamageType.Falling)) return;
 		invincibilityTimer = invincibilityTime;
 
