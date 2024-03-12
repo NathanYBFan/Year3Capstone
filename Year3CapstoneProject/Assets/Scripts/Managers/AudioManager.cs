@@ -15,6 +15,11 @@ public class AudioManager : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("Audio Source List of each character, this is propgated within this script")]
     private List<AudioSource> playerAudioSourceList;
 
+    //The list of environment Audio Sources
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("The SFX Audio Sources for environment objects")]
+    private List<AudioSource> envAudioSourceList;
+
     [SerializeField, Required]
     [Foldout("Dependencies"), Tooltip("The music Audio Source which should be attached to the main camera(s)")]
     private AudioSource musicAudioSource;
@@ -31,6 +36,15 @@ public class AudioManager : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("Sound FX list for the UI")]
     private List<AudioClip> uiAudioList;
 
+    //The list of environment SFX
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Sound FX list for the Environment sounds")]
+    private List<AudioClip> envAudioList;
+
+ 
+
+    
+
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("Music track list")]
     private List<AudioClip> musicList;
@@ -38,8 +52,13 @@ public class AudioManager : MonoBehaviour
 
     #region Getters&Setters
     public List<AudioSource> PlayerAudioSourceList { get { return playerAudioSourceList; } }
+
+    public List<AudioSource> EnvAudioSourceList { get { return envAudioSourceList; } }
+
     public List<AudioClip> PlayerAudioList { get { return playerAudioList; } }
     public List<AudioClip> UIAudioList { get { return uiAudioList; } }
+    public List<AudioClip> EnvAudioList { get { return envAudioList; } }
+
 
     public AudioSource UIAudioSource { get { return uiAudioSource; } }
     public List<AudioClip> MusicList { get { return musicList; } }
@@ -149,4 +168,18 @@ public class AudioManager : MonoBehaviour
 
         yield break;
     }
+
+    //Checks all three environment audio sources, and returns the first one that isn't playing
+    public AudioSource ChooseEnvAudioSource()
+    {
+        for (int i = 0; i < envAudioSourceList.Count; i++)
+        {
+            if (!envAudioSourceList[i].isPlaying)
+            {
+                return envAudioSourceList[i];
+            }
+        }
+        return null;
+    }
+
 }
