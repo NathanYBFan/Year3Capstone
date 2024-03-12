@@ -8,7 +8,7 @@ public class BrokeBarrel : MonoBehaviour
     void Start()
     {
       //  Debug.Log("brokeBarrel called");
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 3.0f);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 6.0f);
        // Debug.Log("Colliders hit: " + colliders.Length);
 
         foreach (Collider hit in colliders)
