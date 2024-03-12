@@ -55,7 +55,11 @@ public class Boot : MonoBehaviour, ChaosFactor
 
         foreach (GameObject p in GameManager._Instance.Players)
         {
-            if (p == kicker || p == null) { break; }
+            //print(p);
+            if (p != kicker) { 
+
+            //print(p);
+
             //check distance
             Vector3 distance = p.transform.position - kicker.transform.position;
 
@@ -64,13 +68,14 @@ public class Boot : MonoBehaviour, ChaosFactor
 
             //get direction
             Vector3 localDir = Quaternion.Inverse(kicker.transform.rotation) * (p.transform.position - kicker.transform.position);
-            
+
             if (dist < 5 && localDir.z > 0 && !kicked)
             {
                 print(p.name);
                 Vector3 kickDirect = new Vector3(distance.x, 1.3f, distance.z);
                 StartCoroutine(Kick(kickDirect, p.GetComponent<Rigidbody>()));
             }
+        }
         }
     }
 
