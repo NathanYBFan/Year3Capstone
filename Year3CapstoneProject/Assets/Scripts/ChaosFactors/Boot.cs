@@ -56,7 +56,7 @@ public class Boot : MonoBehaviour, ChaosFactor
         foreach (GameObject p in GameManager._Instance.Players)
         {
             //print(p);
-            if (p != kicker) { 
+            if (p != kicker && p != null) { 
 
             //print(p);
 
