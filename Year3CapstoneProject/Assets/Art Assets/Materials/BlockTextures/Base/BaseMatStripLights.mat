@@ -14,7 +14,6 @@ Material:
   m_ValidKeywords:
   - _EMISSION
   - _METALLICSPECGLOSSMAP
-  - _NORMALMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -28,11 +27,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 73e69d509a1b85740a408c62ce46d99a, type: 3}
+        m_Texture: {fileID: 2800000, guid: a53cfaa10d54b8a40af3b4097d95d090, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Offset: {x: -7.267456, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 634f6515d377fe74b80725a83bf14803, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -48,13 +47,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 73e69d509a1b85740a408c62ce46d99a, type: 3}
+        m_Texture: {fileID: 2800000, guid: a53cfaa10d54b8a40af3b4097d95d090, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 73e69d509a1b85740a408c62ce46d99a, type: 3}
+        m_Texture: {fileID: 2800000, guid: a53cfaa10d54b8a40af3b4097d95d090, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Offset: {x: -7.267456, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 2800000, guid: 00affa2ecaa5f7347b39b7e729cff25c, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -116,9 +115,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColor: {r: 2.9960787, g: 0, b: 2.2030282, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 2.9960787, g: 0.57561904, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6021159733134490603
