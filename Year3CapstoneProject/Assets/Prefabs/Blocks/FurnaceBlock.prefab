@@ -5042,11 +5042,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -5060,6 +5060,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0116d24bc611347478587c71755d933c, type: 2}
+    - target: {fileID: -1757468907444018348, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1757468907444018348, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1757468907444018348, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
       propertyPath: m_Name
       value: FurnaceBlock
@@ -5069,7 +5081,8 @@ PrefabInstance:
       value: StageNormal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -2845779275431937956, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
       insertIndex: -1
@@ -5162,8 +5175,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0225319, y: 1.0225307, z: 1.8106871}
-  m_Center: {x: -0.0011219382, y: 0.00047284365, z: 0.3995669}
+  m_Size: {x: 1.0225319, y: 1.022532, z: 1.810687}
+  m_Center: {x: 0, y: 0, z: 0.3995669}
 --- !u!114 &7798131391755848078
 MonoBehaviour:
   m_ObjectHideFlags: 0

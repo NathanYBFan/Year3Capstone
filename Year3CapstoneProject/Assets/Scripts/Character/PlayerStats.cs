@@ -194,6 +194,7 @@ public class PlayerStats : MonoBehaviour
 	private Color uiColor;
 	private float invincibilityTimer = 0f;
 	private bool booted = false;
+	private bool damageBoost = false, speedBoost = false, shieldBoost = false;
 	#endregion Private Variables
 
 	#region Getters & Setters
@@ -330,19 +331,23 @@ public class PlayerStats : MonoBehaviour
 		// Note that it is only divided by 2 * 255 and not 3
 		// This is only so that the amount of brightness taken from the emission is greater than 1 (has more effect).
 		float colourBrightness = uiColor.r + uiColor.g + uiColor.b;
-		colourBrightness /= (255 * 2);
+		colourBrightness /= (255 * 3);
 
+		ColorMutator playerEmission = new(this.uiColor);
+		playerEmission.exposureValue = playerEmissionIntensity - colourBrightness;
 		// Setting the player lights material values
 		playerGlowMaterial.SetTexture("_EmissionMap", playerColor);
 		playerGlowMaterial.SetColor("_BaseColor", uiColor);
 		playerGlowMaterial.EnableKeyword("_EMISSION");
-		playerGlowMaterial.SetColor("_EmissionColor", uiColor * (playerEmissionIntensity - colourBrightness)); // To convert from the regular colour to HDR (with intensity), multiply the intensity value into the colour. We subtract colourBrightness from intensity so the lighter colours aren't as blown out.
+		playerGlowMaterial.SetColor("_EmissionColor", playerEmission.exposureAdjustedColor); // To convert from the regular colour to HDR (with intensity), multiply the intensity value into the colour. We subtract colourBrightness from intensity so the lighter colours aren't as blown out.
 
+		ColorMutator aimEmission = new(this.uiColor);
+		aimEmission.exposureValue = (playerEmissionIntensity * 0.75f) - colourBrightness;
 		// Setting the aiming UI material values
 		playerAimUIMaterial.SetTexture("_EmissionMap", playerColor);
 		playerAimUIMaterial.SetColor("_BaseColor", uiColor);
 		playerAimUIMaterial.EnableKeyword("_EMISSION");
-		playerAimUIMaterial.SetColor("_EmissionColor", uiColor * ((playerEmissionIntensity * 0.5f) - colourBrightness)); // Because the aim UI is thicker lined than the player lights, we're only going to consider half the intensity value. Again, removing colourBrightness from the emission to prevent blow out.
+		playerAimUIMaterial.SetColor("_EmissionColor", aimEmission.exposureAdjustedColor); // Because the aim UI is thicker lined than the player lights, we're only going to consider half the intensity value. Again, removing colourBrightness from the emission to prevent blow out.
 	}
 
 
@@ -463,6 +468,7 @@ public class PlayerStats : MonoBehaviour
 		currHealth = maxHealth;
 		currEnergy = MaxEnergy;
 		if (CanSelfDestruct) GetComponent<PlayerBody>().HasExploded = false;
+		GetComponent<PlayerBody>().RemoveAllStatBuffs();
 	}
 
 	/// <summary>

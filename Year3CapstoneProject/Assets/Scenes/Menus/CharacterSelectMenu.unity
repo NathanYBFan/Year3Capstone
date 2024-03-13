@@ -4490,38 +4490,6 @@ PrefabInstance:
       propertyPath: characterSelectMenu
       value: 
       objectReference: {fileID: 849699403}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[0].b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[0].r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[1].b
-      value: 0.92941177
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[1].g
-      value: 0.5019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[1].r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[2].b
-      value: 0.39215687
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[2].g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[2].r
-      value: 0.5686275
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5398,30 +5366,6 @@ PrefabInstance:
       propertyPath: characterSelectMenu
       value: 
       objectReference: {fileID: 849699403}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[0].b
-      value: 0.39215687
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[0].g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[0].r
-      value: 0.5686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[1].b
-      value: 0.92941177
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[1].g
-      value: 0.5019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[1].r
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5688,50 +5632,6 @@ PrefabInstance:
       propertyPath: characterSelectMenu
       value: 
       objectReference: {fileID: 849699403}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[0].b
-      value: 0.84705883
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[0].g
-      value: 0.6117647
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[0].r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[1].b
-      value: 0.92941177
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[1].g
-      value: 0.5019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[1].r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[2].b
-      value: 0.39215687
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[2].g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[2].r
-      value: 0.5686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[3].b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8976546635287152618, guid: 73b63204b39b41040a669c3bae7d07fe, type: 3}
-      propertyPath: listOfColors.Array.data[3].g
-      value: 0.5019608
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

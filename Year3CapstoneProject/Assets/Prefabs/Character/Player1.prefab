@@ -111,7 +111,8 @@ MonoBehaviour:
   playerLegGO: {fileID: 2880135881502141341}
   playerGlowMaterial: {fileID: 0}
   playerAimUIMaterial: {fileID: 0}
-  playerEmissionIntensity: 3.42
+  playerHUD: {fileID: 0}
+  playerEmissionIntensity: 3
   burning: {fileID: 1219497896550078896}
   invincibilityTime: 0.1
   maxHealth: 80

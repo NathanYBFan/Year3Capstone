@@ -202,10 +202,10 @@ public class PlayerBody : MonoBehaviour
 		}
 		else if (bootCF && isBooting)
 		{
-            legAnim.Play("Boot");
-            isBooting = false;
-        }
-        else if (canMove && moveDir.magnitude != 0 && !legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll") && !legAnim.IsPlaying("Boot")) legAnim.Play("Walk");
+			legAnim.Play("Boot");
+			isBooting = false;
+		}
+		else if (canMove && moveDir.magnitude != 0 && !legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll") && !legAnim.IsPlaying("Boot")) legAnim.Play("Walk");
 		else if (!legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll") && !legAnim.IsPlaying("Boot") && moveDir.magnitude == 0) legAnim.Play("Idle");
 
 		if (!headAnim.IsPlaying("Roll"))
@@ -219,7 +219,7 @@ public class PlayerBody : MonoBehaviour
 	}
 
 	public void Roll()
-	{		
+	{
 		int healing = 1;
 		float amount = stats.MaxEnergy;
 		stats.CanShoot = false;
@@ -266,7 +266,7 @@ public class PlayerBody : MonoBehaviour
 	{
 		stats.CanShoot = false;
 		int healing = 1;
-		if (stats.CurrentEnergy - stats.RollingEnergyConsumption < 0) return;
+		if (stats.CurrentEnergy - stats.RollingEnergyConsumption < 0 || stats.IsDead) return;
 		isRolling = true;
 		canMove = false;
 		rb.velocity = Vector3.zero;
@@ -304,9 +304,9 @@ public class PlayerBody : MonoBehaviour
 		}
 		else if (Time.time >= stats.NextFireTime && bootCF == true)
 		{
-            isBooting = true;
+			isBooting = true;
 			GameObject.Find("Boot(Clone)").GetComponent<Boot>().Kick(gameObject);
-            stats.NextFireTime = Time.time + 1f / stats.FireRate;
+			stats.NextFireTime = Time.time + 1f / stats.FireRate;
 		}
 	}
 
@@ -358,7 +358,24 @@ public class PlayerBody : MonoBehaviour
 		isDashing = false;
 		dashEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 	}
-
+	public void RemoveAllStatBuffs()
+	{
+		StopAllCoroutines();
+		if (dmgEffect.isPlaying)
+		{
+			stats.Damage -= 1;
+			dmgEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+		}
+		if (speedEffect.aliveParticleCount > 0)
+		{
+			stats.MovementSpeed -= 3;
+			speedEffect.Stop();
+		}
+		if (playerShield.activeSelf)
+		{
+			playerShield.SetActive(false);
+		}
+	}
 	private IEnumerator DmgBoost()
 	{
 		float buffTime = 0f;
