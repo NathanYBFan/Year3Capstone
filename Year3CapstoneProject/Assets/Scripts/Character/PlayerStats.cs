@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.Rendering;
 using UnityEditor.ShaderGraph.Internal;
+using UnityEngine.VFX;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -38,6 +39,9 @@ public class PlayerStats : MonoBehaviour
 	private float playerEmissionIntensity = 3.42f;
 
 	[Header("Effects")]
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
+	private VisualEffect burningEffect;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
 	private ParticleSystem burning;
@@ -377,9 +381,17 @@ public class PlayerStats : MonoBehaviour
 		timer = 0;
 	}
 
-	private void DeactivateEffects(ParticleSystemStopBehavior behaviour) { burning.Stop(true, behaviour); }
+	private void DeactivateEffects(ParticleSystemStopBehavior behaviour) 
+	{
+		burningEffect.Stop();
+		burning.Stop(true, behaviour); 
+	}
 
-	private void ActivateEffects() { burning.Play(); }
+	private void ActivateEffects() 
+	{
+		burningEffect.Play();
+		burning.Play(); 
+	}
 
 	public void TakeDamage(int amount, DamageType type)
 	{
@@ -484,7 +496,13 @@ public class PlayerStats : MonoBehaviour
 			if (inflictedDebuff.shouldKill) currHealth -= inflictedDebuff.damage;
 			else
 			{
-				if (currHealth - inflictedDebuff.damage < 1) currHealth = 1;
+				if (currHealth - inflictedDebuff.damage < 1)
+				{
+					if (!isDead)
+					{
+						currHealth = 1;
+					}
+				}
 				else currHealth -= inflictedDebuff.damage;
 			}
 			inflictedDebuff.debuffDuration -= inflictedDebuff.damageInterval;
@@ -493,7 +511,7 @@ public class PlayerStats : MonoBehaviour
 		// Debuff duration has elapsed. No longer active, and thus, should be removed.
 		inflictedDebuff = null;
 		debuffCoroutine = null;
-		DeactivateEffects(ParticleSystemStopBehavior.StopEmitting);
+		DeactivateEffects(ParticleSystemStopBehavior.StopEmittingAndClear);
 	}
 
 	//Plays the player damage sound
