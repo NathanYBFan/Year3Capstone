@@ -40,6 +40,10 @@ public class newLevelBuilder : MonoBehaviour
     private int rowCount;
     private int columnCount;
 
+    public int RowCount {  get { return rowCount; } }
+    public int ColumnCount { get { return columnCount; } }
+    public int TileSize { get { return tileSize; } }
+
     public string CurrentLevelName
     {
         get
