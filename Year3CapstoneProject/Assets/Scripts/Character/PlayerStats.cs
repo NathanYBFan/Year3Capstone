@@ -198,7 +198,6 @@ public class PlayerStats : MonoBehaviour
 	private Color uiColor;
 	private float invincibilityTimer = 0f;
 	private bool booted = false;
-	private bool damageBoost = false, speedBoost = false, shieldBoost = false;
 	#endregion Private Variables
 
 	#region Getters & Setters
@@ -276,7 +275,13 @@ public class PlayerStats : MonoBehaviour
 					listOfMaterials[i] = playerGlowMaterial;
 			}
 			head.GetComponentInChildren<MeshRenderer>().SetMaterials(listOfMaterials);
-
+			head.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
+			for (int i = 0; i < listOfMaterials.Count; i++)
+			{
+				if (listOfMaterials[i].name.Contains("Light"))
+					listOfMaterials[i] = playerGlowMaterial;
+			}
+			head.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
 			// Left Leg
 			listOfMaterials = new List<Material>();
 			legs.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);

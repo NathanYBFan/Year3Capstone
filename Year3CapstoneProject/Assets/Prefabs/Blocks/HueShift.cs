@@ -7,12 +7,6 @@ using UnityEngine.UIElements;
 public class HueShift : MonoBehaviour
 {
 	[SerializeField]
-	private float minHue = 0;
-
-	[SerializeField]
-	private float maxHue = 260;
-
-	[SerializeField]
 	private float intensity = 2;
 
 	[SerializeField]

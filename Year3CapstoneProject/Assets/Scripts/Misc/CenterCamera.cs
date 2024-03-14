@@ -6,7 +6,6 @@ public class CenterCamera : MonoBehaviour
 {
 	public void Center()
 	{
-		Debug.Log("Yes");
 		switch (GameManager._Instance.LevelBuilder.CurrentLevelName)
 		{
 			case "Scrapbox":
