@@ -91,6 +91,12 @@ public class ChaosFactorManager : MonoBehaviour
             StartCoroutine(RunChaosFactor(chaosFactorList[5]));
         }
 
+        if (Input.GetKeyDown("[7]"))
+        {
+            Debug.Log("Input recived: Numpad 7");
+            StartCoroutine(RunChaosFactor(chaosFactorList[6]));
+        }
+
         if (Input.GetKeyDown("[9]"))
         {
             Debug.Log("Input recived: Numpad 9");

@@ -23,9 +23,9 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SubtractiveShadowColor: {r: 0.13011748, g: 0.18244393, b: 0.6415094, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: dcd51bd22d3f86d478df252e8947b122, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: b85b13ae3d6041e41abe67bde29aff39, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 387fa5f975596a649b3821ab974f68c0, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1616,6 +1616,7 @@ MonoBehaviour:
   - {fileID: 4470727495321325218, guid: 2d495fc6a2a4a5e459af1551bbaa0f73, type: 3}
   - {fileID: 921173806376354403, guid: fc0056a270ed54e46982f61924823536, type: 3}
   - {fileID: 3609183317745968879, guid: 61c5c9afbef271044899f68f2b249a9f, type: 3}
+  - {fileID: 2646675893299766602, guid: 5b57aff94e4509a46b8683f5f8fca875, type: 3}
   nextChaosFactorTimerSeconds: 0
   chaosFactorMaxTimerSeconds: 30
   currentRunningChaosFactors: []
@@ -2709,6 +2710,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1384852443499039327, guid: 2b3448f2ba7a02b40aeba393b31a9ca7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1474619190956564805, guid: 2b3448f2ba7a02b40aeba393b31a9ca7, type: 3}
       propertyPath: m_Name
       value: Sun
@@ -7698,10 +7703,10 @@ SceneRoots:
   - {fileID: 1756162859}
   - {fileID: 338731856}
   - {fileID: 1228130528}
-  - {fileID: 1819993794}
   - {fileID: 222585822}
   - {fileID: 694279910}
   - {fileID: 974441487}
   - {fileID: 2030337963}
   - {fileID: 88847253}
+  - {fileID: 1819993794}
   - {fileID: 885127583}
