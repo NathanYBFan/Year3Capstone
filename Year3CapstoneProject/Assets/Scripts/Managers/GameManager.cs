@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour
 			levelBuilder.buildLevel(currentRound % 3);
 			SpawnPlayersAtSpawnpoint();
 			cam.Center();
+			ChaosFactorManager._Instance.ChaosFactorActive = false;
 		}
 
 		ChaosFactorManager._Instance.Reset();

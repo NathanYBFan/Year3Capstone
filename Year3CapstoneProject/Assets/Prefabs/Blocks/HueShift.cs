@@ -7,7 +7,10 @@ using UnityEngine.UIElements;
 public class HueShift : MonoBehaviour
 {
 	[SerializeField]
-	private float intensity = 2;
+	private float maxIntensity = 2;
+
+	[SerializeField]
+	private float minIntensity = -4;
 
 	[SerializeField]
 	private float speed = 0.01f;
@@ -45,26 +48,48 @@ public class HueShift : MonoBehaviour
 	
 	void Update()
 	{
-		foreach (var mat in mats)
+		if (ChaosFactorManager._Instance.ChaosFactorActive)
 		{
-			float h, s, v;
-			mat.EnableKeyword("_EMISSION");
-			currentColour = mat.GetColor("_EmissionColor");
-			Color.RGBToHSV(currentColour, out h, out s, out v);
-			h += Time.deltaTime * speed;
-			h %= 1;
-			Color newColour = Color.HSVToRGB(h, s, v, true);
+			float currIntensity = maxIntensity;
+			foreach (var mat in mats)
+			{
+				mat.EnableKeyword("_EMISSION");
+				ColorMutator cm = new(Color.red);
+				currIntensity = Mathf.Cos(Time.time / (speed * 3f)) * 2;
+				cm.exposureValue = currIntensity;
+				mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
 
-			ColorMutator cm = new(newColour);
-			cm.exposureValue = intensity;
-			mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
-
+			}
+			foreach (var mat in stripLights)
+			{
+				float OffsetX = Time.time * scrollX;
+				mat.mainTextureOffset = new Vector2(OffsetX, 0);
+			}
 		}
-		foreach(var mat in stripLights)
+		else
 		{
-			float OffsetX = Time.time * scrollX;
-			mat.mainTextureOffset = new Vector2(OffsetX, 0);
+			foreach (var mat in mats)
+			{
+				float h, s, v;
+				mat.EnableKeyword("_EMISSION");
+				currentColour = mat.GetColor("_EmissionColor");
+				Color.RGBToHSV(currentColour, out h, out s, out v);
+				h += Time.deltaTime * speed;
+				h %= 1;
+				Color newColour = Color.HSVToRGB(h, s, v, true);
+
+				ColorMutator cm = new(newColour);
+				cm.exposureValue = maxIntensity;
+				mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
+
+			}
+			foreach (var mat in stripLights)
+			{
+				float OffsetX = Time.time * scrollX;
+				mat.mainTextureOffset = new Vector2(OffsetX, 0);
+			}
 		}
+		
 	}
 
 }

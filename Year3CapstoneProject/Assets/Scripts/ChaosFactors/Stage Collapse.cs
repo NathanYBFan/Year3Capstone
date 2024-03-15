@@ -18,6 +18,10 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 	private int randomNum;
 	private GameObject[] droppedPlatforms;
 
+	float shakeDelay = 0.025f;
+	float shakeAmount = 0.25f;
+	float shakeDuration = 0.1f;
+
 	// Public getter/setters
 	public float Timer { get { return timer; } }
 	
@@ -27,7 +31,6 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 		droppedPlatforms = new GameObject[numberOfBlocks];
 		StartCoroutine(collapse());
 	}
-
 	public IEnumerator collapse()
 	{
 		for (int i = 0; i < numberOfBlocks; i++)
@@ -36,28 +39,22 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 
 			GameObject dropping = GameManager._Instance.Platforms[randomNum];
 			droppedPlatforms[i] = dropping;
-			Color c;
-			CrumbleBlock crumbleBlock = dropping.transform.GetChild(0).GetComponent<CrumbleBlock>();
-			if (crumbleBlock != null)
-			{
-				c = dropping.transform.GetChild(0).GetComponent<Renderer>().material.color;
-				dropping.transform.GetChild(0).GetComponent<Renderer>().material.color = Color.clear;
-			}
-			else
-			{
-				c = dropping.GetComponent<Renderer>().material.color;
-				dropping.GetComponent<Renderer>().material.color = Color.clear;
-			}
 
-			yield return new WaitForSeconds(1.1f);
+			float currTime = 0;
+			Vector3 randomPos;
+			Vector3 startingPos = dropping.transform.position;
+			while (currTime <= shakeDuration)
+			{
+				currTime += Time.deltaTime;
+				Vector2 xzRandomPos = Random.insideUnitCircle;
+				randomPos = startingPos + (new Vector3(xzRandomPos.x, 0, xzRandomPos.y) * shakeAmount);
+				dropping.transform.position = randomPos;
+				yield return new WaitForSeconds(shakeDelay);
+			}
+			dropping.transform.position = startingPos;
 
 
 			dropping.GetComponent<Platform>().collapse();
-
-			if (crumbleBlock != null)
-				dropping.transform.GetChild(0).GetComponent<Renderer>().material.color = c;
-			else
-				dropping.GetComponent<Renderer>().material.color = c;
 
 			yield return new WaitForSeconds(dropInterval);
 		}

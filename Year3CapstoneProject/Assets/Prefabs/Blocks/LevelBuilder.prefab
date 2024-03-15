@@ -78,10 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 363dfdb177d9e4845aa3903b22f5335e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minHue: 0
-  maxHue: 260
   intensity: 2
-  speed: 0.1
+  speed: 0.05
   currentColour: {r: 1, g: 0, b: 0, a: 1}
   mats:
   - {fileID: 2100000, guid: 2d203420c9c86154ca5aaf3ffe8a93ba, type: 2}

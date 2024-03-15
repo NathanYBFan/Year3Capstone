@@ -30,11 +30,14 @@ public class ChaosFactorManager : MonoBehaviour
 
     #endregion
 
+
     #region Getters&Setters
     public List<GameObject> ChaosFactorList { get { return chaosFactorList; } }
+    public bool ChaosFactorActive { get { return chaosFactorActive; } set { chaosFactorActive = value; } }
     #endregion
 
     private bool timer;
+    private bool chaosFactorActive = false;
     private void Awake()
     {
         timer = false;
@@ -130,6 +133,7 @@ public class ChaosFactorManager : MonoBehaviour
     // Run Coroutine
     public IEnumerator RunChaosFactor(GameObject chaosFactorToSpawn)
     {
+        chaosFactorActive = true;
         // Instantiate Chaos Factor
         GameObject chaosFactor = GameObject.Instantiate(chaosFactorToSpawn, transform);
         currentRunningChaosFactors.Add(chaosFactor);
@@ -156,7 +160,8 @@ public class ChaosFactorManager : MonoBehaviour
     public IEnumerator DestroyAfterTime(GameObject chaosFactorToDestroy, float timeToWaitFor)
     {
         yield return new WaitForSeconds(timeToWaitFor);
-        currentRunningChaosFactors.Remove(chaosFactorToDestroy);
+		chaosFactorActive = false;
+		currentRunningChaosFactors.Remove(chaosFactorToDestroy);
         Destroy(chaosFactorToDestroy);
     }
 

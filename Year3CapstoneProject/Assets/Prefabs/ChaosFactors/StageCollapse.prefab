@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfBlocks: 15
   dropInterval: 0.5
-  endDelay: 5
+  endDelay: 3
   timer: 30
