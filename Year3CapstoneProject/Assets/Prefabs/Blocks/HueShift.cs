@@ -10,9 +10,6 @@ public class HueShift : MonoBehaviour
 	private float maxIntensity = 2;
 
 	[SerializeField]
-	private float minIntensity = -4;
-
-	[SerializeField]
 	private float speed = 0.01f;
 	[SerializeField]
 	private Color currentColour;
