@@ -405,17 +405,20 @@ public class PlayerStats : MonoBehaviour
 			AudioSource theSource = gameObject.GetComponentInChildren<AudioSource>();
 			DamageSound(theSource);
 		}
-		print(booted);
+
 		if (currHealth - amount <= 0 && type == DamageType.Falling && !booted) return;
 		if (invincibilityTimer > 0 && (type == DamageType.Bullet || type == DamageType.Falling)) return;
 		invincibilityTimer = invincibilityTime;
 
-		// Make sure health stays in the bounds
-		if (currHealth - amount > 0) currHealth -= amount;
+        // Make sure health stays in the bounds
+        if (currHealth - amount > 0) currHealth -= amount;
 		else currHealth = 0;
 
-		// If still has Hp no need to continue
-		if (currHealth != 0) return;
+        playerHUD.TakeDamage((int)currHealth, (int)(currHealth + amount));
+
+
+        // If still has Hp no need to continue
+        if (currHealth != 0) return;
 
 		// If can self destruct dont start death (Not sure why, probably a separate coroutine?)
 		if (canSelfDestruct)
@@ -447,9 +450,10 @@ public class PlayerStats : MonoBehaviour
 		currEnergy = currEnergy - amount;
 		if (currEnergy > maxEnergy) { currEnergy = maxEnergy; }
 		else if (currEnergy < 0) { currEnergy = 0; }
-	}
+		playerHUD.UseEnergy();
+    }
 
-	public void ActivateEffects(Modifier modifier)
+    public void ActivateEffects(Modifier modifier)
 	{
 		modifier.AddEffects();
 		modifiersOnPlayer.Add(modifier);

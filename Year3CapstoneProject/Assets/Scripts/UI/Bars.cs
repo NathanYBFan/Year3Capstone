@@ -1,4 +1,6 @@
 using NaughtyAttributes;
+using System.Collections;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +12,21 @@ public class Bars : MonoBehaviour
     private PlayerStats playerStats;
 
     [SerializeField]
-    [Foldout("UI Bars"), Tooltip("Drag in Health bars here")]
+    [Foldout("UI Bars"), Tooltip("Drag in the health bar here")]
     private Image healthBar;
 
     [SerializeField]
-    [Foldout("UI Bars"), Tooltip("Drag in Energy bar here")]
+    [Foldout("UI Bars"), Tooltip("Drag in the shadow health bar here")]
+    private Image healthBarShadow;
+
+    [SerializeField]
+    [Foldout("UI Bars"), Tooltip("Drag in energy bar here")]
     private Image energyBar;
+
+    [SerializeField]
+    [Foldout("UI Bars"), Tooltip("Drag in shadow energy bar here")]
+    private Image energyBarShadow;
+
 
     [SerializeField]
     [Foldout("UI Bars"), Tooltip("Drag in glowy bit of charcter image here")]
@@ -24,31 +35,90 @@ public class Bars : MonoBehaviour
     [SerializeField]
     [Foldout("UI Bars"), Tooltip("Drag in dark character image (no glow) here")]
     private Image characterBG;
-	#endregion
 
+    [Header("Shake on damage")]
+
+    [SerializeField]
+    [Foldout("Shake Dependencies"), Tooltip("Object to shake")]
+    private GameObject objectToShake;
+
+    [SerializeField]
+    [Foldout("Shake Dependencies"), Tooltip("Speed of the shake")]
+    private float shakeSpeed = 40f;
+
+    [SerializeField]
+    [Foldout("Shake Dependencies"), Tooltip("Magnitude of the shake")]
+    private float shakeAmount = 0.01f;
+
+    [SerializeField]
+    [Foldout("Shake Dependencies"), Tooltip("How long to shake for")]
+    private float maxShakeTime = 0.5f;
+
+    [SerializeField]
+    [Foldout("Shake Dependencies"), Tooltip("How long to shake for")]
+    private Color characterBGDamageColor = Color.red;
+
+    [SerializeField]
+    [Foldout("Shake Dependencies"), Tooltip("How long to shake for")]
+    private Color characterGlowDamageColor = Color.red;
+    #endregion
+
+    #region Getters&Setters
     public Sprite CharacterGlow { set {  characterGlow.sprite = value; } }
     public Sprite CharacterBG { set { characterBG.sprite = value; } }
 
     public Color CharacterGlowColour { set { characterGlow.color = value; } }
+    #endregion
+
+    private Coroutine runningShakeCoroutine;
 
     public void SetHUDBarCharacter()
     {
 		characterGlow.color = playerStats.UIColor;
 	}
 
-    private void TakeDamage()
+    public void TakeDamage(int currentHealth, int previousHealth)
     {
         healthBar.fillAmount = (float)playerStats.CurrentHealth/(float)playerStats.MaxHealth;
+        shakeObject(currentHealth, previousHealth);
     }
 
-    private void UseEnergy()
+    public void UseEnergy()
     {
         energyBar.fillAmount = (float) playerStats.CurrentEnergy /(float)playerStats.MaxEnergy;
     }
 
-    private void Update()
+    private void shakeObject(int currentHealth, int previousHealth)
     {
-        TakeDamage();
-        UseEnergy();
+        if (runningShakeCoroutine != null)
+            StopCoroutine(runningShakeCoroutine);
+        runningShakeCoroutine = StartCoroutine(shake(currentHealth, previousHealth));
+    }
+
+    private IEnumerator shake(int currentHealth, int previousHealth)
+    {
+        float timer = 0;
+        var originalCharacterBGColor = characterBG.color;
+        var originalCharacterGlowColor = characterGlow.color;
+        var originalPosition = objectToShake.transform.position;
+        var originalHealth = (float) previousHealth / (float) playerStats.MaxHealth;
+
+        characterBG.color = characterBGDamageColor;
+        characterGlow.color = characterGlowDamageColor;
+
+        while (timer < maxShakeTime)
+        {
+            healthBarShadow.fillAmount = Mathf.Lerp(originalHealth, healthBar.fillAmount, timer * 2);
+            timer += Time.deltaTime;
+            objectToShake.transform.position = new Vector3(objectToShake.transform.position.x + Mathf.Sin(Time.time * shakeSpeed) * shakeAmount + Random.Range(-0.2f, 0.2f), 
+                objectToShake.transform.position.y + Mathf.Sin(Time.time * shakeSpeed) * shakeAmount + Random.Range(-0.1f, 0.1f), objectToShake.transform.position.z);
+            yield return null;
+        }
+        
+        healthBarShadow.fillAmount = healthBar.fillAmount;
+
+        characterBG.color = originalCharacterBGColor;
+        characterGlow.color = originalCharacterGlowColor;
+        objectToShake.transform.position = originalPosition;
     }
 }
