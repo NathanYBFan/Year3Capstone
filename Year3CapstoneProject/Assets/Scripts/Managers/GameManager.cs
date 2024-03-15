@@ -219,9 +219,13 @@ public class GameManager : MonoBehaviour
 	{
 		foreach (GameObject h in hudBars)
 			h.SetActive(false);
-		pauseMenu.SetActive(false);
+        foreach (GameObject player in players)
+            player.GetComponent<PlayerStats>().FullResetPlayer();
+        pauseMenu.SetActive(false);
 		ChaosFactorManager._Instance.Reset();
 		BulletObjectPoolManager._Instance.ResetAllBullets();
+		PlayerStatsManager._Instance.ResetStats();
+		currentRound = 0;
 		QuitToMainMenu();
 	}
 

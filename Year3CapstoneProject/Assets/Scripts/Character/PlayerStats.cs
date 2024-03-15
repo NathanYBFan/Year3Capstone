@@ -467,9 +467,7 @@ public class PlayerStats : MonoBehaviour
 		if (modifiersOnPlayer.Count > 0)
 		{
 			foreach (Modifier modifier in modifiersOnPlayer)
-			{
 				modifier.RemoveEffects(this);
-			}
 			modifiersOnPlayer.Clear();
 		}
 
