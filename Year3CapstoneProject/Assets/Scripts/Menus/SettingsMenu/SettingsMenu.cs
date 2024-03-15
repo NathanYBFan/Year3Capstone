@@ -46,12 +46,14 @@ public class SettingsMenu : MonoBehaviour
         savedSelectedButton = EventSystem.current.currentSelectedGameObject;
         EventSystem.current.SetSelectedGameObject(firstSelectedButton);
 
+        GameManager._Instance.InSettingsMenu = true;
         videoControls.SetActive(true);
         audioControls.SetActive(false);
     }
 
     private void OnDisable()
     {
+        GameManager._Instance.InSettingsMenu = false;
         EventSystem.current.SetSelectedGameObject(savedSelectedButton);
     }
 

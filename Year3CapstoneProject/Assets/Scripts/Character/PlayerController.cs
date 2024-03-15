@@ -106,8 +106,8 @@ public class PlayerController : MonoBehaviour
 		if (!GameManager._Instance.InGame) return;
 		if (body == null) return;
         if (body.GetComponent<PlayerStats>().IsDead) return;
-
-        GameManager._Instance.PauseGame(true);
+		if (!GameManager._Instance.InSettingsMenu)
+			GameManager._Instance.PauseGame(true);
     }
     public void OnSubmitClicked(CallbackContext ctx)
     {

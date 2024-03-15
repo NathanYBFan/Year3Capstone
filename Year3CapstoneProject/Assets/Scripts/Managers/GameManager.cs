@@ -48,15 +48,14 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("List of players who are dead")]
 	private int maxRounds;
-
 	#endregion
 
 	#region PrivateVariables
 	private bool inGame;
 	private bool isPaused;
 	private newLevelBuilder levelBuilder;
-	[SerializeField]
 	private int playerWinnerIndex = -1;
+	private bool inPauseMenu = false, inSettingsMenu = false;
 	#endregion
 
 	#region Getters&Setters
@@ -70,6 +69,8 @@ public class GameManager : MonoBehaviour
 	public int MaxRounds { get { return maxRounds; } set { maxRounds = value; } }
 	public newLevelBuilder LevelBuilder { get { return levelBuilder; } set { levelBuilder = value; } }
 	public int PlayerWinnerIndex { get { return playerWinnerIndex; } }
+	public bool InPauseMenu { get { return inPauseMenu; } set { inPauseMenu = value; } }
+	public bool InSettingsMenu { get { return inSettingsMenu; } set { inSettingsMenu = value; } }
 	#endregion
 
 	private void Awake()
@@ -118,7 +119,10 @@ public class GameManager : MonoBehaviour
 		// Enable Player HUD's
 		foreach (GameObject h in hudBars)
 			h.SetActive(true);
-	}
+
+		inPauseMenu = false;
+		inSettingsMenu = false;
+    }
 
 	public void PlayerDied(GameObject playerThatDied)
 	{
@@ -226,7 +230,10 @@ public class GameManager : MonoBehaviour
 		BulletObjectPoolManager._Instance.ResetAllBullets();
 		PlayerStatsManager._Instance.ResetStats();
 		currentRound = 0;
-		QuitToMainMenu();
+		playerWinnerIndex = -1;
+        inPauseMenu = false;
+        inSettingsMenu = false;
+        QuitToMainMenu();
 	}
 
 	// Method to reset everything when quitting to main menu

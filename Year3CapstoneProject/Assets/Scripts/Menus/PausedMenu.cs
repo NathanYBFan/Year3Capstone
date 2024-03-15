@@ -10,6 +10,7 @@ public class PausedMenu : MonoBehaviour
 
     private void OnEnable()
     {
+        GameManager._Instance.InPauseMenu = true;
         if (EventSystem.current.gameObject != null)
             buttonWasOn = EventSystem.current.gameObject;
 
@@ -18,6 +19,7 @@ public class PausedMenu : MonoBehaviour
 
     private void OnDisable()
     {
+        GameManager._Instance.InPauseMenu = false;
         EventSystem.current.SetSelectedGameObject(buttonWasOn);
     }
 

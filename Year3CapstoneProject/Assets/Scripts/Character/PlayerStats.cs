@@ -3,8 +3,6 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Android;
-using UnityEngine.Rendering;
 using UnityEngine.VFX;
 
 public class PlayerStats : MonoBehaviour
