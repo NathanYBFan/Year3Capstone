@@ -2116,7 +2116,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9ce325518541d0848a26c678536b5d28, type: 3}
   - {fileID: 8300000, guid: 232e6b44cdc2fe848b2ea8072f472ee6, type: 3}
   envAudioList:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 85fda2981670bec4e84b17caeec3c870, type: 3}
   - {fileID: 8300000, guid: 6544785fc1e66d04f962c4f2bf89adaa, type: 3}
   - {fileID: 8300000, guid: c7db972b536c1354bb98291b25f1959d, type: 3}
   musicList:

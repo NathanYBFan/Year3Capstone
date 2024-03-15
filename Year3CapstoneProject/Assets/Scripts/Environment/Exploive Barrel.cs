@@ -12,6 +12,9 @@ public class ExploiveBarrel : MonoBehaviour
     [SerializeField]
     private float explosiveRadius;
 
+    [SerializeField]
+    private AudioSource audioSource;
+
     private Vector3 expPos;
     private bool exploded;
     //private Rigidbody rb;
@@ -43,7 +46,16 @@ public class ExploiveBarrel : MonoBehaviour
             //GetComponent
             //transform.position = new Vector3(transform.position.x, transform.position.y - 20, transform.position.z);
             exploded = true;
+            BlastSound();
             StartCoroutine(boom());
         }
+    }
+
+    //Plays the explosion sound
+    private void BlastSound()
+    {
+        float randPitch = Random.Range(0.8f, 1.5f);
+        audioSource.pitch = randPitch;
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.EnvAudioList[0], audioSource);
     }
 }
