@@ -37,7 +37,7 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 			GameObject dropping = GameManager._Instance.Platforms[randomNum];
 			droppedPlatforms[i] = dropping;
 			Color c;
-			CrumbleBlock crumbleBlock = dropping.GetComponent<CrumbleBlock>();
+			CrumbleBlock crumbleBlock = dropping.transform.GetChild(0).GetComponent<CrumbleBlock>();
 			if (crumbleBlock != null)
 			{
 				c = dropping.transform.GetChild(0).GetComponent<Renderer>().material.color;

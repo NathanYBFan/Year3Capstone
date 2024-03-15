@@ -4968,7 +4968,6 @@ GameObject:
   - component: {fileID: 5811048235290011997}
   - component: {fileID: 3213048287527677856}
   - component: {fileID: 1692410497728323602}
-  - component: {fileID: 1688249784255532505}
   m_Layer: 0
   m_Name: CrumblingBlock
   m_TagString: StageNormal
@@ -5034,26 +5033,6 @@ MonoBehaviour:
   MiscChildren: []
   isDropped: 0
   effectsActive: 0
---- !u!114 &1688249784255532505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8193771675660044526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba16a9d27d3680d4ab12aeee4628c1db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakTime: 1.5
-  respawnTime: 4
-  boxCollider: {fileID: 3213048287527677856}
-  crumbleTrigger: {fileID: 4761180641321124520}
-  destroyedVersion: {fileID: 7261750473376301442, guid: 39379884aac2c9045bd65d46abbe79ce, type: 3}
-  instantiatedExplosion: {fileID: 0}
-  thePlatform: {fileID: 0}
-  theMesh: {fileID: 4897169331880607440}
 --- !u!1 &8266682700804107940
 GameObject:
   m_ObjectHideFlags: 0
