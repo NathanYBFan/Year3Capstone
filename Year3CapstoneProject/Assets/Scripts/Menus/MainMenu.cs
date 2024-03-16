@@ -29,6 +29,12 @@ public class MainMenu : MonoBehaviour
         LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[1]);
     }
 
+    public void ControlsButtonPressed()
+    {
+        ButtonPressSFX();
+        LevelLoadManager._Instance.LoadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[8]);
+    }
+
     public void CreditsbuttonPressed()
     {
         ButtonPressSFX();

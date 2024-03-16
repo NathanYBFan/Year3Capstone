@@ -21,8 +21,8 @@ public class CreditsMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(savedSelectedButton);
     }
 
-    public void BackButtonPressed()
+    public void BackButtonPressed(int levelToUnload)
     {
-        LevelLoadManager._Instance.UnloadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[2]);
+        LevelLoadManager._Instance.UnloadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[levelToUnload]);
     }
 }
