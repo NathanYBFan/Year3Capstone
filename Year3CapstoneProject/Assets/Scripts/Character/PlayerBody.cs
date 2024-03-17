@@ -358,36 +358,7 @@ public class PlayerBody : MonoBehaviour
 		isDashing = false;
 		dashEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 	}
-	public void RemoveAllStatBuffs()
-	{
-		StopAllCoroutines();
-		if (dmgEffect.isPlaying)
-		{
-			stats.Damage -= 1;
-			dmgEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-		}
-		if (speedEffect.aliveParticleCount > 0)
-		{
-			stats.MovementSpeed -= 3;
-			speedEffect.Stop();
-		}
-		if (playerShield.activeSelf)
-		{
-			playerShield.SetActive(false);
-		}
-		isRolling = false;
-		isDashing = false;
-		dashEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
-		if (headAnim != null && legAnim != null)
-		{
-			if (headAnim.IsPlaying("Roll"))
-			{
-				headAnim.Stop("Roll");
-				legAnim.Stop("Roll");
-			}
-		}
-	}
 	private IEnumerator DmgBoost()
 	{
 		float buffTime = 0f;
@@ -465,6 +436,34 @@ public class PlayerBody : MonoBehaviour
 		aimDir = Vector3.zero;
 		moveDir = Vector3.zero;
 		legDir = Vector3.zero;
+
+		StopAllCoroutines();
+		if (dmgEffect.isPlaying)
+		{
+			stats.Damage -= 1;
+			dmgEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+		}
+		if (speedEffect.aliveParticleCount > 0)
+		{
+			stats.MovementSpeed -= 3;
+			speedEffect.Stop();
+		}
+		if (playerShield.activeSelf)
+		{
+			playerShield.SetActive(false);
+		}
+		isRolling = false;
+		isDashing = false;
+		dashEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+		if (headAnim != null && legAnim != null)
+		{
+			if (headAnim.clip != null)
+			{
+				headAnim.Stop();
+				legAnim.Stop();
+			}
+		}
 	}
 }
 

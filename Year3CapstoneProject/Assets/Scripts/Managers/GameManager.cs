@@ -246,6 +246,7 @@ public class GameManager : MonoBehaviour
 		if (Time.timeScale == 0)
 			PauseGame(false);
 		inGame = false;
+		AudioManager._Instance.PlayMusic(0);
 		ResetPlayersToVoid();
 		RemovePlayerModels();
 	}

@@ -484,7 +484,7 @@ public class PlayerStats : MonoBehaviour
 		currHealth = maxHealth;
 		currEnergy = MaxEnergy;
 		if (CanSelfDestruct) GetComponent<PlayerBody>().HasExploded = false;
-		GetComponent<PlayerBody>().RemoveAllStatBuffs();
+		GetComponent<PlayerBody>().ResetPlayer();
 	}
 
 	/// <summary>
