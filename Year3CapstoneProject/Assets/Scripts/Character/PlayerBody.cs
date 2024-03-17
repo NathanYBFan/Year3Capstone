@@ -56,6 +56,7 @@ public class PlayerBody : MonoBehaviour
 	private float iceInertiaMultiplier = 50f;
 	#endregion Serialize Fields
 	#region Getters & Setters
+	public bool Reset { get { return reset; } set { reset = value; } }
 	public bool HasExploded { get { return hasExploded; } set { hasExploded = value; } }
 	public bool OnIce { get { return onIce; } set { onIce = value; } }
 	public Animation HeadAnim { get { return headAnim; } set { headAnim = value; } }
@@ -67,12 +68,13 @@ public class PlayerBody : MonoBehaviour
 
 	public bool BootCF { get { return bootCF; } set { bootCF = value; } }
 	public GameObject Shield { get { return playerShield; } }
+
 	#endregion Getters & Setters
 	#region Private Variables
 	Animation headAnim;
 	Animation legAnim;
 	private bool hasExploded = false;
-	private bool isDashing = false, isShooting = false, isRolling = false, canMove = true;
+	private bool isDashing = false, isShooting = false, isRolling = false, canMove = true, reset = false;
 	private Vector2 moveDir, aimDir, legDir; //The current movement direction of this player.
 	private bool bootCF = false;
 	private bool isBooting = false;
@@ -349,12 +351,13 @@ public class PlayerBody : MonoBehaviour
 		float elapsedTime = 0f;
 		while (elapsedTime < stats.DashDuration)
 		{
+			if (stats.IsDead || reset) break;
 			float distThisFrame = stats.DashSpeed * Time.deltaTime;
 			rb.MovePosition(rb.position + moveDir * distThisFrame);
 			elapsedTime += Time.deltaTime;
 			yield return null;
 		}
-
+		reset = false;
 		isDashing = false;
 		dashEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 	}
@@ -366,12 +369,13 @@ public class PlayerBody : MonoBehaviour
 		dmgEffect.Play();
 		while (buffTime < stats.DamageBoostDuration)
 		{
+			if (stats.IsDead || reset) break;
 			buffTime += Time.deltaTime;
 			yield return null;
 		}
 
 		stats.Damage -= 1;
-		dmgEffect.Stop();
+		dmgEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 	}
 
 	private IEnumerator SpeedBoost()
@@ -381,10 +385,12 @@ public class PlayerBody : MonoBehaviour
 		speedEffect.Play();
 		while (buffTime < stats.SpeedBoostDuration)
 		{
+			if (stats.IsDead || reset) break;
 			buffTime += Time.deltaTime;
 			yield return null;
 		}
 
+		reset = false;
 		stats.MovementSpeed -= 3;
 		speedEffect.Stop();
 	}
@@ -396,6 +402,7 @@ public class PlayerBody : MonoBehaviour
 
 		while (currTime <= stats.ShieldScaleTime)
 		{
+			if (stats.IsDead || reset) break;
 			// Scale up with scale time
 			playerShield.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * stats.ShieldMaxSize, currTime / stats.ShieldScaleTime);
 			currTime += Time.deltaTime;
@@ -405,6 +412,7 @@ public class PlayerBody : MonoBehaviour
 
 		while (currTime < stats.ShieldUpDuration)
 		{
+			if (stats.IsDead || reset) break;
 			// Upkeep shield for shield duration time
 			currTime += Time.deltaTime;
 			yield return null;
@@ -413,11 +421,13 @@ public class PlayerBody : MonoBehaviour
 
 		while (currTime <= stats.ShieldScaleTime)
 		{
+			if (stats.IsDead || reset) break;
 			// Scale down with scale time
 			playerShield.transform.localScale = Vector3.Lerp(Vector3.one * stats.ShieldMaxSize, Vector3.zero, currTime / stats.ShieldScaleTime);
 			currTime += Time.deltaTime;
 			yield return null;
 		}
+		reset = false;
 		playerShield.SetActive(false);
 	}
 
@@ -436,26 +446,7 @@ public class PlayerBody : MonoBehaviour
 		aimDir = Vector3.zero;
 		moveDir = Vector3.zero;
 		legDir = Vector3.zero;
-
-		StopAllCoroutines();
-		if (dmgEffect.isPlaying)
-		{
-			stats.Damage -= 1;
-			dmgEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-		}
-		if (speedEffect.aliveParticleCount > 0)
-		{
-			stats.MovementSpeed -= 3;
-			speedEffect.Stop();
-		}
-		if (playerShield.activeSelf)
-		{
-			playerShield.SetActive(false);
-		}
 		isRolling = false;
-		isDashing = false;
-		dashEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-
 		if (headAnim != null && legAnim != null)
 		{
 			if (headAnim.clip != null)
@@ -464,6 +455,10 @@ public class PlayerBody : MonoBehaviour
 				legAnim.Stop();
 			}
 		}
+	}
+	public void SoftReset()
+	{
+		reset = true;
 	}
 }
 

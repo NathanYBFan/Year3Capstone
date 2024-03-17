@@ -71,6 +71,7 @@ public class Bars : MonoBehaviour
     #endregion
 
     private Coroutine runningShakeCoroutine;
+    private Coroutine runningAggravatedCoroutine;
     private Color originalCharacterBGColor;
     private Color originalCharacterGlowColor;
 
@@ -96,8 +97,17 @@ public class Bars : MonoBehaviour
         healthBar.fillAmount = (float)playerStats.CurrentHealth/(float)playerStats.MaxHealth;
         shakeObject(currentHealth, previousHealth);
     }
+	public void Heal(int currentHealth, int previousHealth)
+	{
+		healthBar.fillAmount = (float)playerStats.CurrentHealth / (float)playerStats.MaxHealth;
+		if (runningAggravatedCoroutine != null)
+		{
+			StopCoroutine(runningAggravatedCoroutine);
+		}
+		runningAggravatedCoroutine = StartCoroutine(AggravatedHealthUpdate(currentHealth, previousHealth));
+	}
 
-    public void UseEnergy()
+	public void UseEnergy()
     {
         energyBar.fillAmount = (float) playerStats.CurrentEnergy /(float)playerStats.MaxEnergy;
     }
@@ -120,29 +130,42 @@ public class Bars : MonoBehaviour
         if (runningShakeCoroutine != null)
         {
             StopCoroutine(runningShakeCoroutine);
-        }
-        runningShakeCoroutine = StartCoroutine(shake(currentHealth, previousHealth));
-    }
+		}
+		if (runningAggravatedCoroutine != null)
+		{
+			StopCoroutine(runningAggravatedCoroutine);
+		}
+		runningShakeCoroutine = StartCoroutine(shake(currentHealth, previousHealth));
+        runningAggravatedCoroutine = StartCoroutine(AggravatedHealthUpdate(currentHealth, previousHealth));
 
+	}
+    private IEnumerator AggravatedHealthUpdate(int currentHealth, int previousHealth)
+    {
+		float timer = 0;
+		var originalHealth = (float)previousHealth / (float)playerStats.MaxHealth;
+		while (timer < maxShakeTime)
+		{
+			healthBarShadow.fillAmount = Mathf.Lerp(originalHealth, healthBar.fillAmount, timer * 2);
+			timer += Time.deltaTime;
+			yield return null;
+		}
+		healthBarShadow.fillAmount = healthBar.fillAmount;
+	}
     private IEnumerator shake(int currentHealth, int previousHealth)
     {
         float timer = 0;
         var originalPosition = objectToShake.transform.position;
-        var originalHealth = (float) previousHealth / (float) playerStats.MaxHealth;
 
         characterBG.color = characterBGDamageColor;
         characterGlow.color = characterGlowDamageColor;
 
         while (timer < maxShakeTime)
-        {
-            healthBarShadow.fillAmount = Mathf.Lerp(originalHealth, healthBar.fillAmount, timer * 2);
+        {           
             timer += Time.deltaTime;
             objectToShake.transform.position = new Vector3(objectToShake.transform.position.x + Mathf.Sin(Time.time * shakeSpeed) * shakeAmount + Random.Range(-0.2f, 0.2f), 
                 objectToShake.transform.position.y + Mathf.Sin(Time.time * shakeSpeed) * shakeAmount + Random.Range(-0.1f, 0.1f), objectToShake.transform.position.z);
             yield return null;
         }
-        
-        healthBarShadow.fillAmount = healthBar.fillAmount;
 
         characterBG.color = originalCharacterBGColor;
         characterGlow.color = originalCharacterGlowColor;

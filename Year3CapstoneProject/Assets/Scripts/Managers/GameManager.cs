@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour
 		{
 			player.SetActive(true);
 			player.GetComponentInChildren<PlayerStats>().IsDead = false;
+			player.GetComponentInChildren<PlayerBody>().Reset = false;
 			player.GetComponentInChildren<PlayerStats>().ResetMaterialEmissionColor();
 		}
 		// Enable Player HUD's
@@ -340,6 +341,7 @@ public class GameManager : MonoBehaviour
 			player.GetComponent<Rigidbody>().velocity = Vector3.zero;
 			player.transform.position = new Vector3(-100, 0, 0);
 			player.GetComponentInChildren<CapsuleCollider>().enabled = true;
+			player.GetComponent<PlayerBody>().SoftReset();
 		}
 	}
 
@@ -349,6 +351,7 @@ public class GameManager : MonoBehaviour
 		player.GetComponentInChildren<CapsuleCollider>().enabled = true;
 		player.transform.position = new Vector3(-100, 0, 0);
 		player.GetComponentInChildren<Rigidbody>().useGravity = false;
+		player.GetComponent<PlayerBody>().SoftReset();
 	}
 
 	// Remove Player Models

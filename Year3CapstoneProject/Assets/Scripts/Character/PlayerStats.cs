@@ -434,8 +434,13 @@ public class PlayerStats : MonoBehaviour
 
 	public void Heal(int healing)
 	{
+		if (isDead) return;
 		if (currHealth < maxHealth)
+		{
 			currHealth += healing;
+			playerHUD.Heal((int)currHealth, (int)currHealth - healing);
+		}
+
 	}
 
 	public void StartDeath()
