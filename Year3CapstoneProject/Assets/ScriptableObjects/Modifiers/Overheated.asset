@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Overheated
   m_EditorClassIdentifier: 
   modifierName: Overheated
-  modifierImage: {fileID: 21300000, guid: 175dba30f6cc9a84e96ada41acd20052, type: 3}
+  modifierImageFirstLayer: {fileID: 21300000, guid: 9470684f4ba118047b2cad1b582dd0b0, type: 3}
+  modifierImageSecondLayer: {fileID: 21300000, guid: 9b5bbae1b74f90542a95d32730e82596, type: 3}
+  modifierImageThirdLayer: {fileID: 21300000, guid: 33c6840a25ceb614a8e96e27c2e8f5ba, type: 3}
+  modifierImageFourthLayer: {fileID: 0}
   modifierDescription: Allows bullets to burn opponents, dealing an extra hit of
     damage over time
   debuffToApply: {fileID: 11400000, guid: 583f2597d53480d4099e8b7784da733f, type: 2}

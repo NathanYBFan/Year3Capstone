@@ -661,6 +661,10 @@ PrefabInstance:
       propertyPath: playerStats
       value: 
       objectReference: {fileID: 2037555919}
+    - target: {fileID: 7139198079853764583, guid: 641f2eef53ea98c4b9901ca4506f323f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7286971374116951020, guid: 641f2eef53ea98c4b9901ca4506f323f, type: 3}
       propertyPath: m_Name
       value: HUD Player (3)
@@ -3104,6 +3108,10 @@ PrefabInstance:
     - target: {fileID: 7139198079853764583, guid: 641f2eef53ea98c4b9901ca4506f323f, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 909
+      objectReference: {fileID: 0}
+    - target: {fileID: 7139198079853764583, guid: 641f2eef53ea98c4b9901ca4506f323f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7286971374116951020, guid: 641f2eef53ea98c4b9901ca4506f323f, type: 3}
       propertyPath: m_Name

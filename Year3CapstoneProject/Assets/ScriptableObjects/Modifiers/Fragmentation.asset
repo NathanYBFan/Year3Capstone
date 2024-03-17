@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Fragmentation
   m_EditorClassIdentifier: 
   modifierName: Fragmentation
-  modifierImage: {fileID: 21300000, guid: bb86e5c298c45774c9636597cda8b4f9, type: 3}
+  modifierImageFirstLayer: {fileID: 21300000, guid: 4ee227105798e8d4196bcbdf5c3f9457, type: 3}
+  modifierImageSecondLayer: {fileID: 21300000, guid: 8d57331d251dc724496e4075cfb8aee3, type: 3}
+  modifierImageThirdLayer: {fileID: 21300000, guid: d08427226645ddc4a9f621dbe0a31186, type: 3}
+  modifierImageFourthLayer: {fileID: 0}
   modifierDescription: Upon contact with a wall, bullets will split into 3 and ricochet

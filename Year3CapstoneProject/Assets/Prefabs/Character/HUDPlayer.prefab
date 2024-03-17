@@ -557,8 +557,8 @@ MonoBehaviour:
   shakeSpeed: 20
   shakeAmount: 0.25
   maxShakeTime: 0.5
-  characterBGDamageColor: {r: 1, g: 0.38113207, b: 0.38113207, a: 0.54509807}
-  characterGlowDamageColor: {r: 1, g: 0, b: 0, a: 1}
+  characterBGDamageColor: {r: 1, g: 0.7411765, b: 0.7411765, a: 0.49019608}
+  characterGlowDamageColor: {r: 0.7075472, g: 0.1702118, b: 0.19447854, a: 0.8}
 --- !u!1 &7573229234907189701
 GameObject:
   m_ObjectHideFlags: 0

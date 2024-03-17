@@ -5,7 +5,13 @@ public abstract class Modifier : ScriptableObject
 {
 	public string modifierName;
 
-	public Sprite modifierImage;
+	public Sprite modifierImageFirstLayer;
+
+	public Sprite modifierImageSecondLayer;
+
+	public Sprite modifierImageThirdLayer;
+
+	public Sprite modifierImageFourthLayer;
 
 	public string modifierDescription;
 

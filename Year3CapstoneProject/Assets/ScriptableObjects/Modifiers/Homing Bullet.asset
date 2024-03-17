@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Homing Bullet
   m_EditorClassIdentifier: 
   modifierName: Homing Bullet
-  modifierImage: {fileID: 21300000, guid: 1e5e7904190c561409e99744afdf91c0, type: 3}
+  modifierImageFirstLayer: {fileID: 21300000, guid: 109a25edc0b4bda478f2386fde642a79, type: 3}
+  modifierImageSecondLayer: {fileID: 21300000, guid: 74f74412a63c9f7468ad679958ca0194, type: 3}
+  modifierImageThirdLayer: {fileID: 0}
+  modifierImageFourthLayer: {fileID: 0}
   modifierDescription: Bullets home towards nearest enemy

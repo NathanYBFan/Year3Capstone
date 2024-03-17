@@ -12,7 +12,19 @@ public class ModifierDisplay : MonoBehaviour
 
     [SerializeField, Required]
     [Foldout("Dependencies"), Tooltip("")]
-    private Image modifierImage;
+    private Image modifierImageFirstLayer;
+
+    [SerializeField, Required]
+    [Foldout("Dependencies"), Tooltip("")]
+    private Image modifierImageSecondLayer;
+
+    [SerializeField, Required]
+    [Foldout("Dependencies"), Tooltip("")]
+    private Image modifierImageThirdLayer;
+
+    [SerializeField, Required]
+    [Foldout("Dependencies"), Tooltip("")]
+    private Image modifierImageFourthLayer;
 
     [SerializeField, Required]
     [Foldout("Dependencies"), Tooltip("")]
@@ -42,8 +54,14 @@ public class ModifierDisplay : MonoBehaviour
         playerToModify = newPlayerToModify;
 
         // Display proper data
-        modifierImage.sprite = modifier.modifierImage;
-        modifierImage.preserveAspect = true;
+        modifierImageFirstLayer.sprite = modifier.modifierImageFirstLayer;
+        modifierImageSecondLayer.sprite = modifier.modifierImageSecondLayer;
+        modifierImageThirdLayer.sprite = modifier.modifierImageThirdLayer;
+        modifierImageFourthLayer.sprite = modifier.modifierImageFourthLayer;
+        modifierImageFirstLayer.preserveAspect = true;
+        modifierImageSecondLayer.preserveAspect = true;
+        modifierImageThirdLayer.preserveAspect = true;
+        modifierImageFourthLayer.preserveAspect = true;
         modifierDescriptionText.text = modifier.modifierDescription;
         modifierNameText.text = modifier.modifierName;
     }
