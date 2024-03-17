@@ -71,6 +71,14 @@ public class Bars : MonoBehaviour
     #endregion
 
     private Coroutine runningShakeCoroutine;
+    private Color originalCharacterBGColor;
+    private Color originalCharacterGlowColor;
+
+    private void Start()
+    {
+        originalCharacterBGColor = characterBG.color;
+        originalCharacterGlowColor = characterGlow.color;
+    }
 
     public void SetHUDBarCharacter()
     {
@@ -91,15 +99,15 @@ public class Bars : MonoBehaviour
     private void shakeObject(int currentHealth, int previousHealth)
     {
         if (runningShakeCoroutine != null)
+        {
             StopCoroutine(runningShakeCoroutine);
+        }
         runningShakeCoroutine = StartCoroutine(shake(currentHealth, previousHealth));
     }
 
     private IEnumerator shake(int currentHealth, int previousHealth)
     {
         float timer = 0;
-        var originalCharacterBGColor = characterBG.color;
-        var originalCharacterGlowColor = characterGlow.color;
         var originalPosition = objectToShake.transform.position;
         var originalHealth = (float) previousHealth / (float) playerStats.MaxHealth;
 
