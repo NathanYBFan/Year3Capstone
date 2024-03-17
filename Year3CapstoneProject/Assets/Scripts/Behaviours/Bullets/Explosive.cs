@@ -9,7 +9,8 @@ public enum DamageType
 	Explosive,
 	ChaosFactor,
 	Falling,
-	Lethal
+	Lethal,
+	none
 }
 public class Explosive : MonoBehaviour
 {

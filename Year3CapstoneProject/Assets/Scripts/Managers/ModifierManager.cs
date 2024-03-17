@@ -45,6 +45,7 @@ public class ModifierManager : MonoBehaviour
     {
         foreach (GameObject menu in modifierMenus)
             menu.SetActive(false);
+        leaderboardRootObject.SetActive(false);
     }
 
     // Open Menu actions

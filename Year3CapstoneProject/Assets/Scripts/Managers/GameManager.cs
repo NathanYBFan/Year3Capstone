@@ -118,9 +118,12 @@ public class GameManager : MonoBehaviour
 		}
 		// Enable Player HUD's
 		foreach (GameObject h in hudBars)
-			h.SetActive(true);
+		{
+            h.SetActive(true);
+			h.GetComponent<Bars>().FullReset();
+        }
 
-		inPauseMenu = false;
+        inPauseMenu = false;
 		inSettingsMenu = false;
     }
 
@@ -229,6 +232,7 @@ public class GameManager : MonoBehaviour
 		ChaosFactorManager._Instance.Reset();
 		BulletObjectPoolManager._Instance.ResetAllBullets();
 		PlayerStatsManager._Instance.ResetStats();
+		ModifierManager._Instance.CloseAllMenus();
 		currentRound = 0;
 		playerWinnerIndex = -1;
         inPauseMenu = false;

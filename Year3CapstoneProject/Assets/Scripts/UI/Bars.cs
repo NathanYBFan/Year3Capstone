@@ -76,8 +76,14 @@ public class Bars : MonoBehaviour
 
     private void Start()
     {
-        originalCharacterBGColor = characterBG.color;
-        originalCharacterGlowColor = characterGlow.color;
+        originalCharacterBGColor = Color.white;
+        originalCharacterGlowColor = playerStats.UIColor;
+        FullReset();
+    }
+
+    private void OnDisable()
+    {
+        FullReset();
     }
 
     public void SetHUDBarCharacter()
@@ -94,6 +100,14 @@ public class Bars : MonoBehaviour
     public void UseEnergy()
     {
         energyBar.fillAmount = (float) playerStats.CurrentEnergy /(float)playerStats.MaxEnergy;
+    }
+
+    public void FullReset()
+    {
+        characterBG.color = originalCharacterBGColor;
+        characterGlow.color = originalCharacterGlowColor;
+        healthBar.fillAmount = (float)playerStats.CurrentHealth / (float)playerStats.MaxHealth;
+        healthBarShadow.fillAmount = (float)playerStats.CurrentHealth / (float)playerStats.MaxHealth;
     }
 
     private void shakeObject(int currentHealth, int previousHealth)
