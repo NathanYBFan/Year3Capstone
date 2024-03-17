@@ -7,7 +7,16 @@ using UnityEngine.UIElements;
 public class HueShift : MonoBehaviour
 {
 	[SerializeField]
-	private float maxIntensity = 2;
+	[Tooltip("How bright the hue shift colours are.")]
+	private float hueIntensity = 2;
+
+	[SerializeField]
+	[Tooltip("How bright the Red Blink is.")]
+	private float redBlinkIntensity = 2;
+
+	[SerializeField]
+	[Tooltip("Shifts the range of numbers up or down (depending on the values given).\nEx. A value of -3 would lower all possible intensity values down by 3.")]
+	private float redBlinkRangeModifier = 0;
 
 	[SerializeField]
 	[Tooltip("How fast the lights shift in hue. \nNOTE: Higher values means faster speed.")]
@@ -52,12 +61,12 @@ public class HueShift : MonoBehaviour
 	{
 		if (ChaosFactorManager._Instance.ChaosFactorActive)
 		{
-			float currIntensity = maxIntensity;
+			float currIntensity = redBlinkIntensity;
 			foreach (var mat in mats)
 			{
 				mat.EnableKeyword("_EMISSION");
 				ColorMutator cm = new(Color.red);
-				currIntensity = Mathf.Cos(Time.time / redBlinkSlowness) * 2;
+				currIntensity = redBlinkIntensity * Mathf.Cos(Time.time / redBlinkSlowness) + redBlinkRangeModifier;
 				cm.exposureValue = currIntensity;
 				mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
 
@@ -81,7 +90,7 @@ public class HueShift : MonoBehaviour
 				Color newColour = Color.HSVToRGB(h, s, v, true);
 
 				ColorMutator cm = new(newColour);
-				cm.exposureValue = maxIntensity;
+				cm.exposureValue = hueIntensity;
 				mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
 
 			}
