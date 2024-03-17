@@ -356,7 +356,6 @@ public class PlayerStats : MonoBehaviour
 		playerAimUIMaterial.SetColor("_EmissionColor", aimEmission.exposureAdjustedColor); // Because the aim UI is thicker lined than the player lights, we're only going to consider half the intensity value. Again, removing colourBrightness from the emission to prevent blow out.
 	}
 
-
 	private void Update()
 	{
 		// Energy bar regen.
@@ -372,6 +371,7 @@ public class PlayerStats : MonoBehaviour
 		if (timer < Rate) return;
 		// Increase energy and reset timer
 		currEnergy += replenishAmount;
+		playerHUD.UpdateEnergyBar();
 
 		// If energy is maxed out, return;
 		if (currEnergy > maxEnergy)

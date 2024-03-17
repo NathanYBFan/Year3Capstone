@@ -102,6 +102,11 @@ public class Bars : MonoBehaviour
         energyBar.fillAmount = (float) playerStats.CurrentEnergy /(float)playerStats.MaxEnergy;
     }
 
+    public void UpdateEnergyBar()
+    {
+        energyBar.fillAmount = (float)playerStats.CurrentEnergy / (float)playerStats.MaxEnergy;
+    }
+
     public void FullReset()
     {
         characterBG.color = originalCharacterBGColor;
