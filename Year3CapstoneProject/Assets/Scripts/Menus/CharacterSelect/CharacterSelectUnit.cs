@@ -118,9 +118,9 @@ public class CharacterSelectUnit : MonoBehaviour
         iconDisplay.sprite = characterStatToAssign.characterSprite;
         iconBgDisplay.sprite = characterStatToAssign.characterBGSprite;
         displayCharacterName.text = "--" + characterStatToAssign.CharacterName + "--";
-        fireRateSlider.value = characterStatToAssign.DefaultFireRate / 10;
-        moveSpeedSlider.value = characterStatToAssign.DefaultMoveSpeed / 20;
-        healthSlider.value = (float)characterStatToAssign.MaxHealth / 6;
+        fireRateSlider.value = characterStatToAssign.DefaultFireRate;
+        moveSpeedSlider.value = characterStatToAssign.DefaultMoveSpeed;
+        healthSlider.value = characterStatToAssign.MaxHealth;
     }
 
     private void SetCharacterColorAssignment(Texture2D colorToSet)

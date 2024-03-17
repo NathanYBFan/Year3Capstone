@@ -222,7 +222,7 @@ public class PlayerBody : MonoBehaviour
 
 	public void Roll()
 	{
-		int healing = 1;
+		int healing = (int)(stats.MaxHealth - stats.CurrentHealth);
 		float amount = stats.MaxEnergy;
 		stats.CanShoot = false;
 
@@ -267,7 +267,7 @@ public class PlayerBody : MonoBehaviour
 	private void Roll(int input)
 	{
 		stats.CanShoot = false;
-		int healing = 1;
+		int healing = (int)(stats.MaxHealth - stats.CurrentHealth);
 		if (stats.CurrentEnergy - stats.RollingEnergyConsumption < 0 || stats.IsDead) return;
 		isRolling = true;
 		canMove = false;

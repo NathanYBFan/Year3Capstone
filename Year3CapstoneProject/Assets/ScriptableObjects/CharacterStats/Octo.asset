@@ -18,7 +18,7 @@ MonoBehaviour:
   characterSprite: {fileID: 21300000, guid: 3715449552b4efc4f88a8c686b530c6b, type: 3}
   characterBGSprite: {fileID: 21300000, guid: 027f2d0e14768ec4883a42279598ea73, type: 3}
   MaxHealth: 4
-  DefaultMoveSpeed: 13
+  DefaultMoveSpeed: 14
   DefaultFireRate: 4
   MaxEnergy: 100
   EnergyRegenRate: 1
