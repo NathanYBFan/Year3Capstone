@@ -5128,17 +5128,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64020625060f4c34cbc6ed97b3ab3baa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOn: 0
   flameArray:
   - {fileID: 8625792215402610684}
   - {fileID: 8829455869133023759}
   - {fileID: 473393716625801929}
   - {fileID: 5327814123349184895}
   - {fileID: 6531992527189850276}
-  damage: 1
-  burnTime: 3
-  trigger: {fileID: 4484570103172695107}
   flameSoundSource: {fileID: 0}
+  trigger: {fileID: 4484570103172695107}
+  damage: 1
+  damageInterval: 1
+  burnTime: 3
+  minWaitTime: 4
+  maxWaitTime: 7
+  timeBeforeActive: 2
 --- !u!65 &885816262386565235
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5179,8 +5182,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0225319, y: 1.022532, z: 1.810687}
-  m_Center: {x: 0, y: 0, z: 0.3995669}
+  m_Size: {x: 1, y: 1, z: 0.9}
+  m_Center: {x: 0, y: 0, z: 1.05}
 --- !u!114 &7798131391755848078
 MonoBehaviour:
   m_ObjectHideFlags: 0
