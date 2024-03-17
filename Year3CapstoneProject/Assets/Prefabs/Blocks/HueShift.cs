@@ -10,7 +10,12 @@ public class HueShift : MonoBehaviour
 	private float maxIntensity = 2;
 
 	[SerializeField]
-	private float speed = 0.01f;
+	[Tooltip("How fast the lights shift in hue. \nNOTE: Higher values means faster speed.")]
+	private float hueShiftSpeed = 0.05f;
+
+	[SerializeField]
+	[Tooltip("How slow the red lights blink during chaos factors. \nNOTE: Higher values means slower rate.")]
+	private float redBlinkSlowness = 0.05f;
 	[SerializeField]
 	private Color currentColour;
 
@@ -52,7 +57,7 @@ public class HueShift : MonoBehaviour
 			{
 				mat.EnableKeyword("_EMISSION");
 				ColorMutator cm = new(Color.red);
-				currIntensity = Mathf.Cos(Time.time / (speed * 3f)) * 2;
+				currIntensity = Mathf.Cos(Time.time / redBlinkSlowness) * 2;
 				cm.exposureValue = currIntensity;
 				mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
 
@@ -71,7 +76,7 @@ public class HueShift : MonoBehaviour
 				mat.EnableKeyword("_EMISSION");
 				currentColour = mat.GetColor("_EmissionColor");
 				Color.RGBToHSV(currentColour, out h, out s, out v);
-				h += Time.deltaTime * speed;
+				h += Time.deltaTime * hueShiftSpeed;
 				h %= 1;
 				Color newColour = Color.HSVToRGB(h, s, v, true);
 
