@@ -375,6 +375,18 @@ public class PlayerBody : MonoBehaviour
 		{
 			playerShield.SetActive(false);
 		}
+		isRolling = false;
+		isDashing = false;
+		dashEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+		if (headAnim != null && legAnim != null)
+		{
+			if (headAnim.IsPlaying("Roll"))
+			{
+				headAnim.Stop("Roll");
+				legAnim.Stop("Roll");
+			}
+		}
 	}
 	private IEnumerator DmgBoost()
 	{

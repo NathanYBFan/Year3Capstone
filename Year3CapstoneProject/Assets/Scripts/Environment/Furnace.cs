@@ -38,17 +38,7 @@ public class Furnace : MonoBehaviour
 
 	// In update, handle turning the flame effect on and off visually.
 	private void Update()
-	{
-		if (!GetComponent<Platform>().effectsActive)
-		{
-			StopAllCoroutines();
-			coroutine = null;
-		}
-		else
-		{
-			if (coroutine == null)
-				coroutine = StartCoroutine(FireOn());
-		}
+	{		
 
 	}
 
@@ -91,6 +81,8 @@ public class Furnace : MonoBehaviour
 	//alternates the furnace between being on for (burnTime), then off for (delay)
 	private IEnumerator FireOn()
 	{
+		while (!GetComponent<Platform>().effectsActive)
+			yield return null;
 		delay = Random.Range(2.0f, 5.0f);
 		yield return new WaitForSeconds(delay);
 		//turn on fire
@@ -111,7 +103,7 @@ public class Furnace : MonoBehaviour
 		trigger.enabled = true;
 		yield return new WaitForSeconds(burnTime);
 
-		coroutine = StartCoroutine(FireOff());
+		StartCoroutine(FireOff());
 		yield break;
 
 	}
