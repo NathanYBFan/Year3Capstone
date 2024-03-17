@@ -28,16 +28,12 @@ public class Furnace : MonoBehaviour
 	//the time a block waits to re-ignite its fire
 	private float delay;
 
-	//Whether or not the warning puff of flame has been shown
-	private bool warned;
 	private Coroutine coroutine;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		delay = UnityEngine.Random.Range(2.0f, 5.0f);
-
-		coroutine = StartCoroutine(OnOffCycle());
+		coroutine = StartCoroutine(FireOn());
 	}
 
 	// In update, handle turning the flame effect on and off visually.
@@ -50,35 +46,8 @@ public class Furnace : MonoBehaviour
 		}
 		else
 		{
-			if (coroutine == null) 
-				coroutine = StartCoroutine(OnOffCycle());
-		}
-		if (isOn)
-		{
-
-			for (int i = 0; i < flameArray.Length; i++)
-			{
-				if (!flameArray[i].isPlaying)
-				{
-					flameArray[i].Play();
-					FlameSound();
-				}
-
-			}
-			if (coroutine != null)
-				coroutine = StartCoroutine(OnOffCycle());
-			trigger.enabled = true;
-		}
-		else
-		{
-
-			for (int i = 0; i < flameArray.Length; i++)
-			{
-				flameArray[i].Stop(true, ParticleSystemStopBehavior.StopEmitting);
-
-			}
-			trigger.enabled = false;
-
+			if (coroutine == null)
+				coroutine = StartCoroutine(FireOn());
 		}
 
 	}
@@ -91,9 +60,7 @@ public class Furnace : MonoBehaviour
 		if (other.gameObject.GetComponentInChildren<CapsuleCollider>() != null && other.gameObject.GetComponentInChildren<BulletBehaviour>())
 		{
 			if (isOn)
-			{
 				BulletObjectPoolManager._Instance.ExpiredBullet(other.gameObject);
-			}
 
 
 		}
@@ -107,7 +74,6 @@ public class Furnace : MonoBehaviour
 				damaged = true;
 				StartCoroutine(AllowDamage());
 			}
-
 		}
 
 	}
@@ -123,38 +89,50 @@ public class Furnace : MonoBehaviour
 	}
 
 	//alternates the furnace between being on for (burnTime), then off for (delay)
-	private IEnumerator OnOffCycle()
+	private IEnumerator FireOn()
 	{
-		if (isOn)
-		{
-			yield return new WaitForSeconds(burnTime);
-			//turn off fire
-			isOn = false;
-			damaged = false;
-			warned = false;
-		}
+		delay = Random.Range(2.0f, 5.0f);
 		yield return new WaitForSeconds(delay);
 		//turn on fire
 		for (int i = 0; i < flameArray.Length; i++)
 		{
-			if (!warned)
-			{
-				flameArray[i].Emit(1);
-
-			}
+			flameArray[i].Emit(1);
 		}
-		warned = true;
-		yield return new WaitForSeconds(1);
+
+		yield return new WaitForSeconds(2);
+
+		for (int i = 0; i < flameArray.Length; i++)
+		{
+			flameArray[i].Play();
+			FlameSound();
+		}
+		damaged = false;
 		isOn = true;
-		coroutine = null;
+		trigger.enabled = true;
+		yield return new WaitForSeconds(burnTime);
 
+		coroutine = StartCoroutine(FireOff());
+		yield break;
 
+	}
+	private IEnumerator FireOff()
+	{
+		for (int i = 0; i < flameArray.Length; i++)
+		{
+			flameArray[i].Stop(true, ParticleSystemStopBehavior.StopEmitting);
+
+		}
+		trigger.enabled = false;
+		damaged = false;
+		isOn = false;
+		coroutine = StartCoroutine(FireOn());
+		yield break;
 	}
 
 	//Plays the player damage sound
 	private void FlameSound()
 	{
-		float randPitch = UnityEngine.Random.Range(0.8f, 1.5f);
+		float randPitch = Random.Range(0.8f, 1.5f);
 		AudioSource audioSource = AudioManager._Instance.ChooseEnvAudioSource();
 		if (audioSource != null)
 		{
