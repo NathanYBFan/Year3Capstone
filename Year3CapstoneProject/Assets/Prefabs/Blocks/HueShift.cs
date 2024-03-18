@@ -111,7 +111,9 @@ public class HueShift : MonoBehaviour
 			lerpComplete = false;
 			float distance = Mathf.Abs(hueIntensity - currentIntensity);
 			transitionSpeed = Mathf.Lerp(minTransitionSpeed, maxTransitionSpeed, 1 - Mathf.Clamp01(distance / 5f)); // Adjust the range for smoother transitions
-			currentIntensity = Mathf.Lerp(currentIntensity, hueIntensity, (transitionSpeed * Time.deltaTime) / distance);
+			if (distance > 0.01f)
+				currentIntensity = Mathf.Lerp(currentIntensity, hueIntensity, (transitionSpeed * Time.deltaTime) / distance);
+			else currentIntensity = hueIntensity;
 			foreach (var mat in mats)
 			{
 				float h, s, v;
