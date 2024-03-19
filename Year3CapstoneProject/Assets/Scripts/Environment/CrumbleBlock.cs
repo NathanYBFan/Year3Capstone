@@ -81,7 +81,6 @@ public class CrumbleBlock : MonoBehaviour
 	//Timer crumbleCoroutine that waits breakTime, crumbles the block, then re-instantiates it.
 	private IEnumerator CrumbleTimer()
 	{
-		CrackSound();
 		StartCoroutine(Shake());
 		float currTime = breakTime;
 		while (currTime >= 0)
@@ -122,16 +121,5 @@ public class CrumbleBlock : MonoBehaviour
 		crumbleCoroutine = null;
 	}
 
-	//Plays the tile cracking sound
-	private void CrackSound()
-	{
-		float randPitch = UnityEngine.Random.Range(0.75f, 0.95f);
-		AudioSource audioSource = AudioManager._Instance.ChooseEnvAudioSource();
-		if (audioSource != null)
-		{
-			audioSource.pitch = randPitch;
-			AudioManager._Instance.PlaySoundFX(AudioManager._Instance.EnvAudioList[2], audioSource);
-		}
 
-	}
 }
