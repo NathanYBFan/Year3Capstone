@@ -42,32 +42,28 @@ public class Boot : MonoBehaviour, ChaosFactor
     }
 
 
-    // Update is called once per frame
-    //void Update()
-    //{
 
-    //}
-
-
-    //take player transform
     public void Kick(GameObject kicker)
     {
 
         foreach (GameObject p in GameManager._Instance.Players)
         {
             //print(p);
-            if (p != kicker && p != null) { 
+            if (p != kicker && p != null) 
+            { 
 
             //print(p);
 
             //check distance
-            Vector3 distance = p.transform.position - kicker.transform.position;
+            Vector3 distance = p.transform.position - kicker.transform.position; //not problem
 
             //GET MAGNITUDE OF DISTANCE
-            float dist = distance.magnitude;
+            float dist = distance.magnitude; // not problem
 
+
+                // this is probably the problem
             //get direction
-            Vector3 localDir = Quaternion.Inverse(kicker.transform.rotation) * (p.transform.position - kicker.transform.position);
+            Vector3 localDir = Quaternion.Inverse(kicker.GetComponent<PlayerBody>().Pivot.transform.rotation) * (p.transform.position - kicker.transform.position);
 
             if (dist < 5 && localDir.z > 0 && !kicked)
             {

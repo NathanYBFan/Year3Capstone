@@ -69,6 +69,8 @@ public class PlayerBody : MonoBehaviour
 	public bool BootCF { get { return bootCF; } set { bootCF = value; } }
 	public GameObject Shield { get { return playerShield; } }
 
+	public GameObject Pivot { get { return pivot; } set { pivot = value; } }
+
 	#endregion Getters & Setters
 	#region Private Variables
 	Animation headAnim;
