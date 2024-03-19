@@ -4060,8 +4060,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e67c5f33a5b2340a268ee89ebecd98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShakeIntensity: 2
-  ShakeDuration: 0.5
+  ShakeIntensity1: 0
+  ShakeDuration1: 0
 --- !u!114 &1228130527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6683,7 +6683,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -496}
+  m_AnchoredPosition: {x: 0, y: -503}
   m_SizeDelta: {x: 400, y: 63.397}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2003279500
