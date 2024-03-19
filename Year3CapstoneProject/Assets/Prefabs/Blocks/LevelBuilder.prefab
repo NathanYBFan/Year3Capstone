@@ -78,12 +78,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 363dfdb177d9e4845aa3903b22f5335e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hueIntensity: 2
-  redBlinkIntensity: 1.5
-  redBlinkRangeModifier: 0
-  hueShiftSpeed: 0.05
-  redBlinkSlowness: 1
-  currentColour: {r: 1, g: 0, b: 0, a: 1}
   mats:
   - {fileID: 2100000, guid: 2d203420c9c86154ca5aaf3ffe8a93ba, type: 2}
   - {fileID: 2100000, guid: ea4fbb45b9ba6684685fdf8f6f38ea48, type: 2}
@@ -104,4 +98,12 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f66b8419f35db2144a7c52a69aaab072, type: 2}
   - {fileID: 2100000, guid: 169078add6b2b3847897a82ede6b1eef, type: 2}
   rampSurfaceMat: {fileID: 2100000, guid: e9c468ff1a41f5c4a91e0e41cfd0cbd4, type: 2}
+  currentColour: {r: 1, g: 0, b: 0, a: 1}
+  hueShiftSpeed: 0.05
+  redBlinkSlowness: 4
+  minTransitionSpeed: 1
+  maxTransitionSpeed: 10
   scrollX: -0.5
+  hueIntensity: 2
+  redBlinkIntensity: 1.5
+  redBlinkRangeModifier: 0
