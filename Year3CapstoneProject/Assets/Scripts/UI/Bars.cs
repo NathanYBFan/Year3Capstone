@@ -86,12 +86,15 @@ public class Bars : MonoBehaviour
     {
         FullReset();
     }
-
-    public void SetHUDBarCharacter()
+	private void OnEnable()
+	{
+		FullReset();
+	}
+	public void SetHUDBarCharacter()
     {
-		characterGlow.color = playerStats.UIColor;
 		originalCharacterBGColor = Color.white;
 		originalCharacterGlowColor = playerStats.UIColor;
+		characterGlow.color = playerStats.UIColor;
 	}
 
     public void TakeDamage(int currentHealth, int previousHealth)
@@ -121,8 +124,8 @@ public class Bars : MonoBehaviour
 
     public void FullReset()
     {
-        characterBG.color = originalCharacterBGColor;
-        characterGlow.color = originalCharacterGlowColor;
+        characterBG.color = Color.white;
+        characterGlow.color = playerStats.UIColor;
         healthBar.fillAmount = (float)playerStats.CurrentHealth / (float)playerStats.MaxHealth;
         healthBarShadow.fillAmount = (float)playerStats.CurrentHealth / (float)playerStats.MaxHealth;
     }
