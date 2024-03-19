@@ -454,6 +454,7 @@ public class PlayerBody : MonoBehaviour
 
 	public void ResetPlayer()
 	{
+		StopAllCoroutines();
 		aimDir = Vector3.zero;
 		moveDir = Vector3.zero;
 		legDir = Vector3.zero;
