@@ -70,10 +70,12 @@ public class PlayerBody : MonoBehaviour
 	public GameObject Shield { get { return playerShield; } }
 
 	public GameObject Pivot { get { return pivot; } set { pivot = value; } }
+    public GameObject LegPivot { get { return legPivot; } set { legPivot = value; } }
 
-	#endregion Getters & Setters
-	#region Private Variables
-	Animation headAnim;
+
+    #endregion Getters & Setters
+    #region Private Variables
+    Animation headAnim;
 	Animation legAnim;
 	private bool hasExploded = false;
 	private bool isDashing = false, isShooting = false, isRolling = false, canMove = true, reset = false;
@@ -170,7 +172,7 @@ public class PlayerBody : MonoBehaviour
 			headAnim.Play("Dash");
 			isDashing = false;
 		}
-		else if (isShooting && canMove)
+		else if (isShooting && canMove && !isBooting)
 		{
 			headAnim.Play("Shoot");
 			isShooting = false;
@@ -180,8 +182,13 @@ public class PlayerBody : MonoBehaviour
 			headAnim.Play("Roll");
 			isRolling = false;
 		}
-		else if (canMove && moveDir.magnitude != 0 && !headAnim.IsPlaying("Death") && !headAnim.IsPlaying("Dash") && !headAnim.IsPlaying("Shoot") && !headAnim.IsPlaying("Roll")) headAnim.Play("Walk");
-		else if (!headAnim.IsPlaying("Death") && !headAnim.IsPlaying("Dash") && !headAnim.IsPlaying("Shoot") && !headAnim.IsPlaying("Roll") && moveDir.magnitude == 0) headAnim.Play("Idle");
+		else if (bootCF && isBooting)
+		{
+			Debug.Log("Boot head anim");
+			headAnim.Play("Boot");
+		}
+		else if (canMove && moveDir.magnitude != 0 && !headAnim.IsPlaying("Death") && !headAnim.IsPlaying("Dash") && !headAnim.IsPlaying("Shoot") && !headAnim.IsPlaying("Roll") && !headAnim.IsPlaying("Boot")) headAnim.Play("Walk");
+		else if (!headAnim.IsPlaying("Death") && !headAnim.IsPlaying("Dash") && !headAnim.IsPlaying("Shoot") && !headAnim.IsPlaying("Roll") && !headAnim.IsPlaying("Boot") && moveDir.magnitude == 0) headAnim.Play("Idle");
 
 
 		legAnim = transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Animation>();

@@ -68,6 +68,8 @@ public class Boot : MonoBehaviour, ChaosFactor
             if (dist < 5 && localDir.z > 0 && !kicked)
             {
                 print(p.name);
+
+                kicker.GetComponent<PlayerBody>().LegPivot.transform.rotation = kicker.GetComponent<PlayerBody>().Pivot.transform.rotation;
                 Vector3 kickDirect = new Vector3(distance.x, 1.3f, distance.z);
                 StartCoroutine(Kick(kickDirect, p.GetComponent<Rigidbody>()));
             }
