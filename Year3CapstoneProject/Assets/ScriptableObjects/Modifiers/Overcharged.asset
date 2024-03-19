@@ -16,6 +16,6 @@ MonoBehaviour:
   modifierImageFirstLayer: {fileID: 21300000, guid: 108452f63199eb046b3819bc429de31e, type: 3}
   modifierImageSecondLayer: {fileID: 21300000, guid: dbf12b2ba07e14f4282dfe3460ddaae4, type: 3}
   modifierImageThirdLayer: {fileID: 21300000, guid: 688b88cab219f4542a0715a6459b3913, type: 3}
-  modifierImageFourthLayer: {fileID: 0}
+  modifierImageFourthLayer: {fileID: 21300000, guid: 53c779cd232c3394d81f5f6bd5f6239f, type: 3}
   modifierDescription: Permanently increases movement speed and halves your roll
     time
