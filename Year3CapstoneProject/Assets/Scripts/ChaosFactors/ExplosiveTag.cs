@@ -26,21 +26,6 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 
     public float Timer { get { return timer; } }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        //move with target player
-        Spawnedbelt.transform.position = new Vector3(targetPlayer.transform.position.x, targetPlayer.transform.position.y + 2, targetPlayer.transform.position.z);
-        Spawnedbelt.transform.Rotate(new Vector3(0, 0, beltRotSpeed) * Time.deltaTime);
-
-    }
-
-
-    public void swapTarget(GameObject p)
-    {
-        targetPlayer = p;
-    }
 
     private void OnEnable()
     {
@@ -53,14 +38,52 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().ChaosFactorCanShoot = false;
         }
 
-        int random = Random.Range(0, 3);
+        bool loop = true;
+        while (loop)
+        {
+            int random = Random.Range(0, 3);
 
-        targetPlayer = GameManager._Instance.Players[0];
+            targetPlayer = GameManager._Instance.Players[random];
+
+            if (targetPlayer.GetComponent<PlayerStats>().IsDead == true) { print("Dead player selected, trying agian"); }
+
+            else
+            {
+                loop = false;
+            }
+
+
+        }
+
 
 
         //spawn bomb belt on player
         Spawnedbelt = Instantiate(UnSpawnedbelt, new Vector3(targetPlayer.transform.position.x, targetPlayer.transform.position.y + 2, targetPlayer.transform.position.z), Quaternion.Euler(new Vector3(-90, 0, 0)), this.transform);
     }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        //move with target player
+        Spawnedbelt.transform.position = new Vector3(targetPlayer.transform.position.x, targetPlayer.transform.position.y + 2, targetPlayer.transform.position.z);
+        Spawnedbelt.transform.Rotate(new Vector3(0, 0, beltRotSpeed) * Time.deltaTime);
+
+        if (targetPlayer.GetComponent<PlayerStats>().IsDead == true)
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
+
+    public void swapTarget(GameObject p)
+    {
+        targetPlayer = p;
+    }
+
+
 
     private void OnDestroy()
     {
