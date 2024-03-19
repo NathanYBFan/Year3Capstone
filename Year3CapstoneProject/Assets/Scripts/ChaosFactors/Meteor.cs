@@ -104,12 +104,12 @@ public class Meteor : MonoBehaviour, ChaosFactor
         GetComponentInChildren<MeshRenderer>().enabled = false;
         if (GameObject.Find("VCam").GetComponent<CameraShake>() != null)
         {
-            GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera();
+            GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(2, 0.75f);
         }
         yield return new WaitForSeconds(1f);
         if (GameObject.Find("VCam").GetComponent<CameraShake>() != null)
         {
-            GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera();
+            GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(2, 0.75f);
         }
         Destroy(gameObject);
         yield return null;

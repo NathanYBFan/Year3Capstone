@@ -30,7 +30,8 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 	{
 		droppedPlatforms = new GameObject[numberOfBlocks];
 		StartCoroutine(collapse());
-	}
+        GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, timer);
+    }
 	public IEnumerator collapse()
 	{
 		for (int i = 0; i < numberOfBlocks; i++)

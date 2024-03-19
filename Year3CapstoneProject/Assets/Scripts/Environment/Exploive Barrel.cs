@@ -45,6 +45,7 @@ public class ExploiveBarrel : MonoBehaviour
             GetComponent<MeshRenderer>().enabled = false;
             //GetComponent
             //transform.position = new Vector3(transform.position.x, transform.position.y - 20, transform.position.z);
+            GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.5f);
             exploded = true;
             BlastSound();
             StartCoroutine(boom());

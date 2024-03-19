@@ -7,10 +7,10 @@ public class CameraShake : MonoBehaviour
     private CinemachineVirtualCamera CinemachineVirtualCamera;
     [SerializeField]
     [Foldout ("CameraBehaviour"), Tooltip("Strength of shake")]
-    private float ShakeIntensity;
+    private float ShakeIntensity1;
     [SerializeField]
     [Foldout("CameraBehaviour"), Tooltip("Duration of Camera shake")]
-    private float ShakeDuration;
+    private float ShakeDuration1;
 
     private float timer;
     private CinemachineBasicMultiChannelPerlin clamp;
@@ -24,7 +24,7 @@ public class CameraShake : MonoBehaviour
         EndShake();
     }
 
-    public void ShakeCamera()
+    public void ShakeCamera(float ShakeIntensity, float ShakeDuration)
     {
 
 
@@ -44,7 +44,7 @@ public class CameraShake : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space)) 
         {
-            ShakeCamera();
+            ShakeCamera(ShakeIntensity1, ShakeDuration1);
         }
         if (timer > 0)
         {

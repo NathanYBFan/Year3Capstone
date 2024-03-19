@@ -331,7 +331,9 @@ public class PlayerBody : MonoBehaviour
 			explosionRadius.GetComponent<Explosive>().OriginalPlayerIndex = playerIndex;
 			explosionRadius.GetComponent<Explosive>().PlayerOwner = stats;
 			explosionRadius.GetComponent<Explosive>().StartExpansion(true);
-			while (explosionRadius != null)
+            GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1.5f, 0.5f);
+
+            while (explosionRadius != null)
 			{
 				yield return null;
 			}

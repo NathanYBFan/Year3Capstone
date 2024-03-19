@@ -94,5 +94,6 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
             GameManager._Instance.Players[i].GetComponent<PlayerStats>().ChaosFactorCanShoot = true;
         }
         targetPlayer.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
+        GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.5f);
     }
 }

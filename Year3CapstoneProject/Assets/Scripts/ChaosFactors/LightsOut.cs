@@ -30,20 +30,20 @@ public class LightsOut : MonoBehaviour, ChaosFactor
         //flicker off
         sun.enabled = false;
         dr.enabled = false;
-
+        
 
 
         //reduce intensity
         sun.intensity = 0.66f;
         dr.intensity = 0.66f;
 
-
+        GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.2f);
         yield return new WaitForSeconds(0.2f);
         //flicker on
         sun.enabled = true;
         dr.enabled = true;
 
-
+        GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.2f);
         yield return new WaitForSeconds(0.2f);
         //flciker off
         sun.enabled = false;
@@ -52,12 +52,12 @@ public class LightsOut : MonoBehaviour, ChaosFactor
         //reduce intensity
         sun.intensity = 0.33f;
         dr.intensity = 0.33f;
-
+        GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.2f);
         yield return new WaitForSeconds(0.2f);
         //flicker on
         sun.enabled = true;
-       // dr.enabled = true;
-
+        // dr.enabled = true;
+        GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.2f);
         yield return new WaitForSeconds(0.2f);
         //Turn off final
         sun.enabled = false;
