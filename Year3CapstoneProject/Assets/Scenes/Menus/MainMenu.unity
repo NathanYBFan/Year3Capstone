@@ -779,10 +779,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HIGH TECH HAVOC
+  m_text: HIGH-TECH HAVOC
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9be4297a00627354586e7f745e5233ac, type: 2}
-  m_sharedMaterial: {fileID: -7006711465887783453, guid: 9be4297a00627354586e7f745e5233ac, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ce04de2a21038f64fbbaa2b260c79060, type: 2}
+  m_sharedMaterial: {fileID: 4117153480027301291, guid: ce04de2a21038f64fbbaa2b260c79060, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -812,7 +812,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
