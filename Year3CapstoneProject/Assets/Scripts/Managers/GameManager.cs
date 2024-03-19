@@ -235,7 +235,6 @@ public class GameManager : MonoBehaviour
 		PlayerStatsManager._Instance.ResetStats();
 		ModifierManager._Instance.CloseAllMenus();
 		currentRound = 0;
-		playerWinnerIndex = -1;
         inPauseMenu = false;
         inSettingsMenu = false;
         QuitToMainMenu();

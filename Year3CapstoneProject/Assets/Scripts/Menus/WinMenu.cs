@@ -22,9 +22,9 @@ public class WinMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(firstButton);
         textbox.text = "Player " + (GameManager._Instance.PlayerWinnerIndex + 1) + " Wins!";
         playerIcon.sprite = GameManager._Instance.Players[GameManager._Instance.PlayerWinnerIndex].GetComponent<PlayerStats>().CharacterStat.characterSprite;
-
         playerBgIcon.sprite = GameManager._Instance.Players[GameManager._Instance.PlayerWinnerIndex].GetComponent<PlayerStats>().CharacterStat.characterBGSprite;
-    }
+        playerIcon.color = GameManager._Instance.Players[GameManager._Instance.PlayerWinnerIndex].GetComponent<PlayerStats>().UIColor;
+	}
     private void ButtonPressSFX()
     {
         AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;

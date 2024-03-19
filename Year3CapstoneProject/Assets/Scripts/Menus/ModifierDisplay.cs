@@ -45,9 +45,28 @@ public class ModifierDisplay : MonoBehaviour
 
     #region Setters&Getters
     public GameObject Buttonobject { get { return buttonObject; } }
-    #endregion
+	#endregion
 
-    public void ResetModifier(Modifier newModifier, GameObject newPlayerToModify)
+	public void UpdateColour()
+	{
+		if (modifierImageFirstLayer.sprite.name.Contains("Colour")) modifierImageFirstLayer.color =
+		ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>().UIColor;
+        else modifierImageFirstLayer.color = Color.white;
+
+		if (modifierImageSecondLayer.sprite.name.Contains("Colour")) modifierImageSecondLayer.color =
+		ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>().UIColor;
+		else modifierImageSecondLayer.color = Color.white;
+
+		if (modifierImageThirdLayer.sprite.name.Contains("Colour")) modifierImageThirdLayer.color =
+		ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>().UIColor;
+		else modifierImageThirdLayer.color = Color.white;
+
+		if (modifierImageFourthLayer.sprite.name.Contains("Colour")) modifierImageFourthLayer.color =
+		ModifierManager._Instance.PlayerToModify.GetComponent<PlayerStats>().UIColor;
+		else modifierImageFourthLayer.color = Color.white;
+	}
+
+	public void ResetModifier(Modifier newModifier, GameObject newPlayerToModify)
     {
         // Assign values
         modifier = newModifier;

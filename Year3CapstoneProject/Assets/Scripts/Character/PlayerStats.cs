@@ -300,6 +300,7 @@ public class PlayerStats : MonoBehaviour
 			legs.transform.GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
 
 			ResetMaterialEmissionColor();
+			playerHUD.SetHUDBarCharacter();
 		}
 	}
 	public CharacterStatsSO CharacterStat

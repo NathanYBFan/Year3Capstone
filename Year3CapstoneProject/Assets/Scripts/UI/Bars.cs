@@ -90,6 +90,8 @@ public class Bars : MonoBehaviour
     public void SetHUDBarCharacter()
     {
 		characterGlow.color = playerStats.UIColor;
+		originalCharacterBGColor = Color.white;
+		originalCharacterGlowColor = playerStats.UIColor;
 	}
 
     public void TakeDamage(int currentHealth, int previousHealth)

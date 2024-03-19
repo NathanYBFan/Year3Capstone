@@ -81,7 +81,9 @@ public class ModifierMenu : MonoBehaviour
             localListOfModifiers.RemoveAt(modifierSelected);
 
             modifierDisplayList[i].GetComponent<ModifierDisplay>().ResetModifier(selectedModifier, ModifierManager._Instance.PlayerToModify);
-        }
+			modifierDisplayList[i].GetComponent<ModifierDisplay>().UpdateColour();
+
+		}
     }
     public void SkipButtonPressed()
     {
