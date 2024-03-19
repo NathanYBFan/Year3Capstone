@@ -513,7 +513,11 @@ public class PlayerStats : MonoBehaviour
 						currHealth = 1;
 					}
 				}
-				else currHealth -= inflictedDebuff.damage;
+				else
+				{
+					currHealth -= inflictedDebuff.damage;
+					playerHUD.TakeDamage(currHealth - inflictedDebuff.damage, currHealth);
+				}
 			}
 			inflictedDebuff.debuffDuration -= inflictedDebuff.damageInterval;
 		}

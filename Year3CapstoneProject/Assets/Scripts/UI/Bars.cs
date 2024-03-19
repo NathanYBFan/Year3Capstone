@@ -97,7 +97,7 @@ public class Bars : MonoBehaviour
 		characterGlow.color = playerStats.UIColor;
 	}
 
-    public void TakeDamage(int currentHealth, int previousHealth)
+    public void TakeDamage(float currentHealth, float previousHealth)
     {
         healthBar.fillAmount = (float)playerStats.CurrentHealth/(float)playerStats.MaxHealth;
         shakeObject(currentHealth, previousHealth);
@@ -125,12 +125,13 @@ public class Bars : MonoBehaviour
     public void FullReset()
     {
         characterBG.color = Color.white;
-        characterGlow.color = playerStats.UIColor;
+		originalCharacterGlowColor = playerStats.UIColor;
+		characterGlow.color = playerStats.UIColor;
         healthBar.fillAmount = (float)playerStats.CurrentHealth / (float)playerStats.MaxHealth;
         healthBarShadow.fillAmount = (float)playerStats.CurrentHealth / (float)playerStats.MaxHealth;
     }
 
-    private void shakeObject(int currentHealth, int previousHealth)
+    private void shakeObject(float currentHealth, float previousHealth)
     {
         if (runningShakeCoroutine != null)
         {
@@ -144,7 +145,7 @@ public class Bars : MonoBehaviour
         runningAggravatedCoroutine = StartCoroutine(AggravatedHealthUpdate(currentHealth, previousHealth));
 
 	}
-    private IEnumerator AggravatedHealthUpdate(int currentHealth, int previousHealth)
+    private IEnumerator AggravatedHealthUpdate(float currentHealth, float previousHealth)
     {
 		float timer = 0;
 		var originalHealth = (float)previousHealth / (float)playerStats.MaxHealth;
@@ -156,7 +157,7 @@ public class Bars : MonoBehaviour
 		}
 		healthBarShadow.fillAmount = healthBar.fillAmount;
 	}
-    private IEnumerator shake(int currentHealth, int previousHealth)
+    private IEnumerator shake(float currentHealth, float previousHealth)
     {
         float timer = 0;
         var originalPosition = objectToShake.transform.position;
