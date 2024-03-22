@@ -2,6 +2,7 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChaosFactorManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class ChaosFactorManager : MonoBehaviour
     #region SerializeFields
     [SerializeField]
     private GameObject gameManagerRef;
+
+    [SerializeField]
+    private Image alert;
 
     [SerializeField]
     [Tooltip("List of all Chaos Factors that can spawn in the game")]
@@ -28,6 +32,8 @@ public class ChaosFactorManager : MonoBehaviour
     [Foldout("Stats"), Tooltip("A list of all chaos factors currently in play")]
     private List<GameObject> currentRunningChaosFactors;
 
+
+
     #endregion
 
 
@@ -38,6 +44,15 @@ public class ChaosFactorManager : MonoBehaviour
 
     private bool timer;
     private bool chaosFactorActive = false;
+
+    //private int maxRed;
+    //private int maxGreen;
+    //private int maxBlue;
+
+    private int minRed = 100;
+    private int minGreen;
+    private int minBlue;
+
     private void Awake()
     {
         timer = false;
@@ -139,6 +154,17 @@ public class ChaosFactorManager : MonoBehaviour
     // Run Coroutine
     public IEnumerator RunChaosFactor(GameObject chaosFactorToSpawn)
     {
+
+        //ALERT
+
+        //show UI image
+
+
+        //play sounds/voice lines
+
+
+
+
         chaosFactorActive = true;
         // Instantiate Chaos Factor
         GameObject chaosFactor = GameObject.Instantiate(chaosFactorToSpawn, transform);
