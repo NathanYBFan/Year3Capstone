@@ -10,15 +10,15 @@ public class ArrowButton : MonoBehaviour, ISelectHandler
     [SerializeField]
     private bool isPointingLeft;
 
-    [SerializeField]
-    private ModeSelectMenu modeSelectMenu;
+    //[SerializeField]
+    //private ModeSelectMenu modeSelectMenu;
 
     public void OnSelect(BaseEventData eventData)
     {
-        if (isPointingLeft)
-            modeSelectMenu.LeftArrowPressed();
-        else
-            modeSelectMenu.RightArrowPressed();
+        //if (isPointingLeft)
+        //    modeSelectMenu.LeftArrowPressed();
+        //else
+        //    modeSelectMenu.RightArrowPressed();
         StartCoroutine(SetNewButton());
     }
 

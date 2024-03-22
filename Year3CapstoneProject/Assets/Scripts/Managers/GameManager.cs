@@ -32,11 +32,6 @@ public class GameManager : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("array of spawnpoints")]
 	private List<Transform> stageSpawnPoints;
 
-
-	[SerializeField, ReadOnly]
-	[Foldout("Stats"), Tooltip("Selectected game mode to load")]
-	private string selectedGameMode;
-
 	[SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("List of players who are dead")]
 	private List<GameObject> deadPlayerList;
@@ -61,7 +56,6 @@ public class GameManager : MonoBehaviour
 	#region Getters&Setters
 	public List<GameObject> Players { get { return players; } set { players = value; } }
 	public List<GameObject> Platforms { get { return platforms; } set { platforms = value; } }
-	public string SelectedGameMode { get { return selectedGameMode; } set { selectedGameMode = value; } }
 	public List<Transform> StageSpawnPoints { get { return stageSpawnPoints; } set { stageSpawnPoints = value; } }
 	public bool InGame { get { return inGame; } set { inGame = value; } }
 	public bool IsPaused { get { return isPaused; } set { isPaused = value; } }

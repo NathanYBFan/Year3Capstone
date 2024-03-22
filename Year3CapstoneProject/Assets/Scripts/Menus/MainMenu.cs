@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGamePressed()
     {
         ButtonPressSFX();
-        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], true);
+        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[4], true);
     }
 
     public void SettingsButtonPressed()
