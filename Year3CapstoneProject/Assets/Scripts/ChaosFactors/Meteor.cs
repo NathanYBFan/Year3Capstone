@@ -56,6 +56,7 @@ public class Meteor : MonoBehaviour, ChaosFactor
         transform.position = new Vector3(Random.Range(minSpawnX, maxSpawnX), spawnHeight, Random.Range(minSpawnZ, maxSpawnZ));
         markerInstance = Instantiate(fallMarker, new Vector3(transform.position.x, markerSpawnHeight+4, transform.position.z), transform.rotation);
         rb = GetComponent<Rigidbody>();
+        HissSound();
     }
 
 
@@ -97,7 +98,7 @@ public class Meteor : MonoBehaviour, ChaosFactor
 
     private IEnumerator boom()
     {
-
+        BoomSound();
         explosion.Play();
         Destroy(markerInstance);
         MeteorVisual.enabled = false;
@@ -116,6 +117,30 @@ public class Meteor : MonoBehaviour, ChaosFactor
     }
 
 
+    //Plays the impact sound
+    private void BoomSound()
+    {
+        float randPitch = Random.Range(0.8f, 1.5f);
+        AudioSource audioSource = AudioManager._Instance.ChooseEnvAudioSource();
+        if (audioSource != null)
+        {
+            audioSource.pitch = randPitch;
+            AudioManager._Instance.PlaySoundFX(AudioManager._Instance.CFAudioList[1], audioSource);
+        }
 
+    }
+
+    //Plays the whistle/warning sound
+    private void HissSound()
+    {
+        float randPitch = Random.Range(0.8f, 1.5f);
+        AudioSource audioSource = AudioManager._Instance.ChooseEnvAudioSource();
+        if (audioSource != null)
+        {
+            audioSource.pitch = randPitch;
+            AudioManager._Instance.PlaySoundFX(AudioManager._Instance.CFAudioList[0], audioSource);
+        }
+
+    }
 
 }

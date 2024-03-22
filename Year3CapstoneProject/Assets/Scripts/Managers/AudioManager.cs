@@ -41,9 +41,12 @@ public class AudioManager : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("Sound FX list for the Environment sounds")]
     private List<AudioClip> envAudioList;
 
- 
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Sound FX list for the Chaos Factors")]
+    private List<AudioClip> cfAudioList;
 
-    
+
+
 
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("Music track list")]
@@ -57,6 +60,8 @@ public class AudioManager : MonoBehaviour
 
     public List<AudioClip> PlayerAudioList { get { return playerAudioList; } }
     public List<AudioClip> UIAudioList { get { return uiAudioList; } }
+
+    public List<AudioClip> CFAudioList { get { return cfAudioList; } }
     public List<AudioClip> EnvAudioList { get { return envAudioList; } }
 
 
