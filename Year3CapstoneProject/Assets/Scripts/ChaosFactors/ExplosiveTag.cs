@@ -20,9 +20,14 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
     [SerializeField]
     private float timer;
 
+
+    private int targetSpeed;
+
     private float[] holdSpeeds;
     private GameObject Spawnedbelt;
     private GameObject targetPlayer;
+
+
 
     public float Timer { get { return timer; } }
 
@@ -55,8 +60,8 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 
         }
 
-
-
+        targetSpeed = playerSpeed + 2;
+        targetPlayer.GetComponent<PlayerStats>().MovementSpeed = targetSpeed;
         //spawn bomb belt on player
         Spawnedbelt = Instantiate(UnSpawnedbelt, new Vector3(targetPlayer.transform.position.x, targetPlayer.transform.position.y + 2, targetPlayer.transform.position.z), Quaternion.Euler(new Vector3(-90, 0, 0)), this.transform);
     }
@@ -80,7 +85,14 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 
     public void swapTarget(GameObject p)
     {
+
+        targetPlayer.GetComponent<PlayerStats>().MovementSpeed = playerSpeed;
         targetPlayer = p;
+        targetPlayer.GetComponent<PlayerStats>().MovementSpeed = targetSpeed;
+
+
+
+
     }
 
 
