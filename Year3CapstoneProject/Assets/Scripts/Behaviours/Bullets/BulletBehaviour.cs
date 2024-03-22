@@ -194,6 +194,6 @@ public class BulletBehaviour : MonoBehaviour
 	{
 		originalPlayerIndex = newIndex;
 		playerOwner = stats;
-		trailMat.material = playerOwner.PlayerBulletTrail;
+		trailMat.material = playerOwner.PlayerGlowMaterial;
 	}
 }

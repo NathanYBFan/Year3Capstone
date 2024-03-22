@@ -26,10 +26,6 @@ public class PlayerStats : MonoBehaviour
 
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
-	private Material playerBulletTrail;
-
-	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
 	private Material playerAimUIMaterial;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
@@ -202,7 +198,7 @@ public class PlayerStats : MonoBehaviour
 	#endregion Private Variables
 
 	#region Getters & Setters
-	public Material PlayerBulletTrail { get { return playerBulletTrail; } set { playerBulletTrail = value; } }
+	public Material PlayerGlowMaterial { get { return playerGlowMaterial; } set { playerGlowMaterial = value; } }
 	public bool IsDead { get { return isDead; } set { isDead = value; } }
 	public float InvincibilityTime { get { return invincibilityTime; } }
 	public float MaxHealth { get { return maxHealth; } }
@@ -360,10 +356,6 @@ public class PlayerStats : MonoBehaviour
 		playerAimUIMaterial.SetColor("_BaseColor", uiColor);
 		playerAimUIMaterial.EnableKeyword("_EMISSION");
 		playerAimUIMaterial.SetColor("_EmissionColor", aimEmission.exposureAdjustedColor); // Because the aim UI is thicker lined than the player lights, we're only going to consider half the intensity value. Again, removing colourBrightness from the emission to prevent blow out.
-
-		playerBulletTrail.SetColor("_BaseColor", uiColor);
-		playerBulletTrail.EnableKeyword("_EMISSION");
-		playerBulletTrail.SetColor("_EmissionColor", aimEmission.exposureAdjustedColor); // Because the aim UI is thicker lined than the player lights, we're only going to consider half the intensity value. Again, removing colourBrightness from the emission to prevent blow out.
 	}
 
 	private void Update()
