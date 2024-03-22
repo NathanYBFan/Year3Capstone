@@ -12,6 +12,9 @@ public class BulletBehaviour : MonoBehaviour
 	private GameObject bulletGO;
 	[SerializeField, Required]
 	[Foldout("Dependencies"), Tooltip("")]
+	private GameObject bulletShattered;
+	[SerializeField, Required]
+	[Foldout("Dependencies"), Tooltip("")]
 	private Transform bulletRootObject;
 	[SerializeField, Required]
 	[Foldout("Dependencies"), Tooltip("The positions/angles of which the Fragmentation bullets will shoot in.")]
@@ -94,6 +97,7 @@ public class BulletBehaviour : MonoBehaviour
 			case "Shield":
 				if (other.gameObject != playerOwner.gameObject.GetComponent<PlayerBody>().Shield)
 				{
+					Instantiate(bulletShattered, transform.position, Quaternion.identity);
 					if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
 					else Destroy(bulletRootObject.gameObject);
 				}
@@ -101,6 +105,7 @@ public class BulletBehaviour : MonoBehaviour
 			case "Player":
 				if (other.transform.parent.parent.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
 				{
+					Instantiate(bulletShattered, transform.position, Quaternion.identity);
 					// Check to see if these bullets should have a burn effect.
 					if (playerOwner.GiveableDebuff != null)
 					{
@@ -125,6 +130,7 @@ public class BulletBehaviour : MonoBehaviour
 				}
 				break;
 			case "StageNormal":
+				Instantiate(bulletShattered, transform.position, Quaternion.identity);
 				// If the player has Fragmentation and the bullet that hit the stage is fragmentable, split the bullet!
 				if (playerOwner.FragmentBullets && isFragmentable)
 				{

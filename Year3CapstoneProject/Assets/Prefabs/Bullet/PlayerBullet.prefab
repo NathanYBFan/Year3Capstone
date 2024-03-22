@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletGO: {fileID: 1615981789932428633}
+  bulletShattered: {fileID: 5037597047552234507, guid: f325efb274da4ba419600a10a845e07a, type: 3}
   bulletRootObject: {fileID: 8334014978921442311}
   fragmentDirections:
   - {fileID: 7291704744719408704}
