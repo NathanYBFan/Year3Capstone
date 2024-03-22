@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ExploiveBarrel : MonoBehaviour
+public class ExplosiveBarrel : MonoBehaviour
 {
     [SerializeField]
     private GameObject destroyedVersion;
@@ -49,6 +49,8 @@ public class ExploiveBarrel : MonoBehaviour
             exploded = true;
             BlastSound();
             StartCoroutine(boom());
+
+            GetComponentInChildren<SpriteRenderer>().enabled = false;
         }
     }
 
