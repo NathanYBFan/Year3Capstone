@@ -26,6 +26,10 @@ public class PlayerStats : MonoBehaviour
 
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
+	private Material playerBulletTrail;
+
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
 	private Material playerAimUIMaterial;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
@@ -198,6 +202,7 @@ public class PlayerStats : MonoBehaviour
 	#endregion Private Variables
 
 	#region Getters & Setters
+	public Material PlayerBulletTrail { get { return playerBulletTrail; } set { playerBulletTrail = value; } }
 	public bool IsDead { get { return isDead; } set { isDead = value; } }
 	public float InvincibilityTime { get { return invincibilityTime; } }
 	public float MaxHealth { get { return maxHealth; } }
@@ -215,7 +220,7 @@ public class PlayerStats : MonoBehaviour
 	public float NextFireTime { get { return nextFireTime; } set { nextFireTime = value; } }
 
 	public bool Booted { get { return booted; } set { booted = value; } }
-    public Debuff GiveableDebuff { get { return giveableDebuff; } set { giveableDebuff = value; } }
+	public Debuff GiveableDebuff { get { return giveableDebuff; } set { giveableDebuff = value; } }
 	public Debuff InflictedDebuff
 	{
 		get { return inflictedDebuff; }
@@ -355,6 +360,10 @@ public class PlayerStats : MonoBehaviour
 		playerAimUIMaterial.SetColor("_BaseColor", uiColor);
 		playerAimUIMaterial.EnableKeyword("_EMISSION");
 		playerAimUIMaterial.SetColor("_EmissionColor", aimEmission.exposureAdjustedColor); // Because the aim UI is thicker lined than the player lights, we're only going to consider half the intensity value. Again, removing colourBrightness from the emission to prevent blow out.
+
+		playerBulletTrail.SetColor("_BaseColor", uiColor);
+		playerBulletTrail.EnableKeyword("_EMISSION");
+		playerBulletTrail.SetColor("_EmissionColor", aimEmission.exposureAdjustedColor); // Because the aim UI is thicker lined than the player lights, we're only going to consider half the intensity value. Again, removing colourBrightness from the emission to prevent blow out.
 	}
 
 	private void Update()
@@ -384,16 +393,16 @@ public class PlayerStats : MonoBehaviour
 		timer = 0;
 	}
 
-	private void DeactivateEffects(ParticleSystemStopBehavior behaviour) 
+	private void DeactivateEffects(ParticleSystemStopBehavior behaviour)
 	{
 		burningEffect.Stop();
-		burning.Stop(true, behaviour); 
+		burning.Stop(true, behaviour);
 	}
 
-	private void ActivateEffects() 
+	private void ActivateEffects()
 	{
 		burningEffect.Play();
-		burning.Play(); 
+		burning.Play();
 	}
 
 	public void TakeDamage(int amount, DamageType type)
@@ -411,15 +420,15 @@ public class PlayerStats : MonoBehaviour
 		if (invincibilityTimer > 0 && (type == DamageType.Bullet || type == DamageType.Falling)) return;
 		invincibilityTimer = invincibilityTime;
 
-        // Make sure health stays in the bounds
-        if (currHealth - amount > 0) currHealth -= amount;
+		// Make sure health stays in the bounds
+		if (currHealth - amount > 0) currHealth -= amount;
 		else currHealth = 0;
 
-        playerHUD.TakeDamage((int)currHealth, (int)(currHealth + amount));
+		playerHUD.TakeDamage((int)currHealth, (int)(currHealth + amount));
+		StartCoroutine(FlashRed());
 
-
-        // If still has Hp no need to continue
-        if (currHealth != 0) return;
+		// If still has Hp no need to continue
+		if (currHealth != 0) return;
 
 		// If can self destruct dont start death (Not sure why, probably a separate coroutine?)
 		if (canSelfDestruct)
@@ -432,7 +441,26 @@ public class PlayerStats : MonoBehaviour
 		isDead = true;
 		StartDeath();
 	}
-
+	private IEnumerator FlashRed()
+	{
+		float currTime = 0;
+		float flashDuration = 0.5f;
+		float colourBrightness = uiColor.r + uiColor.g + uiColor.b;
+		colourBrightness /= (255 * 3);
+		ColorMutator cm = new(Color.red);
+		cm.exposureValue = 3.5f;
+		playerGlowMaterial.SetColor("_BaseColor", Color.red);
+		playerGlowMaterial.SetColor("_EmissionColor", cm.exposureAdjustedColor);
+		while (currTime < flashDuration)
+		{
+			currTime += Time.deltaTime;
+			yield return null;
+		}
+		cm = new(uiColor);
+		cm.exposureValue = playerEmissionIntensity - colourBrightness;
+		playerGlowMaterial.SetColor("_BaseColor", uiColor);
+		playerGlowMaterial.SetColor("_EmissionColor", cm.exposureAdjustedColor);
+	}
 	public void Heal(int healing)
 	{
 		if (isDead) return;
@@ -457,9 +485,9 @@ public class PlayerStats : MonoBehaviour
 		if (currEnergy > maxEnergy) { currEnergy = maxEnergy; }
 		else if (currEnergy < 0) { currEnergy = 0; }
 		playerHUD.UseEnergy();
-    }
+	}
 
-    public void ActivateEffects(Modifier modifier)
+	public void ActivateEffects(Modifier modifier)
 	{
 		modifier.AddEffects();
 		modifiersOnPlayer.Add(modifier);

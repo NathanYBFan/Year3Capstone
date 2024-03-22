@@ -1,15 +1,16 @@
 using NaughtyAttributes;
 using System.Collections;
+using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
 {
-    #region Serialize Fields
-    [SerializeField, Required]
-    [Foldout("Dependencies"), Tooltip("")]
-    private GameObject bulletGO;
-    [SerializeField, Required]
+	#region Serialize Fields
+	[SerializeField, Required]
+	[Foldout("Dependencies"), Tooltip("")]
+	private GameObject bulletGO;
+	[SerializeField, Required]
 	[Foldout("Dependencies"), Tooltip("")]
 	private Transform bulletRootObject;
 	[SerializeField, Required]
@@ -26,6 +27,10 @@ public class BulletBehaviour : MonoBehaviour
 	[SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("The stats of the player who shot this bullet.")]
 	private PlayerStats playerOwner;
+
+	[SerializeField]
+	[Foldout("Stats"), Tooltip("The stats of the player who shot this bullet.")]
+	private TrailRenderer trailMat;
 
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("")]
@@ -60,7 +65,11 @@ public class BulletBehaviour : MonoBehaviour
 
 	private void Update()
 	{
-		
+		// Assign the new materials array back to the renderer
+
+
+
+
 		if (playerOwner.HomingBullets)
 		{
 			// If these bullets are to be homing bullets, then their direction will be altered to aim towards a defined target.
@@ -83,11 +92,11 @@ public class BulletBehaviour : MonoBehaviour
 		switch (other.tag)
 		{
 			case "Shield":
-				if(other.gameObject != playerOwner.gameObject.GetComponent<PlayerBody>().Shield)
+				if (other.gameObject != playerOwner.gameObject.GetComponent<PlayerBody>().Shield)
 				{
-                    if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
-                    else Destroy(bulletRootObject.gameObject);
-                }
+					if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
+					else Destroy(bulletRootObject.gameObject);
+				}
 				break;
 			case "Player":
 				if (other.transform.parent.parent.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
@@ -181,5 +190,10 @@ public class BulletBehaviour : MonoBehaviour
 		yield break;
 	}
 
-	public void ResetPlayerOwner(int newIndex, PlayerStats stats) { originalPlayerIndex = newIndex; playerOwner = stats; }
+	public void ResetPlayerOwner(int newIndex, PlayerStats stats)
+	{
+		originalPlayerIndex = newIndex;
+		playerOwner = stats;
+		trailMat.material = playerOwner.PlayerBulletTrail;
+	}
 }

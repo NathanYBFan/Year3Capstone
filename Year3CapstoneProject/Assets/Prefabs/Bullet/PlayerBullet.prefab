@@ -130,6 +130,7 @@ MonoBehaviour:
   explosionRadius: {fileID: 1169603157817054202, guid: ab8d64efebba136408e283c3c2107549, type: 3}
   originalPlayerIndex: 0
   playerOwner: {fileID: 0}
+  trailMat: {fileID: 2759467295951749900}
   lifeTime: 5
   movementSpeed: 20
   isFragmentable: 1
@@ -408,6 +409,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33904f7b7f411944fa122bd43ec2d6a3, type: 3}
+--- !u!96 &2759467295951749900 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 7554880581502173007, guid: 33904f7b7f411944fa122bd43ec2d6a3, type: 3}
+  m_PrefabInstance: {fileID: 5662092624428661827}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4312137792214401654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8449880207507586613, guid: 33904f7b7f411944fa122bd43ec2d6a3, type: 3}
