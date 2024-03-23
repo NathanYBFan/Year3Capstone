@@ -2141,6 +2141,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9d225b5e824d1664097ebd207d881eff, type: 3}
   - {fileID: 8300000, guid: 7a3a4dd462b1f474d9351b70570ce7da, type: 3}
   - {fileID: 8300000, guid: 5c7cba8b199ef2e46853a0bc28c590e3, type: 3}
+  winScreenCharacterNamesList:
+  - {fileID: 8300000, guid: 263aba7a293355446a14206126bb4036, type: 3}
+  - {fileID: 8300000, guid: 590a78c6af56f3245b911a7ee8b0de25, type: 3}
+  - {fileID: 8300000, guid: aa4bd2d2cebb49649a3f4bcabc16cb6c, type: 3}
+  - {fileID: 8300000, guid: 6b4b27bf57cc9f948aa916996834e5e7, type: 3}
+  winScreenWinMessageList:
+  - {fileID: 8300000, guid: ed2dafcfd74c6764cb4624723d8038f0, type: 3}
+  - {fileID: 8300000, guid: bbd91cf3bb2bd304da2c5419543ac246, type: 3}
   musicList:
   - {fileID: 8300000, guid: 8c12cf6c2cc6ed14191b5d52a255b752, type: 3}
   - {fileID: 8300000, guid: 9b3b9458f33a9f84d829643066a22617, type: 3}
@@ -5053,7 +5061,7 @@ MonoBehaviour:
   stageSpawnPoints: []
   deadPlayerList: []
   currentRound: 0
-  maxRounds: 7
+  maxRounds: 2
 --- !u!1 &1478896578
 GameObject:
   m_ObjectHideFlags: 0

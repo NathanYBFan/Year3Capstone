@@ -63,7 +63,6 @@ public class newLevelBuilder : MonoBehaviour
     {
         AudioClip clipToPlay = AudioManager._Instance.MRTwentyStageIntroList[lev];
         AudioManager._Instance.PlaySoundFX(clipToPlay, AudioManager._Instance.MRTwentyAudioSource);
-        Debug.Log("Play audio");
 
         int xVal = startX;
         int yVal = startY;

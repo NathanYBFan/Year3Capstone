@@ -1771,6 +1771,11 @@ MonoBehaviour:
   - {fileID: 1559875391}
   - {fileID: 778029787}
   - {fileID: 2140883203}
+  glowMaterialsToAssign:
+  - {fileID: 2100000, guid: eff313df697b19d49a15f6bb8162f132, type: 2}
+  - {fileID: 2100000, guid: e08b1ad221e293f45bfaca9cdeb38b0d, type: 2}
+  - {fileID: 2100000, guid: f14760c440806b5488be4559a538e717, type: 2}
+  - {fileID: 2100000, guid: 6f5e32d20e6095e4e848c3b04664ff71, type: 2}
 --- !u!1 &432429565
 GameObject:
   m_ObjectHideFlags: 0

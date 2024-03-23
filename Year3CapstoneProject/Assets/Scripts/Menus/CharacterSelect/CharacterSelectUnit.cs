@@ -158,6 +158,7 @@ public class CharacterSelectUnit : MonoBehaviour
     private void SetCharacterColorAssignment(Texture2D colorToSet)
     {
         colorDisplay.sprite = Sprite.Create(colorToSet, new Rect(0, 0, 50, 50), Vector2.zero);
+        characterDisplay.ResetMaterialEmissionColor(playerIndex, colorToSet, listOfColors[selectedColor]);
     }
 
     public void ConfirmSelections()

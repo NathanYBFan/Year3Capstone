@@ -62,6 +62,15 @@ public class AudioManager : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("Sound FX list for Mr.20 intro Stage")]
     private List<AudioClip> mrTwentyStageIntroList;
 
+    // Win screen clips
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Sound FX list for player numbers")]
+    private List<AudioClip> winScreenCharacterNamesList;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Sound FX list for player numbers")]
+    private List<AudioClip> winScreenWinMessageList;
+
     // Music list
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("Music track list")]
@@ -94,7 +103,11 @@ public class AudioManager : MonoBehaviour
     public List<AudioClip> MRTwentyChaosFactorList { get { return mrTwentyChaosFactorList; } }
     public List<AudioClip> MRTwentyInactiveList { get { return mrTwentyInactiveList; } }
     public List<AudioClip> MRTwentyStageIntroList { get { return mrTwentyStageIntroList; } }
-    
+
+    // Win Screen Clips
+    public List<AudioClip> WinScreenCharacterNamesList { get { return winScreenCharacterNamesList; } }
+    public List<AudioClip> WinScreenWinMessageList { get { return winScreenWinMessageList; } }
+
     // Music Audio Clips
     public List<AudioClip> MusicList { get { return musicList; } }
     #endregion

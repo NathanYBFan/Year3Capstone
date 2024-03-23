@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,7 +25,15 @@ public class WinMenu : MonoBehaviour
         playerIcon.sprite = GameManager._Instance.Players[GameManager._Instance.PlayerWinnerIndex].GetComponent<PlayerStats>().CharacterStat.characterSprite;
         playerBgIcon.sprite = GameManager._Instance.Players[GameManager._Instance.PlayerWinnerIndex].GetComponent<PlayerStats>().CharacterStat.characterBGSprite;
         playerIcon.color = GameManager._Instance.Players[GameManager._Instance.PlayerWinnerIndex].GetComponent<PlayerStats>().UIColor;
+
+        // Play audio
+        StartCoroutine(WinScreenAudio());
 	}
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private void ButtonPressSFX()
     {
         AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
@@ -35,5 +44,18 @@ public class WinMenu : MonoBehaviour
     {
         ButtonPressSFX();
         LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[0], true);
+    }
+
+    private IEnumerator WinScreenAudio()
+    {
+        AudioClip clipToPlay = AudioManager._Instance.WinScreenCharacterNamesList[GameManager._Instance.PlayerWinnerIndex];
+        AudioManager._Instance.PlaySoundFX(clipToPlay, AudioManager._Instance.MRTwentyAudioSource);
+
+        // Wait until finished
+        while (AudioManager._Instance.MRTwentyAudioSource.isPlaying)
+            yield return null;
+
+        clipToPlay = AudioManager._Instance.WinScreenWinMessageList[Random.Range(0,1)];
+        AudioManager._Instance.PlaySoundFX(clipToPlay, AudioManager._Instance.MRTwentyAudioSource);
     }
 }
