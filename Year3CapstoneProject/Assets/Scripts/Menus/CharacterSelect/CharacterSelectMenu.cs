@@ -70,7 +70,7 @@ public class CharacterSelectMenu : MonoBehaviour
     public void BackButtonPressed()
     {
         ButtonPressSFX();
-        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], false);
+        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[0], false);
     }
     
     public void ContinueButtonPressed()

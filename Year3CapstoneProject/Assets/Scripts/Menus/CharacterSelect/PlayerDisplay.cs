@@ -13,16 +13,14 @@ public class PlayerDisplay : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("Location to spawn Character")]
     private Transform[] positionToSpawnCharacter;
 
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Glow Material for each Character")]
+    private Material[] glowMaterialsToAssign;
+
     private void Start()
     {
         for (int i = 0; i < positionToSpawnCharacter.Length; i++)
             GameObject.Instantiate(listOfSpawnableCharacters[i], positionToSpawnCharacter[i]);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-            Destroy(positionToSpawnCharacter[1].GetChild(0).gameObject);
     }
 
     public void UpdateCharacterDisplay(int playerIndex, int selectedCharacter)
