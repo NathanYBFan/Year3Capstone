@@ -16,6 +16,10 @@ public class BulletObjectPoolManager : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("List of bullets that are actively being used")]
 	private List<GameObject> activatedBullets;
 
+	[SerializeField, ReadOnly]
+	[Foldout("Dependencies"), Tooltip("List of bullets that are actively being used")]
+	private List<GameObject> fragmentedBullets;
+
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("Default prefab of a bullet to use")]
 	private GameObject defaultBullet;
@@ -31,9 +35,11 @@ public class BulletObjectPoolManager : MonoBehaviour
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("Absolute MAX bullets allowed to grow to")]
 	private int hardCapBulletCount = 100;
-    #endregion
+	#endregion
 
-    private void Awake()
+	public List<GameObject> FragmentedBullets {  get { return fragmentedBullets; } set { fragmentedBullets = value; } }
+
+	private void Awake()
 	{
 		if (_Instance != null && _Instance != this)
 		{
@@ -104,6 +110,7 @@ public class BulletObjectPoolManager : MonoBehaviour
 	{
 		if (!bullet.GetComponentInChildren<BulletBehaviour>().isFragmentable)
 		{
+			fragmentedBullets.Remove(bullet);
 			Destroy(bullet);
 			return;
         }
@@ -121,5 +128,11 @@ public class BulletObjectPoolManager : MonoBehaviour
 	{
 		while (activatedBullets.Count > 0)
             ExpiredBullet(activatedBullets[0]);
-    }
+		while (fragmentedBullets.Count > 0)
+		{
+			GameObject bullet = fragmentedBullets[0];
+			fragmentedBullets.RemoveAt(0);
+			Destroy(bullet);
+		}
+	}
 }

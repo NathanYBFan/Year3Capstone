@@ -506,6 +506,7 @@ public class PlayerStats : MonoBehaviour
 
 	public void ResetPlayer()
 	{
+		StopAllCoroutines();
 		DeactivateEffects(ParticleSystemStopBehavior.StopEmittingAndClear);
 		currHealth = maxHealth;
 		currEnergy = MaxEnergy;

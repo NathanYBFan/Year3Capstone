@@ -84,6 +84,7 @@ public class BulletBehaviour : MonoBehaviour
 				Vector3 inaccurateDir = Vector3.Slerp(direction.normalized, Random.onUnitSphere, 1 - playerOwner.HomingAccuracy);
 				Quaternion toRotation = Quaternion.LookRotation(inaccurateDir, Vector3.up);
 				bulletRootObject.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerOwner.HomingBulletRotSpeed * Time.deltaTime);
+				if (target.gameObject.GetComponent<PlayerStats>().IsDead) FindClosestPlayer();
 			}
 		}
 		// Otherwise make bullet move default direction
@@ -99,7 +100,11 @@ public class BulletBehaviour : MonoBehaviour
 				{
 					Instantiate(bulletShattered, transform.position, Quaternion.identity);
 					if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
-					else Destroy(bulletRootObject.gameObject);
+					else
+					{
+						BulletObjectPoolManager._Instance.FragmentedBullets.Remove(bulletRootObject.gameObject);
+						Destroy(bulletRootObject.gameObject);
+					}
 				}
 				break;
 			case "Player":
@@ -126,7 +131,11 @@ public class BulletBehaviour : MonoBehaviour
 
 					// If these bullets were instantiated from Fragmentation, then they should get destroyed. If not, then they can be readded to the bullet object pool.
 					if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
-					else Destroy(bulletRootObject.gameObject);
+					else
+					{
+						BulletObjectPoolManager._Instance.FragmentedBullets.Remove(bulletRootObject.gameObject);
+						Destroy(bulletRootObject.gameObject);
+					}
 				}
 				break;
 			case "StageNormal":
@@ -137,7 +146,8 @@ public class BulletBehaviour : MonoBehaviour
 					// Assigning fragmented bullets the stats that the parent bullet had.
 					for (int i = 0; i < 3; i++)
 					{
-						GameObject bullet = Instantiate(bulletGO, fragmentDirections[i].position, Quaternion.identity);
+						GameObject bullet = Instantiate(bulletGO, fragmentDirections[i].position, Quaternion.identity, BulletObjectPoolManager._Instance.transform);
+						BulletObjectPoolManager._Instance.FragmentedBullets.Add(bullet);
 						bullet.GetComponentInChildren<BulletBehaviour>().playerOwner = this.playerOwner;
 						bullet.GetComponentInChildren<BulletBehaviour>().originalPlayerIndex = this.originalPlayerIndex;
 						bullet.GetComponentInChildren<BulletBehaviour>().isFragmentable = false;
@@ -159,7 +169,11 @@ public class BulletBehaviour : MonoBehaviour
 				}
 				// If these bullets were instantiated from Fragmentation, then they should get destroyed. If not, then they can be readded to the bullet object pool.
 				if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
-				else Destroy(bulletRootObject.gameObject);
+				else
+				{
+					BulletObjectPoolManager._Instance.FragmentedBullets.Remove(bulletRootObject.gameObject);
+					Destroy(bulletRootObject.gameObject);
+				}
 				break;
 			default: break;
 		}
@@ -170,7 +184,7 @@ public class BulletBehaviour : MonoBehaviour
 		float closestDistance = Mathf.Infinity;
 		foreach (GameObject player in GameManager._Instance.Players)
 		{
-			if (player.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
+			if (player.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex && !player.GetComponent<PlayerStats>().IsDead)
 			{
 				float distance = Vector3.Distance(transform.position, player.transform.position);
 				if (distance < closestDistance)

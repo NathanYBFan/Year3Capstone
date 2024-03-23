@@ -142,7 +142,7 @@ MonoBehaviour:
   homingBullets: 0
   explodingBullets: 0
   homingAccuracy: 0.8
-  homingBulletRotSpeed: 60
+  homingBulletRotSpeed: 90
   rollingEnergyConsumption: 100
   shieldScaleTime: 0.2
   shieldUpDuration: 8
