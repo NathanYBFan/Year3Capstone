@@ -6,7 +6,10 @@ public class ExplosiveBarrel : MonoBehaviour
     [SerializeField]
     private GameObject destroyedVersion;
 
-    [SerializeField]
+	[SerializeField]
+	private GameObject radiusIndicator;
+
+	[SerializeField]
     private float explosiveForce;
 
     [SerializeField]
@@ -51,6 +54,7 @@ public class ExplosiveBarrel : MonoBehaviour
             StartCoroutine(boom());
 
             GetComponentInChildren<SpriteRenderer>().enabled = false;
+            radiusIndicator.SetActive(false);
         }
     }
 

@@ -2125,6 +2125,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9280603be064a99458c23d17fd47e1da, type: 3}
   - {fileID: 8300000, guid: 6544785fc1e66d04f962c4f2bf89adaa, type: 3}
   - {fileID: 8300000, guid: 384f63028425be244b096f4a90e3471a, type: 3}
+  cfAudioList:
+  - {fileID: 8300000, guid: e8d4df0a76f7626499bfcbaba1e9cbf8, type: 3}
+  - {fileID: 8300000, guid: 47b3d83a97a435745a9fc64479cf8d8a, type: 3}
   musicList:
   - {fileID: 8300000, guid: 8c12cf6c2cc6ed14191b5d52a255b752, type: 3}
   - {fileID: 8300000, guid: 9b3b9458f33a9f84d829643066a22617, type: 3}
