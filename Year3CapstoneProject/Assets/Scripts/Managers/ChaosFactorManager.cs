@@ -154,16 +154,15 @@ public class ChaosFactorManager : MonoBehaviour
     // Run Coroutine
     public IEnumerator RunChaosFactor(GameObject chaosFactorToSpawn)
     {
-
         //ALERT
 
         //show UI image
 
 
         //play sounds/voice lines
-
-
-
+        AudioClip clipToPlay = AudioManager._Instance.MRTwentyChaosFactorList[Random.Range(0,AudioManager._Instance.MRTwentyChaosFactorList.Count)];
+        AudioManager._Instance.PlaySoundFX(clipToPlay, AudioManager._Instance.MRTwentyAudioSource);
+        AudioManager._Instance.ResetInactivityTimer();
 
         chaosFactorActive = true;
         // Instantiate Chaos Factor

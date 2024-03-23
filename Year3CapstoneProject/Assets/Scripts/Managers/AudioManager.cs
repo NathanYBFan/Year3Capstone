@@ -20,6 +20,10 @@ public class AudioManager : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("The SFX Audio Sources for environment objects")]
     private List<AudioSource> envAudioSourceList;
 
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("The SFX Audio Source for Mr.20")]
+    private AudioSource mrTwentyAudioSource;
+
     [SerializeField, Required]
     [Foldout("Dependencies"), Tooltip("The music Audio Source which should be attached to the main camera(s)")]
     private AudioSource musicAudioSource;
@@ -45,29 +49,56 @@ public class AudioManager : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("Sound FX list for the Chaos Factors")]
     private List<AudioClip> cfAudioList;
 
+    // Mr.20 Voice lines list
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Sound FX list for Mr.20 intro Chaos Factors")]
+    private List<AudioClip> mrTwentyChaosFactorList;
 
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Sound FX list for Mr.20 inactive players")]
+    private List<AudioClip> mrTwentyInactiveList;
 
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Sound FX list for Mr.20 intro Stage")]
+    private List<AudioClip> mrTwentyStageIntroList;
 
+    // Music list
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("Music track list")]
     private List<AudioClip> musicList;
+
+    // Stats
+    [SerializeField, ReadOnly]
+    [Foldout("Stats"), Tooltip("Display timer that plays a clip when less than 0")]
+    private float timerForInactivity;
+
+    [SerializeField]
+    [Foldout("Stats"), Tooltip("Max amount of time before a clip plays")]
+    private float maxTimeForInactivity;
     #endregion
 
     #region Getters&Setters
+    // Audio Sources
     public List<AudioSource> PlayerAudioSourceList { get { return playerAudioSourceList; } }
-
     public List<AudioSource> EnvAudioSourceList { get { return envAudioSourceList; } }
+    public AudioSource MRTwentyAudioSource { get { return mrTwentyAudioSource; } }
+    public AudioSource UIAudioSource { get { return uiAudioSource; } }
 
+    // Player/System/Env/CF Audio Clips
     public List<AudioClip> PlayerAudioList { get { return playerAudioList; } }
     public List<AudioClip> UIAudioList { get { return uiAudioList; } }
-
     public List<AudioClip> CFAudioList { get { return cfAudioList; } }
     public List<AudioClip> EnvAudioList { get { return envAudioList; } }
 
-
-    public AudioSource UIAudioSource { get { return uiAudioSource; } }
+    // Mr.20 Audio Clips
+    public List<AudioClip> MRTwentyChaosFactorList { get { return mrTwentyChaosFactorList; } }
+    public List<AudioClip> MRTwentyInactiveList { get { return mrTwentyInactiveList; } }
+    public List<AudioClip> MRTwentyStageIntroList { get { return mrTwentyStageIntroList; } }
+    
+    // Music Audio Clips
     public List<AudioClip> MusicList { get { return musicList; } }
     #endregion
+
     private void Awake()
     {
         if (_Instance != null && _Instance != this) // If another AudioManager exists
@@ -84,6 +115,27 @@ public class AudioManager : MonoBehaviour
     {
         ResetAudioSources();
         PlayMusic(musicList[0]);
+        ResetInactivityTimer();
+    }
+
+    private void Update()
+    {
+        if (!GameManager._Instance.InGame)
+        {
+            timerForInactivity = maxTimeForInactivity;
+            return;
+        }
+
+        timerForInactivity -= Time.deltaTime;
+        if (timerForInactivity <= 0)
+        {
+            // Play voice line
+            AudioClip clipToPlay = mrTwentyInactiveList[Random.Range(0, mrTwentyInactiveList.Count)];
+            PlaySoundFX(clipToPlay, mrTwentyAudioSource); 
+
+            // Reset timer
+            ResetInactivityTimer();
+        }
     }
 
     // Reset and grab all the Player Audio Sources
@@ -187,4 +239,8 @@ public class AudioManager : MonoBehaviour
         return null;
     }
 
+    public void ResetInactivityTimer()
+    {
+        timerForInactivity = maxTimeForInactivity;
+    }
 }

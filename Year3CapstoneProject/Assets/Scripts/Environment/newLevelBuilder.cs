@@ -57,11 +57,14 @@ public class newLevelBuilder : MonoBehaviour
     {
         GameManager._Instance.LevelBuilder = this;
         GameManager._Instance.StartNewGame();
-
 	}
 
     public void buildLevel(int lev)
     {
+        AudioClip clipToPlay = AudioManager._Instance.MRTwentyStageIntroList[lev];
+        AudioManager._Instance.PlaySoundFX(clipToPlay, AudioManager._Instance.MRTwentyAudioSource);
+        Debug.Log("Play audio");
+
         int xVal = startX;
         int yVal = startY;
         int zVal = startZ;

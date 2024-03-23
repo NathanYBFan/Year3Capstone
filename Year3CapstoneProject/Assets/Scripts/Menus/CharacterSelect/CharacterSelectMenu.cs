@@ -78,7 +78,6 @@ public class CharacterSelectMenu : MonoBehaviour
         ButtonPressSFX();
 
         LevelLoadManager._Instance.StartNewGame();
-        GameManager._Instance.StartNewGame(); // Reset player stats
 
         ApplyCharacterStats();
 

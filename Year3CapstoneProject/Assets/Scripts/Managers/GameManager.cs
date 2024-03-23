@@ -1,7 +1,6 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -120,11 +119,13 @@ public class GameManager : MonoBehaviour
 
         inPauseMenu = false;
 		inSettingsMenu = false;
+        AudioManager._Instance.ResetInactivityTimer();
     }
 
-	public void PlayerDied(GameObject playerThatDied)
+    public void PlayerDied(GameObject playerThatDied)
 	{
-		deadPlayerList.Add(playerThatDied);
+        AudioManager._Instance.ResetInactivityTimer();
+        deadPlayerList.Add(playerThatDied);
 		ResetPlayerToVoid(playerThatDied);
 
 		if (deadPlayerList.Count < players.Count - 1) return;
@@ -144,9 +145,10 @@ public class GameManager : MonoBehaviour
 			Time.timeScale = 0f;
 		else
 			Time.timeScale = 1f;
-	}
+        AudioManager._Instance.ResetInactivityTimer();
+    }
 
-	private void EndRound()
+    private void EndRound()
 	{
 		// Reset --------
 		foreach (GameObject h in hudBars)
@@ -181,9 +183,10 @@ public class GameManager : MonoBehaviour
 		// Bring up modifier Menu;
 		ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
 		ModifierManager._Instance.OpenModifierMenu(deadPlayerList[0].GetComponent<PlayerBody>().PlayerIndex); // Open modifier menu for dead player
-	}
+        AudioManager._Instance.ResetInactivityTimer();
+    }
 
-	public void WinConditionMet()
+    public void WinConditionMet()
 	{
 		// Make local variables
 		List<int> playerWinOrder = new List<int>();     // Saved win order
@@ -214,12 +217,14 @@ public class GameManager : MonoBehaviour
 		playerWinnerIndex = playerWinOrder[0];
 		EndGame();
 		LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
-	}
+        AudioManager._Instance.ResetInactivityTimer();
+    }
 
-	// Reset everything when game ends
-	public void EndGame()
+    // Reset everything when game ends
+    public void EndGame()
 	{
-		foreach (GameObject h in hudBars)
+        AudioManager._Instance.ResetInactivityTimer();
+        foreach (GameObject h in hudBars)
 			h.SetActive(false);
         foreach (GameObject player in players)
             player.GetComponent<PlayerStats>().FullResetPlayer();
@@ -243,14 +248,15 @@ public class GameManager : MonoBehaviour
 		AudioManager._Instance.PlayMusic(0);
 		ResetPlayersToVoid();
 		RemovePlayerModels();
-	}
+        AudioManager._Instance.ResetInactivityTimer();
+    }
 
-	/// <summary>
-	/// This is to give functionality to the "Give" command for the Command Prompt menu. (Debug purposes)
-	/// </summary>
-	/// <param name="playerIndex">The index of the player to give some modifier to.</param>
-	/// <param name="modifierName">The name of the modifier being given.</param>
-	public void CommandGive(int playerIndex, string modifierName) // There is probably a better way to do this
+    /// <summary>
+    /// This is to give functionality to the "Give" command for the Command Prompt menu. (Debug purposes)
+    /// </summary>
+    /// <param name="playerIndex">The index of the player to give some modifier to.</param>
+    /// <param name="modifierName">The name of the modifier being given.</param>
+    public void CommandGive(int playerIndex, string modifierName) // There is probably a better way to do this
 	{
 		//Converting command modifier name to actual modifier name.
 		switch (modifierName)
@@ -311,6 +317,7 @@ public class GameManager : MonoBehaviour
 				else Debug.LogWarning("Player of index " + playerIndex + " doesn't exist!");
 			}
 		}
+        AudioManager._Instance.ResetInactivityTimer();
 	}
 
 	// Spawn players at appropiate spawn points
