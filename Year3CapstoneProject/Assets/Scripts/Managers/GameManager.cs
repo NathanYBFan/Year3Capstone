@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
 	private int playerWinnerIndex = -1;
 	private float tieTime = 0.5f;
 	private bool inPauseMenu = false, inSettingsMenu = false;
+	private Coroutine endRoundCoroutine = null;
 	#endregion
 
 	#region Getters&Setters
@@ -85,7 +87,7 @@ public class GameManager : MonoBehaviour
 	// Play game initial setups
 	public void StartNewGame()
 	{
-
+		endRoundCoroutine = null;
 		RemoveStage();
 
 		if (!tie)
@@ -169,11 +171,24 @@ public class GameManager : MonoBehaviour
 		deadPlayerList.Add(playerThatDied);
 		ResetPlayerToVoid(playerThatDied);
 
-		if (deadPlayerList.Count < players.Count - 1) return;
-
-		EndRound();
+		if (endRoundCoroutine == null)
+			endRoundCoroutine = StartCoroutine(CheckEndRound());
 	}
+	private IEnumerator CheckEndRound()
+	{
+		yield return new WaitForSeconds(0.1f); // Introduce a slight delay
 
+		if (deadPlayerList.Count == players.Count)
+		{
+			EndRound(); // End round if all players are dead
+		}
+		else if (deadPlayerList.Count == players.Count - 1)
+		{
+			EndRound(); // End round if only one player is left standing
+		}
+		endRoundCoroutine = null; // Reset coroutine after it's done
+		yield break;
+	}
 	public void PauseGame(bool enablePauseMenu)
 	{
 		if (!inGame) return;
@@ -189,7 +204,7 @@ public class GameManager : MonoBehaviour
 		AudioManager._Instance.ResetInactivityTimer();
 	}
 
-	private void EndRound()
+	private void EndRound(GameObject lastPlayer = null)
 	{
 		// Reset --------
 		foreach (GameObject h in hudBars)
@@ -200,7 +215,7 @@ public class GameManager : MonoBehaviour
 		// Make sure all players are in the list
 		for (int i = 0; i < players.Count; i++)
 		{
-			if (!deadPlayerList.Contains(players[i]))
+			if (!deadPlayerList.Contains(players[i]) && !players[i].GetComponent<PlayerStats>().IsDead)
 				deadPlayerList.Add(players[i]);
 		}
 		// Remove players from stage
@@ -216,8 +231,8 @@ public class GameManager : MonoBehaviour
 		if (!tie)
 		{
 			// Incriment round counter
-			if (!tieBreakerRound)
 				currentRound++;
+			Debug.Log("Incremented Round!");
 
 			// Assign points
 			PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[0].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[3]); // First to die,	least points
@@ -242,12 +257,9 @@ public class GameManager : MonoBehaviour
 			{
 				ModifierManager._Instance.ShowLeaderBoardMenu();
 			}
-			tieBreakerRound = false;
 		}
 		else
 		{
-			// Bring up modifier Menu;
-			currentRound++;
             if (!tieBreakerRound)
             {
 				ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
@@ -258,7 +270,7 @@ public class GameManager : MonoBehaviour
 			{
 				ModifierManager._Instance.ShowLeaderBoardMenu();
 			}
-		}
+		};
 
 	}
 
