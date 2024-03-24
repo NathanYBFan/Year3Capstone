@@ -17,7 +17,7 @@ public class PlayerDisplay : MonoBehaviour
     private Material[] glowMaterialsToAssign;
 
 
-    private float playerEmissionIntensity = 3.42f;
+    private float playerEmissionIntensity = 2f;
 
     private void Start()
     {
