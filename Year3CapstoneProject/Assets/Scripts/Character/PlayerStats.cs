@@ -27,6 +27,10 @@ public class PlayerStats : MonoBehaviour
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
 	private Material playerAimUIMaterial;
+
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
+	private Material playerBulletMaterial;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
 	private Bars playerHUD;
@@ -198,7 +202,7 @@ public class PlayerStats : MonoBehaviour
 	#endregion Private Variables
 
 	#region Getters & Setters
-	public Material PlayerGlowMaterial { get { return playerGlowMaterial; } set { playerGlowMaterial = value; } }
+	public Material PlayerBulletMaterial { get { return playerBulletMaterial; } set { playerBulletMaterial = value; } }
 	public bool IsDead { get { return isDead; } set { isDead = value; } }
 	public float InvincibilityTime { get { return invincibilityTime; } }
 	public float MaxHealth { get { return maxHealth; } }
@@ -349,6 +353,11 @@ public class PlayerStats : MonoBehaviour
 		playerGlowMaterial.EnableKeyword("_EMISSION");
 		playerGlowMaterial.SetColor("_EmissionColor", playerEmission.exposureAdjustedColor); // To convert from the regular colour to HDR (with intensity), multiply the intensity value into the colour. We subtract colourBrightness from intensity so the lighter colours aren't as blown out.
 
+		playerBulletMaterial.SetTexture("_EmissionMap", playerColor);
+		playerBulletMaterial.SetColor("_BaseColor", uiColor);
+		playerBulletMaterial.EnableKeyword("_EMISSION");
+		playerBulletMaterial.SetColor("_EmissionColor", playerEmission.exposureAdjustedColor); // To convert from the regular colour to HDR (with intensity), multiply the intensity value into the colour. We subtract colourBrightness from intensity so the lighter colours aren't as blown out.
+
 		ColorMutator aimEmission = new(this.uiColor);
 		aimEmission.exposureValue = (playerEmissionIntensity * 0.75f) - colourBrightness;
 		// Setting the aiming UI material values
@@ -387,6 +396,7 @@ public class PlayerStats : MonoBehaviour
 
 	private void DeactivateEffects(ParticleSystemStopBehavior behaviour)
 	{
+		burningEffect.Reinit();
 		burningEffect.Stop();
 		burning.Stop(true, behaviour);
 	}
@@ -537,6 +547,7 @@ public class PlayerStats : MonoBehaviour
 				else
 				{
 					currHealth -= inflictedDebuff.damage;
+					StartCoroutine(FlashRed());
 					playerHUD.TakeDamage(currHealth - inflictedDebuff.damage, currHealth);
 				}
 			}

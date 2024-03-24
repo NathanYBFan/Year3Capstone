@@ -403,6 +403,7 @@ public class PlayerBody : MonoBehaviour
 
 		reset = false;
 		stats.MovementSpeed -= 3;
+		speedEffect.Reinit();
 		speedEffect.Stop();
 	}
 

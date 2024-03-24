@@ -161,10 +161,11 @@ public class BulletBehaviour : MonoBehaviour
 				// Check if player has Unstable Blast, and if they do, make this bullet explode!
 				if (playerOwner.ExplodingBullets)
 				{
-					GameObject explosion = Instantiate(explosionRadius, transform.position, Quaternion.identity);
+					GameObject explosion = Instantiate(explosionRadius, transform.position, Quaternion.identity, BulletObjectPoolManager._Instance.transform);
 					explosion.GetComponent<Explosive>().PlayerOwner = this.playerOwner;
 					explosion.GetComponent<Explosive>().OriginalPlayerIndex = this.originalPlayerIndex;
 					explosion.GetComponent<Explosive>().StartExpansion(false);
+					BulletObjectPoolManager._Instance.ExplodedBullets.Add(explosion);
 
 				}
 				// If these bullets were instantiated from Fragmentation, then they should get destroyed. If not, then they can be readded to the bullet object pool.
@@ -175,7 +176,16 @@ public class BulletBehaviour : MonoBehaviour
 					Destroy(bulletRootObject.gameObject);
 				}
 				break;
-			default: break;
+			case "DestroysBullets":
+				if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
+				else
+				{
+					BulletObjectPoolManager._Instance.FragmentedBullets.Remove(bulletRootObject.gameObject);
+					Destroy(bulletRootObject.gameObject);
+				}
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -201,10 +211,11 @@ public class BulletBehaviour : MonoBehaviour
 		yield return new WaitForSeconds(lifeTime);
 		if (playerOwner.ExplodingBullets)
 		{
-			GameObject explosion = Instantiate(explosionRadius, transform.position, Quaternion.identity);
+			GameObject explosion = Instantiate(explosionRadius, transform.position, Quaternion.identity, BulletObjectPoolManager._Instance.transform);
 			explosion.GetComponent<Explosive>().PlayerOwner = this.playerOwner;
 			explosion.GetComponent<Explosive>().OriginalPlayerIndex = this.originalPlayerIndex;
 			explosion.GetComponent<Explosive>().StartExpansion(false);
+			BulletObjectPoolManager._Instance.ExplodedBullets.Add(explosion);
 		}
 		BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
 		yield break;
@@ -214,6 +225,6 @@ public class BulletBehaviour : MonoBehaviour
 	{
 		originalPlayerIndex = newIndex;
 		playerOwner = stats;
-		trailMat.material = playerOwner.PlayerGlowMaterial;
+		trailMat.material = playerOwner.PlayerBulletMaterial;
 	}
 }

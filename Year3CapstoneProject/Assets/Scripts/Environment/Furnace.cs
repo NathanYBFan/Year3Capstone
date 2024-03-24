@@ -19,15 +19,6 @@ public class Furnace : MonoBehaviour
 	private BoxCollider trigger;
 
 	[SerializeField]
-	[Header("Furnace Stats")]
-	[Foldout("Dependencies"), Tooltip("How much damage the furnaces deal.")]
-	private int damage;
-
-	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("The interval that damage gets applied by.\nEx. A value of 1 means damage will be applied per 1 second.")]
-	private float damageInterval = 1;
-
-	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("How long the fire lasts for.")]
 	private float burnTime;
 
@@ -45,9 +36,9 @@ public class Furnace : MonoBehaviour
 	#endregion
 	#region Private Variables
 	private bool isOn;				// True if furnace is currently burning
-	private bool damaged;			// Has a player taken damage?
 	private float delay;			// Delay between fire spews
 	#endregion
+	public bool IsOn {  get { return isOn; } }
 
 	// Start is called before the first frame update
 	void Start()
@@ -55,40 +46,6 @@ public class Furnace : MonoBehaviour
 		StartCoroutine(FireOn());
 	}
 
-	void OnTriggerStay(Collider other)
-	{
-		if (!GetComponent<Platform>().effectsActive) return;
-		//if the colliding object is a bullet,  delete it if the fire is on
-		if (other.gameObject.GetComponentInChildren<CapsuleCollider>() != null && other.gameObject.GetComponentInChildren<BulletBehaviour>())
-		{
-			if (isOn)
-				BulletObjectPoolManager._Instance.ExpiredBullet(other.gameObject);
-
-
-		}
-		//if the colliding object is a player (check tag), try to deal damage
-		if (other.gameObject.GetComponentInChildren<CapsuleCollider>() != null && other.gameObject.GetComponentInChildren<CapsuleCollider>().CompareTag("Player"))
-		{
-			//damage the player that made contact, only if the fire is on
-			if (isOn && !damaged)
-			{
-				other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.Hazard);
-				damaged = true;
-				StartCoroutine(AllowDamage());
-			}
-		}
-
-	}
-
-	private IEnumerator AllowDamage()
-	{
-		if (damaged)
-		{
-			// If damaged is true, wait a second and then turn it false
-			yield return new WaitForSeconds(damageInterval);
-			damaged = false;
-		}
-	}
 
 	private IEnumerator FireOn()
 	{
@@ -115,7 +72,6 @@ public class Furnace : MonoBehaviour
 			flameArray[i].Play();
 			FlameSound();
 		}
-		damaged = false;
 		isOn = true;
 		trigger.enabled = true;
 		yield return new WaitForSeconds(burnTime);
@@ -133,7 +89,6 @@ public class Furnace : MonoBehaviour
 
 		}
 		trigger.enabled = false;
-		damaged = false;
 		isOn = false;
 		StartCoroutine(FireOn());
 		yield break;

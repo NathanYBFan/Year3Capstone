@@ -996,6 +996,10 @@ PrefabInstance:
       propertyPath: playerAimUIMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 1ec1baadea7d6a241868831961c45a6a, type: 2}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: playerBulletMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 03bcf218e6089bb4e8ea5400f4439863, type: 2}
     - target: {fileID: 8208509187627753962, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1993,6 +1997,10 @@ PrefabInstance:
       propertyPath: playerAimUIMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 612655264c09da2459e321ca08d948d4, type: 2}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: playerBulletMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 7a7401f809b4ca44e8d2697383efdc51, type: 2}
     - target: {fileID: 8208509187627753962, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -5061,7 +5069,7 @@ MonoBehaviour:
   stageSpawnPoints: []
   deadPlayerList: []
   currentRound: 0
-  maxRounds: 2
+  maxRounds: 7
 --- !u!1 &1478896578
 GameObject:
   m_ObjectHideFlags: 0
@@ -7047,6 +7055,10 @@ PrefabInstance:
       propertyPath: playerAimUIMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 164bfd2da01ca714f8dddce6ad3d5d0c, type: 2}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: playerBulletMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: eb8fb1ccbe17f1c488b189fe3b16311f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7255,6 +7267,10 @@ PrefabInstance:
       propertyPath: playerAimUIMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 9cce6bcc7e2242145865c040db92e4f2, type: 2}
+    - target: {fileID: 4952783801461123959, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
+      propertyPath: playerBulletMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: fcd5fda68c4df6f4bb4d8b3e1f17b11e, type: 2}
     - target: {fileID: 8208509187627753962, guid: 49b1770224c3b08438fc4d1d2b37df26, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
