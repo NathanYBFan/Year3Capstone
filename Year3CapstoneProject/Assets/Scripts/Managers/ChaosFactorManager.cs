@@ -50,9 +50,8 @@ public class ChaosFactorManager : MonoBehaviour
     //private int maxBlue;
 
     private int minRed = 100;
-    private int minGreen;
-    private int minBlue;
 
+    private int pulseCount = 3;
     private void Awake()
     {
         timer = false;
@@ -154,10 +153,9 @@ public class ChaosFactorManager : MonoBehaviour
     // Run Coroutine
     public IEnumerator RunChaosFactor(GameObject chaosFactorToSpawn)
     {
-        //ALERT
 
-        //show UI image
 
+        yield return CFAlert();
 
         //play sounds/voice lines
         AudioClip clipToPlay = AudioManager._Instance.MRTwentyChaosFactorList[Random.Range(0,AudioManager._Instance.MRTwentyChaosFactorList.Count)];
@@ -195,6 +193,88 @@ public class ChaosFactorManager : MonoBehaviour
 		currentRunningChaosFactors.Remove(chaosFactorToDestroy);
         Destroy(chaosFactorToDestroy);
     }
+
+    public IEnumerator CFAlert()
+    {
+        alert.enabled = true;
+
+        float speed = -10f;
+        Color startColor = alert.color;
+        Color endColor;
+        endColor.r = 0;
+        endColor.g = 0;
+        endColor.b = 0;
+        endColor.a = 255;
+        Color lerpedColor = startColor;
+        float tick = 0f;
+
+        Color pulseEnd = endColor;
+        pulseEnd.a = 0;
+
+        for (int i = 0; i < pulseCount-1; i++)
+        {
+
+            while (alert.color != pulseEnd)
+            {
+
+                tick += Time.deltaTime;
+                lerpedColor = Color.Lerp(startColor, pulseEnd, tick);
+                alert.color = lerpedColor;
+
+
+
+                if (true)
+                {
+
+                }
+                yield return null;
+            }
+
+            tick = 0f;
+
+            while (alert.color != startColor)
+            {
+
+                tick += Time.deltaTime;
+                lerpedColor = Color.Lerp(pulseEnd, startColor, tick);
+                alert.color = lerpedColor;
+
+
+
+                if (true)
+                {
+
+                }
+                yield return null;
+            }
+
+            tick = 0f;
+
+        }
+
+        while (alert.color != pulseEnd)
+        {
+
+            tick += Time.deltaTime;
+            lerpedColor = Color.Lerp(startColor, pulseEnd, tick);
+            alert.color = lerpedColor;
+
+
+
+            if (true)
+            {
+
+            }
+            yield return null;
+        }
+
+
+        alert.enabled = false;
+
+
+        yield break;
+    }
+
 
     public void ResetChaosFactorTimer() { nextChaosFactorTimerSeconds = 0f; }
 
