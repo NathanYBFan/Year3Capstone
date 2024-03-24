@@ -49,7 +49,6 @@ public class ChaosFactorManager : MonoBehaviour
     //private int maxGreen;
     //private int maxBlue;
 
-    private int minRed = 100;
 
     private int pulseCount = 3;
     private void Awake()
@@ -198,7 +197,6 @@ public class ChaosFactorManager : MonoBehaviour
     {
         alert.enabled = true;
 
-        float speed = -10f;
         Color startColor = alert.color;
         Color endColor;
         endColor.r = 0;
