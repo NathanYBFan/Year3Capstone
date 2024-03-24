@@ -176,9 +176,15 @@ public class GameManager : MonoBehaviour
 	}
 	private IEnumerator CheckEndRound()
 	{
+		bool allDead = true;
 		yield return new WaitForSeconds(0.1f); // Introduce a slight delay
-
-		if (deadPlayerList.Count == players.Count)
+		for (int i = 0; i < players.Count; i++)
+		{
+			if (!players[i].GetComponent<PlayerStats>().IsDead)
+				allDead = false;
+			yield return null;
+		}
+		if (deadPlayerList.Count == players.Count && allDead)
 		{
 			EndRound(); // End round if all players are dead
 		}

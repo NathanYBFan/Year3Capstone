@@ -484,6 +484,7 @@ public class PlayerStats : MonoBehaviour
 	public void StartDeath()
 	{
 		currHealth = 0;
+		isDead = true;
 		gameObject.GetComponent<Rigidbody>().useGravity = false;
 		gameObject.GetComponent<PlayerBody>().Death();
 	}
