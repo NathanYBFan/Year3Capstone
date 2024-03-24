@@ -46,9 +46,12 @@ public class GameManager : MonoBehaviour
 
 	#region PrivateVariables
 	private bool inGame;
+	private bool tie = false;
+	private bool tieBreakerRound = false;
 	private bool isPaused;
 	private newLevelBuilder levelBuilder;
 	private int playerWinnerIndex = -1;
+	private float tieTime = 0.5f;
 	private bool inPauseMenu = false, inSettingsMenu = false;
 	#endregion
 
@@ -82,50 +85,88 @@ public class GameManager : MonoBehaviour
 	// Play game initial setups
 	public void StartNewGame()
 	{
+
 		RemoveStage();
 
-		foreach (GameObject player in players)
-			player.GetComponent<PlayerStats>().ResetPlayer();
-
-		if (levelBuilder != null)
+		if (!tie)
 		{
-			levelBuilder.buildLevel(currentRound % 3);
-			SpawnPlayersAtSpawnpoint();
-			cam.Center();
-			ChaosFactorManager._Instance.ChaosFactorActive = false;
+			tieBreakerRound = false;
+			foreach (GameObject player in players)
+				player.GetComponent<PlayerStats>().ResetPlayer();
+
+			if (levelBuilder != null)
+			{
+				levelBuilder.buildLevel(currentRound % 3);
+				SpawnPlayersAtSpawnpoint();
+				cam.Center();
+				ChaosFactorManager._Instance.ChaosFactorActive = false;
+			}
+
+			ChaosFactorManager._Instance.Reset();
+			ChaosFactorManager._Instance.StartChaosFactor();
+			BulletObjectPoolManager._Instance.ResetAllBullets();
+
+			// Clear dead player list
+			deadPlayerList.Clear();
+
+			// Initialize Players
+			foreach (GameObject player in players)
+			{
+				player.SetActive(true);
+				player.GetComponentInChildren<PlayerStats>().IsDead = false;
+				player.GetComponentInChildren<PlayerBody>().Reset = false;
+				player.GetComponentInChildren<PlayerStats>().ResetMaterialEmissionColor();
+			}
+			// Enable Player HUD's
+			foreach (GameObject h in hudBars)
+			{
+				h.SetActive(true);
+				h.GetComponent<Bars>().FullReset();
+			}
+
+			inPauseMenu = false;
+			inSettingsMenu = false;
+			AudioManager._Instance.ResetInactivityTimer();
 		}
-
-		ChaosFactorManager._Instance.Reset();
-		ChaosFactorManager._Instance.StartChaosFactor();
-		BulletObjectPoolManager._Instance.ResetAllBullets();
-
-		// Clear dead player list
-		deadPlayerList.Clear();
-
-		// Initialize Players
-		foreach (GameObject player in players)
+		else
 		{
-			player.SetActive(true);
-			player.GetComponentInChildren<PlayerStats>().IsDead = false;
-			player.GetComponentInChildren<PlayerBody>().Reset = false;
-			player.GetComponentInChildren<PlayerStats>().ResetMaterialEmissionColor();
+			tieBreakerRound = true;
+			for (int i = 2; i < 4; i++)
+				deadPlayerList[i].GetComponent<PlayerStats>().ResetPlayer();
+
+			if (levelBuilder != null)
+			{
+				levelBuilder.buildLevel(3);
+				SpawnPlayersAtSpawnpoint();
+				cam.Center();
+				ChaosFactorManager._Instance.ChaosFactorActive = false;
+			}
+
+			ChaosFactorManager._Instance.Reset();
+			ChaosFactorManager._Instance.StartChaosFactor();
+			BulletObjectPoolManager._Instance.ResetAllBullets();
+
+			for (int i = 2; i < 4; i++)
+			{
+				deadPlayerList[i].SetActive(true);
+				deadPlayerList[i].GetComponentInChildren<PlayerStats>().IsDead = false;
+				deadPlayerList[i].GetComponentInChildren<PlayerBody>().Reset = false;
+				deadPlayerList[i].GetComponentInChildren<PlayerStats>().ResetMaterialEmissionColor();
+				deadPlayerList[i].GetComponent<PlayerStats>().PlayerHUD.gameObject.SetActive(true);
+				deadPlayerList[i].GetComponent<PlayerStats>().PlayerHUD.FullReset();
+			}
+			deadPlayerList.RemoveAt(2);
+			deadPlayerList.RemoveAt(2);
+			inPauseMenu = false;
+			inSettingsMenu = false;
+			AudioManager._Instance.ResetInactivityTimer();
 		}
-		// Enable Player HUD's
-		foreach (GameObject h in hudBars)
-		{
-            h.SetActive(true);
-			h.GetComponent<Bars>().FullReset();
-        }
+	}
 
-        inPauseMenu = false;
-		inSettingsMenu = false;
-        AudioManager._Instance.ResetInactivityTimer();
-    }
-
-    public void PlayerDied(GameObject playerThatDied)
+	public void PlayerDied(GameObject playerThatDied)
 	{
-        AudioManager._Instance.ResetInactivityTimer();
-        deadPlayerList.Add(playerThatDied);
+		AudioManager._Instance.ResetInactivityTimer();
+		deadPlayerList.Add(playerThatDied);
 		ResetPlayerToVoid(playerThatDied);
 
 		if (deadPlayerList.Count < players.Count - 1) return;
@@ -145,10 +186,10 @@ public class GameManager : MonoBehaviour
 			Time.timeScale = 0f;
 		else
 			Time.timeScale = 1f;
-        AudioManager._Instance.ResetInactivityTimer();
-    }
+		AudioManager._Instance.ResetInactivityTimer();
+	}
 
-    private void EndRound()
+	private void EndRound()
 	{
 		// Reset --------
 		foreach (GameObject h in hudBars)
@@ -165,28 +206,63 @@ public class GameManager : MonoBehaviour
 		// Remove players from stage
 		ResetPlayersToVoid();
 
-		// Incriment round counter
-		currentRound++;
-
-		// Assign points
-		PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[0].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[3]); // First to die,	least points
-		PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[1].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[2]); // Second to die,	some points
-		PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[2].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[1]); // Third to die,	more points
-		PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[3].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[0]); // Last one alive, most points
-
-		if (currentRound >= MaxRounds)
+		if (!tieBreakerRound)
 		{
-			WinConditionMet();
-			return;
+			if (Mathf.Abs(deadPlayerList[2].GetComponent<PlayerStats>().AliveTime - deadPlayerList[3].GetComponent<PlayerStats>().AliveTime) < tieTime)
+				tie = true;
+		}
+		else tie = false;	
+
+		if (!tie)
+		{
+			// Incriment round counter
+			if (!tieBreakerRound)
+				currentRound++;
+
+			// Assign points
+			PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[0].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[3]); // First to die,	least points
+			PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[1].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[2]); // Second to die,	some points
+			PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[2].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[1]); // Third to die,	more points
+			PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[3].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[0]); // Last one alive, most points
+
+			if (currentRound >= MaxRounds)
+			{
+				WinConditionMet();
+				return;
+			}
+
+			if (!tieBreakerRound)
+			{
+				// Bring up modifier Menu;
+				ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
+				ModifierManager._Instance.OpenModifierMenu(deadPlayerList[0].GetComponent<PlayerBody>().PlayerIndex); // Open modifier menu for dead player
+				AudioManager._Instance.ResetInactivityTimer();
+			}
+			else
+			{
+				ModifierManager._Instance.ShowLeaderBoardMenu();
+			}
+			tieBreakerRound = false;
+		}
+		else
+		{
+			// Bring up modifier Menu;
+			currentRound++;
+            if (!tieBreakerRound)
+            {
+				ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
+				ModifierManager._Instance.OpenModifierMenu(deadPlayerList[0].GetComponent<PlayerBody>().PlayerIndex); // Open modifier menu for dead player
+				AudioManager._Instance.ResetInactivityTimer();
+			}
+			else
+			{
+				ModifierManager._Instance.ShowLeaderBoardMenu();
+			}
 		}
 
-		// Bring up modifier Menu;
-		ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
-		ModifierManager._Instance.OpenModifierMenu(deadPlayerList[0].GetComponent<PlayerBody>().PlayerIndex); // Open modifier menu for dead player
-        AudioManager._Instance.ResetInactivityTimer();
-    }
+	}
 
-    public void WinConditionMet()
+	public void WinConditionMet()
 	{
 		// Make local variables
 		List<int> playerWinOrder = new List<int>();     // Saved win order
@@ -217,26 +293,26 @@ public class GameManager : MonoBehaviour
 		playerWinnerIndex = playerWinOrder[0];
 		EndGame();
 		LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
-        AudioManager._Instance.ResetInactivityTimer();
-    }
+		AudioManager._Instance.ResetInactivityTimer();
+	}
 
-    // Reset everything when game ends
-    public void EndGame()
+	// Reset everything when game ends
+	public void EndGame()
 	{
-        AudioManager._Instance.ResetInactivityTimer();
-        foreach (GameObject h in hudBars)
+		AudioManager._Instance.ResetInactivityTimer();
+		foreach (GameObject h in hudBars)
 			h.SetActive(false);
-        foreach (GameObject player in players)
-            player.GetComponent<PlayerStats>().FullResetPlayer();
-        pauseMenu.SetActive(false);
+		foreach (GameObject player in players)
+			player.GetComponent<PlayerStats>().FullResetPlayer();
+		pauseMenu.SetActive(false);
 		ChaosFactorManager._Instance.Reset();
 		BulletObjectPoolManager._Instance.ResetAllBullets();
 		PlayerStatsManager._Instance.ResetStats();
 		ModifierManager._Instance.CloseAllMenus();
 		currentRound = 0;
-        inPauseMenu = false;
-        inSettingsMenu = false;
-        QuitToMainMenu();
+		inPauseMenu = false;
+		inSettingsMenu = false;
+		QuitToMainMenu();
 	}
 
 	// Method to reset everything when quitting to main menu
@@ -248,15 +324,15 @@ public class GameManager : MonoBehaviour
 		AudioManager._Instance.PlayMusic(0);
 		ResetPlayersToVoid();
 		RemovePlayerModels();
-        AudioManager._Instance.ResetInactivityTimer();
-    }
+		AudioManager._Instance.ResetInactivityTimer();
+	}
 
-    /// <summary>
-    /// This is to give functionality to the "Give" command for the Command Prompt menu. (Debug purposes)
-    /// </summary>
-    /// <param name="playerIndex">The index of the player to give some modifier to.</param>
-    /// <param name="modifierName">The name of the modifier being given.</param>
-    public void CommandGive(int playerIndex, string modifierName) // There is probably a better way to do this
+	/// <summary>
+	/// This is to give functionality to the "Give" command for the Command Prompt menu. (Debug purposes)
+	/// </summary>
+	/// <param name="playerIndex">The index of the player to give some modifier to.</param>
+	/// <param name="modifierName">The name of the modifier being given.</param>
+	public void CommandGive(int playerIndex, string modifierName) // There is probably a better way to do this
 	{
 		//Converting command modifier name to actual modifier name.
 		switch (modifierName)
@@ -317,20 +393,35 @@ public class GameManager : MonoBehaviour
 				else Debug.LogWarning("Player of index " + playerIndex + " doesn't exist!");
 			}
 		}
-        AudioManager._Instance.ResetInactivityTimer();
+		AudioManager._Instance.ResetInactivityTimer();
 	}
 
 	// Spawn players at appropiate spawn points
 	private void SpawnPlayersAtSpawnpoint()
 	{
-		foreach (GameObject player in players)
+		if (!tie)
 		{
-			player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-			player.transform.position = stageSpawnPoints[player.GetComponent<PlayerBody>().PlayerIndex].position;
-			player.GetComponentInChildren<CapsuleCollider>().enabled = true;
-			player.GetComponentInChildren<Rigidbody>().useGravity = true;
-			player.SetActive(true);
+			foreach (GameObject player in players)
+			{
+				player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+				player.transform.position = stageSpawnPoints[player.GetComponent<PlayerBody>().PlayerIndex].position;
+				player.GetComponentInChildren<CapsuleCollider>().enabled = true;
+				player.GetComponentInChildren<Rigidbody>().useGravity = true;
+				player.SetActive(true);
+			}
 		}
+		else
+		{
+			for (int i = 2; i < 4; i++)
+			{
+				deadPlayerList[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
+				deadPlayerList[i].transform.position = stageSpawnPoints[i - 2].position;
+				deadPlayerList[i].GetComponentInChildren<CapsuleCollider>().enabled = true;
+				deadPlayerList[i].GetComponentInChildren<Rigidbody>().useGravity = true;
+				deadPlayerList[i].SetActive(true);
+			}
+		}
+
 	}
 
 	// Reset player to platform on end game
