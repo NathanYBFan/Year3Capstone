@@ -71,7 +71,7 @@ public class Meteor : MonoBehaviour, ChaosFactor
     }
 
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponentInChildren<CapsuleCollider>() != null && collision.gameObject.GetComponentInChildren<CapsuleCollider>().CompareTag("Player")) 
         {
@@ -80,7 +80,7 @@ public class Meteor : MonoBehaviour, ChaosFactor
         }
 
         StartCoroutine(boom());
-    }
+    }*/
 
 
 
@@ -88,12 +88,18 @@ public class Meteor : MonoBehaviour, ChaosFactor
     {
         if (other.tag == "Player")
         {
-            UnityEngine.Debug.Log("player detected by meteor");
-            other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(100, DamageType.ChaosFactor);
-
-
+            Debug.Log("player detected by meteor");
+            other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
         }
-    }
+        Platform platform = other.GetComponent<Platform>();
+        if (platform != null)
+        {
+			platform.gameObject.GetComponent<Collider>().enabled = false;
+			platform.fakeDestroy();
+		}
+
+		StartCoroutine(boom());
+	}
 
 
     private IEnumerator boom()
@@ -108,12 +114,13 @@ public class Meteor : MonoBehaviour, ChaosFactor
             GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(2, 0.75f);
         }
         yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f);
         if (GameObject.Find("VCam").GetComponent<CameraShake>() != null)
         {
             GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(2, 0.75f);
         }
         Destroy(gameObject);
-        yield return null;
+        yield break;
     }
 
 

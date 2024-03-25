@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8607402228772004446}
   - component: {fileID: 8702020214585340334}
   - component: {fileID: 5524977387057310960}
-  - component: {fileID: 6193173195906639076}
+  - component: {fileID: 4213692841900747722}
   m_Layer: 0
   m_Name: Meteor
   m_TagString: test
@@ -113,7 +113,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!114 &5524977387057310960
 MonoBehaviour:
@@ -135,8 +135,8 @@ MonoBehaviour:
   fallMarker: {fileID: 5647575543577336749, guid: bbcef6bc7b6b49040a5687ec55e7138e, type: 3}
   markerSpawnHeight: 1
   timer: 10
---- !u!64 &6193173195906639076
-MeshCollider:
+--- !u!135 &4213692841900747722
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -150,13 +150,12 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 3
+  m_Radius: 0.45
+  m_Center: {x: 0.000000059604645, y: 10, z: -0.00000008940697}
 --- !u!1001 &5341420739553121855
 PrefabInstance:
   m_ObjectHideFlags: 0
