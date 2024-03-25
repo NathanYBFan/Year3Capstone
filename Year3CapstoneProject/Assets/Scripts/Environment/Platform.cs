@@ -35,6 +35,7 @@ public class Platform : MonoBehaviour
 
 	public bool effectsActive;
 
+	Coroutine destoryCoroutine = null;
 	// Getters & Setters
 	public GameObject IceTop { get { return iceTop; } set { iceTop = value; } }
 	public bool IsDropped { get { return isDropped; } set { isDropped = value; } }
@@ -54,7 +55,6 @@ public class Platform : MonoBehaviour
 	}
 	public void rise()
 	{
-		StopAllCoroutines();
 		//do visual thing as warning
 		IsDropped = false;
 		StartCoroutine(Up());
@@ -62,6 +62,7 @@ public class Platform : MonoBehaviour
 
 	public void fakeDestroy()
 	{
+		isDropped = true;
 		MeshRenderer r = GetComponent<MeshRenderer>();
 		if (r != null )
 		{
@@ -72,21 +73,17 @@ public class Platform : MonoBehaviour
 			r = transform.GetComponentInChildren<MeshRenderer>();
 			r.enabled = false;
 		}
-		GetComponent<Collider>().enabled = false;
 		foreach (GameObject child in MiscChildren)
 		{
 			child.GetComponent<MeshRenderer>().enabled = false;
-			child.GetComponent<Collider>().enabled = false;
 		}
-		StartCoroutine(destory());
-
-
+		if (destoryCoroutine == null) destoryCoroutine = StartCoroutine(destory());
 	}
 
 	public void fakeRespawn()
 	{
 		//Debug.Log("fake respawn called");
-		StopAllCoroutines(); 
+		//StopAllCoroutines(); 
 		MeshRenderer r = GetComponent<MeshRenderer>();
 		if (r != null)
 		{
@@ -101,7 +98,6 @@ public class Platform : MonoBehaviour
 		foreach (GameObject child in MiscChildren)
 		{
 			child.GetComponent<MeshRenderer>().enabled = true;
-			child.GetComponent<Collider>().enabled = true;
 		}
 		StartCoroutine(Up());
 	}
@@ -133,41 +129,41 @@ public class Platform : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-
-		if (collision.gameObject.tag == "test")
+		if (collision.gameObject.tag == "test" && !isDropped)
 		{
-
-			fakeDestroy();
-
+			
 		}
 	}
 
 	public IEnumerator Up()
 	{
+		isDropped = true;
 		Vector3 endPos = new Vector3(transform.position.x, maxHeight, transform.position.z);
-		while (Vector3.Distance(transform.position, endPos) > 0.01f)
+		while (transform.position.y < endPos.y)
 		{
-			transform.position = Vector3.MoveTowards(transform.position, endPos, 20 * Time.deltaTime);
-			
+			transform.position = Vector3.MoveTowards(transform.position, endPos, 20 * Time.deltaTime);			
 			yield return null;
 		}
-		effectsActive = true;
-		yield return null;
+		if (!iceTop.GetComponent<MeshRenderer>().enabled)
+			effectsActive = true;
+		else effectsActive = false;
+		yield break;
 	}
 
 	private IEnumerator destory()
 	{
-		//Debug.Log("down called");
 
-		Vector3 startPos = transform.position;
 		Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);
-		while (Vector3.Distance(transform.position, endPos) > 0.01f)
+		while (transform.position.y > endPos.y)
 		{
+			Debug.Log("Still Falling");
 			transform.position = Vector3.MoveTowards(transform.position, endPos, 20 * Time.deltaTime);
-
 			yield return null;
 		}
+		yield return new WaitForSeconds(1);
 		fakeRespawn();
+		destoryCoroutine = null;
+		yield break;
 	}
 
 	private IEnumerator Down()

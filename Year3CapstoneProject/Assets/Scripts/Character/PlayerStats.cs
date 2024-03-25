@@ -27,6 +27,10 @@ public class PlayerStats : MonoBehaviour
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
 	private Material playerAimUIMaterial;
+
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
+	private Material playerBulletMaterial;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("The particle system prefabs for debuff effects")]
 	private Bars playerHUD;
@@ -47,6 +51,10 @@ public class PlayerStats : MonoBehaviour
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("Time (in seconds) that a player cannot take damage from certain damage types.")]
 	private float invincibilityTime = 0.1f;
+
+	[SerializeField]
+	[Foldout("Player Stats"), Tooltip("Time (in seconds) that a player has been alive for.")]
+	private float aliveTime = 0f;
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("Player max health")]
 	private float maxHealth = 100;
@@ -198,8 +206,11 @@ public class PlayerStats : MonoBehaviour
 	#endregion Private Variables
 
 	#region Getters & Setters
+	public Bars PlayerHUD { get {  return playerHUD; } }
+	public Material PlayerBulletMaterial { get { return playerBulletMaterial; } set { playerBulletMaterial = value; } }
 	public bool IsDead { get { return isDead; } set { isDead = value; } }
 	public float InvincibilityTime { get { return invincibilityTime; } }
+	public float AliveTime { get { return aliveTime; } }
 	public float MaxHealth { get { return maxHealth; } }
 	public float CurrentHealth { get { return currHealth; } }
 	public float MovementSpeed { get { return movementSpeed; } set { movementSpeed = value; } }
@@ -215,7 +226,7 @@ public class PlayerStats : MonoBehaviour
 	public float NextFireTime { get { return nextFireTime; } set { nextFireTime = value; } }
 
 	public bool Booted { get { return booted; } set { booted = value; } }
-    public Debuff GiveableDebuff { get { return giveableDebuff; } set { giveableDebuff = value; } }
+	public Debuff GiveableDebuff { get { return giveableDebuff; } set { giveableDebuff = value; } }
 	public Debuff InflictedDebuff
 	{
 		get { return inflictedDebuff; }
@@ -348,6 +359,11 @@ public class PlayerStats : MonoBehaviour
 		playerGlowMaterial.EnableKeyword("_EMISSION");
 		playerGlowMaterial.SetColor("_EmissionColor", playerEmission.exposureAdjustedColor); // To convert from the regular colour to HDR (with intensity), multiply the intensity value into the colour. We subtract colourBrightness from intensity so the lighter colours aren't as blown out.
 
+		playerBulletMaterial.SetTexture("_EmissionMap", playerColor);
+		playerBulletMaterial.SetColor("_BaseColor", uiColor);
+		playerBulletMaterial.EnableKeyword("_EMISSION");
+		playerBulletMaterial.SetColor("_EmissionColor", playerEmission.exposureAdjustedColor); // To convert from the regular colour to HDR (with intensity), multiply the intensity value into the colour. We subtract colourBrightness from intensity so the lighter colours aren't as blown out.
+
 		ColorMutator aimEmission = new(this.uiColor);
 		aimEmission.exposureValue = (playerEmissionIntensity * 0.75f) - colourBrightness;
 		// Setting the aiming UI material values
@@ -359,6 +375,7 @@ public class PlayerStats : MonoBehaviour
 
 	private void Update()
 	{
+		if (!isDead) aliveTime += Time.deltaTime;
 		// Energy bar regen.
 		if (Input.GetKeyDown(KeyCode.Q))
 			ResetMaterialEmissionColor();
@@ -384,16 +401,17 @@ public class PlayerStats : MonoBehaviour
 		timer = 0;
 	}
 
-	private void DeactivateEffects(ParticleSystemStopBehavior behaviour) 
+	private void DeactivateEffects(ParticleSystemStopBehavior behaviour)
 	{
+		burningEffect.Reinit();
 		burningEffect.Stop();
-		burning.Stop(true, behaviour); 
+		burning.Stop(true, behaviour);
 	}
 
-	private void ActivateEffects() 
+	private void ActivateEffects()
 	{
 		burningEffect.Play();
-		burning.Play(); 
+		burning.Play();
 	}
 
 	public void TakeDamage(int amount, DamageType type)
@@ -411,15 +429,15 @@ public class PlayerStats : MonoBehaviour
 		if (invincibilityTimer > 0 && (type == DamageType.Bullet || type == DamageType.Falling)) return;
 		invincibilityTimer = invincibilityTime;
 
-        // Make sure health stays in the bounds
-        if (currHealth - amount > 0) currHealth -= amount;
+		// Make sure health stays in the bounds
+		if (currHealth - amount > 0) currHealth -= amount;
 		else currHealth = 0;
 
-        playerHUD.TakeDamage((int)currHealth, (int)(currHealth + amount));
+		playerHUD.TakeDamage((int)currHealth, (int)(currHealth + amount));
+		StartCoroutine(FlashRed());
 
-
-        // If still has Hp no need to continue
-        if (currHealth != 0) return;
+		// If still has Hp no need to continue
+		if (currHealth != 0) return;
 
 		// If can self destruct dont start death (Not sure why, probably a separate coroutine?)
 		if (canSelfDestruct)
@@ -432,7 +450,26 @@ public class PlayerStats : MonoBehaviour
 		isDead = true;
 		StartDeath();
 	}
-
+	private IEnumerator FlashRed()
+	{
+		float currTime = 0;
+		float flashDuration = 0.5f;
+		float colourBrightness = uiColor.r + uiColor.g + uiColor.b;
+		colourBrightness /= (255 * 3);
+		ColorMutator cm = new(Color.red);
+		cm.exposureValue = 3.5f;
+		playerGlowMaterial.SetColor("_BaseColor", Color.red);
+		playerGlowMaterial.SetColor("_EmissionColor", cm.exposureAdjustedColor);
+		while (currTime < flashDuration)
+		{
+			currTime += Time.deltaTime;
+			yield return null;
+		}
+		cm = new(uiColor);
+		cm.exposureValue = playerEmissionIntensity - colourBrightness;
+		playerGlowMaterial.SetColor("_BaseColor", uiColor);
+		playerGlowMaterial.SetColor("_EmissionColor", cm.exposureAdjustedColor);
+	}
 	public void Heal(int healing)
 	{
 		if (isDead) return;
@@ -447,6 +484,7 @@ public class PlayerStats : MonoBehaviour
 	public void StartDeath()
 	{
 		currHealth = 0;
+		isDead = true;
 		gameObject.GetComponent<Rigidbody>().useGravity = false;
 		gameObject.GetComponent<PlayerBody>().Death();
 	}
@@ -457,9 +495,9 @@ public class PlayerStats : MonoBehaviour
 		if (currEnergy > maxEnergy) { currEnergy = maxEnergy; }
 		else if (currEnergy < 0) { currEnergy = 0; }
 		playerHUD.UseEnergy();
-    }
+	}
 
-    public void ActivateEffects(Modifier modifier)
+	public void ActivateEffects(Modifier modifier)
 	{
 		modifier.AddEffects();
 		modifiersOnPlayer.Add(modifier);
@@ -486,6 +524,8 @@ public class PlayerStats : MonoBehaviour
 
 	public void ResetPlayer()
 	{
+		aliveTime = 0;
+		StopAllCoroutines();
 		DeactivateEffects(ParticleSystemStopBehavior.StopEmittingAndClear);
 		currHealth = maxHealth;
 		currEnergy = MaxEnergy;
@@ -516,6 +556,7 @@ public class PlayerStats : MonoBehaviour
 				else
 				{
 					currHealth -= inflictedDebuff.damage;
+					StartCoroutine(FlashRed());
 					playerHUD.TakeDamage(currHealth - inflictedDebuff.damage, currHealth);
 				}
 			}

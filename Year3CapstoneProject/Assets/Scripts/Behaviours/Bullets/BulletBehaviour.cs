@@ -1,15 +1,19 @@
 using NaughtyAttributes;
 using System.Collections;
+using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
 {
-    #region Serialize Fields
-    [SerializeField, Required]
-    [Foldout("Dependencies"), Tooltip("")]
-    private GameObject bulletGO;
-    [SerializeField, Required]
+	#region Serialize Fields
+	[SerializeField, Required]
+	[Foldout("Dependencies"), Tooltip("")]
+	private GameObject bulletGO;
+	[SerializeField, Required]
+	[Foldout("Dependencies"), Tooltip("")]
+	private GameObject bulletShattered;
+	[SerializeField, Required]
 	[Foldout("Dependencies"), Tooltip("")]
 	private Transform bulletRootObject;
 	[SerializeField, Required]
@@ -26,6 +30,10 @@ public class BulletBehaviour : MonoBehaviour
 	[SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("The stats of the player who shot this bullet.")]
 	private PlayerStats playerOwner;
+
+	[SerializeField]
+	[Foldout("Stats"), Tooltip("The stats of the player who shot this bullet.")]
+	private TrailRenderer trailMat;
 
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("")]
@@ -60,7 +68,11 @@ public class BulletBehaviour : MonoBehaviour
 
 	private void Update()
 	{
-		
+		// Assign the new materials array back to the renderer
+
+
+
+
 		if (playerOwner.HomingBullets)
 		{
 			// If these bullets are to be homing bullets, then their direction will be altered to aim towards a defined target.
@@ -72,6 +84,7 @@ public class BulletBehaviour : MonoBehaviour
 				Vector3 inaccurateDir = Vector3.Slerp(direction.normalized, Random.onUnitSphere, 1 - playerOwner.HomingAccuracy);
 				Quaternion toRotation = Quaternion.LookRotation(inaccurateDir, Vector3.up);
 				bulletRootObject.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerOwner.HomingBulletRotSpeed * Time.deltaTime);
+				if (target.gameObject.GetComponent<PlayerStats>().IsDead) FindClosestPlayer();
 			}
 		}
 		// Otherwise make bullet move default direction
@@ -83,15 +96,21 @@ public class BulletBehaviour : MonoBehaviour
 		switch (other.tag)
 		{
 			case "Shield":
-				if(other.gameObject != playerOwner.gameObject.GetComponent<PlayerBody>().Shield)
+				if (other.gameObject != playerOwner.gameObject.GetComponent<PlayerBody>().Shield)
 				{
-                    if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
-                    else Destroy(bulletRootObject.gameObject);
-                }
+					Instantiate(bulletShattered, transform.position, Quaternion.identity);
+					if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
+					else
+					{
+						BulletObjectPoolManager._Instance.FragmentedBullets.Remove(bulletRootObject.gameObject);
+						Destroy(bulletRootObject.gameObject);
+					}
+				}
 				break;
 			case "Player":
 				if (other.transform.parent.parent.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
 				{
+					Instantiate(bulletShattered, transform.position, Quaternion.identity);
 					// Check to see if these bullets should have a burn effect.
 					if (playerOwner.GiveableDebuff != null)
 					{
@@ -112,17 +131,23 @@ public class BulletBehaviour : MonoBehaviour
 
 					// If these bullets were instantiated from Fragmentation, then they should get destroyed. If not, then they can be readded to the bullet object pool.
 					if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
-					else Destroy(bulletRootObject.gameObject);
+					else
+					{
+						BulletObjectPoolManager._Instance.FragmentedBullets.Remove(bulletRootObject.gameObject);
+						Destroy(bulletRootObject.gameObject);
+					}
 				}
 				break;
 			case "StageNormal":
+				Instantiate(bulletShattered, transform.position, Quaternion.identity);
 				// If the player has Fragmentation and the bullet that hit the stage is fragmentable, split the bullet!
 				if (playerOwner.FragmentBullets && isFragmentable)
 				{
 					// Assigning fragmented bullets the stats that the parent bullet had.
 					for (int i = 0; i < 3; i++)
 					{
-						GameObject bullet = Instantiate(bulletGO, fragmentDirections[i].position, Quaternion.identity);
+						GameObject bullet = Instantiate(bulletGO, fragmentDirections[i].position, Quaternion.identity, BulletObjectPoolManager._Instance.transform);
+						BulletObjectPoolManager._Instance.FragmentedBullets.Add(bullet);
 						bullet.GetComponentInChildren<BulletBehaviour>().playerOwner = this.playerOwner;
 						bullet.GetComponentInChildren<BulletBehaviour>().originalPlayerIndex = this.originalPlayerIndex;
 						bullet.GetComponentInChildren<BulletBehaviour>().isFragmentable = false;
@@ -136,17 +161,31 @@ public class BulletBehaviour : MonoBehaviour
 				// Check if player has Unstable Blast, and if they do, make this bullet explode!
 				if (playerOwner.ExplodingBullets)
 				{
-					GameObject explosion = Instantiate(explosionRadius, transform.position, Quaternion.identity);
+					GameObject explosion = Instantiate(explosionRadius, transform.position, Quaternion.identity, BulletObjectPoolManager._Instance.transform);
 					explosion.GetComponent<Explosive>().PlayerOwner = this.playerOwner;
 					explosion.GetComponent<Explosive>().OriginalPlayerIndex = this.originalPlayerIndex;
 					explosion.GetComponent<Explosive>().StartExpansion(false);
+					BulletObjectPoolManager._Instance.ExplodedBullets.Add(explosion);
 
 				}
 				// If these bullets were instantiated from Fragmentation, then they should get destroyed. If not, then they can be readded to the bullet object pool.
 				if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
-				else Destroy(bulletRootObject.gameObject);
+				else
+				{
+					BulletObjectPoolManager._Instance.FragmentedBullets.Remove(bulletRootObject.gameObject);
+					Destroy(bulletRootObject.gameObject);
+				}
 				break;
-			default: break;
+			case "DestroysBullets":
+				if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
+				else
+				{
+					BulletObjectPoolManager._Instance.FragmentedBullets.Remove(bulletRootObject.gameObject);
+					Destroy(bulletRootObject.gameObject);
+				}
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -155,7 +194,7 @@ public class BulletBehaviour : MonoBehaviour
 		float closestDistance = Mathf.Infinity;
 		foreach (GameObject player in GameManager._Instance.Players)
 		{
-			if (player.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
+			if (player.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex && !player.GetComponent<PlayerStats>().IsDead)
 			{
 				float distance = Vector3.Distance(transform.position, player.transform.position);
 				if (distance < closestDistance)
@@ -172,14 +211,20 @@ public class BulletBehaviour : MonoBehaviour
 		yield return new WaitForSeconds(lifeTime);
 		if (playerOwner.ExplodingBullets)
 		{
-			GameObject explosion = Instantiate(explosionRadius, transform.position, Quaternion.identity);
+			GameObject explosion = Instantiate(explosionRadius, transform.position, Quaternion.identity, BulletObjectPoolManager._Instance.transform);
 			explosion.GetComponent<Explosive>().PlayerOwner = this.playerOwner;
 			explosion.GetComponent<Explosive>().OriginalPlayerIndex = this.originalPlayerIndex;
 			explosion.GetComponent<Explosive>().StartExpansion(false);
+			BulletObjectPoolManager._Instance.ExplodedBullets.Add(explosion);
 		}
 		BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
 		yield break;
 	}
 
-	public void ResetPlayerOwner(int newIndex, PlayerStats stats) { originalPlayerIndex = newIndex; playerOwner = stats; }
+	public void ResetPlayerOwner(int newIndex, PlayerStats stats)
+	{
+		originalPlayerIndex = newIndex;
+		playerOwner = stats;
+		trailMat.material = playerOwner.PlayerBulletMaterial;
+	}
 }

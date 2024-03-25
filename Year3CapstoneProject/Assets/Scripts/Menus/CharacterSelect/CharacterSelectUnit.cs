@@ -1,44 +1,53 @@
 using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class CharacterSelectUnit : MonoBehaviour
 {
     #region SerializeFields
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
+    [Foldout("Dependencies"), Tooltip("Out of prefab controller")]
     private CharacterSelectMenu characterSelectMenu;
 
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
+    [Foldout("Dependencies"), Tooltip("Out of prefab characterDisplay")]
+    private PlayerDisplay characterDisplay;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("List of all possible stats to choose from")]
     private CharacterStatsSO[] listOfStats = new CharacterStatsSO[4];
     
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
+    [Foldout("Dependencies"), Tooltip("List of all possible colors to choose from")]
     private Color[] listOfColors;
 
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
+    [Foldout("Dependencies"), Tooltip("List of all possible textures to choose from (Link to colors)")]
     private Texture2D[] listOfAvailableTextures;
 
     // Stats dependencies
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
+    [Foldout("Dependencies"), Tooltip("Character name to change")]
     private TextMeshProUGUI displayCharacterName;
 
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private Slider fireRateSlider;
+    [Foldout("Dependencies"), Tooltip("Stats vs Pick Color text")]
+    private TextMeshProUGUI sideBarTitle;
+
+    // Stat Bars
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Array of 3 bar gameobjects")]
+    private GameObject[] fireRateBars = new GameObject[3];
 
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private Slider moveSpeedSlider;
+    [Foldout("Dependencies"), Tooltip("Array of 3 bar gameobjects")]
+    private GameObject[] moveSpeedBars = new GameObject[3];
 
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private Slider healthSlider;
+    [Foldout("Dependencies"), Tooltip("Array of 3 bar gameobjects")]
+    private GameObject[] healthAmountBars = new GameObject[3];
+
 
     // Color dependencies
     [SerializeField]
@@ -56,19 +65,19 @@ public class CharacterSelectUnit : MonoBehaviour
 
     // Display Tab Game Objects
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
+    [Foldout("Dependencies"), Tooltip("Root game object holding the connect game controller display objects")]
     private GameObject connectGameControllerObject;
 
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
+    [Foldout("Dependencies"), Tooltip("Root game object holding the stat display objects")]
     private GameObject statGameObject;
 
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
+    [Foldout("Dependencies"), Tooltip("Root game object holding the color select display objects")]
     private GameObject colorGameObject;
 
     [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
+    [Foldout("Dependencies"), Tooltip("Root game object holding the lock in display objects")]
     private GameObject lockInGameObject;
 
     [SerializeField]
@@ -118,14 +127,38 @@ public class CharacterSelectUnit : MonoBehaviour
         iconDisplay.sprite = characterStatToAssign.characterSprite;
         iconBgDisplay.sprite = characterStatToAssign.characterBGSprite;
         displayCharacterName.text = "--" + characterStatToAssign.CharacterName + "--";
-        fireRateSlider.value = characterStatToAssign.DefaultFireRate;
-        moveSpeedSlider.value = characterStatToAssign.DefaultMoveSpeed;
-        healthSlider.value = characterStatToAssign.MaxHealth;
+
+        int numBarsToActivate = 0;
+
+        // FireRate
+        for (int i = 0; i < fireRateBars.Length; i++)
+            fireRateBars[i].SetActive(i < (int)characterStatToAssign.DefaultFireRate - 2);
+        
+        // MoveSpeed
+        if (characterStatToAssign.DefaultMoveSpeed >= 17)
+            numBarsToActivate = 3;
+        else if (characterStatToAssign.DefaultMoveSpeed == 14)
+            numBarsToActivate = 2;
+        else if (characterStatToAssign.DefaultMoveSpeed <= 11)
+            numBarsToActivate = 1;
+        for (int i = 0; i < moveSpeedBars.Length; i++)
+            moveSpeedBars[i].SetActive(i < numBarsToActivate);
+
+        // Health
+        if (characterStatToAssign.MaxHealth >= 6)
+            numBarsToActivate = 3;
+        else if (characterStatToAssign.MaxHealth == 4)
+            numBarsToActivate = 2;
+        else if (characterStatToAssign.MaxHealth <= 3)
+            numBarsToActivate = 1;
+        for (int i = 0; i < healthAmountBars.Length; i++)
+            healthAmountBars[i].SetActive(i < numBarsToActivate);
     }
 
     private void SetCharacterColorAssignment(Texture2D colorToSet)
     {
         colorDisplay.sprite = Sprite.Create(colorToSet, new Rect(0, 0, 50, 50), Vector2.zero);
+        characterDisplay.ResetMaterialEmissionColor(playerIndex, colorToSet, listOfColors[selectedColor]);
     }
 
     public void ConfirmSelections()
@@ -135,12 +168,14 @@ public class CharacterSelectUnit : MonoBehaviour
             case selectState.connectController:
                 currentState = selectState.characterSelect;
                 ResetDisplays();
+                sideBarTitle.text = "Stats:";
                 statGameObject.SetActive(true);
                 return;
             case selectState.characterSelect:
                 currentState = selectState.colorSelect;
                 characterSelectMenu.CharacterSelectedByPlayers[playerIndex] = listOfStats[selectedCharacter];
                 ResetDisplays();
+                sideBarTitle.text = "Pick Your Color:";
                 colorGameObject.SetActive(true);
                 return;
             case selectState.colorSelect:
@@ -148,6 +183,7 @@ public class CharacterSelectUnit : MonoBehaviour
                 characterSelectMenu.ColorSelectedByPlayers[playerIndex] = listOfAvailableTextures[selectedColor];
                 characterSelectMenu.UIColorSelectedByPlayers[playerIndex] = listOfColors[selectedColor];
                 ResetDisplays();
+                sideBarTitle.text = "";
                 lockInGameObject.SetActive(true);
                 characterSelectMenu.CheckForLockIn();
                 return;
@@ -164,15 +200,18 @@ public class CharacterSelectUnit : MonoBehaviour
                 return;
             case selectState.characterSelect:
                 characterSelectMenu.BackButtonPressed();
+                sideBarTitle.text = "";
                 return;
             case selectState.colorSelect:
                 currentState = selectState.characterSelect;
                 ResetDisplays();
+                sideBarTitle.text = "Stats:";
                 statGameObject.SetActive(true);
                 return;
             case selectState.lockedIn:
                 currentState = selectState.colorSelect;
                 ResetDisplays();
+                sideBarTitle.text = "Pick Your Color:";
                 colorGameObject.SetActive(true);
                 return;
         }
@@ -221,6 +260,7 @@ public class CharacterSelectUnit : MonoBehaviour
         selectedCharacter += number;
         if (selectedCharacter < 0) selectedCharacter = listOfStats.Length - 1;
         if (selectedCharacter > listOfStats.Length - 1) selectedCharacter = 0;
+        characterDisplay.UpdateCharacterDisplay(playerIndex, selectedCharacter);
     }
 
     private void IncrementColorSelect(int number)

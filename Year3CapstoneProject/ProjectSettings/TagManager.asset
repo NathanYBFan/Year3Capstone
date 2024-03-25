@@ -8,6 +8,8 @@ TagManager:
   - StageBreakable
   - test
   - Shield
+  - Bullet
+  - DestroysBullets
   layers:
   - Default
   - TransparentFX

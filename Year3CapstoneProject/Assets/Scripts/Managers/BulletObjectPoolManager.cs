@@ -7,14 +7,22 @@ public class BulletObjectPoolManager : MonoBehaviour
 	// Singleton Initialization
 	public static BulletObjectPoolManager _Instance;
 
-    #region SerializeFields
-    [SerializeField, ReadOnly]
+	#region SerializeFields
+	[SerializeField, ReadOnly]
 	[Foldout("Dependencies"), Tooltip("List of bullets that are deactivated and not in play")]
 	private List<GameObject> deactivatedBullets;
 
 	[SerializeField, ReadOnly]
 	[Foldout("Dependencies"), Tooltip("List of bullets that are actively being used")]
 	private List<GameObject> activatedBullets;
+
+	[SerializeField, ReadOnly]
+	[Foldout("Dependencies"), Tooltip("List of bullets that are actively being used")]
+	private List<GameObject> fragmentedBullets;
+
+	[SerializeField, ReadOnly]
+	[Foldout("Dependencies"), Tooltip("List of bullets that are actively being used")]
+	private List<GameObject> explodedBullets;
 
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("Default prefab of a bullet to use")]
@@ -31,9 +39,12 @@ public class BulletObjectPoolManager : MonoBehaviour
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("Absolute MAX bullets allowed to grow to")]
 	private int hardCapBulletCount = 100;
-    #endregion
+	#endregion
 
-    private void Awake()
+	public List<GameObject> FragmentedBullets { get { return fragmentedBullets; } set { fragmentedBullets = value; } }
+	public List<GameObject> ExplodedBullets { get { return explodedBullets; } set { explodedBullets = value; } }
+
+	private void Awake()
 	{
 		if (_Instance != null && _Instance != this)
 		{
@@ -45,7 +56,7 @@ public class BulletObjectPoolManager : MonoBehaviour
 			_Instance = this;
 	}
 
-    private void Start()
+	private void Start()
 	{
 		activatedBullets.Clear();
 		PropogateList(deactivatedBullets, defaultBullet);
@@ -94,7 +105,7 @@ public class BulletObjectPoolManager : MonoBehaviour
 
 		// Add and remove from proper lists:
 		activatedBullets.Add(bulletToReturn);
-        deactivatedBullets.Remove(bulletToReturn);
+		deactivatedBullets.Remove(bulletToReturn);
 
 		return bulletToReturn; // Return fired bullet
 	}
@@ -104,22 +115,36 @@ public class BulletObjectPoolManager : MonoBehaviour
 	{
 		if (!bullet.GetComponentInChildren<BulletBehaviour>().isFragmentable)
 		{
+			fragmentedBullets.Remove(bullet);
 			Destroy(bullet);
 			return;
-        }
+		}
 
-        // Filter into correct list
-        activatedBullets.Remove(bullet);
+		// Filter into correct list
+		activatedBullets.Remove(bullet);
 		deactivatedBullets.Add(bullet);
-        
+
 		// Deactivate the bullet
-        bullet.SetActive(false);
+		bullet.SetActive(false);
 	}
 
 	// Deactivates all bullets
 	public void ResetAllBullets()
 	{
 		while (activatedBullets.Count > 0)
-            ExpiredBullet(activatedBullets[0]);
-    }
+			ExpiredBullet(activatedBullets[0]);
+		while (fragmentedBullets.Count > 0)
+		{
+			GameObject bullet = fragmentedBullets[0];
+			fragmentedBullets.RemoveAt(0);
+			Destroy(bullet);
+		}
+		while (explodedBullets.Count > 0)
+		{
+			GameObject bullet = explodedBullets[0];
+			explodedBullets.RemoveAt(0);
+			bullet.GetComponent<Explosive>().Explosion.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+			Destroy(bullet);
+		}
+	}
 }

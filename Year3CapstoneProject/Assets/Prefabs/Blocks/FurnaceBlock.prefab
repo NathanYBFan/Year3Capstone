@@ -1,5 +1,74 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1443314926483818383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4435201055028503439}
+  - component: {fileID: 8903294504332638514}
+  - component: {fileID: 962352321264221280}
+  m_Layer: 0
+  m_Name: FireTrigger
+  m_TagString: DestroysBullets
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4435201055028503439
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443314926483818383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4200648992665759772}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8903294504332638514
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443314926483818383}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 0.9}
+  m_Center: {x: 0, y: 0, z: 1.05}
+--- !u!114 &962352321264221280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443314926483818383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3cd0e3ffa721254381acd8d92f89990, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  furnace: {fileID: -6603146610857267571}
+  damage: 1
+  damageInterval: 1
 --- !u!1 &5291812088170380797
 GameObject:
   m_ObjectHideFlags: 0
@@ -5097,6 +5166,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6687405336490624008}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4435201055028503439}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
       insertIndex: -1
@@ -5104,9 +5176,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 885816262386565235}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4484570103172695107}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5bd6a4e4e7704f34080bd38642fbb19a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7798131391755848078}
@@ -5135,9 +5204,7 @@ MonoBehaviour:
   - {fileID: 5327814123349184895}
   - {fileID: 6531992527189850276}
   flameSoundSource: {fileID: 0}
-  trigger: {fileID: 4484570103172695107}
-  damage: 1
-  damageInterval: 1
+  trigger: {fileID: 8903294504332638514}
   burnTime: 3
   minWaitTime: 4
   maxWaitTime: 7
@@ -5163,27 +5230,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0225319, y: 1.0225307, z: 1.0169573}
   m_Center: {x: -0.0011219382, y: 0.00047284376, z: 0.002702207}
---- !u!65 &4484570103172695107
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3530932798347127462}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.9}
-  m_Center: {x: 0, y: 0, z: 1.05}
 --- !u!114 &7798131391755848078
 MonoBehaviour:
   m_ObjectHideFlags: 0

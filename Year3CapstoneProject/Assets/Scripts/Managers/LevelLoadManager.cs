@@ -120,7 +120,7 @@ public class LevelLoadManager : MonoBehaviour
         GameManager._Instance.RemoveStage();
 
         // RESET PLAYERS
-        GameManager._Instance.StartNewGame();
+        //GameManager._Instance.StartNewGame();
 
         // RESET STATS
         PlayerStatsManager._Instance.ResetStats();

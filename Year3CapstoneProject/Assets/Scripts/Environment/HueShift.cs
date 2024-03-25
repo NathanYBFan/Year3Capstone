@@ -103,6 +103,7 @@ public class HueShift : MonoBehaviour
 				}
 				ColorMutator cm = new(currentColour);
 				cm.exposureValue = currentIntensity;
+				mat.EnableKeyword("_EMISSION");
 				mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
 			}
 		}
@@ -125,6 +126,7 @@ public class HueShift : MonoBehaviour
 
 				ColorMutator cm = new(newColour);
 				cm.exposureValue = currentIntensity;
+				mat.EnableKeyword("_EMISSION");
 				mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
 			}
 		}

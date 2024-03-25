@@ -62,7 +62,10 @@ public class ModifierManager : MonoBehaviour
         playerToModify = null;
         leaderboardRootObject.SetActive(true);
     }
-
+    public void ShowLeaderBoardMenu()
+    {
+		leaderboardRootObject.SetActive(true);
+	}
     public void CloseLeaderBoardMenu()
     {
         Time.timeScale = 1;

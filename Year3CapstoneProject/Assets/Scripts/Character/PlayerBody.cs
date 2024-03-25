@@ -36,7 +36,9 @@ public class PlayerBody : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")] private ParticleSystem healEffect;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private VisualEffect speedEffect;
-	[SerializeField]
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")] private VisualEffect bootEffect;
+    [SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private ParticleSystem dmgEffect;
 
 	[SerializeField]
@@ -184,7 +186,6 @@ public class PlayerBody : MonoBehaviour
 		}
 		else if (bootCF && isBooting)
 		{
-			Debug.Log("Boot head anim");
 			headAnim.Play("Boot");
 		}
 		else if (canMove && moveDir.magnitude != 0 && !headAnim.IsPlaying("Death") && !headAnim.IsPlaying("Dash") && !headAnim.IsPlaying("Shoot") && !headAnim.IsPlaying("Roll") && !headAnim.IsPlaying("Boot")) headAnim.Play("Walk");
@@ -318,6 +319,7 @@ public class PlayerBody : MonoBehaviour
 			isBooting = true;
 			GameObject.Find("Boot(Clone)").GetComponent<Boot>().Kick(gameObject);
 			stats.NextFireTime = Time.time + 1f / stats.FireRate;
+			bootEffect.Play();
 		}
 	}
 
@@ -403,6 +405,7 @@ public class PlayerBody : MonoBehaviour
 
 		reset = false;
 		stats.MovementSpeed -= 3;
+		speedEffect.Reinit();
 		speedEffect.Stop();
 	}
 
@@ -459,6 +462,8 @@ public class PlayerBody : MonoBehaviour
 		moveDir = Vector3.zero;
 		legDir = Vector3.zero;
 		isRolling = false;
+		bootEffect.Reinit();
+		bootEffect.Stop();
 		if (headAnim != null && legAnim != null)
 		{
 			if (headAnim.clip != null)

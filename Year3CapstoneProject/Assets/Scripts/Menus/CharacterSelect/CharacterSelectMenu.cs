@@ -70,7 +70,7 @@ public class CharacterSelectMenu : MonoBehaviour
     public void BackButtonPressed()
     {
         ButtonPressSFX();
-        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[3], false);
+        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[0], false);
     }
     
     public void ContinueButtonPressed()
@@ -78,17 +78,10 @@ public class CharacterSelectMenu : MonoBehaviour
         ButtonPressSFX();
 
         LevelLoadManager._Instance.StartNewGame();
-        GameManager._Instance.StartNewGame(); // Reset player stats
 
         ApplyCharacterStats();
 
-        // Load correct scene
-        if (GameManager._Instance.SelectedGameMode.CompareTo("FFA") == 0)
-            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[5], true);
-        else if (GameManager._Instance.SelectedGameMode.CompareTo("TDM") == 0)
-            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[6], true);
-        else if (GameManager._Instance.SelectedGameMode.CompareTo("FlatGround") == 0)
-            LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
+        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[5], true);
     }
 
     private void ApplyCharacterStats()

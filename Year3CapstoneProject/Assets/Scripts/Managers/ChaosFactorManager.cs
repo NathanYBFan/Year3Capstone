@@ -2,6 +2,7 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChaosFactorManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class ChaosFactorManager : MonoBehaviour
     #region SerializeFields
     [SerializeField]
     private GameObject gameManagerRef;
+
+    [SerializeField]
+    private Image alert;
 
     [SerializeField]
     [Tooltip("List of all Chaos Factors that can spawn in the game")]
@@ -28,6 +32,8 @@ public class ChaosFactorManager : MonoBehaviour
     [Foldout("Stats"), Tooltip("A list of all chaos factors currently in play")]
     private List<GameObject> currentRunningChaosFactors;
 
+
+
     #endregion
 
 
@@ -38,6 +44,13 @@ public class ChaosFactorManager : MonoBehaviour
 
     private bool timer;
     private bool chaosFactorActive = false;
+
+    //private int maxRed;
+    //private int maxGreen;
+    //private int maxBlue;
+
+
+    private int pulseCount = 3;
     private void Awake()
     {
         timer = false;
@@ -139,6 +152,15 @@ public class ChaosFactorManager : MonoBehaviour
     // Run Coroutine
     public IEnumerator RunChaosFactor(GameObject chaosFactorToSpawn)
     {
+
+
+        yield return CFAlert();
+
+        //play sounds/voice lines
+        AudioClip clipToPlay = AudioManager._Instance.MRTwentyChaosFactorList[Random.Range(0,AudioManager._Instance.MRTwentyChaosFactorList.Count)];
+        AudioManager._Instance.PlaySoundFX(clipToPlay, AudioManager._Instance.MRTwentyAudioSource);
+        AudioManager._Instance.ResetInactivityTimer();
+
         chaosFactorActive = true;
         // Instantiate Chaos Factor
         GameObject chaosFactor = GameObject.Instantiate(chaosFactorToSpawn, transform);
@@ -170,6 +192,87 @@ public class ChaosFactorManager : MonoBehaviour
 		currentRunningChaosFactors.Remove(chaosFactorToDestroy);
         Destroy(chaosFactorToDestroy);
     }
+
+    public IEnumerator CFAlert()
+    {
+        alert.enabled = true;
+
+        Color startColor = alert.color;
+        Color endColor;
+        endColor.r = 0;
+        endColor.g = 0;
+        endColor.b = 0;
+        endColor.a = 255;
+        Color lerpedColor = startColor;
+        float tick = 0f;
+
+        Color pulseEnd = endColor;
+        pulseEnd.a = 0;
+
+        for (int i = 0; i < pulseCount-1; i++)
+        {
+
+            while (alert.color != pulseEnd)
+            {
+
+                tick += Time.deltaTime;
+                lerpedColor = Color.Lerp(startColor, pulseEnd, tick);
+                alert.color = lerpedColor;
+
+
+
+                if (true)
+                {
+
+                }
+                yield return null;
+            }
+
+            tick = 0f;
+
+            while (alert.color != startColor)
+            {
+
+                tick += Time.deltaTime;
+                lerpedColor = Color.Lerp(pulseEnd, startColor, tick);
+                alert.color = lerpedColor;
+
+
+
+                if (true)
+                {
+
+                }
+                yield return null;
+            }
+
+            tick = 0f;
+
+        }
+
+        while (alert.color != pulseEnd)
+        {
+
+            tick += Time.deltaTime;
+            lerpedColor = Color.Lerp(startColor, pulseEnd, tick);
+            alert.color = lerpedColor;
+
+
+
+            if (true)
+            {
+
+            }
+            yield return null;
+        }
+
+
+        alert.enabled = false;
+
+
+        yield break;
+    }
+
 
     public void ResetChaosFactorTimer() { nextChaosFactorTimerSeconds = 0f; }
 

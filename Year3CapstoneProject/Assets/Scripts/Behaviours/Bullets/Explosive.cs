@@ -47,6 +47,7 @@ public class Explosive : MonoBehaviour
 	#region Getters & Setters
 	public int OriginalPlayerIndex {  get { return originalPlayerIndex; } set {  originalPlayerIndex = value; } }
 	public PlayerStats PlayerOwner { get {  return playerOwner; } set {  playerOwner = value; } }
+	public ParticleSystem Explosion {  get { return explosion; } set {  explosion = value; } }
 	#endregion Getters & Setters
 
 	private void OnTriggerEnter(Collider other)
@@ -108,6 +109,8 @@ public class Explosive : MonoBehaviour
 			playerOwner.TakeDamage(9999999, DamageType.Explosive);
 			yield return new WaitForSeconds(0.01f);
 		}
+		BulletObjectPoolManager._Instance.ExplodedBullets.Remove(gameObject);
+		explosion.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 		Destroy(gameObject);
 	}
 }
