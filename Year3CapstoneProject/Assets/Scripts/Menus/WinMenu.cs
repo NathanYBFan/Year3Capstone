@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class WinMenu : MonoBehaviour
@@ -48,7 +49,25 @@ public class WinMenu : MonoBehaviour
 
     private IEnumerator WinScreenAudio()
     {
-        AudioClip clipToPlay = AudioManager._Instance.WinScreenCharacterNamesList[GameManager._Instance.PlayerWinnerIndex];
+        AudioClip clipToPlay;
+        switch(GameManager._Instance.Players[GameManager._Instance.PlayerWinnerIndex].GetComponent<PlayerStats>().CharacterStat.CharacterName)
+        {
+            case "Cube":
+                clipToPlay = AudioManager._Instance.WinScreenCharacterNamesList[0];
+                break;
+            case "Octo":
+                clipToPlay = AudioManager._Instance.WinScreenCharacterNamesList[1];
+                break;
+            case "Pyr":
+                clipToPlay = AudioManager._Instance.WinScreenCharacterNamesList[2];
+                break;
+            case "Twelve":
+                clipToPlay = AudioManager._Instance.WinScreenCharacterNamesList[3];
+                break;
+            default:
+                clipToPlay = AudioManager._Instance.WinScreenCharacterNamesList[0];
+                break;
+        }
         AudioManager._Instance.PlaySoundFX(clipToPlay, AudioManager._Instance.MRTwentyAudioSource);
 
         // Wait until finished
