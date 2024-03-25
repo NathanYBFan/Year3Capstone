@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
 	private bool isPaused;
 	private newLevelBuilder levelBuilder;
 	private int playerWinnerIndex = -1;
-	private float tieTime = 0.5f;
+	private float tieTime = 0.25f;
 	private bool inPauseMenu = false, inSettingsMenu = false;
 	private Coroutine endRoundCoroutine = null;
 	#endregion
@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
 	private IEnumerator CheckEndRound()
 	{
 		bool allDead = true;
-		yield return new WaitForSeconds(0.1f); // Introduce a slight delay
+		yield return new WaitForSeconds(0.4f); // Introduce a slight delay
 		for (int i = 0; i < players.Count; i++)
 		{
 			if (!players[i].GetComponent<PlayerStats>().IsDead)
@@ -229,8 +229,11 @@ public class GameManager : MonoBehaviour
 
 		if (!tieBreakerRound)
 		{
-			if (Mathf.Abs(deadPlayerList[2].GetComponent<PlayerStats>().AliveTime - deadPlayerList[3].GetComponent<PlayerStats>().AliveTime) < tieTime)
-				tie = true;
+			if (deadPlayerList.Count > 3)
+			{
+				if (Mathf.Abs(deadPlayerList[2].GetComponent<PlayerStats>().AliveTime - deadPlayerList[3].GetComponent<PlayerStats>().AliveTime) < tieTime)
+					tie = true;
+			}
 		}
 		else tie = false;	
 

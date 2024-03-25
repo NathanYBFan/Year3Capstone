@@ -151,7 +151,10 @@ public class Platform : MonoBehaviour
 			
 			yield return null;
 		}
-		effectsActive = true;
+
+		if (!iceTop.GetComponent<MeshRenderer>().enabled)
+			effectsActive = true;
+		else effectsActive = false;
 		yield return null;
 	}
 
