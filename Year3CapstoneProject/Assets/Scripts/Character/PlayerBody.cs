@@ -462,6 +462,8 @@ public class PlayerBody : MonoBehaviour
 		moveDir = Vector3.zero;
 		legDir = Vector3.zero;
 		isRolling = false;
+		bootEffect.Reinit();
+		bootEffect.Stop();
 		if (headAnim != null && legAnim != null)
 		{
 			if (headAnim.clip != null)
