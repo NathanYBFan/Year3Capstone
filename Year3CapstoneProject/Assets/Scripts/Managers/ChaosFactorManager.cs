@@ -269,6 +269,7 @@ public class ChaosFactorManager : MonoBehaviour
 
         alert.enabled = false;
 
+        alert.color = startColor;
 
         yield break;
     }
