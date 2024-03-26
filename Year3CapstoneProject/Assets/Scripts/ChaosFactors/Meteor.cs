@@ -54,7 +54,7 @@ public class Meteor : MonoBehaviour, ChaosFactor
         float minSpawnZ = end.z;
 
         transform.position = new Vector3(Random.Range(minSpawnX, maxSpawnX), spawnHeight, Random.Range(minSpawnZ, maxSpawnZ));
-        markerInstance = Instantiate(fallMarker, new Vector3(transform.position.x, markerSpawnHeight+4, transform.position.z), transform.rotation);
+        markerInstance = Instantiate(fallMarker, new Vector3(transform.position.x, markerSpawnHeight+4, transform.position.z), fallMarker.transform.rotation);
         rb = GetComponent<Rigidbody>();
         HissSound();
     }
