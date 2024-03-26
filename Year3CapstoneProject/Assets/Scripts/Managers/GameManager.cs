@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour
 	private IEnumerator CheckEndRound()
 	{
 		bool allDead = true;
-		yield return new WaitForSeconds(0.4f); // Introduce a slight delay
+		yield return new WaitForSeconds(0.5f); // Introduce a slight delay
 		for (int i = 0; i < players.Count; i++)
 		{
 			if (!players[i].GetComponent<PlayerStats>().IsDead)
