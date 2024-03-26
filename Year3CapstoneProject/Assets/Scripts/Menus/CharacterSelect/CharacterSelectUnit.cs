@@ -99,7 +99,7 @@ public class CharacterSelectUnit : MonoBehaviour
     private void Start()
     {
         SetCharacterStatAssignment(listOfStats[playerIndex]);
-        SetCharacterColorAssignment(listOfAvailableTextures[0]);
+        SetCharacterColorAssignment(listOfColors[0], listOfAvailableTextures[0]);
         currentState = selectState.connectController;
 
         ResetDisplays();
@@ -155,10 +155,11 @@ public class CharacterSelectUnit : MonoBehaviour
             healthAmountBars[i].SetActive(i < numBarsToActivate);
     }
 
-    private void SetCharacterColorAssignment(Texture2D colorToSet)
+    private void SetCharacterColorAssignment(Color colorToSet, Texture colorTexture)
     {
-        colorDisplay.sprite = Sprite.Create(colorToSet, new Rect(0, 0, 50, 50), Vector2.zero);
-        characterDisplay.ResetMaterialEmissionColor(playerIndex, colorToSet, listOfColors[selectedColor]);
+        colorDisplay.color = colorToSet;
+        iconDisplay.color = colorToSet;
+        characterDisplay.ResetMaterialEmissionColor(playerIndex, colorTexture, listOfColors[selectedColor]);
     }
 
     public void ConfirmSelections()
@@ -229,7 +230,7 @@ public class CharacterSelectUnit : MonoBehaviour
                 return;
             case selectState.colorSelect:
                 IncrementColorSelect(1);
-                SetCharacterColorAssignment(listOfAvailableTextures[selectedColor]);
+                SetCharacterColorAssignment(listOfColors[selectedColor], listOfAvailableTextures[selectedColor]);
                 return;
             case selectState.lockedIn:
                 return;
@@ -248,7 +249,7 @@ public class CharacterSelectUnit : MonoBehaviour
                 return;
             case selectState.colorSelect:
                 IncrementColorSelect(-1);
-                SetCharacterColorAssignment(listOfAvailableTextures[selectedColor]);
+                SetCharacterColorAssignment(listOfColors[selectedColor], listOfAvailableTextures[selectedColor]);
                 return;
             case selectState.lockedIn:
                 return;
