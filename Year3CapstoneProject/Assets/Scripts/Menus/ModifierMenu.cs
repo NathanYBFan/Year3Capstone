@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -50,9 +51,20 @@ public class ModifierMenu : MonoBehaviour
         MenuInputManager._Instance.MainUIEventSystem.SetActive(false);
         MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
 
+        StartCoroutine(Rumble());
         uiInputModule.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstButton);
     }
+    private IEnumerator Rumble()
+    {
+        var gamepad = MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().GetDevice<Gamepad>();
+		gamepad.ResetHaptics();
+		gamepad.SetMotorSpeeds(0.25f, 0.25f);
+        yield return new WaitForSecondsRealtime(0.5f);
+		gamepad.ResetHaptics();
+		gamepad.SetMotorSpeeds(0, 0); 
+        yield break;
 
+	}
     private void Update()
     {
         if (isActiveAndEnabled && Input.GetKeyDown(KeyCode.Q))
