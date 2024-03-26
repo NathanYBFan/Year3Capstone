@@ -3068,7 +3068,7 @@ MonoBehaviour:
   - {fileID: 192293407}
   - {fileID: 1332575054}
   speed: 3
-  rotSpeed: 0
+  rotSpeed: 30
 --- !u!4 &859493251 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 560083069684157756, guid: b14ab214135846b43b6ea69f8ce96ae7, type: 3}
