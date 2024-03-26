@@ -19,8 +19,8 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 	private GameObject[] droppedPlatforms;
 
 	float shakeDelay = 0.025f;
-	float shakeAmount = 0.25f;
-	float shakeDuration = 0.1f;
+	float shakeAmount = 0.05f;
+	float shakeDuration = 0.01f;
 
 	// Public getter/setters
 	public float Timer { get { return timer; } }
