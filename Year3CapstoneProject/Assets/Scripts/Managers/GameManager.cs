@@ -87,7 +87,8 @@ public class GameManager : MonoBehaviour
 	// Play game initial setups
 	public void StartNewGame()
 	{
-		endRoundCoroutine = null;
+		if (AudioManager._Instance.MRTwentyAudioSource.isPlaying) AudioManager._Instance.MRTwentyAudioSource.Stop();
+        endRoundCoroutine = null;
 		RemoveStage();
 
 		if (!tie)
@@ -217,9 +218,12 @@ public class GameManager : MonoBehaviour
 			h.SetActive(false);
 
 		BulletObjectPoolManager._Instance.ResetAllBullets();
+		
+		// Stop Mr.20's voice lines if they are playing
+        if (AudioManager._Instance.MRTwentyAudioSource.isPlaying) AudioManager._Instance.MRTwentyAudioSource.Stop();
 
-		// Make sure all players are in the list
-		for (int i = 0; i < players.Count; i++)
+        // Make sure all players are in the list
+        for (int i = 0; i < players.Count; i++)
 		{
 			if (!deadPlayerList.Contains(players[i]) && !players[i].GetComponent<PlayerStats>().IsDead)
 				deadPlayerList.Add(players[i]);

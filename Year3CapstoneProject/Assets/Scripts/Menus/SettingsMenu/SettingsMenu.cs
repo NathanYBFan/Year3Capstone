@@ -15,15 +15,7 @@ public class SettingsMenu : MonoBehaviour
 
     [Foldout("Dependencies"), Tooltip("")]
     [SerializeField, Required]
-    private Image videoButton;
-
-    [Foldout("Dependencies"), Tooltip("")]
-    [SerializeField, Required]
     private GameObject audioControls;
-
-    [Foldout("Dependencies"), Tooltip("")]
-    [SerializeField, Required]
-    private Image audioButton;
 
     [Foldout("Dependencies"), Tooltip("")]
     [SerializeField, Required]
@@ -38,7 +30,6 @@ public class SettingsMenu : MonoBehaviour
     private Color deselectedButtonColor;
 
     private GameObject savedSelectedButton;
-    private MenuNavigation savedMenuNavigation;
 
     // Start is called before the first frame update
     void Awake()
@@ -64,17 +55,14 @@ public class SettingsMenu : MonoBehaviour
 
     public void SettingsButtonPressed(int buttonNumber)
     {
+        ButtonPressSFX();
         switch (buttonNumber)
         {
             case 1: // Video settings
-                videoButton.color = selectedButtonColor;
-                audioButton.color = deselectedButtonColor;
                 videoControls.SetActive(true);
                 audioControls.SetActive(false);
                 break;
             case 2: // Audio settings
-                videoButton.color = deselectedButtonColor;
-                audioButton.color = selectedButtonColor;
                 videoControls.SetActive(false);
                 audioControls.SetActive(true);
                 break;
