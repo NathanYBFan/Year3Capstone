@@ -11,10 +11,6 @@ public class ChaosFactorManager : MonoBehaviour
 
     #region SerializeFields
     [SerializeField]
-    [Tooltip("Determines if choas factors will spawn on their own")]
-    private bool timer;
-
-    [SerializeField]
     private GameObject gameManagerRef;
 
     [SerializeField]
@@ -36,7 +32,7 @@ public class ChaosFactorManager : MonoBehaviour
     [Foldout("Stats"), Tooltip("A list of all chaos factors currently in play")]
     private List<GameObject> currentRunningChaosFactors;
 
-    
+
 
     #endregion
 
@@ -46,15 +42,18 @@ public class ChaosFactorManager : MonoBehaviour
     public bool ChaosFactorActive { get { return chaosFactorActive; } set { chaosFactorActive = value; } }
     #endregion
 
-    
+    private bool timer;
     private bool chaosFactorActive = false;
 
+    //private int maxRed;
+    //private int maxGreen;
+    //private int maxBlue;
 
 
     private int pulseCount = 3;
     private void Awake()
     {
-        //timer = false;
+        timer = false;
         if (_Instance != null && _Instance != this)
         {
             Debug.LogWarning("Destroyed a repeated ChaosFactorManager");
@@ -72,48 +71,48 @@ public class ChaosFactorManager : MonoBehaviour
     {
         if (Input.GetKeyDown("[1]"))
         {
-            //Debug.Log("Input recived: Numpad 1");
+            Debug.Log("Input recived: Numpad 1");
             StartCoroutine(RunChaosFactor(chaosFactorList[0]));
         }
         if (Input.GetKeyDown("[2]"))
         {
-            //Debug.Log("Input recived: Numpad 2");
+            Debug.Log("Input recived: Numpad 2");
             StartCoroutine(RunChaosFactor(chaosFactorList[1]));
         }
 
         if (Input.GetKeyDown("[3]"))
         {
-            //Debug.Log("Input recived: Numpad 3");
+            Debug.Log("Input recived: Numpad 3");
             StartCoroutine(RunChaosFactor(chaosFactorList[2]));
         }
 
         if (Input.GetKeyDown("[4]"))
         {
-            //Debug.Log("Input recived: Numpad 4");
+            Debug.Log("Input recived: Numpad 4");
             StartCoroutine(RunChaosFactor(chaosFactorList[3]));
         }
 
         if (Input.GetKeyDown("[5]"))
         {
-            //Debug.Log("Input recived: Numpad 5");
+            Debug.Log("Input recived: Numpad 5");
             StartCoroutine(RunChaosFactor(chaosFactorList[4]));
         }
 
         if (Input.GetKeyDown("[6]"))
         {
-            //Debug.Log("Input recived: Numpad 6");
+            Debug.Log("Input recived: Numpad 6");
             StartCoroutine(RunChaosFactor(chaosFactorList[5]));
         }
 
         if (Input.GetKeyDown("[7]"))
         {
-            //Debug.Log("Input recived: Numpad 7");
+            Debug.Log("Input recived: Numpad 7");
             StartCoroutine(RunChaosFactor(chaosFactorList[6]));
         }
 
         if (Input.GetKeyDown("[9]"))
         {
-            //Debug.Log("Input recived: Numpad 9");
+            Debug.Log("Input recived: Numpad 9");
             timer = !timer;
             nextChaosFactorTimerSeconds = 30;
         }
@@ -196,7 +195,6 @@ public class ChaosFactorManager : MonoBehaviour
 
     public IEnumerator CFAlert()
     {
-
         alert.enabled = true;
 
         Color startColor = alert.color;
@@ -223,7 +221,10 @@ public class ChaosFactorManager : MonoBehaviour
 
 
 
+                if (true)
+                {
 
+                }
                 yield return null;
             }
 
@@ -236,6 +237,12 @@ public class ChaosFactorManager : MonoBehaviour
                 lerpedColor = Color.Lerp(pulseEnd, startColor, tick);
                 alert.color = lerpedColor;
 
+
+
+                if (true)
+                {
+
+                }
                 yield return null;
             }
 
@@ -250,12 +257,18 @@ public class ChaosFactorManager : MonoBehaviour
             lerpedColor = Color.Lerp(startColor, pulseEnd, tick);
             alert.color = lerpedColor;
 
+
+
+            if (true)
+            {
+
+            }
             yield return null;
         }
 
 
         alert.enabled = false;
-        alert.color = startColor;
+
 
         yield break;
     }
