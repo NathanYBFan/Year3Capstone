@@ -53,7 +53,6 @@ public class ExplosiveBarrel : MonoBehaviour
             BlastSound();
             StartCoroutine(boom());
 
-            GetComponentInChildren<SpriteRenderer>().enabled = false;
             radiusIndicator.SetActive(false);
         }
     }

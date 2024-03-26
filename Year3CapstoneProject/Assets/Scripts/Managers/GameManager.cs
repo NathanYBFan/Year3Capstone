@@ -172,13 +172,26 @@ public class GameManager : MonoBehaviour
 		deadPlayerList.Add(playerThatDied);
 		ResetPlayerToVoid(playerThatDied);
 
+		if (deadPlayerList.Count < players.Count - 1) return;
+		PlayerBody.OnSelfDestruct += () => 
+		{
+			if (endRoundCoroutine == null)
+				endRoundCoroutine = StartCoroutine(CheckEndRound(true));
+
+			return;
+		};
+
 		if (endRoundCoroutine == null)
-			endRoundCoroutine = StartCoroutine(CheckEndRound());
+			endRoundCoroutine = StartCoroutine(CheckEndRound(false));
 	}
-	private IEnumerator CheckEndRound()
+	private IEnumerator CheckEndRound(bool selfDestructed)
 	{
 		bool allDead = true;
-		yield return new WaitForSeconds(0.5f); // Introduce a slight delay
+		if (selfDestructed)
+		{
+			yield return new WaitForSeconds(3.5f); // Introduce a slight delay
+		}
+		else yield return new WaitForSeconds(0.4f);
 		for (int i = 0; i < players.Count; i++)
 		{
 			if (!players[i].GetComponent<PlayerStats>().IsDead)
