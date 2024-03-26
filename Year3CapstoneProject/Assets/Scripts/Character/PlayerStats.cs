@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using UnityEngine.InputSystem;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -52,9 +53,6 @@ public class PlayerStats : MonoBehaviour
 	[Foldout("Player Stats"), Tooltip("Time (in seconds) that a player cannot take damage from certain damage types.")]
 	private float invincibilityTime = 0.1f;
 
-	[SerializeField]
-	[Foldout("Player Stats"), Tooltip("Time (in seconds) that a player has been alive for.")]
-	private float aliveTime = 0f;
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("Player max health")]
 	private float maxHealth = 100;
@@ -210,7 +208,6 @@ public class PlayerStats : MonoBehaviour
 	public Material PlayerBulletMaterial { get { return playerBulletMaterial; } set { playerBulletMaterial = value; } }
 	public bool IsDead { get { return isDead; } set { isDead = value; } }
 	public float InvincibilityTime { get { return invincibilityTime; } }
-	public float AliveTime { get { return aliveTime; } }
 	public float MaxHealth { get { return maxHealth; } }
 	public float CurrentHealth { get { return currHealth; } }
 	public float MovementSpeed { get { return movementSpeed; } set { movementSpeed = value; } }
@@ -375,7 +372,6 @@ public class PlayerStats : MonoBehaviour
 
 	private void Update()
 	{
-		if (!isDead) aliveTime += Time.deltaTime;
 		// Energy bar regen.
 		if (Input.GetKeyDown(KeyCode.Q))
 			ResetMaterialEmissionColor();
@@ -524,7 +520,6 @@ public class PlayerStats : MonoBehaviour
 
 	public void ResetPlayer()
 	{
-		aliveTime = 0;
 		StopAllCoroutines();
 		DeactivateEffects(ParticleSystemStopBehavior.StopEmittingAndClear);
 		currHealth = maxHealth;

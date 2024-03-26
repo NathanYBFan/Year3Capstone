@@ -86,7 +86,6 @@ public class PlayerBody : MonoBehaviour
 	private bool isBooting = false;
 	#endregion Private Variables
 
-	public static event System.Action OnSelfDestruct;
 
 	private void Start() { AudioManager._Instance.PlayerAudioSourceList.Add(audioSource); }
 	private void Update()
@@ -329,7 +328,6 @@ public class PlayerBody : MonoBehaviour
 	{
 		if (stats.CanSelfDestruct && !hasExploded)
 		{
-			OnSelfDestruct?.Invoke();
 			hasExploded = true;
 			canMove = false;
 			GameObject explosionRadius = Instantiate(explosion, transform.position, Quaternion.identity);
