@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 16
-  bootRange: 3.01
+  bootRange: 7.5
   timer: 30
