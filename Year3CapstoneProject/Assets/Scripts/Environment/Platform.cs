@@ -44,7 +44,7 @@ public class Platform : MonoBehaviour
 	{
 		effectsActive = true;
 		maxHeight = transform.position.y;
-		minHeight = maxHeight - 20;
+		minHeight = maxHeight - 40;
 	}
 
 	public void collapse()
@@ -160,7 +160,7 @@ public class Platform : MonoBehaviour
 			transform.position = Vector3.MoveTowards(transform.position, endPos, 20 * Time.deltaTime);
 			yield return null;
 		}
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(7);
 		fakeRespawn();
 		destoryCoroutine = null;
 		yield break;
