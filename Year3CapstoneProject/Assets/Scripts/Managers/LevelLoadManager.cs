@@ -76,6 +76,8 @@ public class LevelLoadManager : MonoBehaviour
     private IEnumerator LoadLevel(string sceneToLoad, bool showLoadingScreen)
     {
         isLoadingLevel = true;
+        Time.timeScale = 1;
+
         if (showLoadingScreen)
             loadingScreen.gameObject.SetActive(true);
 

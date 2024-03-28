@@ -9,6 +9,7 @@ public class LoadingScreen : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("The slider to adjust the value of")]
     private Slider loadingSlider;
 
+
     private void OnEnable()
     {
         // Reset value
