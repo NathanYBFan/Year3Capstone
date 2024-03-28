@@ -126,7 +126,6 @@ public class GameManager : MonoBehaviour
 		inPauseMenu = false;
 		inSettingsMenu = false;
 		AudioManager._Instance.ResetInactivityTimer();
-
 	}
 
 	public void PlayerDied(GameObject playerThatDied)

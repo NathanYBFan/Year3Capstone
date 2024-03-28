@@ -36,24 +36,22 @@ public class ChaosFactorManager : MonoBehaviour
 
     #endregion
 
-
     #region Getters&Setters
     public List<GameObject> ChaosFactorList { get { return chaosFactorList; } }
     public bool ChaosFactorActive { get { return chaosFactorActive; } set { chaosFactorActive = value; } }
     #endregion
 
     private bool timer;
-    private bool chaosFactorActive = false;
+    private bool chaosFactorActive = true;
 
     //private int maxRed;
     //private int maxGreen;
     //private int maxBlue;
 
-
     private int pulseCount = 3;
     private void Awake()
     {
-        timer = false;
+        timer = true;
         if (_Instance != null && _Instance != this)
         {
             Debug.LogWarning("Destroyed a repeated ChaosFactorManager");
@@ -121,8 +119,6 @@ public class ChaosFactorManager : MonoBehaviour
         {
 
         }
-
-        
     }
 
     // Start Chaos Factor

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 
 namespace UI.SettingsMenu { 
     // TODO: Optimize this script
@@ -10,6 +11,11 @@ namespace UI.SettingsMenu {
         
         private void Start()
         {
+#if UNITY_STANDALONE_WIN
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+#endif
+
             int value = PlayerPrefs.GetInt("windowState", 0); // Save the value to the player prefs
             Screen.fullScreenMode = value switch
             {
