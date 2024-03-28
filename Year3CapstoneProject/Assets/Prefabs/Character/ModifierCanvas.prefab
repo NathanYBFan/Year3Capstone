@@ -679,6 +679,7 @@ MonoBehaviour:
   localListOfModifiers: []
   playerIndex: 0
   uiInputModule: {fileID: 4849433044549972324}
+  inputAsset: {fileID: -944628639613478452, guid: ff95740559fdaa343ade61115c40532f, type: 3}
   numberOfDisplays: 3
 --- !u!1 &6234804029096440797
 GameObject:

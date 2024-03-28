@@ -246,7 +246,11 @@ public class GameManager : MonoBehaviour
 		// Fully Reset all player stats
 		foreach (GameObject player in players)
 			player.GetComponent<PlayerStats>().FullResetPlayer();
-		
+
+		for (int i = 0; i < MenuInputManager._Instance.PlayerInputs.Count; i++)
+			Destroy(MenuInputManager._Instance.PlayerInputs[i]);
+		MenuInputManager._Instance.PlayerInputs.Clear();
+
 		// Turn off pause menu
 		pauseMenu.SetActive(false);
 

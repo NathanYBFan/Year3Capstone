@@ -30,6 +30,11 @@ public class ModifierMenu : MonoBehaviour
     private InputSystemUIInputModule uiInputModule;
 
     [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private InputActionAsset inputAsset;
+
+
+    [SerializeField]
     [Foldout("Stats"), Tooltip("")]
     private int numberOfDisplays = 3;
     #endregion
@@ -46,10 +51,13 @@ public class ModifierMenu : MonoBehaviour
 
     private void OnEnable()
     {
+        uiInputModule = transform.parent.GetChild(1).GetComponent<InputSystemUIInputModule>();
+        uiInputModule.actionsAsset = inputAsset;
+
+        MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
         ResetLocalModifierList();
         ResetAllModifierSelection();
         MenuInputManager._Instance.MainUIEventSystem.SetActive(false);
-        MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
 
         StartCoroutine(Rumble());
         uiInputModule.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstButton);
@@ -74,7 +82,6 @@ public class ModifierMenu : MonoBehaviour
     private void OnDisable()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        // MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = null;
         MenuInputManager._Instance.MainUIEventSystem.SetActive(true);
     }
 

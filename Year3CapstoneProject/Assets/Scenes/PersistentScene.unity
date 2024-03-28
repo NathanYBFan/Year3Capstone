@@ -798,6 +798,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1944556be5cdcb240bc944a1ba793b33, type: 2}
   playerToModify: {fileID: 0}
   leaderboardRootObject: {fileID: 743839865}
+  leaderboardButton: {fileID: 2003279498}
 --- !u!1 &222585821
 GameObject:
   m_ObjectHideFlags: 0

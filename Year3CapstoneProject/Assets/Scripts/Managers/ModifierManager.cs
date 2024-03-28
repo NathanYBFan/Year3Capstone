@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ModifierManager : MonoBehaviour
 {
@@ -23,6 +24,10 @@ public class ModifierManager : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("The player to apply the modifier to")]
     private GameObject leaderboardRootObject;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("The player to apply the modifier to")]
+    private GameObject leaderboardButton;
     #endregion
 
     #region Getters&Setters
@@ -61,6 +66,7 @@ public class ModifierManager : MonoBehaviour
         CloseAllMenus();
         playerToModify = null;
         leaderboardRootObject.SetActive(true);
+        MenuInputManager._Instance.MainUIEventSystem.GetComponent<EventSystem>().SetSelectedGameObject(leaderboardButton);
     }
     public void ShowLeaderBoardMenu()
     {
