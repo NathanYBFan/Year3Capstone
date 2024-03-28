@@ -236,20 +236,40 @@ public class GameManager : MonoBehaviour
 	// Reset everything when game ends
 	public void EndGame()
 	{
+		// Reset inactivity audio voice line timer
 		AudioManager._Instance.ResetInactivityTimer();
+		
+		// Turn off all HUD bars
 		foreach (GameObject h in hudBars)
 			h.SetActive(false);
+
+		// Fully Reset all player stats
 		foreach (GameObject player in players)
 			player.GetComponent<PlayerStats>().FullResetPlayer();
+		
+		// Turn off pause menu
 		pauseMenu.SetActive(false);
+
+		// Reset all chaos factors
 		ChaosFactorManager._Instance.Reset();
+		
+		// Despawn all bullets
 		BulletObjectPoolManager._Instance.ResetAllBullets();
+		
+		// Fully Reset all global player stats
 		PlayerStatsManager._Instance.ResetStats();
+		
+		// Close Modifier menus
 		ModifierManager._Instance.CloseAllMenus();
+		
+		// Reset round count
 		currentRound = 0;
 		inPauseMenu = false;
 		inSettingsMenu = false;
-		QuitToMainMenu();
+        inGame = false;
+
+        // Quit to main menu
+        QuitToMainMenu();
 	}
 
 	// Method to reset everything when quitting to main menu
@@ -257,11 +277,12 @@ public class GameManager : MonoBehaviour
 	{
 		if (Time.timeScale == 0)
 			PauseGame(false);
-		inGame = false;
+		
 		AudioManager._Instance.PlayMusic(0);
+
+		// Reset models and positions
 		ResetPlayersToVoid();
 		RemovePlayerModels();
-		AudioManager._Instance.ResetInactivityTimer();
 	}
 
 	/// <summary>

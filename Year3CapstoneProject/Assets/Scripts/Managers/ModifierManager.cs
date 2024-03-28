@@ -69,7 +69,7 @@ public class ModifierManager : MonoBehaviour
     public void CloseLeaderBoardMenu()
     {
         Time.timeScale = 1;
-        leaderboardRootObject.SetActive(false);
+        CloseAllMenus();
         GameManager._Instance.StartNewGame();
     }
 }

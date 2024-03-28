@@ -172,6 +172,7 @@ public class AudioManager : MonoBehaviour
         if (!musicAudioSource.isPlaying)
             musicAudioSource.Play();
     }
+
 	// Switch music Tracks
 	public void PlayMusic(int musicIndex)
 	{
@@ -210,7 +211,7 @@ public class AudioManager : MonoBehaviour
 	//}
 
 	// Transition Coroutine to switch the music tracks
-	public IEnumerator TransitionMusic(AudioClip musicToPlay, AudioSource musicSource, float duration)
+	private IEnumerator TransitionMusic(AudioClip musicToPlay, AudioSource musicSource, float duration)
     {
         // Local variables
         float originalVolume = musicAudioSource.volume;     // Original volume to transition up to

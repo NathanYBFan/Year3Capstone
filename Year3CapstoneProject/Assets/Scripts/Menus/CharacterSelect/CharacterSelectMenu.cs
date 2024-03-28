@@ -32,7 +32,7 @@ public class CharacterSelectMenu : MonoBehaviour
     public Color[] UIColorSelectedByPlayers { get { return uiColorSelectedByPlayers; } set { uiColorSelectedByPlayers = value; } }
     public GameObject[] CharacterSelectMenus { get { return characterSelectMenus; } set { characterSelectMenus = value; } }
 
-    private void Start()
+    private void OnEnable()
     {
         MenuInputManager._Instance.InCharacterSelect = true;
         MenuInputManager._Instance.CharacterSelectMenu = this;
