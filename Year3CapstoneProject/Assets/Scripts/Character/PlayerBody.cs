@@ -1,10 +1,6 @@
 using NaughtyAttributes;
 using System.Collections;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.PlayerLoop;
 using UnityEngine.VFX;
 
 public class PlayerBody : MonoBehaviour
@@ -221,7 +217,7 @@ public class PlayerBody : MonoBehaviour
 		else if (canMove && moveDir.magnitude != 0 && !legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll") && !legAnim.IsPlaying("Boot")) legAnim.Play("Walk");
 		else if (!legAnim.IsPlaying("Death") && !legAnim.IsPlaying("Dash") && !legAnim.IsPlaying("Shoot") && !legAnim.IsPlaying("Roll") && !legAnim.IsPlaying("Boot") && moveDir.magnitude == 0) legAnim.Play("Idle");
 
-		if (!headAnim.IsPlaying("Roll"))
+		if (!headAnim.IsPlaying("Roll") && !hasExploded)
 		{
 			// They are no longer rolling, so we can give the rolling player movement and shooting again
 			canMove = true;
@@ -459,6 +455,7 @@ public class PlayerBody : MonoBehaviour
 	public void ResetPlayer()
 	{
 		StopAllCoroutines();
+		canMove = true;
 		aimDir = Vector3.zero;
 		moveDir = Vector3.zero;
 		legDir = Vector3.zero;
