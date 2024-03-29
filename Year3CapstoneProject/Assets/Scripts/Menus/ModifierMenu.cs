@@ -8,112 +8,121 @@ using UnityEngine.InputSystem.UI;
 
 public class ModifierMenu : MonoBehaviour
 {
-    #region SerializeFields
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private GameObject firstButton;
+	#region SerializeFields
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	private GameObject firstButton;
 
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private List<GameObject> modifierDisplayList;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	private List<GameObject> modifierDisplayList;
 
-    [SerializeField, ReadOnly]
-    [Foldout("Dependencies"), Tooltip("")]
-    private List<Modifier> localListOfModifiers;
+	[SerializeField, ReadOnly]
+	[Foldout("Dependencies"), Tooltip("")]
+	private List<Modifier> localListOfModifiers;
 
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private int playerIndex;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	private int playerIndex;
 
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private InputSystemUIInputModule uiInputModule;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	private InputSystemUIInputModule uiInputModule;
 
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")]
-    private InputActionAsset inputAsset;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")]
+	private InputActionAsset inputAsset;
 
 
-    [SerializeField]
-    [Foldout("Stats"), Tooltip("")]
-    private int numberOfDisplays = 3;
-    #endregion
+	[SerializeField]
+	[Foldout("Stats"), Tooltip("")]
+	private int numberOfDisplays = 3;
+	#endregion
 
-    #region Getters&Setters
-    public List<GameObject> ModifierDisplayList { get { return modifierDisplayList; } }
-    #endregion
+	#region Getters&Setters
+	public List<GameObject> ModifierDisplayList { get { return modifierDisplayList; } }
+	#endregion
 
-    private void Start()
-    {
-        localListOfModifiers = new List<Modifier>();
-        ResetLocalModifierList();
-    }
+	private void Start()
+	{
+		localListOfModifiers = new List<Modifier>();
+		ResetLocalModifierList();
+	}
 
-    private void OnEnable()
-    {
-        uiInputModule = transform.parent.GetChild(1).GetComponent<InputSystemUIInputModule>();
-        uiInputModule.actionsAsset =
-		MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().actions;
+	private void OnEnable()
+	{
+		uiInputModule = transform.parent.GetChild(1).GetComponent<InputSystemUIInputModule>();
 
-		MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
-        ResetLocalModifierList();
-        ResetAllModifierSelection();
-        MenuInputManager._Instance.MainUIEventSystem.SetActive(false);
+		if (playerIndex > MenuInputManager._Instance.PlayerInputs.Count - 1)
+		{
+			//If we don't have 4 players and the losing player was one without input, give the control to player 1.
+			uiInputModule.actionsAsset = inputAsset; 
+			MenuInputManager._Instance.PlayerInputs[0].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
+		}
+		else
+		{
+			uiInputModule.actionsAsset = MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().actions;
+			MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
+		}
+		
+		ResetLocalModifierList();
+		ResetAllModifierSelection();
+		MenuInputManager._Instance.MainUIEventSystem.SetActive(false);
 
-        StartCoroutine(Rumble());
-        uiInputModule.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstButton);
-    }
-    private IEnumerator Rumble()
-    {
-        var gamepad = MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().GetDevice<Gamepad>();
+		StartCoroutine(Rumble());
+		uiInputModule.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstButton);
+	}
+	private IEnumerator Rumble()
+	{
+		var gamepad = MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().GetDevice<Gamepad>();
 		gamepad.ResetHaptics();
 		gamepad.SetMotorSpeeds(0.25f, 0.25f);
-        yield return new WaitForSecondsRealtime(0.5f);
+		yield return new WaitForSecondsRealtime(0.5f);
 		gamepad.ResetHaptics();
-		gamepad.SetMotorSpeeds(0, 0); 
-        yield break;
+		gamepad.SetMotorSpeeds(0, 0);
+		yield break;
 
 	}
-    private void Update()
-    {
-        if (isActiveAndEnabled && Input.GetKeyDown(KeyCode.Q))
-            uiInputModule.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstButton);
-    }
+	private void Update()
+	{
+		if (isActiveAndEnabled && Input.GetKeyDown(KeyCode.Q))
+			uiInputModule.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstButton);
+	}
 
-    private void OnDisable()
-    {
-        EventSystem.current.SetSelectedGameObject(null);
-        MenuInputManager._Instance.MainUIEventSystem.SetActive(true);
-    }
+	private void OnDisable()
+	{
+		EventSystem.current.SetSelectedGameObject(null);
+		MenuInputManager._Instance.MainUIEventSystem.SetActive(true);
+	}
 
-    private void ResetAllModifierSelection()
-    {
-        // Add all the modifiers to the list
-        ResetLocalModifierList();
+	private void ResetAllModifierSelection()
+	{
+		// Add all the modifiers to the list
+		ResetLocalModifierList();
 
-        for (int i = 0; i < numberOfDisplays; i++)
-        {
-            // Get Modifier number to choose
-            int modifierSelected = Random.Range(0, localListOfModifiers.Count);
-            // Get associated modifier from number
-            Modifier selectedModifier = localListOfModifiers[modifierSelected];
-            
-            localListOfModifiers.RemoveAt(modifierSelected);
+		for (int i = 0; i < numberOfDisplays; i++)
+		{
+			// Get Modifier number to choose
+			int modifierSelected = Random.Range(0, localListOfModifiers.Count);
+			// Get associated modifier from number
+			Modifier selectedModifier = localListOfModifiers[modifierSelected];
 
-            modifierDisplayList[i].GetComponent<ModifierDisplay>().ResetModifier(selectedModifier, ModifierManager._Instance.PlayerToModify);
+			localListOfModifiers.RemoveAt(modifierSelected);
+
+			modifierDisplayList[i].GetComponent<ModifierDisplay>().ResetModifier(selectedModifier, ModifierManager._Instance.PlayerToModify);
 			modifierDisplayList[i].GetComponent<ModifierDisplay>().UpdateColour();
 
 		}
-    }
-    public void SkipButtonPressed()
-    {
-        ModifierManager._Instance.CloseModifierMenu();
-    }
+	}
+	public void SkipButtonPressed()
+	{
+		ModifierManager._Instance.CloseModifierMenu();
+	}
 
-    private void ResetLocalModifierList()
-    {
-        localListOfModifiers = new List<Modifier>();
-        for (int i = 0; i < ModifierManager._Instance.ListOfModifiers.Count; i++)
-            localListOfModifiers.Add(ModifierManager._Instance.ListOfModifiers[i]);
-    }
+	private void ResetLocalModifierList()
+	{
+		localListOfModifiers = new List<Modifier>();
+		for (int i = 0; i < ModifierManager._Instance.ListOfModifiers.Count; i++)
+			localListOfModifiers.Add(ModifierManager._Instance.ListOfModifiers[i]);
+	}
 }

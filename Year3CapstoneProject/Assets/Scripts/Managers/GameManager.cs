@@ -136,7 +136,18 @@ public class GameManager : MonoBehaviour
 
 		if (deadPlayerList.Count < players.Count - 1) return;
 
-		EndRound(); // End round if all players are dead
+		if (endRoundCoroutine == null) StartCoroutine(CheckEndRound()); // End round if all players are dead
+	}
+	private IEnumerator CheckEndRound()
+	{
+		yield return new WaitForSeconds(0.5f);
+		if (deadPlayerList.Count == 4)
+		{
+			EndRound(true);
+			yield break;
+		}
+		else EndRound(false);
+		yield return null;
 	}
 	public void PauseGame(bool enablePauseMenu)
 	{
@@ -153,7 +164,7 @@ public class GameManager : MonoBehaviour
 		AudioManager._Instance.ResetInactivityTimer();
 	}
 
-	private void EndRound()
+	private void EndRound(bool allPlayersDead)
 	{
 		// Reset --------
 		foreach (GameObject h in hudBars)
@@ -167,11 +178,14 @@ public class GameManager : MonoBehaviour
 		if (AudioManager._Instance.MRTwentyAudioSource.isPlaying) AudioManager._Instance.MRTwentyAudioSource.Stop();
 
 		// Make sure all players are in the list
-		for (int i = 0; i < players.Count; i++)
+		if (!allPlayersDead)
 		{
-			if (!deadPlayerList.Contains(players[i]) && !players[i].GetComponent<PlayerStats>().IsDead)
-				deadPlayerList.Add(players[i]);
-		}
+			for (int i = 0; i < players.Count; i++)
+			{
+				if (!deadPlayerList.Contains(players[i]) && !players[i].GetComponent<PlayerStats>().IsDead)
+					deadPlayerList.Add(players[i]);
+			}
+		}		
 		// Remove players from stage
 		ResetPlayersToVoid();
 
