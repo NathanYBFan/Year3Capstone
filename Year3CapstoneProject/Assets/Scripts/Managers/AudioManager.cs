@@ -32,7 +32,11 @@ public class AudioManager : MonoBehaviour
     [Foldout("Dependencies"), Tooltip("The SFX Audio Source for UI and menu Buttons")]
     private AudioSource uiAudioSource;
 
-    [SerializeField]
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("The SFX Audio Source for UI and menu Buttons")]
+	private AudioSource cfAudioSource;
+
+	[SerializeField]
     [Foldout("Dependencies"), Tooltip("Sound FX list for the players")]
     private List<AudioClip> playerAudioList;
 
@@ -92,6 +96,7 @@ public class AudioManager : MonoBehaviour
     public List<AudioSource> EnvAudioSourceList { get { return envAudioSourceList; } }
     public AudioSource MRTwentyAudioSource { get { return mrTwentyAudioSource; } }
     public AudioSource UIAudioSource { get { return uiAudioSource; } }
+    public AudioSource CFAudioSource { get { return cfAudioSource; } }
 
     // Player/System/Env/CF Audio Clips
     public List<AudioClip> PlayerAudioList { get { return playerAudioList; } }

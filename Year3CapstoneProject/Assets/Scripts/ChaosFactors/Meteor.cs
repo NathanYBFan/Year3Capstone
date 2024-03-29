@@ -143,7 +143,7 @@ public class Meteor : MonoBehaviour, ChaosFactor
     private void HissSound()
     {
         float randPitch = Random.Range(0.8f, 1.5f);
-        AudioSource audioSource = AudioManager._Instance.ChooseEnvAudioSource();
+        AudioSource audioSource = AudioManager._Instance.CFAudioSource;
         if (audioSource != null)
         {
             audioSource.pitch = randPitch;
