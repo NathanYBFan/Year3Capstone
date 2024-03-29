@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class BulletBehaviour : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class BulletBehaviour : MonoBehaviour
 	[SerializeField, Required]
 	[Foldout("Dependencies"), Tooltip("")]
 	private GameObject bulletShattered;
+	[SerializeField, Required]
+	[Foldout("Dependencies"), Tooltip("")]
+	private GameObject burnEffect;
 	[SerializeField, Required]
 	[Foldout("Dependencies"), Tooltip("")]
 	private Transform bulletRootObject;
@@ -59,9 +63,17 @@ public class BulletBehaviour : MonoBehaviour
 			// We want the bullets to get a target as soon as they are used from the object pool, if the player has homing bullets enabled.
 			if (playerOwner.HomingBullets)
 				FindClosestPlayer();
-			if (playerOwner.ExplodingBullets)
+			if (playerOwner.ExplodingBullets || playerOwner.HomingBullets)
 				lifeTime = 2f;
 			else lifeTime = 5f;
+			if (playerOwner.GiveableDebuff != null)
+			{
+				burnEffect.SetActive(true);
+			}
+			else
+			{
+				burnEffect.SetActive(false);
+			}
 		}
 		StartCoroutine(LifetimeClock());
 	}
@@ -70,7 +82,10 @@ public class BulletBehaviour : MonoBehaviour
 	{
 		// Assign the new materials array back to the renderer
 
-
+		/*if (burnEffect.activeSelf)
+		{
+			burnEffect.transform.Rotate(0, 720 * Time.deltaTime, 0);
+		}*/
 
 
 		if (playerOwner.HomingBullets)
