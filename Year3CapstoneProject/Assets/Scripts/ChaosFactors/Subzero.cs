@@ -48,4 +48,9 @@ public class Subzero : MonoBehaviour, ChaosFactor
         }
 
     }
+
+	public void OnEndOfChaosFactor(bool earlyEnd)
+	{
+		Destroy(gameObject);
+	}
 }

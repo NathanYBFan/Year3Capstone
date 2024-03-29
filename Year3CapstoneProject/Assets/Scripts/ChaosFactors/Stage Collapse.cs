@@ -82,5 +82,8 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 
 	}
 
-
+	public void OnEndOfChaosFactor(bool earlyEnd)
+	{
+		Destroy(gameObject);
+	}
 }

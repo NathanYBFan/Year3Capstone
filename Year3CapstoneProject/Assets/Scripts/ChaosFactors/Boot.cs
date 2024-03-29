@@ -109,4 +109,9 @@ public class Boot : MonoBehaviour, ChaosFactor
 
         }
     }
+
+	public void OnEndOfChaosFactor(bool earlyEnd)
+	{
+		Destroy(gameObject);
+	}
 }

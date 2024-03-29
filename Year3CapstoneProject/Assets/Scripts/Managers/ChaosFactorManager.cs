@@ -185,9 +185,9 @@ public class ChaosFactorManager : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToWaitFor);
 		chaosFactorActive = false;
-		currentRunningChaosFactors.Remove(chaosFactorToDestroy);
-        Destroy(chaosFactorToDestroy);
-    }
+		currentRunningChaosFactors.Remove(chaosFactorToDestroy); 
+        chaosFactorToDestroy.GetComponent<ChaosFactor>().OnEndOfChaosFactor(false);
+	}
 
     public IEnumerator CFAlert()
     {
@@ -273,12 +273,12 @@ public class ChaosFactorManager : MonoBehaviour
 
     public void ResetChaosFactorTimer() { nextChaosFactorTimerSeconds = 0f; }
 
-    private void RemoveAllChaosFactors()
+    private void RemoveAllChaosFactors(bool earlyEnd)
     {
         StopAllCoroutines();
         for (int i = 0; i < currentRunningChaosFactors.Count; i++)
         {
-            Destroy(currentRunningChaosFactors[i]);
+            currentRunningChaosFactors[i].GetComponent<ChaosFactor>().OnEndOfChaosFactor(earlyEnd);
         }
         currentRunningChaosFactors.Clear();
     }
@@ -290,7 +290,7 @@ public class ChaosFactorManager : MonoBehaviour
         // Reset timer to 0
         ResetChaosFactorTimer();
         // Remove any active Chaos Factor
-        RemoveAllChaosFactors();
+        RemoveAllChaosFactors(true);
         alert.enabled = false;
 
     }

@@ -77,4 +77,8 @@ public class LightsOut : MonoBehaviour, ChaosFactor
         dr.enabled = true;
     }
 
+	public void OnEndOfChaosFactor(bool earlyEnd)
+	{
+		Destroy(gameObject);
+	}
 }

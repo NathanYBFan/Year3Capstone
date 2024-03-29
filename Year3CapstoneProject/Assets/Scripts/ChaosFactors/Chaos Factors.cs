@@ -5,5 +5,7 @@ using UnityEngine;
 public interface ChaosFactor
 {
     public float Timer { get; }
+
+    public void OnEndOfChaosFactor(bool earlyEnd);
     
 }

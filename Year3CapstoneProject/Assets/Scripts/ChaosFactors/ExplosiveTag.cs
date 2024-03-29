@@ -99,13 +99,23 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 
 	private void OnDestroy()
 	{
+		
+	}
+
+	public void OnEndOfChaosFactor(bool earlyEnd)
+	{
 		for (int i = 0; i < GameManager._Instance.Players.Count; i++)
 		{
 			GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = holdSpeeds[i];
 			GameManager._Instance.Players[i].GetComponent<PlayerStats>().CanShoot = true;
 			GameManager._Instance.Players[i].GetComponent<PlayerStats>().ChaosFactorCanShoot = true;
 		}
-		targetPlayer.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
-		GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.5f);
+		if (!earlyEnd)
+		{
+			targetPlayer.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
+			GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.5f);
+		}	
+
+		Destroy(gameObject);
 	}
 }

@@ -28,7 +28,7 @@ public class LaserLightShow : MonoBehaviour, ChaosFactor
         Vector3 start = GameManager._Instance.Platforms[0].transform.position;
         Vector3 end = GameManager._Instance.Platforms.Last().transform.position;
 
-        transform.position = new Vector3 ((start.x + end.x) /2, start.y+5.67f, (start.z + end.z)/2);
+        transform.position = new Vector3 ((start.x + end.x) /2, 5.67f, (start.z + end.z)/2);
 
     }
 
@@ -54,6 +54,8 @@ public class LaserLightShow : MonoBehaviour, ChaosFactor
 
     }
 
-
-
+	public void OnEndOfChaosFactor(bool earlyEnd)
+	{
+		Destroy(gameObject);
+	}
 }

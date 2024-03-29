@@ -152,4 +152,8 @@ public class Meteor : MonoBehaviour, ChaosFactor
 
     }
 
+	public void OnEndOfChaosFactor(bool earlyEnd)
+	{
+		Destroy(gameObject);
+	}
 }
