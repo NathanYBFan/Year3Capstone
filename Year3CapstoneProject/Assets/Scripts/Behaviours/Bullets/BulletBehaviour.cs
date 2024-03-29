@@ -93,12 +93,14 @@ public class BulletBehaviour : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
+		GameObject bulletFX;
 		switch (other.tag)
 		{
 			case "Shield":
 				if (other.gameObject != playerOwner.gameObject.GetComponent<PlayerBody>().Shield)
 				{
-					Instantiate(bulletShattered, transform.position, Quaternion.identity);
+					bulletFX = Instantiate(bulletShattered, transform.position, Quaternion.identity);
+					BulletObjectPoolManager._Instance.ObjectsToDispose.Add(bulletFX);
 					if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
 					else
 					{
@@ -110,7 +112,8 @@ public class BulletBehaviour : MonoBehaviour
 			case "Player":
 				if (other.transform.parent.parent.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
 				{
-					Instantiate(bulletShattered, transform.position, Quaternion.identity);
+					bulletFX = Instantiate(bulletShattered, transform.position, Quaternion.identity);
+					BulletObjectPoolManager._Instance.ObjectsToDispose.Add(bulletFX);
 					// Check to see if these bullets should have a burn effect.
 					if (playerOwner.GiveableDebuff != null)
 					{
@@ -139,7 +142,8 @@ public class BulletBehaviour : MonoBehaviour
 				}
 				break;
 			case "StageNormal":
-				Instantiate(bulletShattered, transform.position, Quaternion.identity);
+				bulletFX = Instantiate(bulletShattered, transform.position, Quaternion.identity);
+				BulletObjectPoolManager._Instance.ObjectsToDispose.Add(bulletFX);
 				// If the player has Fragmentation and the bullet that hit the stage is fragmentable, split the bullet!
 				if (playerOwner.FragmentBullets && isFragmentable)
 				{

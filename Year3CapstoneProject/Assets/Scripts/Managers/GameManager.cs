@@ -160,7 +160,9 @@ public class GameManager : MonoBehaviour
 			h.SetActive(false);
 
 		BulletObjectPoolManager._Instance.ResetAllBullets();
+		BulletObjectPoolManager._Instance.GarbageCollect();
 
+		ChaosFactorManager._Instance.Reset();
 		// Stop Mr.20's voice lines if they are playing
 		if (AudioManager._Instance.MRTwentyAudioSource.isPlaying) AudioManager._Instance.MRTwentyAudioSource.Stop();
 

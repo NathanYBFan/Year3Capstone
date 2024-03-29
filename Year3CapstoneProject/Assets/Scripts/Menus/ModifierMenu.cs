@@ -52,9 +52,10 @@ public class ModifierMenu : MonoBehaviour
     private void OnEnable()
     {
         uiInputModule = transform.parent.GetChild(1).GetComponent<InputSystemUIInputModule>();
-        uiInputModule.actionsAsset = inputAsset;
+        uiInputModule.actionsAsset =
+		MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().actions;
 
-        MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
+		MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
         ResetLocalModifierList();
         ResetAllModifierSelection();
         MenuInputManager._Instance.MainUIEventSystem.SetActive(false);

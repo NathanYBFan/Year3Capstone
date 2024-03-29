@@ -31,6 +31,7 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 
 	private void OnEnable()
 	{
+		Random.InitState((int)System.DateTime.Now.TimeOfDay.TotalSeconds);
 		holdSpeeds = new float[GameManager._Instance.Players.Count];
 		//get random player from the gamemanager player list, called target player
 		for (int i = 0; i < GameManager._Instance.Players.Count; i++)
@@ -44,7 +45,6 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 		bool loop = true;
 		while (loop)
 		{
-			Random.InitState((int)System.DateTime.Now.TimeOfDay.TotalSeconds);
             int random = Random.Range(0, 4);
 			Debug.Log(random);
 

@@ -17,8 +17,6 @@ public class PlayerBody : MonoBehaviour
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private PlayerStats stats;
 	[SerializeField]
-	[Foldout("Dependencies"), Tooltip("")] private PlayerCollision collisionDetection;
-	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private Rigidbody rb;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private AudioSource audioSource;
@@ -32,9 +30,9 @@ public class PlayerBody : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")] private ParticleSystem healEffect;
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private VisualEffect speedEffect;
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("")] private VisualEffect bootEffect;
-    [SerializeField]
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("")] private VisualEffect bootEffect;
+	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")] private ParticleSystem dmgEffect;
 
 	[SerializeField]
@@ -68,12 +66,12 @@ public class PlayerBody : MonoBehaviour
 	public GameObject Shield { get { return playerShield; } }
 
 	public GameObject Pivot { get { return pivot; } set { pivot = value; } }
-    public GameObject LegPivot { get { return legPivot; } set { legPivot = value; } }
+	public GameObject LegPivot { get { return legPivot; } set { legPivot = value; } }
 
 
-    #endregion Getters & Setters
-    #region Private Variables
-    Animation headAnim;
+	#endregion Getters & Setters
+	#region Private Variables
+	Animation headAnim;
 	Animation legAnim;
 	private bool hasExploded = false;
 	private bool isDashing = false, isShooting = false, isRolling = false, canMove = true, reset = false;
@@ -86,6 +84,7 @@ public class PlayerBody : MonoBehaviour
 	private void Start() { AudioManager._Instance.PlayerAudioSourceList.Add(audioSource); }
 	private void Update()
 	{
+		if (GameManager._Instance.IsPaused) return;
 		UpdateAnimations();
 
 		// Begin self-destruct (if possible)
@@ -119,29 +118,30 @@ public class PlayerBody : MonoBehaviour
 		// Rotation of the player.
 		float bodyAngle = Mathf.Atan2(legDir.x, legDir.y) * Mathf.Rad2Deg;
 		legPivot.transform.rotation = Quaternion.Euler(0, bodyAngle, 0);
-
+		Vector3 moveDirection;
 		if (canMove)
 		{
 			// Movement of the player.
-			Vector3 moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
+			moveDirection = new Vector3(moveDir.x, 0, moveDir.y);
 			if (moveDirection.magnitude > 1)
 				moveDirection.Normalize();
-
-			Vector3 velocity = rb.velocity;
-			Vector3 newForceDirection = (moveDirection * stats.MovementSpeed) - collisionDetection.ContactNormal;
-			velocity.y = 0;
-
-			if (onIce)
-			{
-				velocity.y = 0;
-				Vector3 iceVelocity = Vector3.Lerp(velocity, (newForceDirection - velocity) * 1.5f, iceInertiaMultiplier * Time.deltaTime);
-				rb.AddForce(iceVelocity, ForceMode.Acceleration);
-			}
-			else
-			{
-				rb.AddForce(newForceDirection - velocity, ForceMode.VelocityChange);
-			}
 		}
+		else moveDirection = Vector3.zero;
+		Vector3 velocity = rb.velocity;
+		Vector3 newForceDirection = (moveDirection * stats.MovementSpeed) + Vector3.down;
+		velocity.y = 0;
+
+		if (onIce)
+		{
+			velocity.y = 0;
+			Vector3 iceVelocity = Vector3.Lerp(velocity, (newForceDirection - velocity) * 1.5f, iceInertiaMultiplier * Time.deltaTime);
+			rb.AddForce(iceVelocity, ForceMode.Acceleration);
+		}
+		else
+		{
+			rb.AddForce(newForceDirection - velocity, ForceMode.VelocityChange);
+		}
+
 	}
 
 	private IEnumerator DestroyPlayer()
@@ -174,6 +174,7 @@ public class PlayerBody : MonoBehaviour
 		else if (isShooting && canMove && !isBooting)
 		{
 			headAnim.Play("Shoot");
+			stats.CanShoot = true;
 			isShooting = false;
 		}
 		else if (isRolling)
@@ -201,7 +202,6 @@ public class PlayerBody : MonoBehaviour
 		else if (isShooting && canMove)
 		{
 			legAnim.Play("Shoot");
-			stats.CanShoot = true;
 			isShooting = false;
 		}
 		else if (isRolling)
@@ -330,9 +330,9 @@ public class PlayerBody : MonoBehaviour
 			explosionRadius.GetComponent<Explosive>().OriginalPlayerIndex = playerIndex;
 			explosionRadius.GetComponent<Explosive>().PlayerOwner = stats;
 			explosionRadius.GetComponent<Explosive>().StartExpansion(true);
-            GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1.5f, 0.5f);
+			GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1.5f, 0.5f);
 
-            while (explosionRadius != null)
+			while (explosionRadius != null)
 			{
 				yield return null;
 			}

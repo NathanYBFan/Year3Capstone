@@ -291,5 +291,7 @@ public class ChaosFactorManager : MonoBehaviour
         ResetChaosFactorTimer();
         // Remove any active Chaos Factor
         RemoveAllChaosFactors();
+        alert.enabled = false;
+
     }
 }
