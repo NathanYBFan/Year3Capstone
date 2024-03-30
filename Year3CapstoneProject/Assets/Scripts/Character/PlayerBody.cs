@@ -84,7 +84,7 @@ public class PlayerBody : MonoBehaviour
 	private void Start() { AudioManager._Instance.PlayerAudioSourceList.Add(audioSource); }
 	private void Update()
 	{
-		if (GameManager._Instance.IsPaused) return;
+		if (GameManager._Instance.IsPaused || reset) return;
 		UpdateAnimations();
 
 		// Begin self-destruct (if possible)
@@ -474,6 +474,7 @@ public class PlayerBody : MonoBehaviour
 	public void SoftReset()
 	{
 		reset = true;
+		stats.CanShoot = false;
 	}
 }
 

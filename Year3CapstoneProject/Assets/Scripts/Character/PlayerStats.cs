@@ -524,6 +524,7 @@ public class PlayerStats : MonoBehaviour
 		DeactivateEffects(ParticleSystemStopBehavior.StopEmittingAndClear);
 		currHealth = maxHealth;
 		currEnergy = MaxEnergy;
+		canShoot = true;
 		if (CanSelfDestruct) GetComponent<PlayerBody>().HasExploded = false;
 		GetComponent<PlayerBody>().ResetPlayer();
 	}

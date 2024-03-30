@@ -17,7 +17,7 @@ public class PlayerShooting : MonoBehaviour
 	{
 		// Set bullet visual to bulletDisplay
 		PlayerStats stats = this.gameObject.GetComponent<PlayerStats>();
-
+		if (!stats.CanShoot) return;
 		
 		if (stats.TriShot)
 		{
