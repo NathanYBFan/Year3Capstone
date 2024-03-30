@@ -31,6 +31,7 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 
 	private void OnEnable()
 	{
+		bool loop = false;
 		Random.InitState((int)System.DateTime.Now.TimeOfDay.TotalSeconds);
 		holdSpeeds = new float[GameManager._Instance.Players.Count];
 		//get random player from the gamemanager player list, called target player
@@ -39,10 +40,14 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 			holdSpeeds[i] = GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed;
 			GameManager._Instance.Players[i].GetComponent<PlayerStats>().MovementSpeed = playerSpeed;
 			GameManager._Instance.Players[i].GetComponent<PlayerStats>().ChaosFactorCanShoot = false;
+			if (!GameManager._Instance.Players[i].GetComponent<PlayerStats>().IsDead) loop = true;
 		}
 
-
-		bool loop = true;
+		if (!loop)
+		{
+			OnEndOfChaosFactor(true);
+			return;
+		}
 		while (loop)
 		{
             int random = Random.Range(0, 4);
@@ -77,7 +82,7 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 
 		if (targetPlayer.GetComponent<PlayerStats>().IsDead == true)
 		{
-			Destroy(gameObject);
+			OnEndOfChaosFactor(true);
 		}
 
 	}
@@ -95,13 +100,6 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 
 	}
 
-
-
-	private void OnDestroy()
-	{
-		
-	}
-
 	public void OnEndOfChaosFactor(bool earlyEnd)
 	{
 		for (int i = 0; i < GameManager._Instance.Players.Count; i++)
@@ -115,6 +113,10 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 			targetPlayer.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
 			GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.5f);
 		}	
+		else
+		{
+			ChaosFactorManager._Instance.CurrentRunningChaosFactors.Remove(gameObject);
+		}
 
 		Destroy(gameObject);
 	}

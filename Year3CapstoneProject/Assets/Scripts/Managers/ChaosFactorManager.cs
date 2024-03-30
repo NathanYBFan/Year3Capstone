@@ -32,6 +32,8 @@ public class ChaosFactorManager : MonoBehaviour
     [Foldout("Stats"), Tooltip("A list of all chaos factors currently in play")]
     private List<GameObject> currentRunningChaosFactors;
 
+    public List<GameObject> CurrentRunningChaosFactors { get { return currentRunningChaosFactors; } set { currentRunningChaosFactors = value; } }
+
 
 
     #endregion
@@ -149,7 +151,7 @@ public class ChaosFactorManager : MonoBehaviour
     public IEnumerator RunChaosFactor(GameObject chaosFactorToSpawn)
     {
 
-
+        alert.enabled = true;
         yield return CFAlert();
 
         //play sounds/voice lines
@@ -192,9 +194,8 @@ public class ChaosFactorManager : MonoBehaviour
 
     public IEnumerator CFAlert()
     {
-        alert.enabled = true;
 
-        Color startColor = alert.color;
+        Color startColor = new Color(255, 255, 255, 184);
         Color endColor;
         endColor.r = 0;
         endColor.g = 0;

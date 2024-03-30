@@ -24,6 +24,7 @@ public class SelfDestruct : Modifier
 		if (playerStats != null)
 		{
 			playerStats.CanSelfDestruct = false;
+			playerStats.gameObject.GetComponent<PlayerBody>().HasExploded = false;
 
 		}
 	}
@@ -31,5 +32,6 @@ public class SelfDestruct : Modifier
 	public override void RemoveEffects(PlayerStats playerStats)
 	{
 		playerStats.CanSelfDestruct = false;
+		playerStats.gameObject.GetComponent<PlayerBody>().HasExploded = false;
 	}
 }

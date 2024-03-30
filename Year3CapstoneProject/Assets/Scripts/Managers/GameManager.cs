@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
 
 	#region Getters&Setters
 	public List<GameObject> Players { get { return players; } set { players = value; } }
+	public List<GameObject> DeadPlayersList { get { return deadPlayerList; } set { deadPlayerList = value; } }
 	public List<GameObject> Platforms { get { return platforms; } set { platforms = value; } }
 	public List<Transform> StageSpawnPoints { get { return stageSpawnPoints; } set { stageSpawnPoints = value; } }
 	public bool InGame { get { return inGame; } set { inGame = value; } }
@@ -131,7 +132,6 @@ public class GameManager : MonoBehaviour
 	public void PlayerDied(GameObject playerThatDied)
 	{
 		AudioManager._Instance.ResetInactivityTimer();
-		deadPlayerList.Add(playerThatDied);
 		ResetPlayerToVoid(playerThatDied);
 
 		if (deadPlayerList.Count < players.Count - 1) return;
@@ -141,12 +141,7 @@ public class GameManager : MonoBehaviour
 	private IEnumerator CheckEndRound()
 	{
 		yield return new WaitForSeconds(0.5f);
-		if (deadPlayerList.Count == 4)
-		{
-			EndRound(true);
-			yield break;
-		}
-		else EndRound(false);
+		EndRound(false);
 		yield return null;
 	}
 	public void PauseGame(bool enablePauseMenu)
@@ -182,7 +177,7 @@ public class GameManager : MonoBehaviour
 		{
 			for (int i = 0; i < players.Count; i++)
 			{
-				if (!deadPlayerList.Contains(players[i]) && !players[i].GetComponent<PlayerStats>().IsDead)
+				if (!deadPlayerList.Contains(players[i]))
 					deadPlayerList.Add(players[i]);
 			}
 		}		

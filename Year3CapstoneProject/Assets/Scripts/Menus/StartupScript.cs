@@ -11,10 +11,10 @@ namespace UI.SettingsMenu {
         
         private void Start()
         {
-#if UNITY_STANDALONE_WIN
+/*#if UNITY_STANDALONE_WIN
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-#endif
+#endif*/
 
             int value = PlayerPrefs.GetInt("windowState", 0); // Save the value to the player prefs
             Screen.fullScreenMode = value switch

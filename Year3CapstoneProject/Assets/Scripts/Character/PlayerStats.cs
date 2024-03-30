@@ -204,7 +204,7 @@ public class PlayerStats : MonoBehaviour
 	#endregion Private Variables
 
 	#region Getters & Setters
-	public Bars PlayerHUD { get {  return playerHUD; } }
+	public Bars PlayerHUD { get { return playerHUD; } }
 	public Material PlayerBulletMaterial { get { return playerBulletMaterial; } set { playerBulletMaterial = value; } }
 	public bool IsDead { get { return isDead; } set { isDead = value; } }
 	public float InvincibilityTime { get { return invincibilityTime; } }
@@ -442,8 +442,6 @@ public class PlayerStats : MonoBehaviour
 			return;
 		}
 
-		// Is truly dead
-		isDead = true;
 		StartDeath();
 	}
 	private IEnumerator FlashRed()
@@ -479,6 +477,8 @@ public class PlayerStats : MonoBehaviour
 
 	public void StartDeath()
 	{
+		GameManager._Instance.DeadPlayersList.Add(gameObject);
+		if (GameManager._Instance.DeadPlayersList.Count > 3) return;
 		currHealth = 0;
 		isDead = true;
 		gameObject.GetComponent<Rigidbody>().useGravity = false;
