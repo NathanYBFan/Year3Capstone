@@ -3337,16 +3337,34 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2cc7a1821c25fa44ea7c317ad7ef55b5, type: 2}
   - {fileID: 11400000, guid: 5da0e338aff20224fafc512221a1e732, type: 2}
   - {fileID: 11400000, guid: a2cd314d6dba3654689b6bccdf70e467, type: 2}
-  colorSelectedByPlayers:
+  listOfColors:
+  - {r: 0, g: 0.5019608, b: 0.92941177, a: 1}
+  - {r: 0.5686275, g: 1, b: 0.3921569, a: 1}
+  - {r: 1, g: 0.5019608, b: 0, a: 1}
+  - {r: 1, g: 0.6117647, b: 0.8470589, a: 1}
+  - {r: 0.5176471, g: 0.21568629, b: 0.9058824, a: 1}
+  - {r: 1, g: 0.08235294, b: 0.6666667, a: 1}
+  - {r: 0.13333334, g: 0.8470589, b: 0.8980393, a: 1}
+  - {r: 1, g: 0.909804, b: 0.31764707, a: 1}
+  listOfTextures:
   - {fileID: 2800000, guid: 70c226a391c59224fbef7770db137f4c, type: 3}
   - {fileID: 2800000, guid: 0d23da0ce37b0a34f97af7dc59e434b5, type: 3}
   - {fileID: 2800000, guid: d54ac420c9f789d4cb41c92aa000fa04, type: 3}
   - {fileID: 2800000, guid: 7fd1cbb7e4a799e46b9581d0bc1804b6, type: 3}
+  - {fileID: 2800000, guid: 7088514905f159e409e4ffcdcf398a27, type: 3}
+  - {fileID: 2800000, guid: bb7e76576df78a542b9ee19414eadf11, type: 3}
+  - {fileID: 2800000, guid: 6afb2f64723a31548bc9b690467e67f9, type: 3}
+  - {fileID: 2800000, guid: 47762f9301a850647b87b9a5e08421db, type: 3}
+  colorSelectedByPlayers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   uiColorSelectedByPlayers:
-  - {r: 0, g: 0.5019608, b: 0.92941177, a: 1}
-  - {r: 0.5686275, g: 1, b: 0.39215687, a: 1}
-  - {r: 1, g: 0.5019608, b: 0, a: 1}
-  - {r: 1, g: 0.6117647, b: 0.84705883, a: 1}
+  - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &883035944
 GameObject:
   m_ObjectHideFlags: 0

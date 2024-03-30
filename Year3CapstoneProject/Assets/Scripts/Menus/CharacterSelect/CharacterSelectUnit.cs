@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,14 +18,14 @@ public class CharacterSelectUnit : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("List of all possible stats to choose from")]
     private CharacterStatsSO[] listOfStats = new CharacterStatsSO[4];
-    
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("List of all possible colors to choose from")]
-    private Color[] listOfColors;
 
-    [SerializeField]
-    [Foldout("Dependencies"), Tooltip("List of all possible textures to choose from (Link to colors)")]
-    private Texture2D[] listOfAvailableTextures;
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("List of all possible colors to choose from")]
+	private Color[] availableColors;
+
+	[SerializeField]
+	[Foldout("Dependencies"), Tooltip("List of all possible textures to choose from (Link to colors)")]
+	private Texture2D[] listOfAvailableTextures;
 
     // Stats dependencies
     [SerializeField]
@@ -90,22 +91,31 @@ public class CharacterSelectUnit : MonoBehaviour
     #endregion
 
     #region PrivateVariables
-    private enum selectState { connectController, characterSelect, colorSelect, lockedIn }
+    public enum selectState { connectController, characterSelect, colorSelect, lockedIn }
     private selectState currentState = selectState.characterSelect;
     
     private int selectedColor = 0;
-    #endregion
+	#endregion
 
-    private void Start()
-    {
-        SetCharacterStatAssignment(listOfStats[playerIndex]);
-        SetCharacterColorAssignment(listOfColors[0], listOfAvailableTextures[0]);
+
+	public selectState CurrentState { get { return currentState; } set { currentState = value; } }
+
+	private void Start()
+	{
+		SetCharacterStatAssignment(listOfStats[playerIndex]);
         currentState = selectState.connectController;
 
         ResetDisplays();
         connectGameControllerObject.SetActive(true);
     }
 
+    public void UpdateColorOptions(List<Color> colors, List<Texture2D> textures)
+    {
+        if (currentState == selectState.lockedIn) return;
+        availableColors = colors.ToArray();
+        listOfAvailableTextures = textures.ToArray();
+        SetCharacterColorAssignment(availableColors[selectedColor], listOfAvailableTextures[selectedColor]);
+    }
     public void ControllerConnected()
     {
         currentState = selectState.characterSelect;
@@ -159,7 +169,7 @@ public class CharacterSelectUnit : MonoBehaviour
     {
         colorDisplay.color = colorToSet;
         iconDisplay.color = colorToSet;
-        characterDisplay.ResetMaterialEmissionColor(playerIndex, colorTexture, listOfColors[selectedColor]);
+        characterDisplay.ResetMaterialEmissionColor(playerIndex, colorTexture, availableColors[selectedColor]);
     }
 
     public void ConfirmSelections()
@@ -182,7 +192,8 @@ public class CharacterSelectUnit : MonoBehaviour
             case selectState.colorSelect:
                 currentState = selectState.lockedIn;
                 characterSelectMenu.ColorSelectedByPlayers[playerIndex] = listOfAvailableTextures[selectedColor];
-                characterSelectMenu.UIColorSelectedByPlayers[playerIndex] = listOfColors[selectedColor];
+                characterSelectMenu.UIColorSelectedByPlayers[playerIndex] = availableColors[selectedColor];
+				characterSelectMenu.UpdateColorOptions();
                 ResetDisplays();
                 sideBarTitle.text = "";
                 lockInGameObject.SetActive(true);
@@ -205,13 +216,16 @@ public class CharacterSelectUnit : MonoBehaviour
                 return;
             case selectState.colorSelect:
                 currentState = selectState.characterSelect;
-                ResetDisplays();
+				ResetDisplays();
                 sideBarTitle.text = "Stats:";
                 statGameObject.SetActive(true);
                 return;
             case selectState.lockedIn:
                 currentState = selectState.colorSelect;
-                ResetDisplays();
+				characterSelectMenu.ColorSelectedByPlayers[playerIndex] = null;
+				characterSelectMenu.UIColorSelectedByPlayers[playerIndex] = Color.black;
+				characterSelectMenu.UpdateColorOptions();
+				ResetDisplays();
                 sideBarTitle.text = "Pick Your Color:";
                 colorGameObject.SetActive(true);
                 return;
@@ -230,7 +244,7 @@ public class CharacterSelectUnit : MonoBehaviour
                 return;
             case selectState.colorSelect:
                 IncrementColorSelect(1);
-                SetCharacterColorAssignment(listOfColors[selectedColor], listOfAvailableTextures[selectedColor]);
+                SetCharacterColorAssignment(availableColors[selectedColor], listOfAvailableTextures[selectedColor]);
                 return;
             case selectState.lockedIn:
                 return;
@@ -249,7 +263,7 @@ public class CharacterSelectUnit : MonoBehaviour
                 return;
             case selectState.colorSelect:
                 IncrementColorSelect(-1);
-                SetCharacterColorAssignment(listOfColors[selectedColor], listOfAvailableTextures[selectedColor]);
+                SetCharacterColorAssignment(availableColors[selectedColor], listOfAvailableTextures[selectedColor]);
                 return;
             case selectState.lockedIn:
                 return;
