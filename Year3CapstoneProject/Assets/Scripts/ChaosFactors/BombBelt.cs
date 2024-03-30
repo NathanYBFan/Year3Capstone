@@ -31,6 +31,7 @@ public class BombBelt : MonoBehaviour
 	[SerializeField]
 	private AudioClip tickSFX;
 	#endregion
+	public GameObject ExplosionFX { get { return explosionFX; } }
 	#region Private Variables
 	private ExplosiveTag bombTagData;
 	private float currentTime = 0;
@@ -86,9 +87,4 @@ public class BombBelt : MonoBehaviour
 
         }
     }
-
-	private void OnDestroy()
-	{
-		Instantiate(explosionFX, transform.position, Quaternion.identity);
-	}
 }

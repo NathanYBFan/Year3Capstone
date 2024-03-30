@@ -110,14 +110,15 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 		}
 		if (!earlyEnd)
 		{
+			Instantiate(Spawnedbelt.GetComponent<BombBelt>().ExplosionFX, Spawnedbelt.transform.position, Quaternion.identity);
 			targetPlayer.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
-			GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.5f);
+			GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.5f); 
 		}	
 		else
 		{
 			ChaosFactorManager._Instance.CurrentRunningChaosFactors.Remove(gameObject);
 		}
-
+		 
 		Destroy(gameObject);
 	}
 }

@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -65,8 +66,8 @@ public class ModifierMenu : MonoBehaviour
 			MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
 		}
 		
-		ResetLocalModifierList();
-		ResetAllModifierSelection();
+		//ResetLocalModifierList();
+		StartCoroutine(ResetAllModifierSelection());
 		MenuInputManager._Instance.MainUIEventSystem.SetActive(false);
 
 		StartCoroutine(Rumble());
@@ -75,6 +76,7 @@ public class ModifierMenu : MonoBehaviour
 	private IEnumerator Rumble()
 	{
 		var gamepad = MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().GetDevice<Gamepad>();
+		if (gamepad == null) yield break; 
 		gamepad.ResetHaptics();
 		gamepad.SetMotorSpeeds(0.25f, 0.25f);
 		yield return new WaitForSecondsRealtime(0.5f);
@@ -95,10 +97,11 @@ public class ModifierMenu : MonoBehaviour
 		MenuInputManager._Instance.MainUIEventSystem.SetActive(true);
 	}
 
-	private void ResetAllModifierSelection()
+	private IEnumerator ResetAllModifierSelection()
 	{
 		// Add all the modifiers to the list
-		ResetLocalModifierList();
+		localListOfModifiers = new List<Modifier>();
+		while (!ResetLocalModifierList()) yield return null;
 
 		for (int i = 0; i < numberOfDisplays; i++)
 		{
@@ -119,10 +122,13 @@ public class ModifierMenu : MonoBehaviour
 		ModifierManager._Instance.CloseModifierMenu();
 	}
 
-	private void ResetLocalModifierList()
+	private bool ResetLocalModifierList()
 	{
-		localListOfModifiers = new List<Modifier>();
 		for (int i = 0; i < ModifierManager._Instance.ListOfModifiers.Count; i++)
-			localListOfModifiers.Add(ModifierManager._Instance.ListOfModifiers[i]);
+		{
+			if (!GameManager._Instance.Players[playerIndex].GetComponent<PlayerStats>().ModifiersOnPlayer.Contains(ModifierManager._Instance.ListOfModifiers[i]))
+				localListOfModifiers.Add(ModifierManager._Instance.ListOfModifiers[i]);
+		}
+		return true;
 	}
 }
