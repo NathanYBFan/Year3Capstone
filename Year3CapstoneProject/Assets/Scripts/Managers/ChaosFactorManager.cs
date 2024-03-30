@@ -185,6 +185,7 @@ public class ChaosFactorManager : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToWaitFor);
 		chaosFactorActive = false;
+        if (chaosFactorToDestroy == null) yield break;
 		currentRunningChaosFactors.Remove(chaosFactorToDestroy); 
         chaosFactorToDestroy.GetComponent<ChaosFactor>().OnEndOfChaosFactor(false);
 	}

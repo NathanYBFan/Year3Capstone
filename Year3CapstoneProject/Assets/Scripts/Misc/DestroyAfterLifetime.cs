@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DestroyAfterLifetime : MonoBehaviour
 {
+	[SerializeField]
 	float lifeTime = 4;
 	private void Awake()
 	{

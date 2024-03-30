@@ -121,7 +121,7 @@ public class Meteor : MonoBehaviour, ChaosFactor
         {
             GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(2, 0.75f);
         }
-        Destroy(gameObject);
+        GetComponent<ChaosFactor>().OnEndOfChaosFactor(true);
         yield break;
     }
 
@@ -154,6 +154,8 @@ public class Meteor : MonoBehaviour, ChaosFactor
 
 	public void OnEndOfChaosFactor(bool earlyEnd)
 	{
+        StopAllCoroutines();
+		GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(0, 1);
 		Destroy(gameObject);
 	}
 }

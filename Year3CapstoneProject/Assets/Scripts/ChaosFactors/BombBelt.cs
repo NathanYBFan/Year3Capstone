@@ -6,6 +6,9 @@ using NaughtyAttributes;
 public class BombBelt : MonoBehaviour
 {
 	#region Serialize Fields
+	[Foldout("Bomb Belt Stats"), Tooltip("The time (in seconds) the flash takes to get from min to max intensity.")]
+	[SerializeField]
+	private GameObject explosionFX;
 	[Foldout("Bomb Belt Stats"), Tooltip("")]
 	[SerializeField]
 	private Color lightColour;
@@ -83,4 +86,9 @@ public class BombBelt : MonoBehaviour
 
         }
     }
+
+	private void OnDestroy()
+	{
+		Instantiate(explosionFX, transform.position, Quaternion.identity);
+	}
 }

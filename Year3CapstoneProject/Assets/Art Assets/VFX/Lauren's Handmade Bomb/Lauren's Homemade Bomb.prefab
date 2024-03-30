@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8596083503254038359}
   - component: {fileID: 6017806702716320621}
   - component: {fileID: 6258473085514641999}
+  - component: {fileID: 7896867167137558596}
   m_Layer: 0
   m_Name: Lauren's Homemade Bomb
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -4886,3 +4887,16 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7896867167137558596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6786731816930967244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41de45b4a382bc24098b89af6cf23d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTime: 2

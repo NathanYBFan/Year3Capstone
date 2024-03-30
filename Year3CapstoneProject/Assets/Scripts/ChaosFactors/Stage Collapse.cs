@@ -84,6 +84,7 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 
 	public void OnEndOfChaosFactor(bool earlyEnd)
 	{
+		GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(0, 1);
 		Destroy(gameObject);
 	}
 }

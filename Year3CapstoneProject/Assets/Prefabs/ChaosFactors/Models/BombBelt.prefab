@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5dafc11110dd5e4f8b4a6401b728cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionFX: {fileID: 6786731816930967244, guid: da417ab8fb4e8e740a756c8a2d90705b, type: 3}
   lightColour: {r: 1, g: 0.039215688, b: 0.039215688, a: 1}
   bombBeltMat: {fileID: 2100000, guid: faf22149f8550584b81a291ac09387f6, type: 2}
   minEmissionIntensity: -4
