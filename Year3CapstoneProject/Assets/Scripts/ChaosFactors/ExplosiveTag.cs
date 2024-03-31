@@ -51,7 +51,6 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 		while (loop)
 		{
             int random = Random.Range(0, 4);
-			Debug.Log(random);
 
 			targetPlayer = GameManager._Instance.Players[random];
 

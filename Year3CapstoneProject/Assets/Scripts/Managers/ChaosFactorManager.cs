@@ -195,6 +195,7 @@ public class ChaosFactorManager : MonoBehaviour
 
 	public IEnumerator CFAlert()
 	{
+		GameObject.Find("Mr.20").GetComponent<MoveMr20>().InitiateChaosFactor();
 		alert.enabled = true;
 
 		Color endColor;

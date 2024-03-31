@@ -38,7 +38,6 @@ public class FallZone : MonoBehaviour
         closestPoint = temp;
         if (IsPositionOccupied(temp))
         {
-            Debug.Log("Yes");
 			Vector3 nudgeDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
 			temp = temp + (nudgeDirection * nudgeAmount);
 		}

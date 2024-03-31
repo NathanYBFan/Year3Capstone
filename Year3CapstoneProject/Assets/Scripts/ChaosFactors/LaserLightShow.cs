@@ -47,7 +47,7 @@ public class LaserLightShow : MonoBehaviour, ChaosFactor
 
         if (other.GetComponent<CapsuleCollider>() != null && other.CompareTag("Player"))
         {
-            Debug.Log("Laser hit player");
+            //Debug.Log("Laser hit player");
             other.gameObject.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
 
         }

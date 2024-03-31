@@ -187,7 +187,6 @@ public class GameManager : MonoBehaviour
 
 		// Incriment round counter
 		currentRound++;
-		Debug.Log("Incremented Round!");
 
 		// Assign points
 		PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[0].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[3]); // First to die,	least points

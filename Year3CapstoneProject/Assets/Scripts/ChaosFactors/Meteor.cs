@@ -89,8 +89,8 @@ public class Meteor : MonoBehaviour, ChaosFactor
     {
         if (other.tag == "Player")
         {
-            Debug.Log("player detected by meteor");
-            other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
+			//Debug.Log("Laser hit player");
+			other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
         }
         Platform platform = other.GetComponent<Platform>();
         if (platform != null)
