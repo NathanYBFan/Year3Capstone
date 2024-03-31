@@ -161,15 +161,15 @@ RectTransform:
   m_GameObject: {fileID: 71420632060603883}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 102322430123486118}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 444, y: 433}
-  m_SizeDelta: {x: 300, y: 93}
+  m_AnchoredPosition: {x: 435.7, y: 447.2}
+  m_SizeDelta: {x: 253.9046, y: 105.976}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3081395683246593482
 CanvasRenderer:
@@ -199,9 +199,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 325520d4eeb96ce4a80657f5bc01bcd1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d5ed081e3e4e474e8fcf496223b351f, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -333,15 +333,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2cc7a1821c25fa44ea7c317ad7ef55b5, type: 2}
   - {fileID: 11400000, guid: 5da0e338aff20224fafc512221a1e732, type: 2}
   - {fileID: 11400000, guid: a2cd314d6dba3654689b6bccdf70e467, type: 2}
-  listOfColors:
-  - {r: 0, g: 0.5019608, b: 0.92941177, a: 1}
-  - {r: 0.5686275, g: 1, b: 0.39215687, a: 1}
-  - {r: 1, g: 0.5019608, b: 0, a: 1}
-  - {r: 1, g: 0.6117647, b: 0.84705883, a: 1}
-  - {r: 0.5176471, g: 0.21568628, b: 0.90588236, a: 1}
-  - {r: 1, g: 0.08235294, b: 0.6666667, a: 1}
-  - {r: 0.13333334, g: 0.84705883, b: 0.8980392, a: 1}
-  - {r: 1, g: 0.9098039, b: 0.31764707, a: 1}
+  availableColors: []
   listOfAvailableTextures:
   - {fileID: 2800000, guid: 70c226a391c59224fbef7770db137f4c, type: 3}
   - {fileID: 2800000, guid: 0d23da0ce37b0a34f97af7dc59e434b5, type: 3}
