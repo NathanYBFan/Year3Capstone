@@ -445,7 +445,7 @@ public class PlayerBody : MonoBehaviour
 	//Plays the player death sound
 	private void DeathSound()
 	{
-		float randPitch = Random.Range(0.8f, 1.5f);
+		float randPitch = Random.Range(0.8f, 1.1f);
 		audioSource.pitch = randPitch;
 		AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[2], audioSource);
 	}

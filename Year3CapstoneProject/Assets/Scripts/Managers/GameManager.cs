@@ -136,13 +136,13 @@ public class GameManager : MonoBehaviour
 
 		if (deadPlayerList.Count < players.Count - 1) return;
 
-		if (endRoundCoroutine == null) StartCoroutine(CheckEndRound()); // End round if all players are dead
+		if (endRoundCoroutine == null) endRoundCoroutine = StartCoroutine(CheckEndRound()); // End round if all players are dead
 	}
 	private IEnumerator CheckEndRound()
 	{
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.25f);
 		EndRound(false);
-		yield return null;
+		yield break;
 	}
 	public void PauseGame(bool enablePauseMenu)
 	{
@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
 				if (!deadPlayerList.Contains(players[i]))
 					deadPlayerList.Add(players[i]);
 			}
-		}		
+		}
 		// Remove players from stage
 		ResetPlayersToVoid();
 
@@ -248,7 +248,7 @@ public class GameManager : MonoBehaviour
 	{
 		// Reset inactivity audio voice line timer
 		AudioManager._Instance.ResetInactivityTimer();
-		
+
 		// Turn off all HUD bars
 		foreach (GameObject h in hudBars)
 			h.SetActive(false);
@@ -266,24 +266,24 @@ public class GameManager : MonoBehaviour
 
 		// Reset all chaos factors
 		ChaosFactorManager._Instance.Reset();
-		
+
 		// Despawn all bullets
 		BulletObjectPoolManager._Instance.ResetAllBullets();
-		
+
 		// Fully Reset all global player stats
 		PlayerStatsManager._Instance.ResetStats();
-		
+
 		// Close Modifier menus
 		ModifierManager._Instance.CloseAllMenus();
-		
+
 		// Reset round count
 		currentRound = 0;
 		inPauseMenu = false;
 		inSettingsMenu = false;
-        inGame = false;
+		inGame = false;
 
-        // Quit to main menu
-        QuitToMainMenu();
+		// Quit to main menu
+		QuitToMainMenu();
 	}
 
 	// Method to reset everything when quitting to main menu
@@ -291,7 +291,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (Time.timeScale == 0)
 			PauseGame(false);
-		
+
 		AudioManager._Instance.PlayMusic(0);
 
 		// Reset models and positions
