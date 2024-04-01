@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Data;
 using UnityEngine;
 
 public class StageCollapse : MonoBehaviour, ChaosFactor
@@ -22,16 +23,21 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 	float shakeAmount = 0.05f;
 	float shakeDuration = 0.01f;
 
+	private GeneratesRumble rumble;
+
 	// Public getter/setters
 	public float Timer { get { return timer; } }
 	
 	// Start is called before the first frame update
 	void Start()
 	{
+		rumble = GetComponent<GeneratesRumble>();
 		droppedPlatforms = new GameObject[numberOfBlocks];
 		StartCoroutine(collapse());
         GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, timer);
-    }
+		for (int i = 0; i < 4; i++)
+			StartCoroutine(GameManager._Instance.CreateRumble(rumble.RumbleDuration, rumble.LeftIntensity, rumble.RightIntensity, i, false));
+	}
 	public IEnumerator collapse()
 	{
 		for (int i = 0; i < numberOfBlocks; i++)
@@ -85,6 +91,8 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 	public void OnEndOfChaosFactor(bool earlyEnd)
 	{
 		GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(0, 1);
+		for (int i = 0; i < 4; i++)
+			StartCoroutine(GameManager._Instance.StopRumble(i));
 		Destroy(gameObject);
 	}
 }

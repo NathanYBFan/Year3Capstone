@@ -34,7 +34,6 @@ public class ModifierMenu : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")]
 	private InputActionAsset inputAsset;
 
-
 	[SerializeField]
 	[Foldout("Stats"), Tooltip("")]
 	private int numberOfDisplays = 3;
@@ -44,6 +43,8 @@ public class ModifierMenu : MonoBehaviour
 	public List<GameObject> ModifierDisplayList { get { return modifierDisplayList; } }
 	#endregion
 
+	GeneratesRumble rumble;
+
 	private void Start()
 	{
 		localListOfModifiers = new List<Modifier>();
@@ -52,6 +53,7 @@ public class ModifierMenu : MonoBehaviour
 
 	private void OnEnable()
 	{
+		rumble = GetComponent<GeneratesRumble>();
 		uiInputModule = transform.parent.GetChild(1).GetComponent<InputSystemUIInputModule>();
 
 		if (playerIndex > MenuInputManager._Instance.PlayerInputs.Count - 1)
@@ -70,20 +72,8 @@ public class ModifierMenu : MonoBehaviour
 		StartCoroutine(ResetAllModifierSelection());
 		MenuInputManager._Instance.MainUIEventSystem.SetActive(false);
 
-		StartCoroutine(Rumble());
+		StartCoroutine(GameManager._Instance.CreateRumble(rumble.RumbleDuration, rumble.LeftIntensity, rumble.RightIntensity, playerIndex, true));
 		uiInputModule.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstButton);
-	}
-	private IEnumerator Rumble()
-	{
-		var gamepad = MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().GetDevice<Gamepad>();
-		if (gamepad == null) yield break; 
-		gamepad.ResetHaptics();
-		gamepad.SetMotorSpeeds(0.25f, 0.25f);
-		yield return new WaitForSecondsRealtime(0.5f);
-		gamepad.ResetHaptics();
-		gamepad.SetMotorSpeeds(0, 0);
-		yield break;
-
 	}
 	private void Update()
 	{

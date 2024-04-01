@@ -40,12 +40,12 @@ public class Meteor : MonoBehaviour, ChaosFactor
     private float timer;
 
     private GameObject markerInstance;
-
+    private GeneratesRumble rumble;
 
     public float Timer { get { return timer; } }
     void Awake()
     {
-
+        rumble = GetComponent<GeneratesRumble>();
         Vector3 start = GameManager._Instance.Platforms[0].transform.position;
         Vector3 end = GameManager._Instance.Platforms.Last().transform.position;
         float maxSpawnX = end.x;
@@ -114,13 +114,19 @@ public class Meteor : MonoBehaviour, ChaosFactor
         if (GameObject.Find("VCam").GetComponent<CameraShake>() != null)
         {
             GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(2, 0.75f);
+            for (int i = 0; i < 4; i++)
+            {
+                float distanceFromImpact = Vector3.Distance(GameManager._Instance.Players[i].transform.position, transform.position);
+                float increasedRumble = ((rumble.LeftIntensity + rumble.RightIntensity) * 0.5f) * (1 - Mathf.Clamp01(distanceFromImpact / 20));
+                StartCoroutine(GameManager._Instance.CreateRumble(rumble.RumbleDuration, rumble.LeftIntensity + increasedRumble, rumble.RightIntensity + increasedRumble, i, false));
+            }
         }
         yield return new WaitForSeconds(1f);
         yield return new WaitForSeconds(1f);
         if (GameObject.Find("VCam").GetComponent<CameraShake>() != null)
         {
             GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(2, 0.75f);
-        }
+		}
         GetComponent<ChaosFactor>().OnEndOfChaosFactor(true);
         yield break;
     }
@@ -156,6 +162,8 @@ public class Meteor : MonoBehaviour, ChaosFactor
 	{
         StopAllCoroutines();
 		GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(0, 1);
+		for (int i = 0; i < 4; i++)
+			StartCoroutine(GameManager._Instance.StopRumble(i));
 		Destroy(gameObject);
 	}
 }

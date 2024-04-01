@@ -416,6 +416,28 @@ public class GameManager : MonoBehaviour
 		stageSpawnPoints.Clear();
 	}
 
+	public IEnumerator CreateRumble(float duration, float leftIntensity, float rightIntensity, int playerIndex, bool isModifierSelect)
+	{
+		if (playerIndex >= MenuInputManager._Instance.PlayerInputs.Count) yield break;
+		if (players[playerIndex].GetComponent<PlayerStats>().IsDead && !isModifierSelect) yield break;
+		var gamepad = MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().GetDevice<Gamepad>();
+		if (gamepad == null) yield break;
+		gamepad.ResetHaptics();
+		gamepad.SetMotorSpeeds(leftIntensity, rightIntensity);
+		yield return new WaitForSecondsRealtime(duration);
+		gamepad.ResetHaptics();
+		gamepad.SetMotorSpeeds(0, 0);
+		yield break;
+	}
+	public IEnumerator StopRumble(int playerIndex)
+	{
+		if (playerIndex >= MenuInputManager._Instance.PlayerInputs.Count) yield break;
+		var gamepad = MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().GetDevice<Gamepad>();
+		if (gamepad == null) yield break;
+		gamepad.ResetHaptics();
+		gamepad.SetMotorSpeeds(0, 0);
+		yield break;
+	}
 	private void OnApplicationQuit()
 	{
 		InputSystem.ResetHaptics();

@@ -1,3 +1,4 @@
+using System.Data;
 using UnityEngine;
 
 public class ExplosiveTag : MonoBehaviour, ChaosFactor
@@ -23,7 +24,7 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 	private float[] holdSpeeds;
 	private GameObject Spawnedbelt;
 	private GameObject targetPlayer;
-
+	private GeneratesRumble rumble;
 
 
 	public float Timer { get { return timer; } }
@@ -31,6 +32,7 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 
 	private void OnEnable()
 	{
+		rumble = GetComponent<GeneratesRumble>();
 		bool loop = false;
 		Random.InitState((int)System.DateTime.Now.TimeOfDay.TotalSeconds);
 		holdSpeeds = new float[GameManager._Instance.Players.Count];
@@ -94,6 +96,7 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 		targetPlayer = p;
 		targetPlayer.GetComponent<PlayerStats>().MovementSpeed = targetSpeed;
 
+		StartCoroutine(GameManager._Instance.CreateRumble(rumble.RumbleDuration, rumble.LeftIntensity, rumble.RightIntensity, targetPlayer.GetComponent<PlayerBody>().PlayerIndex, false));
 
 
 
@@ -111,11 +114,13 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 		{
 			Instantiate(Spawnedbelt.GetComponent<BombBelt>().ExplosionFX, Spawnedbelt.transform.position, Quaternion.identity);
 			targetPlayer.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
-			GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.5f); 
-		}	
+			GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.5f, rumble, targetPlayer, Spawnedbelt.transform.position);
+		}
 		else
 		{
 			ChaosFactorManager._Instance.CurrentRunningChaosFactors.Remove(gameObject);
+			for (int i = 0; i < 4; i++)
+				StartCoroutine(GameManager._Instance.StopRumble(i));
 		}
 		 
 		Destroy(gameObject);
