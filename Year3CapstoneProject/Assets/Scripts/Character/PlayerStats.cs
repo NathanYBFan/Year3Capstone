@@ -481,6 +481,7 @@ public class PlayerStats : MonoBehaviour
 		if (GameManager._Instance.DeadPlayersList.Count > 3) return;
 		currHealth = 0;
 		isDead = true;
+		StartCoroutine(GameManager._Instance.StopRumble(GetComponent<PlayerBody>().PlayerIndex));
 		gameObject.GetComponent<Rigidbody>().useGravity = false;
 		gameObject.GetComponent<PlayerBody>().Death();
 	}
