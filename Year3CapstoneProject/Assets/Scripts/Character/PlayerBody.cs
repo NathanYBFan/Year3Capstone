@@ -324,6 +324,7 @@ public class PlayerBody : MonoBehaviour
 	{
 		if (stats.CanSelfDestruct && !hasExploded)
 		{
+			SelfDestructSound();
 			hasExploded = true;
 			canMove = false;
 			GameObject explosionRadius = Instantiate(explosion, transform.position, Quaternion.identity);
@@ -448,6 +449,14 @@ public class PlayerBody : MonoBehaviour
 		float randPitch = Random.Range(0.8f, 1.1f);
 		audioSource.pitch = randPitch;
 		AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[2], audioSource);
+	}
+
+	//Plays the sound for the blast from YGDWM
+	private void SelfDestructSound()
+	{
+		float randPitch = Random.Range(0.8f, 1.1f);
+		audioSource.pitch = randPitch;
+		AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[3], audioSource);
 	}
 	public void SetMovementVector(Vector2 dir) { moveDir = dir; if (dir.x != 0 && dir.y != 0) legDir = dir; }
 	public void SetFiringDirection(Vector2 dir) { if (dir.x != 0 && dir.y != 0) aimDir = dir; }

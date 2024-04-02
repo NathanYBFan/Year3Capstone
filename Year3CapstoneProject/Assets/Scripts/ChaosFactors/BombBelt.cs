@@ -30,8 +30,11 @@ public class BombBelt : MonoBehaviour
 	[Foldout("Bomb Belt Stats"), Tooltip("The time (in seconds) the flash takes to get from min to max intensity.")]
 	[SerializeField]
 	private AudioClip tickSFX;
+	[SerializeField]
+	private AudioSource audioSource;
 	#endregion
 	public GameObject ExplosionFX { get { return explosionFX; } }
+	
 	#region Private Variables
 	private ExplosiveTag bombTagData;
 	private float currentTime = 0;
@@ -58,7 +61,7 @@ public class BombBelt : MonoBehaviour
 		}
         yield return new WaitForSeconds(delay);
 		currentTime += elapsedTime;
-		GetComponent<AudioSource>().PlayOneShot(tickSFX);
+		audioSource.PlayOneShot(tickSFX);
 		flashSpeed = baseFlashSpeed - ((currentTime / bombTagData.Timer) * baseFlashSpeed);
 		StartCoroutine(FlashOff());
 	}
@@ -86,4 +89,5 @@ public class BombBelt : MonoBehaviour
 
         }
     }
+
 }

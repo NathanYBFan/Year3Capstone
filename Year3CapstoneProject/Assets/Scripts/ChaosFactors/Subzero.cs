@@ -55,7 +55,7 @@ public class Subzero : MonoBehaviour, ChaosFactor
 		Destroy(gameObject);
 	}
 
-    //Plays the impact sound
+    //Plays the feeze sound
     private void FreezeSound()
     {
         float randPitch = Random.Range(0.8f, 1.5f);

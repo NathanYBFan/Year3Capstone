@@ -141,6 +141,7 @@ MonoBehaviour:
   delay: 0
   flashSpeed: 0.5
   tickSFX: {fileID: 8300000, guid: 6250e130f583bbd49ae5f9e607bc3b2a, type: 3}
+  audioSource: {fileID: 7893898100617590686}
 --- !u!82 &7893898100617590686
 AudioSource:
   m_ObjectHideFlags: 0

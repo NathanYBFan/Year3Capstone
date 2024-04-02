@@ -125,4 +125,17 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 		 
 		Destroy(gameObject);
 	}
+
+	//Plays the burst sound
+	private void BurstSound()
+	{
+		float randPitch = Random.Range(0.8f, 1.5f);
+		AudioSource audioSource = AudioManager._Instance.ChooseEnvAudioSource();
+		if (audioSource != null)
+		{
+			audioSource.pitch = randPitch;
+			AudioManager._Instance.PlaySoundFX(AudioManager._Instance.CFAudioList[5], audioSource);
+		}
+
+	}
 }

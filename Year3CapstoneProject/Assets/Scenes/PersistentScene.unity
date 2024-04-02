@@ -2288,6 +2288,12 @@ MonoBehaviour:
   cfAudioList:
   - {fileID: 8300000, guid: e8d4df0a76f7626499bfcbaba1e9cbf8, type: 3}
   - {fileID: 8300000, guid: 47b3d83a97a435745a9fc64479cf8d8a, type: 3}
+  - {fileID: 8300000, guid: 910b9fe1525d2bb43a633b8f6bcb129b, type: 3}
+  - {fileID: 8300000, guid: 57415470f78348a4fb3b6898d0a1e843, type: 3}
+  - {fileID: 8300000, guid: 94e790790428c8645a2d9f8de70bd107, type: 3}
+  - {fileID: 8300000, guid: 6250e130f583bbd49ae5f9e607bc3b2a, type: 3}
+  - {fileID: 8300000, guid: 758c41df05c528d43b6a14eb1f4507f5, type: 3}
+  - {fileID: 8300000, guid: bb5349348f8bbb74c94cccafca336839, type: 3}
   mrTwentyChaosFactorList:
   - {fileID: 8300000, guid: 4df47bcd96c99bf4f8087cbe8980bf26, type: 3}
   - {fileID: 8300000, guid: 4624343b04161f34bb760ba43d270605, type: 3}
