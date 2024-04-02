@@ -11978,6 +11978,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Model_StagesBlock_EndCap_Completion2.0 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5916241935471893137, guid: 7b3e6a1498c5aba4a87b414369be9be0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916241935471893137, guid: 7b3e6a1498c5aba4a87b414369be9be0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 611f0ca93542a1249b46db509e5440e0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12324,6 +12332,8 @@ MonoBehaviour:
   deactivatedBullets: []
   activatedBullets: []
   fragmentedBullets: []
+  explodedBullets: []
+  objectsToDispose: []
   defaultBullet: {fileID: 1615981789932428633, guid: d6f78f7a07df7074cb2e8143467a1490, type: 3}
   totalBulletsInPool: 50
   bulletPoolCanGrow: 0
@@ -12696,6 +12706,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7542425208062893, guid: 7b3e6a1498c5aba4a87b414369be9be0, type: 3}
       propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 611f0ca93542a1249b46db509e5440e0, type: 2}
+    - target: {fileID: 7542425208062893, guid: 7b3e6a1498c5aba4a87b414369be9be0, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 611f0ca93542a1249b46db509e5440e0, type: 2}
+    - target: {fileID: 7542425208062893, guid: 7b3e6a1498c5aba4a87b414369be9be0, type: 3}
+      propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: 611f0ca93542a1249b46db509e5440e0, type: 2}
     - target: {fileID: 1175975064149588162, guid: 7b3e6a1498c5aba4a87b414369be9be0, type: 3}
@@ -17963,6 +17981,7 @@ MonoBehaviour:
   mrTwentyAudioSource: {fileID: 0}
   musicAudioSource: {fileID: 0}
   uiAudioSource: {fileID: 0}
+  cfAudioSource: {fileID: 0}
   playerAudioList:
   - {fileID: 8300000, guid: 4b33b2a93dbfb2e4bb706159d6dfe049, type: 3}
   uiAudioList: []
