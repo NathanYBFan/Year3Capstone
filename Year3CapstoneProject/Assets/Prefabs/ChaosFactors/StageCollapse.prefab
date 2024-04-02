@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7182aea403d3cdd4f94a21340fd0a29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfBlocks: 40
+  percentofBlocks: 0.1
   dropInterval: 0.25
   endDelay: 3
   timer: 20

@@ -11,16 +11,19 @@ public class LightsOut : MonoBehaviour, ChaosFactor
 
     [SerializeField]
     public float timer;
+
+    private ParticleSystem fog;
+
     public float Timer { get { return timer; } }
 
 
 
     void Start()
     {
-        
-
+       
         sun = GameObject.Find("Sun").GetComponent<Light>();
         dr = GameObject.Find("Directional Light").GetComponent<Light>();
+        fog = GameObject.Find("Pit Volume Fog/Particle System").GetComponent<ParticleSystem>();
         StartCoroutine(lightsOut());
     }
 
@@ -62,7 +65,7 @@ public class LightsOut : MonoBehaviour, ChaosFactor
         //Turn off final
         sun.enabled = false;
         dr.enabled = false;
-
+        fog.gameObject.SetActive(false);
 
         yield return null;
     }
@@ -75,9 +78,11 @@ public class LightsOut : MonoBehaviour, ChaosFactor
 
         sun.enabled = true;
         dr.enabled = true;
+        fog.gameObject.SetActive(true);
+
     }
 
-	public void OnEndOfChaosFactor(bool earlyEnd)
+    public void OnEndOfChaosFactor(bool earlyEnd)
 	{
 		Destroy(gameObject);
 	}

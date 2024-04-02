@@ -116,6 +116,9 @@ public class ChaosFactorManager : MonoBehaviour
 			Debug.Log("Input recived: Numpad 9");
 			timer = !timer;
 			nextChaosFactorTimerSeconds = 30;
+
+
+
 		}
 
 		if (Input.GetKeyDown(KeyCode.O))
@@ -136,7 +139,8 @@ public class ChaosFactorManager : MonoBehaviour
 		{
 			if (nextChaosFactorTimerSeconds > chaosFactorMaxTimerSeconds)
 			{
-				int chaosFactorToSpawn = Random.Range(1, chaosFactorList.Count - 1);
+				int chaosFactorToSpawn = Random.Range(0, chaosFactorList.Count);
+				Debug.Log("" + chaosFactorToSpawn);
 				StartCoroutine(RunChaosFactor(chaosFactorList[chaosFactorToSpawn]));
 				ResetChaosFactorTimer();
 			}

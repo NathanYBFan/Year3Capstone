@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class StageCollapse : MonoBehaviour, ChaosFactor
 {
-	[SerializeField]
-	private int numberOfBlocks;
+
+    [SerializeField]
+    private float percentofBlocks;
+
+    private int numberOfBlocks;
 
 	[SerializeField]
 	private float dropInterval;
@@ -31,7 +34,9 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 	// Start is called before the first frame update
 	void Start()
 	{
-		rumble = GetComponent<GeneratesRumble>();
+		numberOfBlocks = (int)(GameManager._Instance.Platforms.Count * percentofBlocks);
+
+        rumble = GetComponent<GeneratesRumble>();
 		droppedPlatforms = new GameObject[numberOfBlocks];
 		StartCoroutine(collapse());
         GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, timer);
