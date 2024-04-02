@@ -17,6 +17,7 @@ public class Subzero : MonoBehaviour, ChaosFactor
     {
         hold = material.dynamicFriction;
         material.dynamicFriction = 0;
+        FreezeSound();
 
         foreach (GameObject p in GameManager._Instance.Players) 
         {
@@ -53,4 +54,17 @@ public class Subzero : MonoBehaviour, ChaosFactor
 	{
 		Destroy(gameObject);
 	}
+
+    //Plays the impact sound
+    private void FreezeSound()
+    {
+        float randPitch = Random.Range(0.8f, 1.5f);
+        AudioSource audioSource = AudioManager._Instance.ChooseEnvAudioSource();
+        if (audioSource != null)
+        {
+            audioSource.pitch = randPitch;
+            AudioManager._Instance.PlaySoundFX(AudioManager._Instance.CFAudioList[2], audioSource);
+        }
+
+    }
 }
