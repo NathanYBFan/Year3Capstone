@@ -90,4 +90,20 @@ public class BombBelt : MonoBehaviour
         }
     }
 
+    /*private void OnDestroy()
+    {
+		BurstSound();
+    }
+
+	//Plays the burst sound
+	private void BurstSound()
+	{
+		float randPitch = Random.Range(0.8f, 1.5f);
+		if (audioSource != null)
+		{
+			audioSource.pitch = randPitch;
+			AudioManager._Instance.PlaySoundFX(AudioManager._Instance.CFAudioList[5], audioSource);
+		}
+
+	}*/
 }

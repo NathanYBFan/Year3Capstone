@@ -155,7 +155,11 @@ public class PlayerBody : MonoBehaviour
 		moveDir = Vector3.zero;
 		headAnim.Play("Death");
 		legAnim.Play("Death");
-		DeathSound();
+        if (!hasExploded)
+        {
+			DeathSound();
+		}
+		
 		StartCoroutine(DestroyPlayer());
 	}
 
@@ -456,7 +460,7 @@ public class PlayerBody : MonoBehaviour
 	{
 		float randPitch = Random.Range(0.8f, 1.1f);
 		audioSource.pitch = randPitch;
-		AudioManager._Instance.PlaySoundFX(AudioManager._Instance.PlayerAudioList[3], audioSource);
+		AudioManager._Instance.PlaySoundFX(AudioManager._Instance.CFAudioList[3], audioSource);
 	}
 	public void SetMovementVector(Vector2 dir) { moveDir = dir; if (dir.x != 0 && dir.y != 0) legDir = dir; }
 	public void SetFiringDirection(Vector2 dir) { if (dir.x != 0 && dir.y != 0) aimDir = dir; }
