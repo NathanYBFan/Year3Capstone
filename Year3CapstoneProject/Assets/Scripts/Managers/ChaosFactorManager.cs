@@ -144,7 +144,6 @@ public class ChaosFactorManager : MonoBehaviour
 			if (nextChaosFactorTimerSeconds > chaosFactorMaxTimerSeconds)
 			{
 				int chaosFactorToSpawn = Random.Range(0, chaosFactorList.Count);
-				Debug.Log("" + chaosFactorToSpawn);
 				StartCoroutine(RunChaosFactor(chaosFactorList[chaosFactorToSpawn]));
 				ResetChaosFactorTimer();
 			}

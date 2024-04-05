@@ -1,11 +1,11 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
 
 public class ModifierMenu : MonoBehaviour
 {
@@ -34,7 +34,15 @@ public class ModifierMenu : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("")]
 	private InputActionAsset inputAsset;
 
-	[SerializeField]
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private Image playerGlow;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("")]
+    private Image playerIcon;
+
+    [SerializeField]
 	[Foldout("Stats"), Tooltip("")]
 	private int numberOfDisplays = 3;
 	#endregion
@@ -55,6 +63,9 @@ public class ModifierMenu : MonoBehaviour
 	{
 		rumble = GetComponent<GeneratesRumble>();
 		uiInputModule = transform.parent.GetChild(1).GetComponent<InputSystemUIInputModule>();
+
+		playerIcon.sprite = GameManager._Instance.Players[playerIndex].GetComponent<PlayerStats>().CharacterStat.characterSprite;
+		playerGlow.sprite = GameManager._Instance.Players[playerIndex].GetComponent<PlayerStats>().CharacterStat.characterBGSprite;
 
 		if (playerIndex > MenuInputManager._Instance.PlayerInputs.Count - 1)
 		{
