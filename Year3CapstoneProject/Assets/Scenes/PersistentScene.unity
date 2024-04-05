@@ -1627,6 +1627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManagerRef: {fileID: 1452139197}
   alert: {fileID: 1694195880}
+  timer: 1
   chaosFactorList:
   - {fileID: 8732952394648480490, guid: 281bb21b1941c2949aa7316fe9cff7e8, type: 3}
   - {fileID: 852658246439149863, guid: 2303ff10ead46aa4cbd804c6899469b0, type: 3}

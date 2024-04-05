@@ -65,7 +65,9 @@ public class Boot : MonoBehaviour, ChaosFactor
             //get direction
             Vector3 localDir = Quaternion.Inverse(kicker.GetComponent<PlayerBody>().Pivot.transform.rotation) * (p.transform.position - kicker.transform.position);
 
-            if (dist < 5 && localDir.z > 0 && !kicked)
+                print(localDir.z);
+
+            if (dist < bootRange && localDir.z > 0 && !kicked)
             {
                 print(p.name);
 

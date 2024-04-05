@@ -16,7 +16,10 @@ public class ChaosFactorManager : MonoBehaviour
 	[SerializeField]
 	private Image alert;
 
-	[SerializeField]
+    [SerializeField]
+    private bool timer;
+
+    [SerializeField]
 	[Tooltip("List of all Chaos Factors that can spawn in the game")]
 	private List<GameObject> chaosFactorList;
 
@@ -43,7 +46,7 @@ public class ChaosFactorManager : MonoBehaviour
 	public bool ChaosFactorActive { get { return chaosFactorActive; } set { chaosFactorActive = value; } }
 	#endregion
 
-	private bool timer;
+	
 	private bool chaosFactorActive = true;
 	Color startColor;
 	//private int maxRed;
@@ -54,7 +57,7 @@ public class ChaosFactorManager : MonoBehaviour
 	private void Awake()
 	{
 		startColor = Color.white;
-		timer = true;
+		//timer = true;
 		if (_Instance != null && _Instance != this)
 		{
 			Debug.LogWarning("Destroyed a repeated ChaosFactorManager");
@@ -106,6 +109,7 @@ public class ChaosFactorManager : MonoBehaviour
 		}
 
 		if (Input.GetKeyDown("[7]"))
+				
 		{
 			Debug.Log("Input recived: Numpad 7");
 			StartCoroutine(RunChaosFactor(chaosFactorList[6]));

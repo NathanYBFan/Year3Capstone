@@ -26,12 +26,13 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 	private GameObject targetPlayer;
 	private GeneratesRumble rumble;
 
-
+	private GameObject[] playerHolder;
 	public float Timer { get { return timer; } }
 
 
 	private void OnEnable()
 	{
+		playerHolder = new GameObject[4];
 		rumble = GetComponent<GeneratesRumble>();
 		bool loop = false;
 		Random.InitState((int)System.DateTime.Now.TimeOfDay.TotalSeconds);
@@ -50,21 +51,39 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 			OnEndOfChaosFactor(true);
 			return;
 		}
-		while (loop)
+
+		int livingPlayerCount = 0;
+		foreach(GameObject p in GameManager._Instance.Players)
 		{
-            int random = Random.Range(0, 4);
 
-			targetPlayer = GameManager._Instance.Players[random];
-
-			if (targetPlayer.GetComponent<PlayerStats>().IsDead == true) { print("Dead player selected, trying agian"); }
-
-			else
+			if (!p.GetComponent<PlayerStats>().IsDead)
 			{
-				loop = false;
-			}
+				livingPlayerCount++;
+
+            }
 
 
-		}
+        }
+
+        playerHolder = new GameObject[livingPlayerCount];
+		int k = 0;
+        foreach (GameObject p in GameManager._Instance.Players)
+        {
+
+            if (!p.GetComponent<PlayerStats>().IsDead)
+            {
+				playerHolder[k] = p;
+				k++;
+            }
+
+
+        }
+
+        int random = Random.Range(0, livingPlayerCount);
+
+		targetPlayer = playerHolder[random];
+
+
 
 		targetSpeed = playerSpeed + 2;
 		targetPlayer.GetComponent<PlayerStats>().MovementSpeed = targetSpeed;
