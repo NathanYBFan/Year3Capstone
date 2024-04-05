@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,22 +7,36 @@ using UnityEngine.UI;
 public class Leaderboard : MonoBehaviour
 {
     [SerializeField]
+    [Foldout("Dependencies")]
     private GameObject firstButton;
 
     [SerializeField]
+    [Foldout("Dependencies")]
     private int playerNum;
 
     [SerializeField]
-    Slider pointSlider;
+    [Foldout("Dependencies")]
+    private Image crown;
 
     [SerializeField]
-    Image fill;
+    [Foldout("Dependencies")]
+    private Image playerIcon;
 
     [SerializeField]
-    TextMeshProUGUI playerName;
+    [Foldout("Dependencies")]
+    private Image playerIconBg;
 
     [SerializeField]
-    TextMeshProUGUI scoreText;
+    [Foldout("Dependencies")]
+    private TextMeshProUGUI playerName;
+
+    [SerializeField]
+    [Foldout("Dependencies")]
+    private TextMeshProUGUI currPoints;
+
+    [SerializeField]
+    [Foldout("Dependencies")]
+    private TextMeshProUGUI pointGain;
 
     private float maxPoints;
     private GameObject player;
@@ -30,18 +45,15 @@ public class Leaderboard : MonoBehaviour
     {
         maxPoints = 60;
         player = GameManager._Instance.Players[playerNum];
-        fill.color = player.GetComponent<PlayerStats>().UIColor;
     }
 
     private void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(firstButton);
         playerName.text = player.name;
-        scoreText.text = ""+PlayerStatsManager._Instance.playerPoints[playerNum];
-        fill.color = player.GetComponent<PlayerStats>().UIColor;
-        pointSlider.value = PlayerStatsManager._Instance.playerPoints[playerNum] / maxPoints;
+        currPoints.text = ""+PlayerStatsManager._Instance.playerPoints[playerNum];
 
-        if (pointSlider.value > 0.1f)
+        //if (pointSlider.value > 0.1f)
         {
            // scoreText.gameObject.transform.position = new Vector3(scoreText.gameObject.transform.position.x, scoreText.gameObject.transform.position.y - 70, scoreText.gameObject.transform.position.z);
         }
