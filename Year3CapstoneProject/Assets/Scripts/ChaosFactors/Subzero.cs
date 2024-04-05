@@ -31,13 +31,11 @@ public class Subzero : MonoBehaviour, ChaosFactor
 
         }
 
-        //Debug.Log("Enable Function ran and finished");
     }
 
     private void OnDestroy()
     {
         material.dynamicFriction = hold;
-        //Debug.Log("On Destroy ran and finished");
 
         foreach (GameObject p in GameManager._Instance.Players)
         {

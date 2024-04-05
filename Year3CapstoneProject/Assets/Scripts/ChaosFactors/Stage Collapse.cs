@@ -78,7 +78,7 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 			yield return null;
 		}
 		c();
-		//Debug.Log("Crikey");
+		
 	}
 
 
@@ -86,8 +86,7 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 	{
 		for (int j = 0; j < numberOfBlocks; j++)
 		{
-			//Debug.Log("going up");
-			//StartCoroutine(droppedPlatforms[j].GetComponent<Platform>().Up());
+			
 			droppedPlatforms[j].GetComponent<Platform>().fakeRespawn();
 		}
 

@@ -48,11 +48,9 @@ public class Boot : MonoBehaviour, ChaosFactor
 
         foreach (GameObject p in GameManager._Instance.Players)
         {
-            //print(p);
             if (p != kicker && p != null) 
             { 
 
-            //print(p);
 
             //check distance
             Vector3 distance = p.transform.position - kicker.transform.position; //not problem
@@ -65,11 +63,9 @@ public class Boot : MonoBehaviour, ChaosFactor
             //get direction
             Vector3 localDir = Quaternion.Inverse(kicker.GetComponent<PlayerBody>().Pivot.transform.rotation) * (p.transform.position - kicker.transform.position);
 
-                print(localDir.z);
 
             if (dist < bootRange && localDir.z > 0 && !kicked)
             {
-                print(p.name);
 
                 kicker.GetComponent<PlayerBody>().LegPivot.transform.rotation = kicker.GetComponent<PlayerBody>().Pivot.transform.rotation;
                 Vector3 kickDirect = new Vector3(distance.x, 1.3f, distance.z);

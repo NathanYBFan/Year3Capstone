@@ -10,14 +10,6 @@ public class Meteor : MonoBehaviour, ChaosFactor
 
     [SerializeField]
     private int spawnHeight;
-    //[SerializeField]
-    //private int maxSpawnX;
-    //[SerializeField]
-    //private int minSpawnX;
-    //[SerializeField]
-    //private int maxSpawnZ;
-    //[SerializeField]
-    //private int minSpawnZ;
 
     [SerializeField]
     private int fallForce;
@@ -72,24 +64,10 @@ public class Meteor : MonoBehaviour, ChaosFactor
     }
 
 
-    /*private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.GetComponentInChildren<CapsuleCollider>() != null && collision.gameObject.GetComponentInChildren<CapsuleCollider>().CompareTag("Player")) 
-        {
-            collision.gameObject.transform.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
-
-        }
-
-        StartCoroutine(boom());
-    }*/
-
-
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-			//Debug.Log("Laser hit player");
 			other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.ChaosFactor);
         }
         Platform platform = other.GetComponent<Platform>();
