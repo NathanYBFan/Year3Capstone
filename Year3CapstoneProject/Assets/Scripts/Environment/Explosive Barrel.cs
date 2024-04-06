@@ -1,12 +1,17 @@
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ExplosiveBarrel : MonoBehaviour
 {
     [SerializeField]
     private GameObject destroyedVersion;
 
-	[SerializeField]
+    [SerializeField]
+    private float respawnTime;
+
+    [SerializeField]
 	private GameObject radiusIndicator;
 
 	[SerializeField]
@@ -21,21 +26,46 @@ public class ExplosiveBarrel : MonoBehaviour
     private Vector3 expPos;
     private bool exploded;
     //private Rigidbody rb;
+    private Vector3 startPos;
+    private quaternion startRot;
 
+
+    private void Awake()
+    {
+        startPos = transform.position;
+
+        startRot = transform.rotation;
+    }
     private void Start()
     {
+
+
         //rb = destroyedVersion.GetComponent<Rigidbody>();
         expPos = transform.position;
         exploded = false;
         //Debug.Log(GetComponent<Rigidbody>().name);
+
     }
 
     private IEnumerator boom()
     {
-        yield return new WaitForSeconds(1f);
-        GetComponent<BoxCollider>().enabled = false;    
-        yield return new WaitForSeconds(6f);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(0.1f);
+        GetComponent<BoxCollider>().enabled = false;
+
+        StartCoroutine(BarrelReset());
+        yield return null;
+    }
+
+    private IEnumerator BarrelReset()
+    {
+        transform.rotation = startRot;
+        transform.position = startPos;
+        yield return new WaitForSeconds(respawnTime);
+        GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<BoxCollider>().enabled = true;
+        exploded = false;
+        radiusIndicator.SetActive(true);
+
     }
 
 
@@ -64,4 +94,8 @@ public class ExplosiveBarrel : MonoBehaviour
         audioSource.pitch = randPitch;
         AudioManager._Instance.PlaySoundFX(AudioManager._Instance.EnvAudioList[0], audioSource);
     }
+
+
+
+
 }
