@@ -1,12 +1,11 @@
 using NaughtyAttributes;
 using System.Collections;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Bars : MonoBehaviour
 {
-	#region Serialize Fields
+	#region SerializeFields
 	[SerializeField]
     [Tooltip("Player prefab go here")]
     private PlayerStats playerStats;
@@ -66,14 +65,15 @@ public class Bars : MonoBehaviour
     #region Getters&Setters
     public Sprite CharacterGlow { set {  characterGlow.sprite = value; } }
     public Sprite CharacterBG { set { characterBG.sprite = value; } }
-
     public Color CharacterGlowColour { set { characterGlow.color = value; } }
     #endregion
 
+    #region PrivateVariables
     private Coroutine runningShakeCoroutine;
     private Coroutine runningAggravatedCoroutine;
     private Color originalCharacterBGColor;
     private Color originalCharacterGlowColor;
+    #endregion
 
     private void Start()
     {
@@ -86,10 +86,12 @@ public class Bars : MonoBehaviour
     {
         FullReset();
     }
+
 	private void OnEnable()
 	{
 		FullReset();
 	}
+
 	public void SetHUDBarCharacter()
     {
 		originalCharacterBGColor = Color.white;
@@ -102,6 +104,7 @@ public class Bars : MonoBehaviour
         healthBar.fillAmount = (float)playerStats.CurrentHealth/(float)playerStats.MaxHealth;
         shakeObject(currentHealth, previousHealth);
     }
+
 	public void Heal(int currentHealth, int previousHealth)
 	{
 		healthBar.fillAmount = (float)playerStats.CurrentHealth / (float)playerStats.MaxHealth;
@@ -143,20 +146,24 @@ public class Bars : MonoBehaviour
 		}
 		runningShakeCoroutine = StartCoroutine(shake(currentHealth, previousHealth));
         runningAggravatedCoroutine = StartCoroutine(AggravatedHealthUpdate(currentHealth, previousHealth));
-
 	}
+
     private IEnumerator AggravatedHealthUpdate(float currentHealth, float previousHealth)
     {
 		float timer = 0;
 		var originalHealth = (float)previousHealth / (float)playerStats.MaxHealth;
-		while (timer < maxShakeTime)
+        characterGlow.sprite = playerStats.CharacterStat.characterHurtSprite;
+
+        while (timer < maxShakeTime)
 		{
 			healthBarShadow.fillAmount = Mathf.Lerp(originalHealth, healthBar.fillAmount, timer * 2);
 			timer += Time.deltaTime;
 			yield return null;
 		}
 		healthBarShadow.fillAmount = healthBar.fillAmount;
+        characterGlow.sprite = playerStats.CharacterStat.characterSprite;
 	}
+
     private IEnumerator shake(float currentHealth, float previousHealth)
     {
         float timer = 0;

@@ -16,6 +16,7 @@ MonoBehaviour:
   playerModelHead: {fileID: 6477095304614376440, guid: a19f7847f6f7eb94abac2789bda549f5, type: 3}
   playerModelBody: {fileID: 6477095304614376440, guid: 7e602257871a3dc4ea43e84f6801ffa0, type: 3}
   characterSprite: {fileID: 21300000, guid: 3f8088ccc0ddc6b449dad72745b9f93a, type: 3}
+  characterHurtSprite: {fileID: 21300000, guid: 3b155f25b9917d54f880bdf0a0ddff1a, type: 3}
   characterBGSprite: {fileID: 21300000, guid: 0b7e21275cc821d45821ab42decb6688, type: 3}
   MaxHealth: 3
   DefaultMoveSpeed: 14
