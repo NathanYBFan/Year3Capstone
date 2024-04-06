@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,7 +17,15 @@ public class Leaderboard : MonoBehaviour
 
     [SerializeField]
     [Foldout("Dependencies")]
+    private Image barBg;
+
+    [SerializeField]
+    [Foldout("Dependencies")]
     private Image crown;
+
+    [SerializeField]
+    [Foldout("Dependencies")]
+    private Image gems;
 
     [SerializeField]
     [Foldout("Dependencies")]
@@ -52,11 +61,6 @@ public class Leaderboard : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(firstButton);
         playerName.text = player.name;
         currPoints.text = ""+PlayerStatsManager._Instance.playerPoints[playerNum];
-
-        //if (pointSlider.value > 0.1f)
-        {
-           // scoreText.gameObject.transform.position = new Vector3(scoreText.gameObject.transform.position.x, scoreText.gameObject.transform.position.y - 70, scoreText.gameObject.transform.position.z);
-        }
     }
 
     public void NextButtonPressed()
