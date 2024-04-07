@@ -45,6 +45,8 @@ public class Platform : MonoBehaviour
 		effectsActive = true;
 		maxHeight = transform.position.y;
 		minHeight = maxHeight - 40;
+
+
 	}
 
 	public void collapse()
@@ -68,22 +70,31 @@ public class Platform : MonoBehaviour
 		{
 			r.enabled = false;
 		}
-		else
+
+        else
 		{
 			r = transform.GetComponentInChildren<MeshRenderer>();
 			r.enabled = false;
 		}
-		foreach (GameObject child in MiscChildren)
+        if (GetComponentInChildren<ExplosiveBarrel>() != null)
+        {
+            ExplosiveBarrel e = GetComponentInChildren<ExplosiveBarrel>();
+            e.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        }
+
+        foreach (GameObject child in MiscChildren)
 		{
 			child.GetComponent<MeshRenderer>().enabled = false;
 		}
+
 		if (destoryCoroutine == null) destoryCoroutine = StartCoroutine(destory());
+
+
 	}
 
 	public void fakeRespawn()
 	{
-		//Debug.Log("fake respawn called");
-		//StopAllCoroutines(); 
+		
 		MeshRenderer r = GetComponent<MeshRenderer>();
 		if (r != null)
 		{
@@ -95,7 +106,14 @@ public class Platform : MonoBehaviour
 			r.enabled = true;
 		}
 		GetComponent<Collider>().enabled = true;
-		foreach (GameObject child in MiscChildren)
+
+        if (GetComponentInChildren<ExplosiveBarrel>() != null)
+        {
+            ExplosiveBarrel e = GetComponentInChildren<ExplosiveBarrel>();
+            e.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        }
+
+        foreach (GameObject child in MiscChildren)
 		{
 			child.GetComponent<MeshRenderer>().enabled = true;
 		}

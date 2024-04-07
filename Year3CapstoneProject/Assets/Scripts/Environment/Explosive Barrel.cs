@@ -85,6 +85,22 @@ public class ExplosiveBarrel : MonoBehaviour
 
             radiusIndicator.SetActive(false);
         }
+        
+
+        else if (other.transform.GetComponent<CapsuleCollider>() != null  && !exploded && other.GetComponentInParent<LaserLightShow>() != null)
+        {
+            GameObject dest = Instantiate(destroyedVersion, transform.position, transform.rotation, transform.parent.parent);
+
+            GetComponent<MeshRenderer>().enabled = false;
+            //GetComponent
+            //transform.position = new Vector3(transform.position.x, transform.position.y - 20, transform.position.z);
+            GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, 0.5f);
+            exploded = true;
+            BlastSound();
+            StartCoroutine(boom());
+
+            radiusIndicator.SetActive(false);
+        }
     }
 
     //Plays the explosion sound
