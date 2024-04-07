@@ -100,7 +100,12 @@ public class GameManager : MonoBehaviour
 		if (levelBuilder != null)
 		{
 			levelBuilder.buildLevel(currentRound % 3);
-			SpawnPlayersAtSpawnpoint();
+			if (currentRound <= 3)
+			{
+                AudioClip clipToPlay = AudioManager._Instance.MRTwentyStageIntroList[currentRound];
+                AudioManager._Instance.PlaySoundFX(clipToPlay, AudioManager._Instance.MRTwentyAudioSource);
+            }
+            SpawnPlayersAtSpawnpoint();
 			cam.Center();
 			ChaosFactorManager._Instance.ChaosFactorActive = false;
 		}
