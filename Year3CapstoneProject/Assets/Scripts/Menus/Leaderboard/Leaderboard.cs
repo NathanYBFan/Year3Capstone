@@ -13,6 +13,10 @@ public class Leaderboard : MonoBehaviour
 
     [SerializeField]
     [Foldout("Dependencies")]
+    private GameObject crownRootObject;
+
+    [SerializeField]
+    [Foldout("Dependencies")]
     private int playerNum;
 
     [SerializeField]
@@ -34,6 +38,10 @@ public class Leaderboard : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies")]
     private Image playerIconBg;
+
+    [SerializeField]
+    [Foldout("Dependencies")]
+    private Image numberBgHighlight;
 
     [SerializeField]
     [Foldout("Dependencies")]
@@ -61,17 +69,6 @@ public class Leaderboard : MonoBehaviour
     void Awake()
     {
         player = GameManager._Instance.Players[playerNum];
-    }
-
-    private void Update()
-    {
-        //if (Input.anyKeyDown)
-        //    ModifierManager._Instance.CloseLeaderBoardMenu();
-
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            currentPointsNumberCounter.Value = PlayerStatsManager._Instance.PlayerPoints[playerNum];
-        }
     }
 
     private void OnEnable()
@@ -102,11 +99,13 @@ public class Leaderboard : MonoBehaviour
             playerWinOrder.Add(index); // Most points to smallest
         }
 
+        crownRootObject.SetActive(playerNum == 2 && localPoints[playerWinOrder[0]] == localPoints[playerWinOrder[1]]);
+
         int selectedNumber = playerWinOrder[playerNum];
         CharacterStatsSO characterStats = GameManager._Instance.Players[selectedNumber].GetComponent<PlayerStats>().CharacterStat;
 
         // Set text boxes
-        playerName.text = player.name;
+        playerName.text = "Player " + (selectedNumber + 1).ToString();
         currentPointsNumberCounter.Value = PlayerStatsManager._Instance.PlayerPoints[selectedNumber];
         addedPointsNumberCounter.Value = PlayerStatsManager._Instance.PlayerPointsAddedLastRound[selectedNumber];
 
@@ -119,6 +118,7 @@ public class Leaderboard : MonoBehaviour
         gems.color = colorToApply;
         barBg.color = colorToApply;
         playerIconBg.color = colorToApply;
+        numberBgHighlight.color = colorToApply;
     }
 
     public void NextButtonPressed()

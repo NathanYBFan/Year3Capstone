@@ -95,12 +95,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstButton: {fileID: 0}
+  crownRootObject: {fileID: 3465306669631236172}
   playerNum: 0
   barBg: {fileID: 2781165549566881529}
   crown: {fileID: 7581944679872276452}
   gems: {fileID: 2372254087217093568}
   playerIcon: {fileID: 3690873727238118528}
   playerIconBg: {fileID: 4779186579482045596}
+  numberBgHighlight: {fileID: 0}
   playerName: {fileID: 4219204164232760978}
   currPoints: {fileID: 4155034280379689645}
   pointGain: {fileID: 289637019606433863}
