@@ -260,7 +260,6 @@ public class GameManager : MonoBehaviour
 			playerWinOrder.Add(index); // Most points to smallest
 		}
 		playerWinnerIndex = playerWinOrder[0];
-		EndGame();
 		LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
 		AudioManager._Instance.ResetInactivityTimer();
 	}

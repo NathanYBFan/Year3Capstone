@@ -99,7 +99,7 @@ public class Leaderboard : MonoBehaviour
             playerWinOrder.Add(index); // Most points to smallest
         }
 
-        crownRootObject.SetActive(playerNum == 2 && localPoints[playerWinOrder[0]] == localPoints[playerWinOrder[1]]);
+        crownRootObject.SetActive(playerNum == 0 || (playerNum == 1 && PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[1]]));
 
         int selectedNumber = playerWinOrder[playerNum];
         CharacterStatsSO characterStats = GameManager._Instance.Players[selectedNumber].GetComponent<PlayerStats>().CharacterStat;

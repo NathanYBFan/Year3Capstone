@@ -57,6 +57,7 @@ public class ModifierManager : MonoBehaviour
     // Open Menu actions
     public void OpenModifierMenu(int playerIndexToOpen)
     {
+        CloseAllMenus();
         modifierMenus[playerIndexToOpen].SetActive(true);
     }
 
