@@ -104,6 +104,8 @@ MonoBehaviour:
   playerName: {fileID: 4219204164232760978}
   currPoints: {fileID: 4155034280379689645}
   pointGain: {fileID: 289637019606433863}
+  currentPointsNumberCounter: {fileID: 2536366039880322649}
+  addedPointsNumberCounter: {fileID: 5956978919069301359}
 --- !u!1 &2012578079033662548
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,6 +117,7 @@ GameObject:
   - component: {fileID: 5077005525597394431}
   - component: {fileID: 3494878312188321718}
   - component: {fileID: 289637019606433863}
+  - component: {fileID: 5956978919069301359}
   m_Layer: 5
   m_Name: PointsGainedText
   m_TagString: Untagged
@@ -238,6 +241,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5956978919069301359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012578079033662548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 530346d603410e149ba641f501f7c21f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBox: {fileID: 289637019606433863}
+  countFPS: 30
+  duration: 1
+  numberFormat: N0
+  textPrefix: '+ '
 --- !u!1 &2022818342498296069
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +512,7 @@ GameObject:
   - component: {fileID: 6667704065485339101}
   - component: {fileID: 4219204164232760978}
   m_Layer: 5
-  m_Name: Player NumberText
+  m_Name: PlayerNumberText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -545,7 +565,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: P#
+  m_text: Player 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a4f720d12722caf49b15243b450d6373, type: 2}
   m_sharedMaterial: {fileID: -6489110615460202642, guid: a4f720d12722caf49b15243b450d6373, type: 2}
@@ -608,7 +628,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 129.36737, w: 0}
+  m_margin: {x: 0, y: 0, z: -4.116577, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -850,6 +870,7 @@ GameObject:
   - component: {fileID: 5047153990605985220}
   - component: {fileID: 5415550429130031902}
   - component: {fileID: 4155034280379689645}
+  - component: {fileID: 2536366039880322649}
   m_Layer: 5
   m_Name: CurrentPointsText
   m_TagString: Untagged
@@ -973,3 +994,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2536366039880322649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7803880965954354611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 530346d603410e149ba641f501f7c21f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBox: {fileID: 4155034280379689645}
+  countFPS: 30
+  duration: 1
+  numberFormat: N0
+  textPrefix: 

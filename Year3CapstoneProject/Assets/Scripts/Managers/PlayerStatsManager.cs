@@ -1,5 +1,4 @@
 using NaughtyAttributes;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStatsManager : MonoBehaviour
@@ -10,7 +9,11 @@ public class PlayerStatsManager : MonoBehaviour
     #region SerializeFields
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("Array of points for each player")]
-    public int[] playerPoints;
+    private int[] playerPoints;
+
+    [SerializeField, ReadOnly]
+    [Foldout("Stats"), Tooltip("Array of points for each player")]
+    private int[] playerPointsAddedLastRound;
 
     [SerializeField, ReadOnly]
     [Foldout("Stats"), Tooltip("Array of kills each player has done")]
@@ -27,6 +30,7 @@ public class PlayerStatsManager : MonoBehaviour
 
     #region Setters&Getters
     public int[] PlayerPoints { get { return playerPoints; } set { playerPoints = value; } }
+    public int[] PlayerPointsAddedLastRound { get { return playerPointsAddedLastRound; } set { playerPointsAddedLastRound = value; } }
     public int[] PlayerKills { get { return playerKills; } set { playerKills = value; } }
     public int[] PlayerDeaths { get { return playerDeaths; } set { playerDeaths = value; } }
     public int[] PointsToGiveForPosition { get { return pointsToGiveForPosition; } set { pointsToGiveForPosition = value; } }
@@ -47,6 +51,7 @@ public class PlayerStatsManager : MonoBehaviour
     private void Start()
     {
         playerPoints = new int[GameManager._Instance.Players.Count];
+        playerPointsAddedLastRound = new int[GameManager._Instance.Players.Count];
         playerKills = new int[GameManager._Instance.Players.Count];
         playerDeaths = new int[GameManager._Instance.Players.Count];
     }
@@ -56,6 +61,8 @@ public class PlayerStatsManager : MonoBehaviour
         {
             // Reset all points
             playerPoints[i] = 0;
+            // Reset previous Points added
+            playerPointsAddedLastRound[i] = -1;
             // Reset kills
             playerKills[i] = 0;
             // Reset Deaths

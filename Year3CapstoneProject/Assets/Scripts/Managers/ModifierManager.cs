@@ -48,6 +48,7 @@ public class ModifierManager : MonoBehaviour
 
     public void CloseAllMenus()
     {
+        Time.timeScale = 0;
         foreach (GameObject menu in modifierMenus)
             menu.SetActive(false);
         leaderboardRootObject.SetActive(false);
@@ -56,7 +57,6 @@ public class ModifierManager : MonoBehaviour
     // Open Menu actions
     public void OpenModifierMenu(int playerIndexToOpen)
     {
-        Time.timeScale = 0;
         modifierMenus[playerIndexToOpen].SetActive(true);
     }
 
@@ -74,8 +74,8 @@ public class ModifierManager : MonoBehaviour
 	}
     public void CloseLeaderBoardMenu()
     {
-        Time.timeScale = 1;
         CloseAllMenus();
         GameManager._Instance.StartNewGame();
+        Time.timeScale = 1;
     }
 }

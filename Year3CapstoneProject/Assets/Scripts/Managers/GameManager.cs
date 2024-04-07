@@ -207,6 +207,11 @@ public class GameManager : MonoBehaviour
 		PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[2].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[1]); // Third to die,	more points
 		PlayerStatsManager._Instance.IncreasePoints(deadPlayerList[3].GetComponent<PlayerBody>().PlayerIndex, PlayerStatsManager._Instance.PointsToGiveForPosition[0]); // Last one alive, most points
 
+		PlayerStatsManager._Instance.PlayerPointsAddedLastRound[deadPlayerList[0].GetComponent<PlayerBody>().PlayerIndex] = PlayerStatsManager._Instance.PointsToGiveForPosition[3];
+		PlayerStatsManager._Instance.PlayerPointsAddedLastRound[deadPlayerList[1].GetComponent<PlayerBody>().PlayerIndex] = PlayerStatsManager._Instance.PointsToGiveForPosition[2];
+		PlayerStatsManager._Instance.PlayerPointsAddedLastRound[deadPlayerList[2].GetComponent<PlayerBody>().PlayerIndex] = PlayerStatsManager._Instance.PointsToGiveForPosition[1];
+		PlayerStatsManager._Instance.PlayerPointsAddedLastRound[deadPlayerList[3].GetComponent<PlayerBody>().PlayerIndex] = PlayerStatsManager._Instance.PointsToGiveForPosition[0];
+
 		if (currentRound >= MaxRounds)
 		{
 			WinConditionMet();

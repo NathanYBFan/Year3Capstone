@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Leaderboard : MonoBehaviour
 {
@@ -48,11 +47,31 @@ public class Leaderboard : MonoBehaviour
     [Foldout("Dependencies")]
     private TextMeshProUGUI pointGain;
 
+    [SerializeField]
+    [Foldout("Dependencies")]
+    private NumberCounter currentPointsNumberCounter;
+
+    [SerializeField]
+    [Foldout("Dependencies")]
+    private NumberCounter addedPointsNumberCounter;
+
+
     private GameObject player;
     // Start is called before the first frame update
     void Awake()
     {
         player = GameManager._Instance.Players[playerNum];
+    }
+
+    private void Update()
+    {
+        //if (Input.anyKeyDown)
+        //    ModifierManager._Instance.CloseLeaderBoardMenu();
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            currentPointsNumberCounter.Value = PlayerStatsManager._Instance.PlayerPoints[playerNum];
+        }
     }
 
     private void OnEnable()
@@ -88,7 +107,8 @@ public class Leaderboard : MonoBehaviour
 
         // Set text boxes
         playerName.text = player.name;
-        currPoints.text = PlayerStatsManager._Instance.playerPoints[selectedNumber].ToString();
+        currentPointsNumberCounter.Value = PlayerStatsManager._Instance.PlayerPoints[selectedNumber];
+        addedPointsNumberCounter.Value = PlayerStatsManager._Instance.PlayerPointsAddedLastRound[selectedNumber];
 
         // Set sprites
         playerIcon.sprite = characterStats.characterBGSprite;
