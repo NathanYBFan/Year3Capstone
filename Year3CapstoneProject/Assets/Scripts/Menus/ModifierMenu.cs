@@ -66,6 +66,7 @@ public class ModifierMenu : MonoBehaviour
 
 		playerIcon.sprite = GameManager._Instance.Players[playerIndex].GetComponent<PlayerStats>().CharacterStat.characterSprite;
 		playerGlow.sprite = GameManager._Instance.Players[playerIndex].GetComponent<PlayerStats>().CharacterStat.characterBGSprite;
+		playerIcon.color = GameManager._Instance.Players[playerIndex].GetComponent<PlayerStats>().UIColor;
 
 		/*if (playerIndex > MenuInputManager._Instance.PlayerInputs.Count - 1)
 		{
