@@ -15,8 +15,10 @@ public class LaserLightShow : MonoBehaviour, ChaosFactor
 
     [SerializeField]
     public float timer;
+    [SerializeField]
+    private string CFname;
 
-
+    public string Name { get { return CFname; } }
     public float Timer { get{ return timer; } }
 
  

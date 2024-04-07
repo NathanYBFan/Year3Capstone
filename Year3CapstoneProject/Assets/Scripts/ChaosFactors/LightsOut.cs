@@ -11,6 +11,10 @@ public class LightsOut : MonoBehaviour, ChaosFactor
 
     [SerializeField]
     public float timer;
+    [SerializeField]
+    private string CFname;
+
+    public string Name { get { return CFname; } }
 
     private ParticleSystem fog;
 

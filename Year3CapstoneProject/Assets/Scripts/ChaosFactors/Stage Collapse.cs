@@ -18,8 +18,10 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 
 	[SerializeField]
 	private float timer;
+    [SerializeField]
+    private string CFname;
 
-	private int randomNum;
+    private int randomNum;
 	private GameObject[] droppedPlatforms;
 
 	float shakeDelay = 0.025f;
@@ -28,12 +30,15 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 
 	private GeneratesRumble rumble;
 
-	// Public getter/setters
-	public float Timer { get { return timer; } }
+    // Public getter/setters
+    public string Name { get { return CFname; } }
+    public float Timer { get { return timer; } }
 	
 	// Start is called before the first frame update
 	void Start()
 	{
+		
+
 		numberOfBlocks = (int)(GameManager._Instance.Platforms.Count * percentofBlocks);
 
         rumble = GetComponent<GeneratesRumble>();

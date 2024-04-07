@@ -348,6 +348,7 @@ MonoBehaviour:
   rotSpeed: 15
   damage: 1
   timer: 30
+  CFname: Laser Light Show
 --- !u!1 &7536396421568771380
 GameObject:
   m_ObjectHideFlags: 0

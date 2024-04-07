@@ -47,3 +47,4 @@ MonoBehaviour:
   playerSpeed: 16
   bootRange: 7.5
   timer: 30
+  CFname: Kick Off

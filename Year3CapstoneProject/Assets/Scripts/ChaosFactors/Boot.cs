@@ -15,8 +15,14 @@ public class Boot : MonoBehaviour, ChaosFactor
     [SerializeField]
     private float timer;
 
+    [SerializeField]
+    private string CFname;
+
     private float[] holdSpeeds;
+
+    public string Name { get { return CFname; } }
     public float Timer { get { return timer; } }
+
 
     private int kickSpeed = 7;
 

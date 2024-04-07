@@ -49,6 +49,7 @@ MonoBehaviour:
   dropInterval: 0.25
   endDelay: 3
   timer: 20
+  CFname: Stage Collapse
 --- !u!114 &990561697668039061
 MonoBehaviour:
   m_ObjectHideFlags: 0

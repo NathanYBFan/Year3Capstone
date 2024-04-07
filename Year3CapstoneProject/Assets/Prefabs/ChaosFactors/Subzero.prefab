@@ -45,4 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 20
+  CFname: Subzero
+  speed: 0
   material: {fileID: 13400000, guid: 342e43d5337861a4e90bd94f15cdef7b, type: 2}

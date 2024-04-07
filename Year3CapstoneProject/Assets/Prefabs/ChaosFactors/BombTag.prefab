@@ -50,6 +50,7 @@ MonoBehaviour:
   damage: 100
   playerSpeed: 16
   timer: 20
+  CFname: Hot Potato
 --- !u!114 &1134108532448509615
 MonoBehaviour:
   m_ObjectHideFlags: 0

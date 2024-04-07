@@ -30,10 +30,13 @@ public class Meteor : MonoBehaviour, ChaosFactor
 
     [SerializeField]
     private float timer;
+    [SerializeField]
+    private string CFname;
 
     private GameObject markerInstance;
     private GeneratesRumble rumble;
 
+    public string Name { get { return CFname; } }
     public float Timer { get { return timer; } }
     void Awake()
     {

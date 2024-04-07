@@ -136,6 +136,7 @@ MonoBehaviour:
   fallMarker: {fileID: 5647575543577336749, guid: bbcef6bc7b6b49040a5687ec55e7138e, type: 3}
   markerSpawnHeight: 1
   timer: 10
+  CFname: Meteor
 --- !u!135 &4213692841900747722
 SphereCollider:
   m_ObjectHideFlags: 0

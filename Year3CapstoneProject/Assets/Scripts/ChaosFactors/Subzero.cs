@@ -6,15 +6,25 @@ public class Subzero : MonoBehaviour, ChaosFactor
     [SerializeField]
     private float timer;
     [SerializeField]
+    private string CFname;
+
+    [SerializeField] 
+    private float speed;
+    [SerializeField]
     [Foldout("Dependencies"), Tooltip("Physics material for the floor")]
     PhysicMaterial material;
 
     private float hold;
 
-
+    public string Name { get { return CFname; } }
     public float Timer { get { return timer; } }
+
+
     private void Start()
     {
+
+        name = "SubZero";
+
         hold = material.dynamicFriction;
         material.dynamicFriction = 0;
         FreezeSound();

@@ -18,8 +18,11 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 	[SerializeField]
 	private float timer;
 
+    [SerializeField]
+    private string CFname;
 
-	private int targetSpeed;
+
+    private int targetSpeed;
 
 	private float[] holdSpeeds;
 	private GameObject Spawnedbelt;
@@ -27,7 +30,9 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 	private GeneratesRumble rumble;
 
 	private GameObject[] playerHolder;
-	public float Timer { get { return timer; } }
+
+    public string Name { get { return CFname; } }
+    public float Timer { get { return timer; } }
 
 
 	private void OnEnable()

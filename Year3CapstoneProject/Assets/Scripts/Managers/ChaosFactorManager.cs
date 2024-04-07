@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,10 @@ public class ChaosFactorManager : MonoBehaviour
 
     [SerializeField]
     private bool timer;
+
+
+	[SerializeField] 
+	private TextMeshProUGUI alertText;
 
     [SerializeField]
 	[Tooltip("List of all Chaos Factors that can spawn in the game")]
@@ -48,15 +53,19 @@ public class ChaosFactorManager : MonoBehaviour
 
 	
 	private bool chaosFactorActive = true;
-	Color startColor;
-	//private int maxRed;
-	//private int maxGreen;
-	//private int maxBlue;
+	private Color startColor;
+	private Color textStart;
+
 
 	private int pulseCount = 3;
 	private void Awake()
 	{
 		startColor = Color.white;
+		
+		
+
+		alertText.color = Color.red;
+
 		//timer = true;
 		if (_Instance != null && _Instance != this)
 		{
@@ -160,7 +169,7 @@ public class ChaosFactorManager : MonoBehaviour
 	{
 
 		alert.enabled = true;
-		yield return CFAlert();
+		yield return CFAlert(chaosFactorToSpawn);
 
 		//play sounds/voice lines
 		AudioClip clipToPlay = AudioManager._Instance.MRTwentyChaosFactorList[Random.Range(0, AudioManager._Instance.MRTwentyChaosFactorList.Count)];
@@ -200,21 +209,33 @@ public class ChaosFactorManager : MonoBehaviour
 		chaosFactorToDestroy.GetComponent<ChaosFactor>().OnEndOfChaosFactor(false);
 	}
 
-	public IEnumerator CFAlert()
+	public IEnumerator CFAlert(GameObject CF)
 	{
 		GameObject.Find("Mr.20").GetComponent<MoveMr20>().InitiateChaosFactor();
 		alert.enabled = true;
 
-		Color endColor;
-		endColor.r = 0;
-		endColor.g = 0;
-		endColor.b = 0;
-		endColor.a = 255;
+		alertText.text = CF.GetComponent<ChaosFactor>().Name;
+
+		Color endColor = new Color(0, 0, 0, 255); ;
+
 		Color lerpedColor = startColor;
 		float tick = 0f;
 
 		Color pulseEnd = endColor;
 		pulseEnd.a = 0;
+
+
+        textStart = new Color(1, 0, 0, 0.5f);
+
+        Color TextEnd = new Color(1, 0, 0, 1);
+
+		Color textLerp;
+
+		Color textPulse = TextEnd;
+		
+
+
+
 
 		for (int i = 0; i < pulseCount - 1; i++)
 		{
@@ -223,12 +244,14 @@ public class ChaosFactorManager : MonoBehaviour
 			{
 
 				tick += Time.deltaTime;
+
 				lerpedColor = Color.Lerp(startColor, pulseEnd, tick);
 				alert.color = lerpedColor;
 
+				textLerp = Color.Lerp(textStart, textPulse, tick);
+				alertText.color = textLerp;
 
-
-				if (true)
+                if (true)
 				{
 
 				}
@@ -245,8 +268,10 @@ public class ChaosFactorManager : MonoBehaviour
 				alert.color = lerpedColor;
 
 
+                textLerp = Color.Lerp(textPulse, textStart, tick);
+                alertText.color = textLerp;
 
-				if (true)
+                if (true)
 				{
 
 				}
@@ -264,9 +289,10 @@ public class ChaosFactorManager : MonoBehaviour
 			lerpedColor = Color.Lerp(startColor, pulseEnd, tick);
 			alert.color = lerpedColor;
 
+            textLerp = Color.Lerp(textStart, textPulse, tick);
+            alertText.color = textLerp;
 
-
-			if (true)
+            if (true)
 			{
 
 			}
@@ -277,8 +303,8 @@ public class ChaosFactorManager : MonoBehaviour
 		alert.enabled = false;
 
 		alert.color = startColor;
-
-		yield break;
+		alertText.text = " ";
+        yield break;
 	}
 
 
