@@ -85,6 +85,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: TwelveLegs
       objectReference: {fileID: 0}
+    - target: {fileID: 898728768583507689, guid: 1c351d80d59b7c040bdf9502c0d2f915, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.92387956
+      objectReference: {fileID: 0}
+    - target: {fileID: 898728768583507689, guid: 1c351d80d59b7c040bdf9502c0d2f915, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.38268343
+      objectReference: {fileID: 0}
+    - target: {fileID: 898728768583507689, guid: 1c351d80d59b7c040bdf9502c0d2f915, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898728768583507689, guid: 1c351d80d59b7c040bdf9502c0d2f915, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
