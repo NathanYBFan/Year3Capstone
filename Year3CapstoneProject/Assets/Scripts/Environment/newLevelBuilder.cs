@@ -61,9 +61,6 @@ public class newLevelBuilder : MonoBehaviour
 
     public void buildLevel(int lev)
     {
-        AudioClip clipToPlay = AudioManager._Instance.MRTwentyStageIntroList[lev];
-        AudioManager._Instance.PlaySoundFX(clipToPlay, AudioManager._Instance.MRTwentyAudioSource);
-
         int xVal = startX;
         int yVal = startY;
         int zVal = startZ;
