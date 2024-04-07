@@ -66,6 +66,7 @@ public class LightsOut : MonoBehaviour, ChaosFactor
         sun.enabled = false;
         dr.enabled = false;
         fog.gameObject.SetActive(false);
+        PowerDownSound();
 
         yield return null;
     }
@@ -86,4 +87,18 @@ public class LightsOut : MonoBehaviour, ChaosFactor
 	{
 		Destroy(gameObject);
 	}
+
+    //Plays the powering down sound
+    private void PowerDownSound()
+    {
+        float randPitch = Random.Range(0.8f, 1.5f);
+        AudioSource audioSource = AudioManager._Instance.ChooseEnvAudioSource();
+        if (audioSource != null)
+        {
+            audioSource.pitch = randPitch;
+            AudioManager._Instance.PlaySoundFX(AudioManager._Instance.CFAudioList[6], audioSource);
+        }
+
+    }
+
 }
