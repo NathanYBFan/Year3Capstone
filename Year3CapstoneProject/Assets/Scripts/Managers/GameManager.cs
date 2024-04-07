@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
 	// Singleton Initialization
 	public static GameManager _Instance;
+	public static event Action OnRoundEnd;
 
 	#region SerializeFields
 	[SerializeField]
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
 
 	#region Getters&Setters
 	public List<GameObject> Players { get { return players; } set { players = value; } }
+	public List<GameObject> HudBars { get { return hudBars; } }
 	public List<GameObject> DeadPlayersList { get { return deadPlayerList; } set { deadPlayerList = value; } }
 	public List<GameObject> Platforms { get { return platforms; } set { platforms = value; } }
 	public List<Transform> StageSpawnPoints { get { return stageSpawnPoints; } set { stageSpawnPoints = value; } }
@@ -149,13 +152,23 @@ public class GameManager : MonoBehaviour
 		if (!inGame) return;
 
 		isPaused = !isPaused;
+
 		if (enablePauseMenu)
 			pauseMenu.SetActive(isPaused);
 
 		if (isPaused)
+		{
+			foreach (GameObject hud in hudBars)
+				hud.GetComponent<Bars>().EarlyOut = true;
 			Time.timeScale = 0f;
+		}
 		else
+		{
 			Time.timeScale = 1f;
+			foreach (GameObject hud in hudBars)
+				hud.GetComponent<Bars>().EarlyOut = false;
+		}
+			
 		AudioManager._Instance.ResetInactivityTimer();
 	}
 
@@ -166,7 +179,6 @@ public class GameManager : MonoBehaviour
 			h.SetActive(false);
 
 		BulletObjectPoolManager._Instance.ResetAllBullets();
-		BulletObjectPoolManager._Instance.GarbageCollect();
 
 		ChaosFactorManager._Instance.Reset();
 		// Stop Mr.20's voice lines if they are playing
@@ -181,6 +193,7 @@ public class GameManager : MonoBehaviour
 					deadPlayerList.Add(players[i]);
 			}
 		}
+		OnRoundEnd?.Invoke();
 		// Remove players from stage
 		ResetPlayersToVoid();
 
@@ -248,6 +261,8 @@ public class GameManager : MonoBehaviour
 		// Reset inactivity audio voice line timer
 		AudioManager._Instance.ResetInactivityTimer();
 
+		OnRoundEnd?.Invoke();
+		ResetPlayersToVoid();
 		// Turn off all HUD bars
 		foreach (GameObject h in hudBars)
 			h.SetActive(false);

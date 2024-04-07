@@ -50,7 +50,7 @@ public class Furnace : MonoBehaviour
 	private IEnumerator FireOn()
 	{
 		// If the blocks are inactive, wait until the block becomes active again.
-		while (!GetComponent<Platform>().effectsActive)
+		while (!GetComponent<Platform>().effectsActive || GetComponent<Platform>().IsDropped)
 			yield return null;
 
 		// Waiting until we should give a warning shot.

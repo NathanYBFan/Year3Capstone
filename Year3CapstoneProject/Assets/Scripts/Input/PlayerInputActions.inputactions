@@ -167,6 +167,17 @@
                 },
                 {
                     "name": "",
+                    "id": "f2c2e1ee-32eb-4329-9bec-24b9db371447",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard Mouse",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "67270233-4dea-4f05-ae64-f16c468e64e6",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",

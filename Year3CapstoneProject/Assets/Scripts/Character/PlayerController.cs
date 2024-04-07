@@ -87,7 +87,10 @@ public class PlayerController : MonoBehaviour
 		if (body == null) return;
         if (body.GetComponent<PlayerStats>().IsDead) return;
 
-        body.SetFiringDirection(ctx.ReadValue<Vector2>());
+		if (GetComponent<PlayerInput>().currentControlScheme.Equals("Keyboard Mouse"))
+			body.SetFiringDirection(ctx.ReadValue<Vector2>(), true);
+		else
+			body.SetFiringDirection(ctx.ReadValue<Vector2>(), false);
 	}
 
 	public void OnMove(CallbackContext ctx)

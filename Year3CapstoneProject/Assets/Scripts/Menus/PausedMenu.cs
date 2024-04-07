@@ -46,6 +46,9 @@ public class PausedMenu : MonoBehaviour
     {
         ButtonPressSFX();
         GameManager._Instance.EndGame();
-        LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[0], true);
+        GameManager._Instance.IsPaused = false;
+		foreach (GameObject hud in GameManager._Instance.HudBars)
+			hud.GetComponent<Bars>().EarlyOut = false;
+		LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[0], true);
     }
 }

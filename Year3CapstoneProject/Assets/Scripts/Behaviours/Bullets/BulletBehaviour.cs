@@ -115,11 +115,9 @@ public class BulletBehaviour : MonoBehaviour
 				if (other.gameObject != playerOwner.gameObject.GetComponent<PlayerBody>().Shield)
 				{
 					bulletFX = Instantiate(bulletShattered, transform.position, Quaternion.identity);
-					BulletObjectPoolManager._Instance.ObjectsToDispose.Add(bulletFX);
 					if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
 					else
 					{
-						BulletObjectPoolManager._Instance.FragmentedBullets.Remove(bulletRootObject.gameObject);
 						Destroy(bulletRootObject.gameObject);
 					}
 				}
@@ -128,7 +126,6 @@ public class BulletBehaviour : MonoBehaviour
 				if (other.transform.parent.parent.GetComponent<PlayerBody>().PlayerIndex != originalPlayerIndex)
 				{
 					bulletFX = Instantiate(bulletShattered, transform.position, Quaternion.identity);
-					BulletObjectPoolManager._Instance.ObjectsToDispose.Add(bulletFX);
 					// Check to see if these bullets should have a burn effect.
 					if (playerOwner.GiveableDebuff != null)
 					{
@@ -151,14 +148,12 @@ public class BulletBehaviour : MonoBehaviour
 					if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
 					else
 					{
-						BulletObjectPoolManager._Instance.FragmentedBullets.Remove(bulletRootObject.gameObject);
 						Destroy(bulletRootObject.gameObject);
 					}
 				}
 				break;
 			case "StageNormal":
 				bulletFX = Instantiate(bulletShattered, transform.position, Quaternion.identity);
-				BulletObjectPoolManager._Instance.ObjectsToDispose.Add(bulletFX);
 				// If the player has Fragmentation and the bullet that hit the stage is fragmentable, split the bullet!
 				if (playerOwner.FragmentBullets && isFragmentable)
 				{
@@ -166,12 +161,12 @@ public class BulletBehaviour : MonoBehaviour
 					for (int i = 0; i < 3; i++)
 					{
 						GameObject bullet = Instantiate(bulletGO, fragmentDirections[i].position, Quaternion.identity, BulletObjectPoolManager._Instance.transform);
-						BulletObjectPoolManager._Instance.FragmentedBullets.Add(bullet);
 						bullet.GetComponentInChildren<BulletBehaviour>().playerOwner = this.playerOwner;
 						bullet.GetComponentInChildren<BulletBehaviour>().originalPlayerIndex = this.originalPlayerIndex;
 						bullet.GetComponentInChildren<BulletBehaviour>().isFragmentable = false;
 						bullet.GetComponentInChildren<BulletBehaviour>().bulletRootObject = bullet.gameObject.transform;
 						bullet.GetComponentInChildren<BulletBehaviour>().explosionRadius = this.explosionRadius;
+						bullet.AddComponent<DestroyOnRoundEnd>();
 						Vector3 bulletRot = bullet.transform.rotation.eulerAngles;
 						bulletRot.y = fragmentDirections[i].rotation.eulerAngles.y;
 						bullet.transform.rotation = Quaternion.Euler(bulletRot);
@@ -184,14 +179,12 @@ public class BulletBehaviour : MonoBehaviour
 					explosion.GetComponent<Explosive>().PlayerOwner = this.playerOwner;
 					explosion.GetComponent<Explosive>().OriginalPlayerIndex = this.originalPlayerIndex;
 					explosion.GetComponent<Explosive>().StartExpansion(false);
-					BulletObjectPoolManager._Instance.ExplodedBullets.Add(explosion);
 
 				}
 				// If these bullets were instantiated from Fragmentation, then they should get destroyed. If not, then they can be readded to the bullet object pool.
 				if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
 				else
 				{
-					BulletObjectPoolManager._Instance.FragmentedBullets.Remove(bulletRootObject.gameObject);
 					Destroy(bulletRootObject.gameObject);
 				}
 				break;
@@ -199,7 +192,6 @@ public class BulletBehaviour : MonoBehaviour
 				if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
 				else
 				{
-					BulletObjectPoolManager._Instance.FragmentedBullets.Remove(bulletRootObject.gameObject);
 					Destroy(bulletRootObject.gameObject);
 				}
 				break;
@@ -234,7 +226,6 @@ public class BulletBehaviour : MonoBehaviour
 			explosion.GetComponent<Explosive>().PlayerOwner = this.playerOwner;
 			explosion.GetComponent<Explosive>().OriginalPlayerIndex = this.originalPlayerIndex;
 			explosion.GetComponent<Explosive>().StartExpansion(false);
-			BulletObjectPoolManager._Instance.ExplodedBullets.Add(explosion);
 		}
 		BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
 		yield break;

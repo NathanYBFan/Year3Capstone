@@ -16,19 +16,6 @@ public class BulletObjectPoolManager : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("List of bullets that are actively being used")]
 	private List<GameObject> activatedBullets;
 
-	[SerializeField, ReadOnly]
-	[Foldout("Dependencies"), Tooltip("List of bullets that are actively being used")]
-	private List<GameObject> fragmentedBullets;
-
-	[SerializeField, ReadOnly]
-	[Foldout("Dependencies"), Tooltip("List of bullets that are actively being used")]
-	private List<GameObject> explodedBullets;
-
-	[SerializeField, ReadOnly]
-	[Foldout("Dependencies"), Tooltip("List of bullets that are actively being used")]
-	private List<GameObject> objectsToDispose;
-
-
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("Default prefab of a bullet to use")]
 	private GameObject defaultBullet;
@@ -46,10 +33,6 @@ public class BulletObjectPoolManager : MonoBehaviour
 	private int hardCapBulletCount = 100;
 	#endregion
 
-	public List<GameObject> FragmentedBullets { get { return fragmentedBullets; } set { fragmentedBullets = value; } }
-	public List<GameObject> ExplodedBullets { get { return explodedBullets; } set { explodedBullets = value; } }
-
-	public List<GameObject> ObjectsToDispose { get { return objectsToDispose; } set { objectsToDispose = value; } }
 	private void Awake()
 	{
 		if (_Instance != null && _Instance != this)
@@ -121,7 +104,6 @@ public class BulletObjectPoolManager : MonoBehaviour
 	{
 		if (!bullet.GetComponentInChildren<BulletBehaviour>().isFragmentable)
 		{
-			fragmentedBullets.Remove(bullet);
 			Destroy(bullet);
 			return;
 		}
@@ -139,27 +121,6 @@ public class BulletObjectPoolManager : MonoBehaviour
 	{
 		while (activatedBullets.Count > 0)
 			ExpiredBullet(activatedBullets[0]);
-		while (fragmentedBullets.Count > 0)
-		{
-			GameObject bullet = fragmentedBullets[0];
-			fragmentedBullets.RemoveAt(0);
-			Destroy(bullet);
-		}
-		while (explodedBullets.Count > 0)
-		{
-			GameObject bullet = explodedBullets[0];
-			explodedBullets.RemoveAt(0);
-			bullet.GetComponent<Explosive>().Explosion.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-			Destroy(bullet);
-		}
-	}
-	public void GarbageCollect()
-	{
-		while (objectsToDispose.Count > 0)
-		{
-			GameObject obj = objectsToDispose[0];
-			objectsToDispose.RemoveAt(0);
-			Destroy(obj);
-		}
+		
 	}
 }

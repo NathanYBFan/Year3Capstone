@@ -47,7 +47,6 @@ public class Meteor : MonoBehaviour, ChaosFactor
 
         transform.position = new Vector3(Random.Range(minSpawnX, maxSpawnX), spawnHeight, Random.Range(minSpawnZ, maxSpawnZ));
         markerInstance = Instantiate(fallMarker, new Vector3(transform.position.x, markerSpawnHeight+4, transform.position.z), fallMarker.transform.rotation);
-        BulletObjectPoolManager._Instance.ObjectsToDispose.Add(markerInstance);
         rb = GetComponent<Rigidbody>();
         HissSound();
     }
@@ -85,7 +84,6 @@ public class Meteor : MonoBehaviour, ChaosFactor
     {
         BoomSound();
         explosion.Play();
-        BulletObjectPoolManager._Instance.ObjectsToDispose.Remove(markerInstance);
         Destroy(markerInstance);
         MeteorVisual.enabled = false;
         GetComponentInChildren<MeshRenderer>().enabled = false;

@@ -66,6 +66,7 @@ public class Bars : MonoBehaviour
     public Sprite CharacterGlow { set {  characterGlow.sprite = value; } }
     public Sprite CharacterBG { set { characterBG.sprite = value; } }
     public Color CharacterGlowColour { set { characterGlow.color = value; } }
+    public bool EarlyOut { get { return earlyOut; } set { earlyOut = value; } }
     #endregion
 
     #region PrivateVariables
@@ -73,6 +74,7 @@ public class Bars : MonoBehaviour
     private Coroutine runningAggravatedCoroutine;
     private Color originalCharacterBGColor;
     private Color originalCharacterGlowColor;
+    private bool earlyOut = false;
     #endregion
 
     private void Start()
@@ -163,7 +165,7 @@ public class Bars : MonoBehaviour
 		healthBarShadow.fillAmount = healthBar.fillAmount;
         characterGlow.sprite = playerStats.CharacterStat.characterSprite;
 	}
-
+    
     private IEnumerator shake(float currentHealth, float previousHealth)
     {
         float timer = 0;
@@ -173,7 +175,8 @@ public class Bars : MonoBehaviour
         characterGlow.color = characterGlowDamageColor;
 
         while (timer < maxShakeTime)
-        {           
+        {
+            if (earlyOut) break;
             timer += Time.deltaTime;
             objectToShake.transform.position = new Vector3(objectToShake.transform.position.x + Mathf.Sin(Time.time * shakeSpeed) * shakeAmount + Random.Range(-0.2f, 0.2f), 
                 objectToShake.transform.position.y + Mathf.Sin(Time.time * shakeSpeed) * shakeAmount + Random.Range(-0.1f, 0.1f), objectToShake.transform.position.z);

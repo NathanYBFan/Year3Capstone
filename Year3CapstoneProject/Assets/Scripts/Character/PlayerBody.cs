@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 
 public class PlayerBody : MonoBehaviour
@@ -463,7 +464,19 @@ public class PlayerBody : MonoBehaviour
 		AudioManager._Instance.PlaySoundFX(AudioManager._Instance.CFAudioList[3], audioSource);
 	}
 	public void SetMovementVector(Vector2 dir) { moveDir = dir; if (dir.x != 0 && dir.y != 0) legDir = dir; }
-	public void SetFiringDirection(Vector2 dir) { if (dir.x != 0 && dir.y != 0) aimDir = dir; }
+	public void SetFiringDirection(Vector2 dir, bool isKeyboardLayout) 
+	{
+		Vector2 prevDir;
+		if (dir.x != 0 && dir.y != 0)
+		{
+			prevDir = aimDir;
+			if (!isKeyboardLayout)
+				aimDir = dir;
+			else
+				aimDir = Vector2.Lerp(prevDir, dir, 5 * Time.deltaTime);
+
+		}
+	}
 
 	public void ResetPlayer()
 	{

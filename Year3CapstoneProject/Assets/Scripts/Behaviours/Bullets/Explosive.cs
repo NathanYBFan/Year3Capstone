@@ -109,7 +109,6 @@ public class Explosive : MonoBehaviour
 			playerOwner.TakeDamage(9999999, DamageType.Explosive);
 			yield return new WaitForSeconds(0.01f);
 		}
-		BulletObjectPoolManager._Instance.ExplodedBullets.Remove(gameObject);
 		explosion.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 		Destroy(gameObject);
 	}

@@ -12,7 +12,6 @@ public class DestroyAfterLifetime : MonoBehaviour
 	private IEnumerator LifetimeClock()
 	{
 		yield return new WaitForSeconds(lifeTime);
-		BulletObjectPoolManager._Instance.ObjectsToDispose.Remove(gameObject);
 		Destroy(gameObject);
 		yield break;
 	}
