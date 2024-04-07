@@ -13,7 +13,7 @@ public class HueShift : MonoBehaviour
 
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")]
-	private Material[] stripLights;
+	private Material stripLights;
 
 	[SerializeField]
 	[Foldout("Dependencies"), Tooltip("")]
@@ -60,12 +60,9 @@ public class HueShift : MonoBehaviour
 	private float currentIntensity;
 	private float transitionSpeed = 3f;
 	private bool lerpComplete = false;
+	ColorMutator cm;
 	#endregion
 
-	private void Awake()
-	{
-		InitializeMaterials();
-	}
 	private void InitializeMaterials()
 	{
 		foreach (var mat in mats)
@@ -73,15 +70,18 @@ public class HueShift : MonoBehaviour
 			mat.EnableKeyword("_EMISSION");
 			mat.SetColor("_EmissionColor", Color.red);
 		}
-		foreach (var mat in stripLights)
-		{
-			mat.EnableKeyword("_EMISSION");
-			mat.SetColor("_EmissionColor", Color.red);
-			mat.mainTextureOffset = Vector2.zero;
-		}
+
+		stripLights.EnableKeyword("_EMISSION");
+		stripLights.SetColor("_EmissionColor", Color.red);
+		stripLights.mainTextureOffset = Vector2.zero;
 
 	}
-
+	private void Start()
+	{
+		// Initialize the ColorMutator instance
+		cm = new ColorMutator(Color.red);
+		InitializeMaterials();
+	}
 	void Update()
 	{
 		if (ChaosFactorManager._Instance.ChaosFactorActive)
@@ -101,9 +101,8 @@ public class HueShift : MonoBehaviour
 					currentIntensity = redBlinkIntensity * Mathf.Cos(currTime / redBlinkSlowness) + redBlinkRangeModifier;
 					currTime += Time.deltaTime;
 				}
-				ColorMutator cm = new(currentColour);
+				cm.SetColor(currentColour);
 				cm.exposureValue = currentIntensity;
-				mat.EnableKeyword("_EMISSION");
 				mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
 			}
 		}
@@ -124,22 +123,13 @@ public class HueShift : MonoBehaviour
 				h %= 1;
 				Color newColour = Color.HSVToRGB(h, s, v, true);
 
-				ColorMutator cm = new(newColour);
+				cm.SetColor(newColour);
 				cm.exposureValue = currentIntensity;
-				mat.EnableKeyword("_EMISSION");
 				mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
 			}
 		}
-
-		foreach (var mat in stripLights)
-		{
-			float OffsetX = Time.time * scrollX;
-			mat.mainTextureOffset = new Vector2(OffsetX, 0);
-
-		}
-
-
-
+		float OffsetX = Time.time * scrollX;
+		stripLights.mainTextureOffset = new Vector2(OffsetX, 0);
 	}
 
 }

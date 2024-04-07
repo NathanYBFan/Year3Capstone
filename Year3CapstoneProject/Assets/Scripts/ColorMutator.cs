@@ -135,7 +135,12 @@ internal class ColorMutator
 
 	public ColorMutator(Color originalColor)
 	{
-		m_OriginalColor = originalColor;
+		SetColor(originalColor);
+	}
+
+	public void SetColor(Color color)
+	{
+		m_OriginalColor = color;
 		Reset();
 	}
 

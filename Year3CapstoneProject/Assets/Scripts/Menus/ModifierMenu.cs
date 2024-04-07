@@ -67,17 +67,20 @@ public class ModifierMenu : MonoBehaviour
 		playerIcon.sprite = GameManager._Instance.Players[playerIndex].GetComponent<PlayerStats>().CharacterStat.characterSprite;
 		playerGlow.sprite = GameManager._Instance.Players[playerIndex].GetComponent<PlayerStats>().CharacterStat.characterBGSprite;
 
-		if (playerIndex > MenuInputManager._Instance.PlayerInputs.Count - 1)
+		/*if (playerIndex > MenuInputManager._Instance.PlayerInputs.Count - 1)
 		{
 			//If we don't have 4 players and the losing player was one without input, give the control to player 1.
-			uiInputModule.actionsAsset = inputAsset; 
+			uiInputModule.actionsAsset = inputAsset;
 			MenuInputManager._Instance.PlayerInputs[0].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
 		}
 		else
+		{*/
+		if (playerIndex < MenuInputManager._Instance.PlayerInputs.Count)
 		{
 			uiInputModule.actionsAsset = MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().actions;
 			MenuInputManager._Instance.PlayerInputs[playerIndex].GetComponent<PlayerInput>().uiInputModule = uiInputModule;
 		}
+		//}
 		
 		//ResetLocalModifierList();
 		StartCoroutine(ResetAllModifierSelection());

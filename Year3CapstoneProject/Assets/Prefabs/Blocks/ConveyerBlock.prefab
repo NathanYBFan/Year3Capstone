@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2444053550727729740}
   - component: {fileID: 653559579764325122}
   - component: {fileID: 7411552946287178823}
-  - component: {fileID: 5791900474105187905}
   m_Layer: 0
   m_Name: Conveyer Belt
   m_TagString: Untagged
@@ -101,30 +100,6 @@ MonoBehaviour:
   scrollX: -0.5
   scrollY: 0
   mat: {fileID: 2100000, guid: 7a831cd366a30594392937c2297cdc06, type: 2}
---- !u!114 &5791900474105187905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2882950619998557846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 363dfdb177d9e4845aa3903b22f5335e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mats: []
-  stripLights: []
-  rampSurfaceMat: {fileID: 0}
-  currentColour: {r: 1, g: 0, b: 0, a: 1}
-  hueShiftSpeed: 0.05
-  redBlinkSlowness: 0.05
-  minTransitionSpeed: 1
-  maxTransitionSpeed: 10
-  scrollX: 0.5
-  hueIntensity: 2
-  redBlinkIntensity: 2
-  redBlinkRangeModifier: 0
 --- !u!1 &4748749076728205467
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +166,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ea4fbb45b9ba6684685fdf8f6f38ea48, type: 2}
+  - {fileID: 2100000, guid: 593b3744315a63c43b81071752b5e032, type: 2}
   - {fileID: 2100000, guid: aa2feb7e445012f439dac2712c84bcc0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
