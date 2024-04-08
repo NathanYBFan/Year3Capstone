@@ -111,7 +111,7 @@ public class WinMenu : MonoBehaviour
                     break;
             }
             GameObject characterIdle = GameObject.Instantiate(characterToSpawn, positionToSpawnCharacter[i]);
-            UpdateMaterialsIdle(characterIdle, glowMaterialsToAssign[i]);
+            UpdateMaterialsIdle(characterIdle, glowMaterialsToAssign[playerWinOrder[i]]);
         }
 
         // Play audio
