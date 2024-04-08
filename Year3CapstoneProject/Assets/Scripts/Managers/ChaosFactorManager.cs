@@ -57,7 +57,7 @@ public class ChaosFactorManager : MonoBehaviour
 	private Color textStart;
 
 
-	private int pulseCount = 3;
+	private int pulseCount = 4;
 	private void Awake()
 	{
 		startColor = Color.white;
@@ -214,7 +214,7 @@ public class ChaosFactorManager : MonoBehaviour
 		GameObject.Find("Mr.20").GetComponent<MoveMr20>().InitiateChaosFactor();
 		alert.enabled = true;
 
-		alertText.text = CF.GetComponent<ChaosFactor>().Name;
+		alertText.text = "Chaos Factor Incoming";
 
 		Color endColor = new Color(0, 0, 0, 255); ;
 
@@ -225,7 +225,7 @@ public class ChaosFactorManager : MonoBehaviour
 		pulseEnd.a = 0;
 
 
-        textStart = new Color(1, 0, 0, 0.5f);
+        textStart = new Color(1, 0, 0, 0.0f);
 
         Color TextEnd = new Color(1, 0, 0, 1);
 
@@ -280,6 +280,14 @@ public class ChaosFactorManager : MonoBehaviour
 
 			tick = 0f;
 
+			if (i == 1)
+			{
+                alertText.text = CF.GetComponent<ChaosFactor>().Name;
+
+            }
+
+
+
 		}
 
 		while (alert.color != pulseEnd)
@@ -330,7 +338,8 @@ public class ChaosFactorManager : MonoBehaviour
 		ResetChaosFactorTimer();
 		// Remove any active Chaos Factor
 		RemoveAllChaosFactors(true);
-		alert.enabled = false;
+        alertText.text = " ";
+        alert.enabled = false;
 		alert.color = startColor;
 
 	}
