@@ -96,7 +96,7 @@ public class LightsOut : MonoBehaviour, ChaosFactor
     private void PowerDownSound()
     {
         float randPitch = Random.Range(0.8f, 1.5f);
-        AudioSource audioSource = AudioManager._Instance.ChooseEnvAudioSource();
+        AudioSource audioSource = AudioManager._Instance.CFAudioSource;
         if (audioSource != null)
         {
             audioSource.pitch = randPitch;

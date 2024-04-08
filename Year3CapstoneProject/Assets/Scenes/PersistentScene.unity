@@ -2884,7 +2884,7 @@ MonoBehaviour:
   uiAudioSource: {fileID: 447079745}
   cfAudioSource: {fileID: 991826145}
   playerAudioList:
-  - {fileID: 8300000, guid: 4b33b2a93dbfb2e4bb706159d6dfe049, type: 3}
+  - {fileID: 8300000, guid: 970a4a8eb2afb0d419f354e5273de518, type: 3}
   - {fileID: 8300000, guid: 92aa2295b64293b4aa2808610d2ddcb2, type: 3}
   - {fileID: 8300000, guid: bcb878bf7c05dc74b91f201d9fa24ea9, type: 3}
   - {fileID: 8300000, guid: 2f90e7f1cb927c048bf0d86bd971b329, type: 3}
@@ -2906,6 +2906,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 758c41df05c528d43b6a14eb1f4507f5, type: 3}
   - {fileID: 8300000, guid: bb5349348f8bbb74c94cccafca336839, type: 3}
   - {fileID: 8300000, guid: 008834d5ab4d0f545a2ee9dddaf79f12, type: 3}
+  - {fileID: 8300000, guid: 252448346f946e5469a613a59c475453, type: 3}
   mrTwentyChaosFactorList:
   - {fileID: 8300000, guid: 4df47bcd96c99bf4f8087cbe8980bf26, type: 3}
   - {fileID: 8300000, guid: 4624343b04161f34bb760ba43d270605, type: 3}

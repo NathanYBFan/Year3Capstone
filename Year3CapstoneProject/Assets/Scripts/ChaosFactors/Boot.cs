@@ -123,7 +123,7 @@ public class Boot : MonoBehaviour, ChaosFactor
     private void KickSound(GameObject kicker)
     {
         float randPitch = Random.Range(0.8f, 1.5f);
-        AudioSource audioSource = kicker.GetComponent<AudioSource>();
+        AudioSource audioSource = AudioManager._Instance.ChooseEnvAudioSource();
         if (audioSource != null)
         {
             audioSource.pitch = randPitch;

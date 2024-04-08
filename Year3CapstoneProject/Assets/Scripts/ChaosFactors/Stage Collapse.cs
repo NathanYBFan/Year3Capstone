@@ -40,11 +40,12 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 		
 
 		numberOfBlocks = (int)(GameManager._Instance.Platforms.Count * percentofBlocks);
-
+		
         rumble = GetComponent<GeneratesRumble>();
 		droppedPlatforms = new GameObject[numberOfBlocks];
 		StartCoroutine(collapse());
-        GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, timer);
+		StartCoroutine(SoundOn());
+		GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(1, timer);
 		for (int i = 0; i < 4; i++)
 			StartCoroutine(GameManager._Instance.CreateRumble(rumble.RumbleDuration, rumble.LeftIntensity, rumble.RightIntensity, i, false));
 	}
@@ -103,5 +104,36 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 		for (int i = 0; i < 4; i++)
 			StartCoroutine(GameManager._Instance.StopRumble(i));
 		Destroy(gameObject);
+	}
+
+	//Plays the collapsing sound
+	private void CollapseSound()
+	{
+		float randPitch = Random.Range(0.8f, 1.5f);
+		AudioSource audioSource = AudioManager._Instance.CFAudioSource;
+		if (audioSource != null)
+		{
+			audioSource.pitch = randPitch;
+			AudioManager._Instance.PlaySoundFX(AudioManager._Instance.CFAudioList[9], audioSource);
+		}
+
+	}
+
+	//Coroutine that plays the sound, then waits 2s to call another coroutine that re-calls this one.
+	private IEnumerator SoundOn()
+    {
+		CollapseSound();
+		yield return new WaitForSeconds(2f);
+		StartCoroutine(SoundOff());
+		yield break;
+	}
+
+	//Coroutine that waits 2s, then re-calls SoundOn
+	private IEnumerator SoundOff()
+	{
+		yield return new WaitForSeconds(2f);
+
+		StartCoroutine(SoundOn());
+		yield break;
 	}
 }
