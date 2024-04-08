@@ -272,7 +272,14 @@ public class PlayerStats : MonoBehaviour
 			// Instantiate proper body parts
 			GameObject head = GameObject.Instantiate(characterStat.playerModelHead, playerMeshGO.position, Quaternion.identity, playerMeshGO);
 			GameObject legs = GameObject.Instantiate(characterStat.playerModelBody, playerLegGO.position, Quaternion.identity, playerLegGO);
-			List<Material> listOfMaterials = new List<Material>();
+
+			GetComponent<PlayerBody>().HeadAnim = head.transform.GetChild(0).GetChild(0).GetComponent<Animation>();
+			GetComponent<PlayerBody>().LegAnim = legs.transform.GetChild(0).GetChild(0).GetComponent<Animation>();
+
+			GetComponent<PlayerBody>().HeadAnim["Roll"].speed = rollSpeed;
+			GetComponent<PlayerBody>().LegAnim["Roll"].speed = rollSpeed;
+
+            List<Material> listOfMaterials = new List<Material>();
 			head.GetComponentInChildren<MeshRenderer>().GetMaterials(listOfMaterials);
 			for (int i = 0; i < listOfMaterials.Count; i++)
 			{
@@ -334,11 +341,6 @@ public class PlayerStats : MonoBehaviour
 		get { return characterStat; }
 	}
 	#endregion Getters & Setters
-
-	private void OnEnable()
-	{
-		ResetPlayer();
-	}
 
 	public void ResetMaterialEmissionColor()
 	{
@@ -524,17 +526,17 @@ public class PlayerStats : MonoBehaviour
 		StopAllCoroutines();
 		DeactivateEffects(ParticleSystemStopBehavior.StopEmittingAndClear);
 		currHealth = maxHealth;
-		currEnergy = MaxEnergy;
+        currEnergy = MaxEnergy;
 		canShoot = true;
 		if (CanSelfDestruct) GetComponent<PlayerBody>().HasExploded = false;
 		GetComponent<PlayerBody>().ResetPlayer();
-	}
+    }
 
-	/// <summary>
-	/// This coroutine applies the debuff's effects throughout it's duration before removing itself from the player.
-	/// </summary>
-	/// <returns></returns>
-	private IEnumerator ApplyDebuffEffects()
+    /// <summary>
+    /// This coroutine applies the debuff's effects throughout it's duration before removing itself from the player.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ApplyDebuffEffects()
 	{
 		// Dealing damage as the debuff is still active.
 		while (inflictedDebuff.debuffDuration > 0)

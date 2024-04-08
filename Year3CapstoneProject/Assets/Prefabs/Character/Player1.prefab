@@ -81,7 +81,6 @@ MonoBehaviour:
   mesh: {fileID: 3915485280281416030}
   explosion: {fileID: 2979114167936268833, guid: f3505abae2f77b145abf69c313ba5dd2, type: 3}
   stats: {fileID: 4952783801461123959}
-  collisionDetection: {fileID: 0}
   rb: {fileID: 2394888332640096119}
   audioSource: {fileID: 377464014033735781}
   aimUI: {fileID: 5385108240147413128}
@@ -122,7 +121,7 @@ MonoBehaviour:
   currHealth: 80
   movementSpeed: 0
   fireRate: 4
-  rollSpeed: 1
+  rollSpeed: 2
   damage: 1
   maxEnergy: 100
   currEnergy: 100
