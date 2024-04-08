@@ -60,7 +60,7 @@ public class WinMenu : MonoBehaviour
 
         // Tie for first
         if (localPoints[playerWinOrder[0]] == localPoints[playerWinOrder[1]])
-            textbox.text = "Tie for first!";
+            textbox.text = "Tie for first";
         // Single clear winner
         else
         {
