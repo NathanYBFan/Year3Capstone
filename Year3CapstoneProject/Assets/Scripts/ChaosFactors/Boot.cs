@@ -51,7 +51,7 @@ public class Boot : MonoBehaviour, ChaosFactor
 
     public void Kick(GameObject kicker)
     {
-
+        KickSound(kicker);
         foreach (GameObject p in GameManager._Instance.Players)
         {
             if (p != kicker && p != null) 
@@ -118,4 +118,18 @@ public class Boot : MonoBehaviour, ChaosFactor
 	{
 		Destroy(gameObject);
 	}
+
+    //Plays the kick impact sound
+    private void KickSound(GameObject kicker)
+    {
+        float randPitch = Random.Range(0.8f, 1.5f);
+        AudioSource audioSource = kicker.GetComponent<AudioSource>();
+        if (audioSource != null)
+        {
+            audioSource.pitch = randPitch;
+            AudioManager._Instance.PlaySoundFX(AudioManager._Instance.CFAudioList[8], audioSource);
+        }
+
+    }
+
 }

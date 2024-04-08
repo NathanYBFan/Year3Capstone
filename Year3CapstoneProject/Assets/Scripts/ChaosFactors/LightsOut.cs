@@ -24,7 +24,6 @@ public class LightsOut : MonoBehaviour, ChaosFactor
 
     void Start()
     {
-       
         sun = GameObject.Find("Sun").GetComponent<Light>();
         dr = GameObject.Find("Directional Light").GetComponent<Light>();
         fog = GameObject.Find("Pit Volume Fog/Particle System").GetComponent<ParticleSystem>();
@@ -35,6 +34,7 @@ public class LightsOut : MonoBehaviour, ChaosFactor
     {
 
         //flicker off
+        PowerDownSound();
         sun.enabled = false;
         dr.enabled = false;
         
@@ -70,7 +70,7 @@ public class LightsOut : MonoBehaviour, ChaosFactor
         sun.enabled = false;
         dr.enabled = false;
         fog.gameObject.SetActive(false);
-        PowerDownSound();
+        
 
         yield return null;
     }
