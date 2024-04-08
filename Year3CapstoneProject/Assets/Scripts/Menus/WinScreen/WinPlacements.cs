@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -36,6 +37,10 @@ public class WinPlacements : MonoBehaviour
 
     [SerializeField]
     [Foldout("Dependencies")]
+    private Image numberImage;
+
+    [SerializeField]
+    [Foldout("Dependencies")]
     private Image numberBgHighlight;
 
     [SerializeField]
@@ -45,6 +50,15 @@ public class WinPlacements : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies")]
     private TextMeshProUGUI currPoints;
+
+    [SerializeField]
+    [Foldout("Dependencies")]
+    private Sprite[] playerPlacementText;
+
+    [SerializeField]
+    [Foldout("Dependencies")]
+    private Sprite[] playerPlacementBGText;
+
 
     private void OnEnable()
     {
@@ -72,11 +86,27 @@ public class WinPlacements : MonoBehaviour
             playerWinOrder.Add(index); // Most points to smallest
         }
 
-        crownRootObject.SetActive(
-            playerNum == 0
-            || (playerNum == 1 && PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[1]])
-            || (playerNum == 2 && PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[2]])
-            || (playerNum == 3 && PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[3]]));
+        if (playerNum == 0 || PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[playerNum]])
+        {
+            crownRootObject.SetActive(true);
+            numberImage.sprite = playerPlacementText[0];
+            numberBgHighlight.sprite = playerPlacementBGText[0];
+        }
+        else if (PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[1]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[playerNum]])
+        {
+            numberImage.sprite = playerPlacementText[1];
+            numberBgHighlight.sprite = playerPlacementBGText[1];
+        }
+        else if (PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[2]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[playerNum]])
+        {
+            numberImage.sprite = playerPlacementText[2];
+            numberBgHighlight.sprite = playerPlacementBGText[2];
+        }
+        else if (PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[3]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[playerNum]])
+        {
+            numberImage.sprite = playerPlacementText[3];
+            numberBgHighlight.sprite = playerPlacementBGText[3];
+        }
 
         int selectedNumber = playerWinOrder[playerNum];
         CharacterStatsSO characterStats = GameManager._Instance.Players[selectedNumber].GetComponent<PlayerStats>().CharacterStat;
