@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class WinMenu : MonoBehaviour
 {
@@ -83,7 +82,7 @@ public class WinMenu : MonoBehaviour
         }
         GameObject characterWin = GameObject.Instantiate(winChararacter, positionToSpawnCharacter[0]);
         characterWin.transform.GetChild(0).GetComponent<Animation>().enabled = true;
-        UpdateMaterialsWin(characterWin, glowMaterialsToAssign[0]);
+        UpdateMaterialsWin(characterWin, glowMaterialsToAssign[playerWinOrder[0]]);
 
         // Spawn players in right spots
         for (int i = 1; i < positionToSpawnCharacter.Length; i++)
