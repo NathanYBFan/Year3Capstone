@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
 		if (levelBuilder != null)
 		{
 			levelBuilder.buildLevel(currentRound % 3);
-			if (currentRound <= 3)
+			if (currentRound < 3)
 			{
                 AudioClip clipToPlay = AudioManager._Instance.MRTwentyStageIntroList[currentRound];
                 AudioManager._Instance.PlaySoundFX(clipToPlay, AudioManager._Instance.MRTwentyAudioSource);
