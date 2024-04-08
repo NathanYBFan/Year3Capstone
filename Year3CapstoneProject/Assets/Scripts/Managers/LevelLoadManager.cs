@@ -133,4 +133,9 @@ public class LevelLoadManager : MonoBehaviour
     {
         ResetLevelAll();
     }
+
+    public void DisableLoadingScreeen()
+    {
+        loadingScreen.gameObject.SetActive(false);
+    }
 }

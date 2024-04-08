@@ -32,6 +32,9 @@ public class WinMenu : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 0;
+        LevelLoadManager._Instance.DisableLoadingScreeen();
+
         EventSystem.current.SetSelectedGameObject(firstButton);
         textbox.text = "Player " + (GameManager._Instance.PlayerWinnerIndex + 1) + " Wins";
 

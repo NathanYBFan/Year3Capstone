@@ -86,6 +86,7 @@ public class WinPlacements : MonoBehaviour
             playerWinOrder.Add(index); // Most points to smallest
         }
 
+        crownRootObject.SetActive(false);
         if (playerNum == 0 || PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[playerNum]])
         {
             crownRootObject.SetActive(true);
@@ -99,13 +100,42 @@ public class WinPlacements : MonoBehaviour
         }
         else if (PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[2]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[playerNum]])
         {
-            numberImage.sprite = playerPlacementText[2];
-            numberBgHighlight.sprite = playerPlacementBGText[2];
+            // 1 == 2
+            if (PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[1]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]])
+            {
+                numberImage.sprite = playerPlacementText[1];
+                numberBgHighlight.sprite = playerPlacementBGText[1];
+            }
+            else
+            {
+                numberImage.sprite = playerPlacementText[2];
+                numberBgHighlight.sprite = playerPlacementBGText[2];
+            }
+            
         }
         else if (PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[3]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[playerNum]])
         {
-            numberImage.sprite = playerPlacementText[3];
-            numberBgHighlight.sprite = playerPlacementBGText[3];
+            // 1 == 2
+            if (PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[1]])
+            {
+                // 1 == 2 == 3 != 4
+                if (PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[2]])
+                {
+                    numberImage.sprite = playerPlacementText[1];
+                    numberBgHighlight.sprite = playerPlacementBGText[1];
+                }
+                // 1 == 2 != 3 != 4
+                else
+                {
+                    numberImage.sprite = playerPlacementText[2];
+                    numberBgHighlight.sprite = playerPlacementBGText[2];
+                }
+            }
+            else
+            {
+                numberImage.sprite = playerPlacementText[3];
+                numberBgHighlight.sprite = playerPlacementBGText[3];
+            }
         }
 
         int selectedNumber = playerWinOrder[playerNum];
