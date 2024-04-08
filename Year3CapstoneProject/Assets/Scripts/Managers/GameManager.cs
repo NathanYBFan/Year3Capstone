@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 	private bool isPaused;
 	private newLevelBuilder levelBuilder;
 	private int playerWinnerIndex = -1;
-	private bool inPauseMenu = false, inSettingsMenu = false;
+	private bool inPauseMenu = false, inSettingsMenu = false, inModifierSelectMenu = false;
 	private Coroutine endRoundCoroutine = null;
 	#endregion
 
@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
 	public int PlayerWinnerIndex { get { return playerWinnerIndex; } }
 	public bool InPauseMenu { get { return inPauseMenu; } set { inPauseMenu = value; } }
 	public bool InSettingsMenu { get { return inSettingsMenu; } set { inSettingsMenu = value; } }
+	public bool InModifierSelectMenu { get { return inModifierSelectMenu; } set { inModifierSelectMenu = value; } }
 	#endregion
 
 	private void Awake()
@@ -89,6 +90,7 @@ public class GameManager : MonoBehaviour
 	// Play game initial setups
 	public void StartNewGame()
 	{
+		inModifierSelectMenu = false;
 		if (AudioManager._Instance.MRTwentyAudioSource.isPlaying) AudioManager._Instance.MRTwentyAudioSource.Stop();
 		endRoundCoroutine = null;
 		RemoveStage();

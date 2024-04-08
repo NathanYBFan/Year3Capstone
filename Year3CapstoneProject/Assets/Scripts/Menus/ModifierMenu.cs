@@ -61,6 +61,7 @@ public class ModifierMenu : MonoBehaviour
 
 	private void OnEnable()
 	{
+		GameManager._Instance.InModifierSelectMenu = true;
 		rumble = GetComponent<GeneratesRumble>();
 		uiInputModule = transform.parent.GetChild(1).GetComponent<InputSystemUIInputModule>();
 

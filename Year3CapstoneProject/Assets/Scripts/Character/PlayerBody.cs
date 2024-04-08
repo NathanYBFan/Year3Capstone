@@ -234,6 +234,7 @@ public class PlayerBody : MonoBehaviour
 
 	public void Roll()
 	{
+		if (GameManager._Instance.InModifierSelectMenu) return;
 		int healing = (int)(stats.MaxHealth - stats.CurrentHealth);
 		float amount = stats.MaxEnergy;
 		stats.CanShoot = false;
@@ -278,6 +279,7 @@ public class PlayerBody : MonoBehaviour
 
 	private void Roll(int input)
 	{
+		if (GameManager._Instance.InModifierSelectMenu) return;
 		stats.CanShoot = false;
 		int healing = (int)(stats.MaxHealth - stats.CurrentHealth);
 		if (stats.CurrentEnergy - stats.RollingEnergyConsumption < 0 || stats.IsDead) return;
@@ -327,6 +329,7 @@ public class PlayerBody : MonoBehaviour
 
 	public IEnumerator InitiateSelfDestruct()
 	{
+		if (GameManager._Instance.InModifierSelectMenu) yield break;
 		if (stats.CanSelfDestruct && !hasExploded)
 		{
 			SelfDestructSound();
@@ -350,6 +353,7 @@ public class PlayerBody : MonoBehaviour
 	public void DashActionPressed()
 	{
 		if (stats.CurrentEnergy - stats.DashEnergyConsumption < 0) return;
+		if (GameManager._Instance.InModifierSelectMenu) return;
 		isDashing = true;
 		dashEffect.Play(true);
 		// Using energy before doing action
