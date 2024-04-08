@@ -22,7 +22,11 @@ public class WinMenu : MonoBehaviour
 
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("All Characters to display")]
-    private GameObject[] listOfSpawnableCharacters;
+    private GameObject[] listOfSpawnableCharactersWin;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("All Characters to display")]
+    private GameObject[] listOfSpawnableCharactersIdle;
 
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("Location to spawn Character")]
@@ -36,9 +40,6 @@ public class WinMenu : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(firstButton);
         textbox.text = "Player " + (GameManager._Instance.PlayerWinnerIndex + 1) + " Wins";
-        //playerIcon.sprite = GameManager._Instance.Players[GameManager._Instance.PlayerWinnerIndex].GetComponent<PlayerStats>().CharacterStat.characterSprite;
-        //playerBgIcon.sprite = GameManager._Instance.Players[GameManager._Instance.PlayerWinnerIndex].GetComponent<PlayerStats>().CharacterStat.characterBGSprite;
-        //playerIcon.color = GameManager._Instance.Players[GameManager._Instance.PlayerWinnerIndex].GetComponent<PlayerStats>().UIColor;
 
         List<int> playerWinOrder = new List<int>();     // Saved win order
         List<int> localPoints = new List<int>();        // Local save of the points
@@ -64,31 +65,53 @@ public class WinMenu : MonoBehaviour
             playerWinOrder.Add(index); // Most points to smallest
         }
 
+        GameObject winChararacter;
+        switch (GameManager._Instance.Players[playerWinOrder[0]].GetComponent<PlayerStats>().CharacterStat.name)
+        {
+            case "Cube":
+                winChararacter = listOfSpawnableCharactersWin[0];
+                break;
+            case "Octo":
+                winChararacter = listOfSpawnableCharactersWin[1];
+                break;
+            case "Pyr":
+                winChararacter = listOfSpawnableCharactersWin[2];
+                break;
+            case "Twelve":
+                winChararacter = listOfSpawnableCharactersWin[3];
+                break;
+            default:
+                winChararacter = null;
+                break;
+        }
+        GameObject characterWin = GameObject.Instantiate(winChararacter, positionToSpawnCharacter[0]);
+        characterWin.transform.GetChild(0).GetComponent<Animation>().enabled = true;
+        UpdateMaterialsWin(characterWin, glowMaterialsToAssign[0]);
+
         // Spawn players in right spots
-        for (int i = 0; i < positionToSpawnCharacter.Length; i++)
+        for (int i = 1; i < positionToSpawnCharacter.Length; i++)
         {
             GameObject characterToSpawn;
             switch (GameManager._Instance.Players[playerWinOrder[i]].GetComponent<PlayerStats>().CharacterStat.name)
             {
                 case "Cube":
-                    characterToSpawn = listOfSpawnableCharacters[0];
+                    characterToSpawn = listOfSpawnableCharactersIdle[0];
                     break;
                 case "Octo":
-                    characterToSpawn = listOfSpawnableCharacters[1];
+                    characterToSpawn = listOfSpawnableCharactersIdle[1];
                     break;
                 case "Pyr":
-                    characterToSpawn = listOfSpawnableCharacters[2];
+                    characterToSpawn = listOfSpawnableCharactersIdle[2];
                     break;
                 case "Twelve":
-                    characterToSpawn = listOfSpawnableCharacters[3];
+                    characterToSpawn = listOfSpawnableCharactersIdle[3];
                     break;
                 default:
                     characterToSpawn = null;
                     break;
             }
-            GameObject character = GameObject.Instantiate(characterToSpawn, positionToSpawnCharacter[i]);
-            character.transform.GetChild(0).GetComponent<Animation>().enabled = (i == 0);
-            UpdateMaterials(character, glowMaterialsToAssign[i]);
+            GameObject characterIdle = GameObject.Instantiate(characterToSpawn, positionToSpawnCharacter[i]);
+            UpdateMaterialsIdle(characterIdle, glowMaterialsToAssign[i]);
         }
 
         // Play audio
@@ -143,7 +166,7 @@ public class WinMenu : MonoBehaviour
         AudioManager._Instance.PlaySoundFX(clipToPlay, AudioManager._Instance.MRTwentyAudioSource);
     }
 
-    private void UpdateMaterials(GameObject character, Material materialToAssign)
+    private void UpdateMaterialsWin(GameObject character, Material materialToAssign)
     {
         List<Material> listOfMaterials = new List<Material>();
 
@@ -174,5 +197,38 @@ public class WinMenu : MonoBehaviour
             if (listOfMaterials[i].name.Contains("Light"))
                 listOfMaterials[i] = materialToAssign;
         character.transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
+    }
+
+    private void UpdateMaterialsIdle(GameObject character, Material materialToAssign)
+    {
+        List<Material> listOfMaterials = new List<Material>();
+
+        // Head
+        character.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
+        for (int i = 0; i < listOfMaterials.Count; i++)
+            if (listOfMaterials[i].name.Contains("Light"))
+                listOfMaterials[i] = materialToAssign;
+        character.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
+
+        // Face
+        character.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
+        for (int i = 0; i < listOfMaterials.Count; i++)
+            if (listOfMaterials[i].name.Contains("Light"))
+                listOfMaterials[i] = materialToAssign;
+        character.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
+
+        // Left Leg
+        character.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
+        for (int i = 0; i < listOfMaterials.Count; i++)
+            if (listOfMaterials[i].name.Contains("Light"))
+                listOfMaterials[i] = materialToAssign;
+        character.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
+
+        // Right Leg
+        character.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
+        for (int i = 0; i < listOfMaterials.Count; i++)
+            if (listOfMaterials[i].name.Contains("Light"))
+                listOfMaterials[i] = materialToAssign;
+        character.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
     }
 }

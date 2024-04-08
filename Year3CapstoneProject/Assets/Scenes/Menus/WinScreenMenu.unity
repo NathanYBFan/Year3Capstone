@@ -382,11 +382,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstButton: {fileID: 1679658219}
   textbox: {fileID: 1598578771}
-  listOfSpawnableCharacters:
+  listOfSpawnableCharactersWin:
   - {fileID: 5819925849810372461, guid: 1dcf95c7635d1f44e92c464e4386877e, type: 3}
   - {fileID: 1085424162783543651, guid: 851af3d8aa6285144a0344439ccd3a90, type: 3}
   - {fileID: 4160557575620667433, guid: 36d1169e2e15e094282970872e168180, type: 3}
   - {fileID: 5571375566242269364, guid: ff4841c7154d8b142a0807911d481929, type: 3}
+  listOfSpawnableCharactersIdle:
+  - {fileID: 4981800143376597507, guid: 862c439f036487145a64d4c339377a9d, type: 3}
+  - {fileID: 8810234616046756012, guid: d18be240b4003ac44b7eab0420db8b58, type: 3}
+  - {fileID: 3116377272253632826, guid: 560e79baeb532f94db7589e8063ff4b4, type: 3}
+  - {fileID: 2345305319509304213, guid: d67394a6507854244be3e557291d043e, type: 3}
   positionToSpawnCharacter:
   - {fileID: 952791644}
   - {fileID: 1040693326}
@@ -10231,7 +10236,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1245749036}
   - component: {fileID: 1245749035}
-  - component: {fileID: 1245749034}
   - component: {fileID: 1245749033}
   m_Layer: 0
   m_Name: PlayerCamera
@@ -10284,14 +10288,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &1245749034
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1245749032}
-  m_Enabled: 1
 --- !u!20 &1245749035
 Camera:
   m_ObjectHideFlags: 0
