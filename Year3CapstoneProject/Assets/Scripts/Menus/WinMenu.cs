@@ -87,6 +87,7 @@ public class WinMenu : MonoBehaviour
                     break;
             }
             GameObject character = GameObject.Instantiate(characterToSpawn, positionToSpawnCharacter[i]);
+            character.transform.GetChild(0).GetComponent<Animation>().enabled = (i == 0);
             UpdateMaterials(character, glowMaterialsToAssign[i]);
         }
 
@@ -147,31 +148,31 @@ public class WinMenu : MonoBehaviour
         List<Material> listOfMaterials = new List<Material>();
 
         // Head
+        character.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
+        for (int i = 0; i < listOfMaterials.Count; i++)
+            if (listOfMaterials[i].name.Contains("Light"))
+                listOfMaterials[i] = materialToAssign;
+        character.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
+
+        // Face
         character.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
         for (int i = 0; i < listOfMaterials.Count; i++)
             if (listOfMaterials[i].name.Contains("Light"))
                 listOfMaterials[i] = materialToAssign;
         character.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
 
-        // Face
-        character.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
-        for (int i = 0; i < listOfMaterials.Count; i++)
-            if (listOfMaterials[i].name.Contains("Light"))
-                listOfMaterials[i] = materialToAssign;
-        character.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
-
         // Left Leg
-        character.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
+        character.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
         for (int i = 0; i < listOfMaterials.Count; i++)
             if (listOfMaterials[i].name.Contains("Light"))
                 listOfMaterials[i] = materialToAssign;
-        character.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
+        character.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
 
         // Right Leg
-        character.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
+        character.transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<MeshRenderer>().GetMaterials(listOfMaterials);
         for (int i = 0; i < listOfMaterials.Count; i++)
             if (listOfMaterials[i].name.Contains("Light"))
                 listOfMaterials[i] = materialToAssign;
-        character.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
+        character.transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<MeshRenderer>().SetMaterials(listOfMaterials);
     }
 }
