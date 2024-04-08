@@ -166,7 +166,7 @@ public class PlayerBody : MonoBehaviour
 
 	private void UpdateAnimations()
 	{
-		if (!GameManager._Instance.InGame) return;
+		if (!GameManager._Instance.InGame || LevelLoadManager._Instance.IsLoadingLevel) return;
 		headAnim = mesh.transform.GetComponentInChildren<Animation>();
 		if (headAnim == null) return;
 
@@ -234,7 +234,7 @@ public class PlayerBody : MonoBehaviour
 
 	public void Roll()
 	{
-		if (GameManager._Instance.InModifierSelectMenu) return;
+		if (GameManager._Instance.InModifierSelectMenu || LevelLoadManager._Instance.IsLoadingLevel) return;
 		int healing = (int)(stats.MaxHealth - stats.CurrentHealth);
 		float amount = stats.MaxEnergy;
 		stats.CanShoot = false;
@@ -279,7 +279,7 @@ public class PlayerBody : MonoBehaviour
 
 	private void Roll(int input)
 	{
-		if (GameManager._Instance.InModifierSelectMenu) return;
+		if (GameManager._Instance.InModifierSelectMenu || LevelLoadManager._Instance.IsLoadingLevel) return;
 		stats.CanShoot = false;
 		int healing = (int)(stats.MaxHealth - stats.CurrentHealth);
 		if (stats.CurrentEnergy - stats.RollingEnergyConsumption < 0 || stats.IsDead) return;
@@ -329,7 +329,7 @@ public class PlayerBody : MonoBehaviour
 
 	public IEnumerator InitiateSelfDestruct()
 	{
-		if (GameManager._Instance.InModifierSelectMenu) yield break;
+		if (GameManager._Instance.InModifierSelectMenu || LevelLoadManager._Instance.IsLoadingLevel) yield break;
 		if (stats.CanSelfDestruct && !hasExploded)
 		{
 			SelfDestructSound();
@@ -353,7 +353,7 @@ public class PlayerBody : MonoBehaviour
 	public void DashActionPressed()
 	{
 		if (stats.CurrentEnergy - stats.DashEnergyConsumption < 0) return;
-		if (GameManager._Instance.InModifierSelectMenu) return;
+		if (GameManager._Instance.InModifierSelectMenu || LevelLoadManager._Instance.IsLoadingLevel) return;
 		isDashing = true;
 		dashEffect.Play(true);
 		// Using energy before doing action
