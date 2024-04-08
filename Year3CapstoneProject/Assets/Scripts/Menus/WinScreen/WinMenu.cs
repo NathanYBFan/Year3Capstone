@@ -35,7 +35,6 @@ public class WinMenu : MonoBehaviour
         LevelLoadManager._Instance.DisableLoadingScreeen();
 
         EventSystem.current.SetSelectedGameObject(firstButton);
-        textbox.text = "Player " + (GameManager._Instance.PlayerWinnerIndex + 1) + " Wins";
 
         List<int> playerWinOrder = new List<int>();     // Saved win order
         List<int> localPoints = new List<int>();        // Local save of the points
@@ -59,6 +58,17 @@ public class WinMenu : MonoBehaviour
 
             localPoints[index] = -1;
             playerWinOrder.Add(index); // Most points to smallest
+        }
+
+        // Tie for first
+        if (localPoints[playerWinOrder[0]] == localPoints[playerWinOrder[1]])
+            textbox.text = "Tie for first!";
+        // Single clear winner
+        else
+        {
+            textbox.text = "Player " + (GameManager._Instance.PlayerWinnerIndex + 1) + " Wins";
+            // Play audio
+            StartCoroutine(WinScreenAudio());
         }
 
         GameObject winChararacter;
@@ -109,9 +119,6 @@ public class WinMenu : MonoBehaviour
             GameObject characterIdle = GameObject.Instantiate(characterToSpawn, positionToSpawnCharacter[i]);
             UpdateMaterialsIdle(characterIdle, glowMaterialsToAssign[playerWinOrder[i]]);
         }
-
-        // Play audio
-        StartCoroutine(WinScreenAudio());
 	}
     private void OnDisable()
     {
