@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6423969008026666782}
   - component: {fileID: 7917954110875627954}
   - component: {fileID: 7201340552239203012}
-  - component: {fileID: -9041121234413992378}
+  - component: {fileID: 83990498906107774}
   m_Layer: 5
   m_Name: PlayerPointsFinal
   m_TagString: Untagged
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-9041121234413992378
+--- !u!114 &83990498906107774
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,10 +90,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1527116299834800415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9f6ab485d66b684389494934b751372, type: 3}
+  m_Script: {fileID: 11500000, guid: ed3aec8e81a7d604fa9e6274fa94fe5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstButton: {fileID: 0}
   crownRootObject: {fileID: 3465306669631236172}
   playerNum: 0
   barBg: {fileID: 2781165549566881529}
@@ -102,11 +101,9 @@ MonoBehaviour:
   playerIcon: {fileID: 3690873727238118528}
   playerIconBg: {fileID: 4779186579482045596}
   numberBgHighlight: {fileID: 0}
-  playerName: {fileID: 0}
+  playerName: {fileID: 3644100601198460649}
   currPoints: {fileID: 4155034280379689645}
-  pointGain: {fileID: 0}
-  currentPointsNumberCounter: {fileID: 2536366039880322649}
-  addedPointsNumberCounter: {fileID: 0}
+  currentPointsNumberCounter: {fileID: 0}
 --- !u!1 &2022818342498296069
 GameObject:
   m_ObjectHideFlags: 0

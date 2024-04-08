@@ -469,14 +469,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstButton: {fileID: 1679658219}
   textbox: {fileID: 1598578771}
-  barBg: {fileID: 1316758641}
-  playerIcon: {fileID: 1316758640}
-  playerBgIcon: {fileID: 1316758639}
-  placementBg: {fileID: 0}
-  crownRoot: {fileID: 1316758638}
-  crown: {fileID: 1316758637}
-  gems: {fileID: 1316758636}
-  playerNum: {fileID: 0}
   listOfSpawnableCharactersWin:
   - {fileID: 5819925849810372461, guid: 1dcf95c7635d1f44e92c464e4386877e, type: 3}
   - {fileID: 1085424162783543651, guid: 851af3d8aa6285144a0344439ccd3a90, type: 3}
@@ -505,6 +497,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 259948023}
     m_Modifications:
+    - target: {fileID: 83990498906107774, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
+      propertyPath: playerNum
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 83990498906107774, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
+      propertyPath: numberBgHighlight
+      value: 
+      objectReference: {fileID: 690919761}
     - target: {fileID: 1527116299834800415, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
       propertyPath: m_Name
       value: PlayerPointsFinal (2)
@@ -744,6 +744,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 259948023}
     m_Modifications:
+    - target: {fileID: 83990498906107774, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
+      propertyPath: playerNum
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 83990498906107774, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
+      propertyPath: numberBgHighlight
+      value: 
+      objectReference: {fileID: 887491861}
     - target: {fileID: 1527116299834800415, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
       propertyPath: m_Name
       value: PlayerPointsFinal (1)
@@ -10933,6 +10941,10 @@ PrefabInstance:
       propertyPath: numberBgHighlight
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 83990498906107774, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
+      propertyPath: numberBgHighlight
+      value: 
+      objectReference: {fileID: 2038995020}
     - target: {fileID: 1527116299834800415, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
       propertyPath: m_Name
       value: PlayerPointsFinal
@@ -11044,66 +11056,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1316758636 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2372254087217093568, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
-  m_PrefabInstance: {fileID: 1316758633}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1316758637 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7581944679872276452, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
-  m_PrefabInstance: {fileID: 1316758633}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1316758638 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3465306669631236172, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
-  m_PrefabInstance: {fileID: 1316758633}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1316758639 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4779186579482045596, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
-  m_PrefabInstance: {fileID: 1316758633}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1316758640 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3690873727238118528, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
-  m_PrefabInstance: {fileID: 1316758633}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1316758641 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2781165549566881529, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
-  m_PrefabInstance: {fileID: 1316758633}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1412311340
@@ -11399,6 +11351,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 259948023}
     m_Modifications:
+    - target: {fileID: 83990498906107774, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
+      propertyPath: playerNum
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 83990498906107774, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
+      propertyPath: numberBgHighlight
+      value: 
+      objectReference: {fileID: 2099825852}
     - target: {fileID: 1527116299834800415, guid: 68f864335254e0e479e5c0e92d24f92c, type: 3}
       propertyPath: m_Name
       value: PlayerPointsFinal (3)
