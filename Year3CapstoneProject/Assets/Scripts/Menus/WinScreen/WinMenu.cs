@@ -31,9 +31,7 @@ public class WinMenu : MonoBehaviour
 
     private void Start()
     {
-        Time.timeScale = 0;
-        LevelLoadManager._Instance.DisableLoadingScreeen();
-
+        GameManager._Instance.InGame = false;
         EventSystem.current.SetSelectedGameObject(firstButton);
 
         List<int> playerWinOrder = new List<int>();     // Saved win order
