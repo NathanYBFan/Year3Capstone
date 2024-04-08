@@ -188,6 +188,14 @@ public class BulletBehaviour : MonoBehaviour
 					Destroy(bulletRootObject.gameObject);
 				}
 				break;
+			case "StageWall":
+				bulletFX = Instantiate(bulletShattered, transform.position, Quaternion.identity);
+				if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
+				else
+				{
+					Destroy(bulletRootObject.gameObject);
+				}
+				break;
 			case "DestroysBullets":
 				if (isFragmentable) BulletObjectPoolManager._Instance.ExpiredBullet(bulletRootObject.gameObject);
 				else
