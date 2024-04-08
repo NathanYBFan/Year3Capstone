@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,11 +15,29 @@ public class WinMenu : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textbox;
 
-    //[SerializeField]
-    //private Image playerIcon;
+    [SerializeField]
+    private Image barBg;
 
-    //[SerializeField]
-    //private Image playerBgIcon;
+    [SerializeField]
+    private Image playerIcon;
+
+    [SerializeField]
+    private Image playerBgIcon;
+
+    [SerializeField]
+    private Image placementBg;
+
+    [SerializeField]
+    private GameObject crownRoot;
+
+    [SerializeField]
+    private Image crown;
+
+    [SerializeField]
+    private Image gems;
+
+    [SerializeField]
+    private TextMeshProUGUI playerNum;
 
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("All Characters to display")]

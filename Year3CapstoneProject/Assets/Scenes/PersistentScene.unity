@@ -5980,7 +5980,7 @@ MonoBehaviour:
   stageSpawnPoints: []
   deadPlayerList: []
   currentRound: 0
-  maxRounds: 4
+  maxRounds: 1
 --- !u!1 &1457749808
 GameObject:
   m_ObjectHideFlags: 0
