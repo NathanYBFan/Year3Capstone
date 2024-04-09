@@ -62,7 +62,7 @@ public class Platform : MonoBehaviour
 		StartCoroutine(Up());
 	}
 
-	public void fakeDestroy()
+	public void fakeDestroy(float delay)
 	{
 		isDropped = true;
 		MeshRenderer r = GetComponent<MeshRenderer>();
@@ -87,7 +87,7 @@ public class Platform : MonoBehaviour
 			child.GetComponent<MeshRenderer>().enabled = false;
 		}
 
-		if (destoryCoroutine == null) destoryCoroutine = StartCoroutine(destory());
+		if (destoryCoroutine == null) destoryCoroutine = StartCoroutine(destory(delay));
 
 
 	}
@@ -168,7 +168,7 @@ public class Platform : MonoBehaviour
 		yield break;
 	}
 
-	private IEnumerator destory()
+	private IEnumerator destory(float delay)
 	{
 
 		Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);
@@ -178,7 +178,7 @@ public class Platform : MonoBehaviour
 			transform.position = Vector3.MoveTowards(transform.position, endPos, 20 * Time.deltaTime);
 			yield return null;
 		}
-		yield return new WaitForSeconds(7);
+		yield return new WaitForSeconds(delay);
 		fakeRespawn();
 		destoryCoroutine = null;
 		yield break;

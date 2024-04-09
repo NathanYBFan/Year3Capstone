@@ -8,6 +8,9 @@ public class Meteor : MonoBehaviour, ChaosFactor
     [SerializeField]
     private int damage;
 
+    [SerializeField] 
+    private float platformRespwnDelay;
+
     [SerializeField]
     private int spawnHeight;
 
@@ -16,6 +19,8 @@ public class Meteor : MonoBehaviour, ChaosFactor
 
     [SerializeField]
     private MeshRenderer MeteorVisual;
+
+
 
     private Rigidbody rb;
 
@@ -76,7 +81,7 @@ public class Meteor : MonoBehaviour, ChaosFactor
         if (platform != null)
         {
 			platform.gameObject.GetComponent<Collider>().enabled = false;
-			platform.fakeDestroy();
+			platform.fakeDestroy(platformRespwnDelay);
 		}
 
 		StartCoroutine(boom());

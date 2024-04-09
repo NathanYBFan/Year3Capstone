@@ -58,9 +58,15 @@ public class ExplosiveBarrel : MonoBehaviour
 
     private IEnumerator BarrelReset()
     {
+
+        GetComponentInParent<Platform>().fakeDestroy(respawnTime);
+
+
+        yield return new WaitForSeconds(respawnTime+1);
+
         transform.rotation = startRot;
-        transform.position = startPos;
-        yield return new WaitForSeconds(respawnTime);
+        transform.position = new Vector3(startPos.x, GetComponentInParent<Transform>().position.y, startPos.z);
+        
         GetComponent<MeshRenderer>().enabled = true;
         GetComponent<BoxCollider>().enabled = true;
         exploded = false;
