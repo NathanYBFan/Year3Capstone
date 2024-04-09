@@ -34,6 +34,8 @@ public class WinMenu : MonoBehaviour
         GameManager._Instance.InGame = false;
         EventSystem.current.SetSelectedGameObject(firstButton);
 
+        AudioManager._Instance.PlayMusic(AudioManager._Instance.MusicList[0]);
+
         List<int> playerWinOrder = new List<int>();     // Saved win order
         List<int> localPoints = new List<int>();        // Local save of the points
 
