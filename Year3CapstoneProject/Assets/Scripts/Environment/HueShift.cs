@@ -103,7 +103,8 @@ public class HueShift : MonoBehaviour
 				}
 				cm.SetColor(currentColour);
 				cm.exposureValue = currentIntensity;
-				mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
+                mat.EnableKeyword("_EMISSION");
+                mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
 			}
 		}
 		else
@@ -125,7 +126,8 @@ public class HueShift : MonoBehaviour
 
 				cm.SetColor(newColour);
 				cm.exposureValue = currentIntensity;
-				mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
+                mat.EnableKeyword("_EMISSION");
+                mat.SetColor("_EmissionColor", cm.exposureAdjustedColor);
 			}
 		}
 		float OffsetX = Time.time * scrollX;
