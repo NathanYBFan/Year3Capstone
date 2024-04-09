@@ -41,14 +41,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Fill: -0.03
-    - _FreshnelPower: 1.7
+    - _Fill: -0.83
+    - _FreshnelPower: 0.54
+    - _Mult: 0
     - _Offset: 0.6
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ScrollSpeed: 0.01
     m_Colors:
-    - _Emission: {r: 0, g: 17.388996, b: 23.96862, a: 0}
+    - _Emission: {r: 0, g: 0.90727776, b: 0.9622642, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &495504617482140076
 MonoBehaviour:
