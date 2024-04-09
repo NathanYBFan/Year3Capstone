@@ -57,6 +57,7 @@ public class ModifierManager : MonoBehaviour
     // Open Menu actions
     public void OpenModifierMenu(int playerIndexToOpen)
     {
+        GameManager._Instance.InGame = false;
         CloseAllMenus();
         modifierMenus[playerIndexToOpen].SetActive(true);
     }
@@ -75,6 +76,7 @@ public class ModifierManager : MonoBehaviour
 	}
     public void CloseLeaderBoardMenu()
     {
+        GameManager._Instance.InGame = true;
         CloseAllMenus();
         GameManager._Instance.StartNewGame();
         Time.timeScale = 1;

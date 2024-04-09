@@ -5931,6 +5931,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1452139198}
   - component: {fileID: 1452139199}
+  - component: {fileID: 1452139200}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5982,6 +5983,18 @@ MonoBehaviour:
   deadPlayerList: []
   currentRound: 0
   maxRounds: 7
+--- !u!114 &1452139200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452139197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 837739e5884000c4d80b94d9f289b382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1457749808
 GameObject:
   m_ObjectHideFlags: 0
