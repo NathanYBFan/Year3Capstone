@@ -4676,6 +4676,10 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8721511402998692180, guid: 891bc625dbad9684e8a08ffe5feeb294, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721511402998692180, guid: 891bc625dbad9684e8a08ffe5feeb294, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
       value: 0.2509804
       objectReference: {fileID: 0}
