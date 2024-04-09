@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7142167600226085458}
   - component: {fileID: 6102878881915119095}
   - component: {fileID: 8310618282459156797}
+  - component: {fileID: 2121910234568710339}
   m_Layer: 0
   m_Name: LowPolyOcto
   m_TagString: Untagged
@@ -84,3 +85,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2121910234568710339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7518129815085904104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54e24cba205711f48b0abcb05432a049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementCap: 0.3
+  movementSpeed: 3.5

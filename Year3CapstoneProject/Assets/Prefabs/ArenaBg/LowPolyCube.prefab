@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4978586614070887385}
   - component: {fileID: 8266539293807922300}
   - component: {fileID: 6150882422547953846}
+  - component: {fileID: 1969747629551339843}
   m_Layer: 0
   m_Name: LowPolyCube
   m_TagString: Untagged
@@ -84,3 +85,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1969747629551339843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5646579937550113123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54e24cba205711f48b0abcb05432a049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementCap: 0.3
+  movementSpeed: 3.5
