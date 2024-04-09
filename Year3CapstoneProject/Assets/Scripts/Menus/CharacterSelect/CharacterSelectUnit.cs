@@ -118,7 +118,7 @@ public class CharacterSelectUnit : MonoBehaviour
     }
     public void ControllerConnected()
     {
-        currentState = selectState.characterSelect;
+        currentState = selectState.connectController;
 
         ResetDisplays();
         statGameObject.SetActive(true);
