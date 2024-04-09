@@ -101,23 +101,38 @@ public class WinMenu : MonoBehaviour
             switch (GameManager._Instance.Players[playerWinOrder[i]].GetComponent<PlayerStats>().CharacterStat.name)
             {
                 case "Cube":
-                    characterToSpawn = listOfSpawnableCharactersIdle[0];
+                    if (PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[i]])
+                        characterToSpawn = listOfSpawnableCharactersWin[0];
+                    else
+                        characterToSpawn = listOfSpawnableCharactersIdle[0];
                     break;
                 case "Octo":
-                    characterToSpawn = listOfSpawnableCharactersIdle[1];
+                    if (PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[i]])
+                        characterToSpawn = listOfSpawnableCharactersWin[1];
+                    else
+                        characterToSpawn = listOfSpawnableCharactersIdle[1];
                     break;
                 case "Pyr":
-                    characterToSpawn = listOfSpawnableCharactersIdle[2];
+                    if (PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[i]])
+                        characterToSpawn = listOfSpawnableCharactersWin[2];
+                    else
+                        characterToSpawn = listOfSpawnableCharactersIdle[2];
                     break;
                 case "Twelve":
-                    characterToSpawn = listOfSpawnableCharactersIdle[3];
+                    if (PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[i]])
+                        characterToSpawn = listOfSpawnableCharactersWin[3];
+                    else
+                        characterToSpawn = listOfSpawnableCharactersIdle[3];
                     break;
                 default:
                     characterToSpawn = null;
                     break;
             }
             GameObject characterIdle = GameObject.Instantiate(characterToSpawn, positionToSpawnCharacter[i]);
-            UpdateMaterialsIdle(characterIdle, glowMaterialsToAssign[playerWinOrder[i]]);
+            if (PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[0]] == PlayerStatsManager._Instance.PlayerPoints[playerWinOrder[i]])
+                UpdateMaterialsWin(characterIdle, glowMaterialsToAssign[playerWinOrder[i]]);
+            else
+                UpdateMaterialsIdle(characterIdle, glowMaterialsToAssign[playerWinOrder[i]]);
         }
 	}
     private void OnDisable()
