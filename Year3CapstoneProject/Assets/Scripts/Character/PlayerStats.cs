@@ -71,7 +71,7 @@ public class PlayerStats : MonoBehaviour
 
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("")]
-	private float rollSpeed = 1;
+	private float rollSpeed = 1.5f;
 
 	[SerializeField]
 	[Foldout("Player Stats"), Tooltip("Player damage amount.")]

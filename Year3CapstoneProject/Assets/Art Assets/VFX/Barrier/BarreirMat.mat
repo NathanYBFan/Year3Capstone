@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BarreiMat
+  m_Name: BarreirMat
   m_Shader: {fileID: -6465566751694194690, guid: 37b110a0a93cdb04bac6b22ead5fb419, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -41,12 +41,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Fill: 0.03
-    - _FreshnelPower: 5
+    - _Fill: -0.03
+    - _FreshnelPower: 1.7
     - _Offset: 0.6
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ScrollSpeed: 0.05
+    - _ScrollSpeed: 0.01
     m_Colors:
     - _Emission: {r: 0, g: 17.388996, b: 23.96862, a: 0}
   m_BuildTextureStacks: []
