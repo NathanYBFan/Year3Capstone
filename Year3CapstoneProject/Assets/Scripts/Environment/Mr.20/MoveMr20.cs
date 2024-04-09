@@ -25,7 +25,6 @@ public class MoveMr20 : MonoBehaviour
 	#region Private Variables
 	private Vector3 currPos;
 	private int targetIndex;
-	private bool rotating;
 	private bool returning; // whether or not he is on the return trip back to the start
 	private Vector3 rotVector;
 	float bobSpeed = 2f;
@@ -40,7 +39,6 @@ public class MoveMr20 : MonoBehaviour
 	void Start()
 	{
 		targetIndex = 0;
-		rotating = false;
 		returning = false;
 		currY = transform.position.y;
 		originalY = transform.position.y;
@@ -278,25 +276,11 @@ public class MoveMr20 : MonoBehaviour
 			if (currPos == new Vector3(pointList[targetIndex].transform.position.x, currPos.y, pointList[targetIndex].transform.position.z))
 			{
 				if (targetIndex == 0) break;
-				if (targetIndex + 1 >= pointList.Count)
-				{
-					returning = true;
-				}
-				if (currPos == new Vector3(pointList[0].transform.position.x, currPos.y, pointList[0].transform.position.z))
-				{
-					returning = false;
-				}
+				if (targetIndex + 1 >= pointList.Count) returning = true;
+				if (currPos == new Vector3(pointList[0].transform.position.x, currPos.y, pointList[0].transform.position.z)) returning = false;
 
-				if (returning && targetIndex - 1 >= 0)
-				{
-					targetIndex--;
-				}
-				else if (targetIndex + 1 < pointList.Count)
-				{
-					targetIndex++;
-
-				}
-
+				if (returning && targetIndex - 1 >= 0) targetIndex--;
+				else if (targetIndex + 1 < pointList.Count) targetIndex++;
 			}
 			yield return null;
 		}
