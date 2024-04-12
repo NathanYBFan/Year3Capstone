@@ -4942,7 +4942,7 @@ GameObject:
   - component: {fileID: -7280927664300173231}
   m_Layer: 0
   m_Name: ExplosionHitbox
-  m_TagString: Untagged
+  m_TagString: Explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5050,7 +5050,7 @@ MonoBehaviour:
   damage: 2
   giveableDebuff: {fileID: 0}
   minScale: 0
-  maxScale: 5
+  maxScale: 6
   explosionSpeed: 5
   explosionDelay: 0
   originalPlayerIndex: 0

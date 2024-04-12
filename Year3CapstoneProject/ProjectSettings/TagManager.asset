@@ -11,6 +11,7 @@ TagManager:
   - Bullet
   - DestroysBullets
   - StageWall
+  - Explosion
   layers:
   - Default
   - TransparentFX

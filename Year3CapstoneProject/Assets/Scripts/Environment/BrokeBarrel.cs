@@ -15,18 +15,22 @@ public class BrokeBarrel : MonoBehaviour
         {
             Rigidbody rb = hit.GetComponent<Rigidbody>();
             //Debug.Log(hit.name);
-
-            if (hit.name == "PlayerMesh")
+            switch(hit.tag)
             {
-
-                hit.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(3, DamageType.Hazard);
+                case "Player":
+					hit.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(3, DamageType.Hazard);
+					if (rb != null)
+					{
+						//Debug.Log("Add explosion force called");
+						rb.AddExplosionForce(30f, transform.position, 6.0f, 1.0f, ForceMode.Force);
+					}
+					break;
+                case "Bullet":
+                    BulletObjectPoolManager._Instance.ExpiredBullet(hit.gameObject);
+                    break;
             }
-
-            if (rb != null)
-            {
-                    //Debug.Log("Add explosion force called");
-                    rb.AddExplosionForce(30f, transform.position, 6.0f, 1.0f, ForceMode.Force);
-            }
+          
+           
 
         }
         StartCoroutine(boom());

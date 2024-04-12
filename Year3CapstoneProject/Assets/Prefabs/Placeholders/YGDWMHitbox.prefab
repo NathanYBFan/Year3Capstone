@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -3017655229176697287}
   m_Layer: 0
   m_Name: YGDWMHitbox
-  m_TagString: Untagged
+  m_TagString: Explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,7 +124,7 @@ MonoBehaviour:
   damage: 100
   giveableDebuff: {fileID: 0}
   minScale: 0
-  maxScale: 10
+  maxScale: 20
   explosionSpeed: 10
   explosionDelay: 0
   originalPlayerIndex: 0
@@ -7592,7 +7592,7 @@ ParticleSystem:
     magnitude:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 6
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -10133,7 +10133,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 8
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -14745,7 +14745,7 @@ ParticleSystemRenderer:
   m_MeshDistribution: 0
   m_SortMode: 1
   m_MinParticleSize: 0
-  m_MaxParticleSize: 5
+  m_MaxParticleSize: 8
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2

@@ -250,8 +250,8 @@
     },
     "m_FragmentContext": {
         "m_Position": {
-            "x": 0.0,
-            "y": 200.0
+            "x": 339.99993896484377,
+            "y": 284.0
         },
         "m_Blocks": [
             {
@@ -852,9 +852,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -299.3332824707031,
-            "y": 114.66666412353516,
-            "width": 209.33334350585938,
+            "x": -294.66668701171877,
+            "y": 70.0,
+            "width": 209.33331298828126,
             "height": 304.0
         }
     },
@@ -1788,7 +1788,7 @@
         "affectsNormalBlend": true,
         "affectsNormal": true,
         "affectsMAOS": false,
-        "affectsEmission": false,
+        "affectsEmission": true,
         "drawOrder": 0,
         "supportLodCrossFade": false,
         "angleFade": false

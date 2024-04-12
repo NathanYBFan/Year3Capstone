@@ -76,9 +76,8 @@ public class Explosive : MonoBehaviour
 					other.transform.parent.parent.GetComponent<PlayerStats>().TakeDamage(damage, DamageType.Explosive);
 				}
 				break;
-			case "StageNormal":
-				//Do damage to this stage block's "health" component.
-				//TO DO: Have stage blocks that are breakable, with health component.
+			case "StageBreakable":
+				other.GetComponent<ExplosiveBarrel>()?.ExplodeBarrel();
 				break;
 			default: break;
 		}
