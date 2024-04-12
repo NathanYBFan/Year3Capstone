@@ -20,6 +20,9 @@ public class Boot : MonoBehaviour, ChaosFactor
 
     private float[] holdSpeeds;
 
+    [SerializeField]
+    private GameObject[] compatibleCFs;
+    public GameObject[] CompatibleCFs { get { return compatibleCFs; } }
     public string Name { get { return CFname; } }
     public float Timer { get { return timer; } }
 
@@ -33,6 +36,7 @@ public class Boot : MonoBehaviour, ChaosFactor
     // Start is called before the first frame update
     void Start()
     {
+        ChaosFactorManager._Instance.activeCFCount++;
         holdSpeeds = new float[GameManager._Instance.Players.Count];
         //get random player from the gamemanager player list, called target player
         for (int i = 0; i < GameManager._Instance.Players.Count; i++)
@@ -47,7 +51,10 @@ public class Boot : MonoBehaviour, ChaosFactor
 
     }
 
-
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+    }
 
     public void Kick(GameObject kicker)
     {
@@ -112,11 +119,12 @@ public class Boot : MonoBehaviour, ChaosFactor
             }
 
         }
+        ChaosFactorManager._Instance.activeCFCount--;
     }
 
 	public void OnEndOfChaosFactor(bool earlyEnd)
 	{
-		Destroy(gameObject);
+        Destroy(gameObject);
 	}
 
     //Plays the kick impact sound

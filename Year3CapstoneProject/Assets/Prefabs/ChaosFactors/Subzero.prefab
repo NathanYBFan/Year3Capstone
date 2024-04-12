@@ -48,3 +48,10 @@ MonoBehaviour:
   CFname: Subzero
   speed: 0
   material: {fileID: 13400000, guid: 342e43d5337861a4e90bd94f15cdef7b, type: 2}
+  compatibleCFs:
+  - {fileID: 921173806376354403, guid: fc0056a270ed54e46982f61924823536, type: 3}
+  - {fileID: 3609183317745968879, guid: 61c5c9afbef271044899f68f2b249a9f, type: 3}
+  - {fileID: 4470727495321325218, guid: 2d495fc6a2a4a5e459af1551bbaa0f73, type: 3}
+  - {fileID: 2646675893299766602, guid: 5b57aff94e4509a46b8683f5f8fca875, type: 3}
+  - {fileID: 852658246439149863, guid: 2303ff10ead46aa4cbd804c6899469b0, type: 3}
+  - {fileID: 2818179549119274978, guid: b61e86e78df4478489f36edd1df3b319, type: 3}

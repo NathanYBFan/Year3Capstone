@@ -41,10 +41,14 @@ public class Meteor : MonoBehaviour, ChaosFactor
     private GameObject markerInstance;
     private GeneratesRumble rumble;
 
+    [SerializeField]
+    private GameObject[] compatibleCFs;
+    public GameObject[] CompatibleCFs { get { return compatibleCFs; } }
     public string Name { get { return CFname; } }
     public float Timer { get { return timer; } }
     void Awake()
     {
+        ChaosFactorManager._Instance.activeCFCount++;
         rumble = GetComponent<GeneratesRumble>();
         Vector3 start = GameManager._Instance.Platforms[0].transform.position;
         Vector3 end = GameManager._Instance.Platforms.Last().transform.position;
@@ -67,7 +71,8 @@ public class Meteor : MonoBehaviour, ChaosFactor
     void Update()
     {
         rb.AddForce(transform.up*fallForce);
-        
+        timer -= Time.deltaTime;
+
     }
 
 
@@ -148,6 +153,9 @@ public class Meteor : MonoBehaviour, ChaosFactor
 		GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(0, 1);
 		for (int i = 0; i < 4; i++)
 			StartCoroutine(GameManager._Instance.StopRumble(i));
-		Destroy(gameObject);
+
+        ChaosFactorManager._Instance.activeCFCount--;
+
+        Destroy(gameObject);
 	}
 }

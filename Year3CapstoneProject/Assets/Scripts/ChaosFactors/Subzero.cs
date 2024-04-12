@@ -8,6 +8,8 @@ public class Subzero : MonoBehaviour, ChaosFactor
     [SerializeField]
     private string CFname;
 
+
+
     [SerializeField] 
     private float speed;
     [SerializeField]
@@ -19,12 +21,15 @@ public class Subzero : MonoBehaviour, ChaosFactor
     public string Name { get { return CFname; } }
     public float Timer { get { return timer; } }
 
+    [SerializeField]
+    private GameObject[] compatibleCFs;
+    public GameObject[] CompatibleCFs { get { return compatibleCFs; } }
 
     private void Start()
     {
 
         name = "SubZero";
-
+        ChaosFactorManager._Instance.activeCFCount++;
         hold = material.dynamicFriction;
         material.dynamicFriction = 0;
         FreezeSound();
@@ -55,11 +60,18 @@ public class Subzero : MonoBehaviour, ChaosFactor
         {
             q.GetComponent<Platform>().toggleIce(false);
         }
-
+        ChaosFactorManager._Instance.activeCFCount--;
     }
 
-	public void OnEndOfChaosFactor(bool earlyEnd)
+
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+    }
+
+    public void OnEndOfChaosFactor(bool earlyEnd)
 	{
+
 		Destroy(gameObject);
 	}
 

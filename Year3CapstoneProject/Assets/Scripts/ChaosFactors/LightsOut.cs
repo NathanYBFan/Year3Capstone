@@ -20,10 +20,13 @@ public class LightsOut : MonoBehaviour, ChaosFactor
 
     public float Timer { get { return timer; } }
 
-
+    [SerializeField]
+    private GameObject[] compatibleCFs;
+    public GameObject[] CompatibleCFs { get { return compatibleCFs; } }
 
     void Start()
     {
+        ChaosFactorManager._Instance.activeCFCount++;
         sun = GameObject.Find("Sun").GetComponent<Light>();
         dr = GameObject.Find("Directional Light").GetComponent<Light>();
         fog = GameObject.Find("Pit Volume Fog/Particle System").GetComponent<ParticleSystem>();
@@ -75,6 +78,10 @@ public class LightsOut : MonoBehaviour, ChaosFactor
         yield return null;
     }
 
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+    }
 
     private void OnDestroy()
     {
@@ -84,12 +91,14 @@ public class LightsOut : MonoBehaviour, ChaosFactor
         sun.enabled = true;
         dr.enabled = true;
         fog.gameObject.SetActive(true);
+        ChaosFactorManager._Instance.activeCFCount--;
 
     }
 
     public void OnEndOfChaosFactor(bool earlyEnd)
 	{
-		Destroy(gameObject);
+
+        Destroy(gameObject);
 	}
 
     //Plays the powering down sound

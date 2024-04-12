@@ -51,6 +51,12 @@ MonoBehaviour:
   playerSpeed: 16
   timer: 20
   CFname: Hot Potato
+  compatibleCFs:
+  - {fileID: 4470727495321325218, guid: 2d495fc6a2a4a5e459af1551bbaa0f73, type: 3}
+  - {fileID: 2646675893299766602, guid: 5b57aff94e4509a46b8683f5f8fca875, type: 3}
+  - {fileID: 852658246439149863, guid: 2303ff10ead46aa4cbd804c6899469b0, type: 3}
+  - {fileID: 2818179549119274978, guid: b61e86e78df4478489f36edd1df3b319, type: 3}
+  - {fileID: 8732952394648480490, guid: 281bb21b1941c2949aa7316fe9cff7e8, type: 3}
 --- !u!114 &1134108532448509615
 MonoBehaviour:
   m_ObjectHideFlags: 0

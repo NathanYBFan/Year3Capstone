@@ -31,13 +31,17 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 
 	private GameObject[] playerHolder;
 
+    [SerializeField]
+    private GameObject[] compatibleCFs;
+    public GameObject[] CompatibleCFs { get { return compatibleCFs; } }
     public string Name { get { return CFname; } }
     public float Timer { get { return timer; } }
 
 
 	private void OnEnable()
 	{
-		playerHolder = new GameObject[4];
+        ChaosFactorManager._Instance.activeCFCount++;
+        playerHolder = new GameObject[4];
 		rumble = GetComponent<GeneratesRumble>();
 		bool loop = false;
 		Random.InitState((int)System.DateTime.Now.TimeOfDay.TotalSeconds);
@@ -94,15 +98,16 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 		targetPlayer.GetComponent<PlayerStats>().MovementSpeed = targetSpeed;
 		//spawn bomb belt on player
 		Spawnedbelt = Instantiate(UnSpawnedbelt, new Vector3(targetPlayer.transform.position.x, targetPlayer.transform.position.y + 2, targetPlayer.transform.position.z), Quaternion.Euler(new Vector3(-90, 0, 0)), this.transform);
-	}
+    }
 
 
 	// Update is called once per frame
 	void Update()
 	{
+        timer -= Time.deltaTime;
 
-		//move with target player
-		Spawnedbelt.transform.position = new Vector3(targetPlayer.transform.position.x, targetPlayer.transform.position.y + 2, targetPlayer.transform.position.z);
+        //move with target player
+        Spawnedbelt.transform.position = new Vector3(targetPlayer.transform.position.x, targetPlayer.transform.position.y + 2, targetPlayer.transform.position.z);
 		Spawnedbelt.transform.Rotate(new Vector3(0, 0, beltRotSpeed) * Time.deltaTime);
 
 		if (targetPlayer.GetComponent<PlayerStats>().IsDead == true)
@@ -146,8 +151,8 @@ public class ExplosiveTag : MonoBehaviour, ChaosFactor
 			for (int i = 0; i < 4; i++)
 				StartCoroutine(GameManager._Instance.StopRumble(i));
 		}
-		 
-		Destroy(gameObject);
+        ChaosFactorManager._Instance.activeCFCount--;
+        Destroy(gameObject);
 	}
 
 	//Plays the burst sound

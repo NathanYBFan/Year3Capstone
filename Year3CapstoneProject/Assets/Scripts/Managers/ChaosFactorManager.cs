@@ -10,6 +10,7 @@ public class ChaosFactorManager : MonoBehaviour
 	// Singleton Initialization
 	public static ChaosFactorManager _Instance;
 
+
 	#region SerializeFields
 	[SerializeField]
 	private GameObject gameManagerRef;
@@ -56,15 +57,18 @@ public class ChaosFactorManager : MonoBehaviour
 	private Color startColor;
 	private Color textStart;
 
+	public int activeCFCount;
 
 	private int pulseCount = 4;
 	private void Awake()
 	{
 		startColor = Color.white;
-		
-		
 
-		alertText.color = Color.red;
+
+		activeCFCount = 0;
+
+
+        alertText.color = Color.red;
 
 		//timer = true;
 		if (_Instance != null && _Instance != this)
@@ -149,13 +153,40 @@ public class ChaosFactorManager : MonoBehaviour
 	public IEnumerator ChaosFactorSpawnTimer()
 	{
 		while (GameManager._Instance.InGame)
-		{
-			if (nextChaosFactorTimerSeconds > chaosFactorMaxTimerSeconds)
+        {	//debug if to delete
+            if (activeCFCount > 2)
+            {
+                print("It's broken");
+            }
+
+            if (nextChaosFactorTimerSeconds > chaosFactorMaxTimerSeconds)
 			{
-				int chaosFactorToSpawn = Random.Range(0, chaosFactorList.Count);
-				StartCoroutine(RunChaosFactor(chaosFactorList[chaosFactorToSpawn]));
-				ResetChaosFactorTimer();
-			}
+				
+				if (activeCFCount >= 2)
+				{
+					float shortestTimer = transform.GetChild(0).GetComponent<ChaosFactor>().Timer;
+					if (shortestTimer > transform.GetChild(1).GetComponent<ChaosFactor>().Timer) { shortestTimer = transform.GetChild(1).GetComponent<ChaosFactor>().Timer; }                   
+                    yield return new WaitForSeconds(shortestTimer);
+                }
+
+
+				if (activeCFCount == 1)
+				{
+					
+                    int chaosFactorToSpawn = Random.Range(0, GetComponentInChildren<ChaosFactor>().CompatibleCFs.Length);
+                    StartCoroutine(RunChaosFactor(GetComponentInChildren<ChaosFactor>().CompatibleCFs[chaosFactorToSpawn]));
+                    ResetChaosFactorTimer();
+                }
+				else
+				{
+                    int chaosFactorToSpawn = Random.Range(0, chaosFactorList.Count);
+                    StartCoroutine(RunChaosFactor(chaosFactorList[chaosFactorToSpawn]));
+                    ResetChaosFactorTimer();
+                }
+
+				
+
+            }
 			else if (timer == true) { nextChaosFactorTimerSeconds += Time.deltaTime; }
 			//
 

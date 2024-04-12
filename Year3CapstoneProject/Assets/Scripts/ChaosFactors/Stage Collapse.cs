@@ -30,6 +30,10 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 
 	private GeneratesRumble rumble;
 
+    [SerializeField]
+    private GameObject[] compatibleCFs;
+    public GameObject[] CompatibleCFs { get { return compatibleCFs; } }
+
     // Public getter/setters
     public string Name { get { return CFname; } }
     public float Timer { get { return timer; } }
@@ -37,9 +41,8 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 	// Start is called before the first frame update
 	void Start()
 	{
-		
-
-		numberOfBlocks = (int)(GameManager._Instance.Platforms.Count * percentofBlocks);
+        ChaosFactorManager._Instance.activeCFCount++;
+        numberOfBlocks = (int)(GameManager._Instance.Platforms.Count * percentofBlocks);
 		
         rumble = GetComponent<GeneratesRumble>();
 		droppedPlatforms = new GameObject[numberOfBlocks];
@@ -48,7 +51,12 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 		for (int i = 0; i < 4; i++)
 			StartCoroutine(GameManager._Instance.CreateRumble(rumble.RumbleDuration, rumble.LeftIntensity, rumble.RightIntensity, i, false));
 	}
-	public IEnumerator collapse()
+
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+    }
+    public IEnumerator collapse()
 	{
 		for (int i = 0; i < numberOfBlocks; i++)
 		{
@@ -102,7 +110,8 @@ public class StageCollapse : MonoBehaviour, ChaosFactor
 		GameObject.Find("VCam").GetComponent<CameraShake>().ShakeCamera(0, 1);
 		for (int i = 0; i < 4; i++)
 			StartCoroutine(GameManager._Instance.StopRumble(i));
-		Destroy(gameObject);
+		ChaosFactorManager._Instance.activeCFCount--;
+        Destroy(gameObject);
 	}
 
 }

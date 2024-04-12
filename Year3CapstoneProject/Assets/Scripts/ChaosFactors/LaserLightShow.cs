@@ -21,12 +21,14 @@ public class LaserLightShow : MonoBehaviour, ChaosFactor
     public string Name { get { return CFname; } }
     public float Timer { get{ return timer; } }
 
- 
+    [SerializeField]
+    private GameObject[] compatibleCFs;
+    public GameObject[] CompatibleCFs { get { return compatibleCFs; } }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        ChaosFactorManager._Instance.activeCFCount++;
         Vector3 start = GameManager._Instance.Platforms[0].transform.position;
         Vector3 end = GameManager._Instance.Platforms.Last().transform.position;
 
@@ -39,6 +41,7 @@ public class LaserLightShow : MonoBehaviour, ChaosFactor
     {
 
         transform.Rotate(new Vector3(0, 0, rotSpeed) *Time.deltaTime);
+        timer -= Time.deltaTime;
 
 
     }
@@ -57,6 +60,7 @@ public class LaserLightShow : MonoBehaviour, ChaosFactor
 
 	public void OnEndOfChaosFactor(bool earlyEnd)
 	{
-		Destroy(gameObject);
+        ChaosFactorManager._Instance.activeCFCount--;
+        Destroy(gameObject);
 	}
 }

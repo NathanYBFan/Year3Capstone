@@ -9,5 +9,7 @@ public interface ChaosFactor
     public string Name { get; }
 
     public void OnEndOfChaosFactor(bool earlyEnd);
-    
+
+    public GameObject[] CompatibleCFs { get; }
+
 }
