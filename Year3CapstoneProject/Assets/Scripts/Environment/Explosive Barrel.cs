@@ -90,7 +90,7 @@ public class ExplosiveBarrel : MonoBehaviour
 	}
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.GetComponent<SphereCollider>().CompareTag("Bullet") && !exploded)
+        if (other.transform.GetComponent<Collider>().CompareTag("Bullet") && !exploded)
         {
             GameObject dest = Instantiate(destroyedVersion, transform.position, transform.rotation, transform.parent.parent);
 

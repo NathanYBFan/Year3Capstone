@@ -26,7 +26,7 @@ public class BrokeBarrel : MonoBehaviour
 					}
 					break;
                 case "Bullet":
-                    BulletObjectPoolManager._Instance.ExpiredBullet(hit.gameObject);
+                    BulletObjectPoolManager._Instance.ExpiredBullet(hit.transform.parent.gameObject);
                     break;
             }
           

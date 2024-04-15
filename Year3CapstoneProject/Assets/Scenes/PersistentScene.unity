@@ -2248,6 +2248,7 @@ MonoBehaviour:
   nextChaosFactorTimerSeconds: 0
   chaosFactorMaxTimerSeconds: 15
   currentRunningChaosFactors: []
+  activeCFCount: 0
 --- !u!1 &694279906
 GameObject:
   m_ObjectHideFlags: 0
@@ -5516,7 +5517,7 @@ RectTransform:
   m_GameObject: {fileID: 1298925951}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1479080604}
@@ -6401,8 +6402,8 @@ Transform:
   m_GameObject: {fileID: 1597967686}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 858.1, y: -43, z: -512.5431}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1295, y: -66, z: -512.5431}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2091231433}

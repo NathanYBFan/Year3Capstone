@@ -69,6 +69,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88ce4c734fec26c45a716d734f263c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rumbleDuration: 20
+  rumbleDuration: 15
   leftIntensity: 0.1
   rightIntensity: 0.1
