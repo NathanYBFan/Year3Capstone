@@ -34,9 +34,10 @@ public class BombBelt : MonoBehaviour
 	private AudioSource audioSource;
 	#endregion
 	public GameObject ExplosionFX { get { return explosionFX; } }
-	
-	#region Private Variables
-	private ExplosiveTag bombTagData;
+
+	private float timer;
+    #region Private Variables
+    private ExplosiveTag bombTagData;
 	private float currentTime = 0;
 	private float baseFlashSpeed = 0;
 	#endregion
@@ -47,7 +48,9 @@ public class BombBelt : MonoBehaviour
 		bombBeltMat.EnableKeyword("_EMISSION");
 		bombBeltMat.SetColor("_EmissionColor", lightColour * minEmissionIntensity);
 		StartCoroutine(FlashOn());
-	}
+		timer = bombTagData.Timer;
+
+    }
     private IEnumerator FlashOn()
     {
         float elapsedTime = 0;
@@ -61,8 +64,8 @@ public class BombBelt : MonoBehaviour
 		}
         yield return new WaitForSeconds(delay);
 		currentTime += elapsedTime;
-		audioSource.PlayOneShot(tickSFX);
-		flashSpeed = baseFlashSpeed - ((currentTime / bombTagData.Timer) * baseFlashSpeed);
+		audioSource.PlayOneShot(tickSFX);//plays the sound
+		flashSpeed = baseFlashSpeed - ((currentTime / timer) * baseFlashSpeed);
 		StartCoroutine(FlashOff());
 	}
     private IEnumerator FlashOff()
@@ -78,7 +81,7 @@ public class BombBelt : MonoBehaviour
 		}
         yield return new WaitForSeconds(delay);
 		currentTime += elapsedTime;
-		flashSpeed = baseFlashSpeed - ((currentTime / bombTagData.Timer) * baseFlashSpeed);
+		flashSpeed = baseFlashSpeed - ((currentTime / timer) * baseFlashSpeed);
 		StartCoroutine(FlashOn());
 	}
 	private void OnTriggerEnter(Collider other)
