@@ -28,21 +28,9 @@ namespace UI.SettingsMenu {
                 _ => Screen.fullScreenMode
             };
             bool fullscreen = PlayerPrefs.GetInt("windowState", 1) == 0 || PlayerPrefs.GetInt("windowState", 1) == 1;
-            
-            PlayerPrefs.SetInt("resolution", value);
-            switch (value)
-            {
-                case 0:
-                    Screen.SetResolution(2560, 1440, fullscreen);
-                    break;
-                case 1:
-                    Screen.SetResolution(1920, 1080, fullscreen);
-                    break;
-                case 2:
-                    Screen.SetResolution(1280, 720, fullscreen);
-                    break;
-            }
-            
+
+            Screen.SetResolution(1920, 1080, fullscreen);
+
             if (PlayerPrefs.GetInt("initialFloat", 0) == 0) {
                 audioMixer.SetFloat("Master", 20);
                 audioMixer.SetFloat("Music", 20);

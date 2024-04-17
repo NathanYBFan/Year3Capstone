@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 	[Foldout("Dependencies"), Tooltip("array of spawnpoints")]
 	private List<Transform> stageSpawnPoints;
 
-	[SerializeField, ReadOnly]
+    [SerializeField, ReadOnly]
 	[Foldout("Stats"), Tooltip("List of players who are dead")]
 	private List<GameObject> deadPlayerList;
 
@@ -231,21 +231,27 @@ public class GameManager : MonoBehaviour
 		ModifierManager._Instance.PlayerToModify = deadPlayerList[0]; // First dead should be modified
 		ModifierManager._Instance.OpenModifierMenu(deadPlayerList[0].GetComponent<PlayerBody>().PlayerIndex); // Open modifier menu for dead player
 		AudioManager._Instance.ResetInactivityTimer();
-
 	}
 
 	public void WinConditionMet()
 	{
+		LastGameResults._Instance.ResetAll();
+
 		// Make local variables
 		List<int> playerWinOrder = new List<int>();     // Saved win order
 		List<int> localPoints = new List<int>();        // Local save of the points
 
 		// Fill local variables
 		for (int i = 0; i < PlayerStatsManager._Instance.PlayerPoints.Length; i++)
-			localPoints.Add(PlayerStatsManager._Instance.PlayerPoints[i]);
+		{
+            localPoints.Add(PlayerStatsManager._Instance.PlayerPoints[i]);
+            LastGameResults._Instance.Scores.Add(PlayerStatsManager._Instance.PlayerPoints[i]);
 
-		// For the number of players there are
-		for (int j = 0; j < players.Count; j++)
+        }
+
+
+        // For the number of players there are
+        for (int j = 0; j < players.Count; j++)
 		{
 			int max = 0;    // Max saved number
 			int index = 0;  // Index max number is found
@@ -263,6 +269,15 @@ public class GameManager : MonoBehaviour
 			playerWinOrder.Add(index); // Most points to smallest
 		}
 		playerWinnerIndex = playerWinOrder[0];
+        LastGameResults._Instance.WinOrder = playerWinOrder;
+
+		for (int i = 0; i < players.Count; i++)
+		{
+            LastGameResults._Instance.PlayerUIFace.Add(players[playerWinOrder[i]].GetComponent<PlayerStats>().CharacterStat.characterSprite);
+            LastGameResults._Instance.PlayerUIBG.Add(players[playerWinOrder[i]].GetComponent<PlayerStats>().CharacterStat.characterBGSprite);
+			LastGameResults._Instance.CharacterUIColors.Add(players[playerWinOrder[i]].GetComponent<PlayerStats>().UIColor);
+		}
+
 		LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
 		AudioManager._Instance.ResetInactivityTimer();
 	}
