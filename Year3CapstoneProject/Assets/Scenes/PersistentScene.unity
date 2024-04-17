@@ -1111,6 +1111,7 @@ MonoBehaviour:
   playerToModify: {fileID: 0}
   leaderboardRootObject: {fileID: 743839865}
   leaderboardButton: {fileID: 2003279498}
+  leaderboardRoundText: {fileID: 2145559376}
 --- !u!1 &222585821
 GameObject:
   m_ObjectHideFlags: 0
@@ -9131,7 +9132,7 @@ GameObject:
   - component: {fileID: 2145559377}
   - component: {fileID: 2145559376}
   m_Layer: 5
-  m_Name: ResultsText
+  m_Name: NumberOfRounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9176,7 +9177,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Results
+  m_text: 'Round: 1 / 7'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a4f720d12722caf49b15243b450d6373, type: 2}
   m_sharedMaterial: {fileID: -6489110615460202642, guid: a4f720d12722caf49b15243b450d6373, type: 2}
@@ -9239,7 +9240,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -75.51477, y: 0, z: -45.318848, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

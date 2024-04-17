@@ -73,7 +73,8 @@ public class Leaderboard : MonoBehaviour
 
     private void OnEnable()
     {
-        EventSystem.current.SetSelectedGameObject(firstButton);
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(firstButton);
         
         List<int> playerWinOrder = new List<int>();     // Saved win order
         List<int> localPoints = new List<int>();        // Local save of the points

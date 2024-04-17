@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -28,6 +29,10 @@ public class ModifierManager : MonoBehaviour
     [SerializeField]
     [Foldout("Dependencies"), Tooltip("The player to apply the modifier to")]
     private GameObject leaderboardButton;
+
+    [SerializeField]
+    [Foldout("Dependencies"), Tooltip("Text holding the round counter")]
+    private TextMeshProUGUI leaderboardRoundText;
     #endregion
 
     #region Getters&Setters
@@ -67,12 +72,14 @@ public class ModifierManager : MonoBehaviour
     {
         CloseAllMenus();
         playerToModify = null;
-        leaderboardRootObject.SetActive(true);
-        MenuInputManager._Instance.MainUIEventSystem.GetComponent<EventSystem>().SetSelectedGameObject(leaderboardButton);
+        ShowLeaderBoardMenu();
+        if (MenuInputManager._Instance.MainUIEventSystem.GetComponent<EventSystem>() != null)
+            MenuInputManager._Instance.MainUIEventSystem.GetComponent<EventSystem>().SetSelectedGameObject(leaderboardButton);
     }
     public void ShowLeaderBoardMenu()
     {
 		leaderboardRootObject.SetActive(true);
+        leaderboardRoundText.text = "Round: " + GameManager._Instance.CurrentRound + " / " + GameManager._Instance.MaxRounds;
 	}
     public void CloseLeaderBoardMenu()
     {
