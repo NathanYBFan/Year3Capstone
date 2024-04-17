@@ -75,10 +75,12 @@ public class Bars : MonoBehaviour
     private Color originalCharacterBGColor;
     private Color originalCharacterGlowColor;
     private bool earlyOut = false;
+    private Vector3 originalPos;
     #endregion
 
     private void Start()
     {
+        originalPos = objectToShake.transform.position;
         originalCharacterBGColor = Color.white;
         originalCharacterGlowColor = playerStats.UIColor;
         FullReset();
@@ -141,10 +143,12 @@ public class Bars : MonoBehaviour
         if (runningShakeCoroutine != null)
         {
             StopCoroutine(runningShakeCoroutine);
+            FullReset();
 		}
 		if (runningAggravatedCoroutine != null)
 		{
 			StopCoroutine(runningAggravatedCoroutine);
+            FullReset();
 		}
 		runningShakeCoroutine = StartCoroutine(shake(currentHealth, previousHealth));
         runningAggravatedCoroutine = StartCoroutine(AggravatedHealthUpdate(currentHealth, previousHealth));
@@ -169,7 +173,6 @@ public class Bars : MonoBehaviour
     private IEnumerator shake(float currentHealth, float previousHealth)
     {
         float timer = 0;
-        var originalPosition = objectToShake.transform.position;
 
         characterBG.color = characterBGDamageColor;
         characterGlow.color = characterGlowDamageColor;
@@ -185,6 +188,6 @@ public class Bars : MonoBehaviour
 
         characterBG.color = originalCharacterBGColor;
         characterGlow.color = originalCharacterGlowColor;
-        objectToShake.transform.position = originalPosition;
+        objectToShake.transform.position = originalPos;
     }
 }

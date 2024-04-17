@@ -89,17 +89,14 @@ public class ModifierMenu : MonoBehaviour
 		MenuInputManager._Instance.MainUIEventSystem.SetActive(false);
 
 		StartCoroutine(GameManager._Instance.CreateRumble(rumble.RumbleDuration, rumble.LeftIntensity, rumble.RightIntensity, playerIndex, true));
-		uiInputModule.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstButton);
-	}
-	private void Update()
-	{
-		if (isActiveAndEnabled && Input.GetKeyDown(KeyCode.Q))
+		if (uiInputModule.GetComponent<MultiplayerEventSystem>() != null)
 			uiInputModule.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstButton);
 	}
 
 	private void OnDisable()
 	{
-		EventSystem.current.SetSelectedGameObject(null);
+		if (EventSystem.current != null)
+			EventSystem.current.SetSelectedGameObject(null);
 		MenuInputManager._Instance.MainUIEventSystem.SetActive(true);
 	}
 
