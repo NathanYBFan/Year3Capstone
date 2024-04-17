@@ -2235,7 +2235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManagerRef: {fileID: 1452139197}
   alert: {fileID: 1694195880}
-  timer: 1
+  timer: 0
   alertText: {fileID: 816054214}
   chaosFactorList:
   - {fileID: 8732952394648480490, guid: 281bb21b1941c2949aa7316fe9cff7e8, type: 3}
@@ -2249,6 +2249,7 @@ MonoBehaviour:
   chaosFactorMaxTimerSeconds: 15
   currentRunningChaosFactors: []
   activeCFCount: 0
+  demoOrder: 00000000010000000200000003000000040000000500000006000000
 --- !u!1 &694279906
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,8 +21,10 @@ public class ChaosFactorManager : MonoBehaviour
     [SerializeField]
     private bool timer;
 
+    [SerializeField]
+    private bool demoMode;
 
-	[SerializeField] 
+    [SerializeField] 
 	private TextMeshProUGUI alertText;
 
     [SerializeField]
@@ -54,16 +56,26 @@ public class ChaosFactorManager : MonoBehaviour
 
 	
 	private bool chaosFactorActive = true;
+
+
+
 	private Color startColor;
 	private Color textStart;
 
 	public int activeCFCount;
 
+	[SerializeField]
+	private int[] demoOrder;
+
 	private int pulseCount = 4;
+
+	private int demoCount;
+	public int demoTracker = 0;
 	private void Awake()
 	{
-		startColor = Color.white;
+		demoCount = demoOrder.Length-1;
 
+		startColor = Color.white;
 
 		activeCFCount = 0;
 
@@ -128,17 +140,35 @@ public class ChaosFactorManager : MonoBehaviour
 			StartCoroutine(RunChaosFactor(chaosFactorList[6]));
 		}
 
-		if (Input.GetKeyDown("[9]"))
-		{
-			Debug.Log("Input recived: Numpad 9");
-			timer = !timer;
-			nextChaosFactorTimerSeconds = 30;
+        if (Input.GetKeyDown("[8]"))
+        {
+            Debug.Log("Input recived: Numpad 8");
+            demoMode = !demoMode;
+
+        }
+
+        if (Input.GetKeyDown("[9]"))
+        {
+            Debug.Log("Input recived: Numpad 9");
+            timer = !timer;
+            nextChaosFactorTimerSeconds = chaosFactorMaxTimerSeconds;
+
+
+        }
 
 
 
-		}
+        if (Input.GetKeyDown("1"))
+        {
+            demoMode = true;
+        }
+        if (Input.GetKeyDown("2"))
+        {
+			demoMode = false;
+        }
 
-		if (Input.GetKeyDown(KeyCode.O))
+
+        if (Input.GetKeyDown(KeyCode.O))
 		{
 
 		}
@@ -161,7 +191,7 @@ public class ChaosFactorManager : MonoBehaviour
 
             if (nextChaosFactorTimerSeconds > chaosFactorMaxTimerSeconds)
 			{
-				
+				print("timer over");
 				if (activeCFCount >= 2)
 				{
 					float shortestTimer = transform.GetChild(0).GetComponent<ChaosFactor>().Timer;
@@ -169,21 +199,34 @@ public class ChaosFactorManager : MonoBehaviour
                     yield return new WaitForSeconds(shortestTimer);
                 }
 
-
-				if (activeCFCount == 1)
+				if (demoMode == false)
 				{
-					
-                    int chaosFactorToSpawn = Random.Range(0, GetComponentInChildren<ChaosFactor>().CompatibleCFs.Length);
-                    StartCoroutine(RunChaosFactor(GetComponentInChildren<ChaosFactor>().CompatibleCFs[chaosFactorToSpawn]));
-                    ResetChaosFactorTimer();
-                }
-				else
-				{
-                    int chaosFactorToSpawn = Random.Range(0, chaosFactorList.Count);
-                    StartCoroutine(RunChaosFactor(chaosFactorList[chaosFactorToSpawn]));
-                    ResetChaosFactorTimer();
+                    if (activeCFCount == 1)
+                    {
+
+                        int chaosFactorToSpawn = Random.Range(0, GetComponentInChildren<ChaosFactor>().CompatibleCFs.Length);
+                        StartCoroutine(RunChaosFactor(GetComponentInChildren<ChaosFactor>().CompatibleCFs[chaosFactorToSpawn]));
+                        ResetChaosFactorTimer();
+                    }
+                    else
+                    {
+                        int chaosFactorToSpawn = Random.Range(0, chaosFactorList.Count);
+                        StartCoroutine(RunChaosFactor(chaosFactorList[chaosFactorToSpawn]));
+                        ResetChaosFactorTimer();
+                    }
                 }
 
+				else if (demoMode == true)
+				{
+					print("Entered demomode if");
+                    StartCoroutine(RunChaosFactor(chaosFactorList[demoTracker]));
+                    ResetChaosFactorTimer();
+                    demoTracker++;
+					if (demoTracker > demoCount)
+					{ 
+						demoTracker = 0;
+					}
+                }
 				
 
             }
@@ -215,18 +258,18 @@ public class ChaosFactorManager : MonoBehaviour
 		StartCoroutine(DestroyAfterTime(chaosFactor, chaosFactor.GetComponent<ChaosFactor>().Timer)); // Destroy Chaos Factor after 1 minute
 
 
-		yield return new WaitForSeconds(20); // Wait for 20 seconds <-- These should be tuneable
-		ResetChaosFactorTimer();
+		//yield return new WaitForSeconds(20); // Wait for 20 seconds <-- These should be tuneable
+		//ResetChaosFactorTimer();
 
-		yield return new WaitForSeconds(20); // Wait for 20 seconds <-- These should be tuneable
-		ResetChaosFactorTimer();
+		//yield return new WaitForSeconds(20); // Wait for 20 seconds <-- These should be tuneable
+		//ResetChaosFactorTimer();
 
-		yield return new WaitForSeconds(20); // Wait for 20 seconds <-- These should be tuneable
-		ResetChaosFactorTimer();
+		//yield return new WaitForSeconds(20); // Wait for 20 seconds <-- These should be tuneable
+		//ResetChaosFactorTimer();
 
 		// After waiting for 1 minute in total,
 		//ResetStage(); // Reset the stage: Lights, environment, etc.
-		ResetChaosFactorTimer();
+		//ResetChaosFactorTimer();
 
 		yield break;
 	}

@@ -113,7 +113,8 @@ public class GameManager : MonoBehaviour
 		}
 
 		ChaosFactorManager._Instance.Reset();
-		ChaosFactorManager._Instance.StartChaosFactor();
+		ChaosFactorManager._Instance.demoTracker = 0;
+        ChaosFactorManager._Instance.StartChaosFactor();
 		BulletObjectPoolManager._Instance.ResetAllBullets();
 
 		// Clear dead player list
