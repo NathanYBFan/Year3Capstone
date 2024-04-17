@@ -30,7 +30,7 @@ Material:
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 20a8ee900c09f6141ab5d6f29783850f, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: -14.82009, y: 0}
+        m_Offset: {x: -52.175354, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 87cd2c9013c127f4bb67662f8b5542bd, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -118,7 +118,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 2.9960783, g: 0, b: 2.6203513, a: 1}
+    - _EmissionColor: {r: 2.9960787, g: 0, b: 1.6148736, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &4777681879278698684
