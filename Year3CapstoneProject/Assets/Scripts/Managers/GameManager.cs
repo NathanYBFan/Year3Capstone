@@ -273,9 +273,9 @@ public class GameManager : MonoBehaviour
 
 		for (int i = 0; i < players.Count; i++)
 		{
-            LastGameResults._Instance.PlayerUIFace.Add(players[playerWinOrder[i]].GetComponent<PlayerStats>().CharacterStat.characterSprite);
-            LastGameResults._Instance.PlayerUIBG.Add(players[playerWinOrder[i]].GetComponent<PlayerStats>().CharacterStat.characterBGSprite);
-			LastGameResults._Instance.CharacterUIColors.Add(players[playerWinOrder[i]].GetComponent<PlayerStats>().UIColor);
+            LastGameResults._Instance.PlayerUIFace.Add(players[i].GetComponent<PlayerStats>().CharacterStat.characterSprite);
+            LastGameResults._Instance.PlayerUIBG.Add(players[i].GetComponent<PlayerStats>().CharacterStat.characterBGSprite);
+			LastGameResults._Instance.CharacterUIColors.Add(players[i].GetComponent<PlayerStats>().UIColor);
 		}
 
 		LevelLoadManager._Instance.StartLoadNewLevel(LevelLoadManager._Instance.LevelNamesList[7], true);
