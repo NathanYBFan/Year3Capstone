@@ -219,7 +219,7 @@ public class ChaosFactorManager : MonoBehaviour
 				else if (demoMode == true)
 				{
 					print("Entered demomode if");
-                    StartCoroutine(RunChaosFactor(chaosFactorList[demoTracker]));
+                    StartCoroutine(RunChaosFactor(chaosFactorList[demoOrder[demoTracker]]));
                     ResetChaosFactorTimer();
                     demoTracker++;
 					if (demoTracker > demoCount)
