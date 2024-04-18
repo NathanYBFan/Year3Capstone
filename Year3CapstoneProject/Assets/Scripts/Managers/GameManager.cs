@@ -95,8 +95,9 @@ public class GameManager : MonoBehaviour
 		endRoundCoroutine = null;
 		RemoveStage();
 
+		
 
-		foreach (GameObject player in players)
+        foreach (GameObject player in players)
 			player.GetComponent<PlayerStats>().ResetPlayer();
 
 		if (levelBuilder != null)
@@ -113,7 +114,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		ChaosFactorManager._Instance.Reset();
-		ChaosFactorManager._Instance.demoTracker = 0;
+        //ChaosFactorManager._Instance.DemoTracker = 0;
         ChaosFactorManager._Instance.StartChaosFactor();
 		BulletObjectPoolManager._Instance.ResetAllBullets();
 

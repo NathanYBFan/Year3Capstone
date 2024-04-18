@@ -70,7 +70,9 @@ public class ChaosFactorManager : MonoBehaviour
 	private int pulseCount = 4;
 
 	private int demoCount;
-	public int demoTracker = 0;
+
+    private int demoTracker = 0;
+
 	private void Awake()
 	{
 		demoCount = demoOrder.Length-1;
@@ -142,9 +144,9 @@ public class ChaosFactorManager : MonoBehaviour
 
         if (Input.GetKeyDown("[8]"))
         {
-            Debug.Log("Input recived: Numpad 8");
+            
             demoMode = !demoMode;
-
+			demoTracker = 0;
         }
 
         if (Input.GetKeyDown("[9]"))
@@ -154,17 +156,6 @@ public class ChaosFactorManager : MonoBehaviour
             nextChaosFactorTimerSeconds = chaosFactorMaxTimerSeconds;
 
 
-        }
-
-
-
-        if (Input.GetKeyDown("1"))
-        {
-            demoMode = true;
-        }
-        if (Input.GetKeyDown("2"))
-        {
-			demoMode = false;
         }
 
 
