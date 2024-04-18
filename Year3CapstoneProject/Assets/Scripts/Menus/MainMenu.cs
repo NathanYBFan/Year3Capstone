@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,6 +15,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private float timeToWaitBeforeTrailer = 5; // 30 seconds
 
+    [SerializeField, ReadOnly]
     private float counter = 0;
 
     private void Start()
