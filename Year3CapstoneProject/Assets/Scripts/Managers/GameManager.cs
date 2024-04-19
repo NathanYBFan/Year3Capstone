@@ -77,10 +77,7 @@ public class GameManager : MonoBehaviour
 	private void Awake()
 	{
 		if (_Instance != null && _Instance != this)
-		{
-			Debug.LogWarning("Destroyed a repeated GameManager");
 			Destroy(this.gameObject);
-		}
 
 		else if (_Instance == null)
 			_Instance = this;
@@ -94,8 +91,6 @@ public class GameManager : MonoBehaviour
 		if (AudioManager._Instance.MRTwentyAudioSource.isPlaying) AudioManager._Instance.MRTwentyAudioSource.Stop();
 		endRoundCoroutine = null;
 		RemoveStage();
-
-		
 
         foreach (GameObject player in players)
 			player.GetComponent<PlayerStats>().ResetPlayer();
@@ -114,7 +109,6 @@ public class GameManager : MonoBehaviour
 		}
 
 		ChaosFactorManager._Instance.Reset();
-        //ChaosFactorManager._Instance.DemoTracker = 0;
         ChaosFactorManager._Instance.StartChaosFactor();
 		BulletObjectPoolManager._Instance.ResetAllBullets();
 
@@ -376,7 +370,6 @@ public class GameManager : MonoBehaviour
 				modifierName = "You're Going Down With Me!";
 				break;
 			default:
-				Debug.LogWarning("Invalid modifier entry!");
 				return;
 		}
 		Modifier modifierToGive = ModifierManager._Instance.ListOfModifiers.Find(m => m.modifierName == modifierName); //Search for the modifier to give within the list of existing modifiers.
@@ -403,8 +396,6 @@ public class GameManager : MonoBehaviour
 					modifierToGive.AddEffects(playerToModify.GetComponent<PlayerStats>());
 					playerToModify.GetComponent<PlayerStats>().ModifiersOnPlayer.Add(modifierToGive);
 				}
-				//There's no player with this number.
-				else Debug.LogWarning("Player of index " + playerIndex + " doesn't exist!");
 			}
 		}
 		AudioManager._Instance.ResetInactivityTimer();

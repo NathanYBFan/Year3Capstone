@@ -121,7 +121,6 @@ public class AudioManager : MonoBehaviour
     {
         if (_Instance != null && _Instance != this) // If another AudioManager exists
         {
-            Debug.LogWarning("Destroyed a repeated AudioManager");
             Destroy(this.gameObject);
         }
 

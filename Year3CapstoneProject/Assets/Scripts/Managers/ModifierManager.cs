@@ -44,7 +44,6 @@ public class ModifierManager : MonoBehaviour
     {
         if (_Instance != null && _Instance != this)
         {
-            Debug.LogWarning("Destroyed a repeated ModifierManager");
             Destroy(this.gameObject);
         }
         else if (_Instance == null)

@@ -68,7 +68,6 @@ public class SettingsMenu : MonoBehaviour
                 audioControls.SetActive(true);
                 break;
             default: // Error
-                Debug.Log("Invalid button selected");
                 break;
         }
     }

@@ -2440,7 +2440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManagerRef: {fileID: 1452139197}
   alert: {fileID: 1694195880}
-  timer: 0
+  timer: 1
   demoMode: 0
   alertText: {fileID: 816054214}
   chaosFactorList:

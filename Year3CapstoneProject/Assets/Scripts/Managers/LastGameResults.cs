@@ -31,7 +31,6 @@ public class LastGameResults : MonoBehaviour
 	{
 		if (_Instance != null && _Instance != this)
 		{
-			Debug.LogWarning("Destroyed a repeated LastGameResults");
 			Destroy(this.gameObject);
 		}
 

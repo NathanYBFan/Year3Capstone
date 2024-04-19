@@ -36,7 +36,6 @@ public class LevelLoadManager : MonoBehaviour
     {
         if (_Instance != null && _Instance != this)
         {
-            Debug.LogWarning("Destroyed a repeated LevelLoadManager");
             Destroy(this.gameObject);
         }
 

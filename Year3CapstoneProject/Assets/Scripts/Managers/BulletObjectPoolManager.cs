@@ -37,7 +37,6 @@ public class BulletObjectPoolManager : MonoBehaviour
 	{
 		if (_Instance != null && _Instance != this)
 		{
-			Debug.LogWarning("Destroyed a repeated BulletObjectPoolManager");
 			Destroy(this.gameObject);
 		}
 

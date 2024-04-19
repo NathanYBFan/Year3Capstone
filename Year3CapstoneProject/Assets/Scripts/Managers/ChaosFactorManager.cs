@@ -87,7 +87,6 @@ public class ChaosFactorManager : MonoBehaviour
 		//timer = true;
 		if (_Instance != null && _Instance != this)
 		{
-			Debug.LogWarning("Destroyed a repeated ChaosFactorManager");
 			Destroy(this.gameObject);
 		}
 
@@ -102,48 +101,40 @@ public class ChaosFactorManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown("[1]"))
 		{
-			Debug.Log("Input recived: Numpad 1");
 			StartCoroutine(RunChaosFactor(chaosFactorList[0]));
 		}
 		if (Input.GetKeyDown("[2]"))
 		{
-			Debug.Log("Input recived: Numpad 2");
 			StartCoroutine(RunChaosFactor(chaosFactorList[1]));
 		}
 
 		if (Input.GetKeyDown("[3]"))
 		{
-			Debug.Log("Input recived: Numpad 3");
 			StartCoroutine(RunChaosFactor(chaosFactorList[2]));
 		}
 
 		if (Input.GetKeyDown("[4]"))
 		{
-			Debug.Log("Input recived: Numpad 4");
 			StartCoroutine(RunChaosFactor(chaosFactorList[3]));
 		}
 
 		if (Input.GetKeyDown("[5]"))
 		{
-			Debug.Log("Input recived: Numpad 5");
 			StartCoroutine(RunChaosFactor(chaosFactorList[4]));
 		}
 
 		if (Input.GetKeyDown("[6]"))
 		{
-			Debug.Log("Input recived: Numpad 6");
 			StartCoroutine(RunChaosFactor(chaosFactorList[5]));
 		}
 
 		if (Input.GetKeyDown("[7]"))
 		{
-			Debug.Log("Input recived: Numpad 7");
 			StartCoroutine(RunChaosFactor(chaosFactorList[6]));
 		}
 
         if (Input.GetKeyDown("[8]"))
         {
-			Debug.Log("Input recived: Numpad 8");
             timer = true;
             nextChaosFactorTimerSeconds = 0;
 
@@ -153,7 +144,6 @@ public class ChaosFactorManager : MonoBehaviour
 
         if (Input.GetKeyDown("[9]"))
         {
-            Debug.Log("Input recived: Numpad 9");
             timer = !timer;
             nextChaosFactorTimerSeconds = 0;
         }
@@ -168,15 +158,9 @@ public class ChaosFactorManager : MonoBehaviour
 	public IEnumerator ChaosFactorSpawnTimer()
 	{
 		while (GameManager._Instance.InGame)
-        {	//debug if to delete
-            if (activeCFCount > 2)
-            {
-                print("It's broken");
-            }
-
+        {
             if (nextChaosFactorTimerSeconds > chaosFactorMaxTimerSeconds)
 			{
-				print("timer over");
 				if (activeCFCount >= 2)
 				{
 					float shortestTimer = transform.GetChild(0).GetComponent<ChaosFactor>().Timer;
@@ -203,7 +187,6 @@ public class ChaosFactorManager : MonoBehaviour
 
 				else if (demoMode == true)
 				{
-					print("Entered demomode if");
                     StartCoroutine(RunChaosFactor(chaosFactorList[demoOrder[demoTracker]]));
                     ResetChaosFactorTimer();
                     demoTracker++;
@@ -216,7 +199,6 @@ public class ChaosFactorManager : MonoBehaviour
 
             }
 			else if (timer == true) { nextChaosFactorTimerSeconds += Time.deltaTime; }
-			//
 
 			yield return null;
 		}

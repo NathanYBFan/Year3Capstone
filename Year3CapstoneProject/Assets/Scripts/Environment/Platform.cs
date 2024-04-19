@@ -174,7 +174,6 @@ public class Platform : MonoBehaviour
 		Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);
 		while (transform.position.y > endPos.y)
 		{
-			//Debug.Log("Still Falling");
 			transform.position = Vector3.MoveTowards(transform.position, endPos, 20 * Time.deltaTime);
 			yield return null;
 		}
@@ -186,7 +185,6 @@ public class Platform : MonoBehaviour
 
 	private IEnumerator Down()
 	{
-		//Debug.Log("down called");
 		effectsActive = false;
 		Vector3 startPos = transform.position;
 		Vector3 endPos = new Vector3(transform.position.x, minHeight, transform.position.z);

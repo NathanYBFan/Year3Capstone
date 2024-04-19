@@ -29,7 +29,6 @@ public class MenuInputManager : MonoBehaviour
     {
         if (_Instance != null && _Instance != this)
         {
-            Debug.LogWarning("Destroyed a repeated MenuInput Manager");
             Destroy(this.gameObject);
         }
 

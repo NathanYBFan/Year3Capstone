@@ -24,7 +24,6 @@ public class DebugMenu : MonoBehaviour
 	{
 		if (_Instance != null && _Instance != this)
 		{
-			Debug.LogWarning("Destroyed a repeated DebugMenu");
 			Destroy(this.gameObject);
 		}
 
@@ -71,13 +70,9 @@ public class DebugMenu : MonoBehaviour
 						string modifierName = commandParts[2];
 						GameManager._Instance.CommandGive(index, modifierName);
 					}
-					else Debug.LogWarning("Invalid Player Index in give command!");
 				}
-				else if (commandParts.Length < 3) Debug.LogWarning("Not enough parameters for the give command!");
-				else Debug.LogWarning("Too many parameters for the give command!");
 				break;
 			default:
-				Debug.LogWarning("Invalid command!");
 				break;
 		}
 	}

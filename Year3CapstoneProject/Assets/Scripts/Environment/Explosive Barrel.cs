@@ -38,13 +38,8 @@ public class ExplosiveBarrel : MonoBehaviour
     }
     private void Start()
     {
-
-
-        //rb = destroyedVersion.GetComponent<Rigidbody>();
         expPos = transform.position;
         exploded = false;
-        //Debug.Log(GetComponent<Rigidbody>().name);
-
     }
 
     private IEnumerator boom()
