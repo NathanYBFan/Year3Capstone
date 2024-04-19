@@ -136,7 +136,6 @@ public class ChaosFactorManager : MonoBehaviour
 		}
 
 		if (Input.GetKeyDown("[7]"))
-				
 		{
 			Debug.Log("Input recived: Numpad 7");
 			StartCoroutine(RunChaosFactor(chaosFactorList[6]));
@@ -144,7 +143,10 @@ public class ChaosFactorManager : MonoBehaviour
 
         if (Input.GetKeyDown("[8]"))
         {
-            
+			Debug.Log("Input recived: Numpad 8");
+            timer = !timer;
+            nextChaosFactorTimerSeconds = 0;
+
             demoMode = !demoMode;
 			demoTracker = 0;
         }
@@ -153,16 +155,8 @@ public class ChaosFactorManager : MonoBehaviour
         {
             Debug.Log("Input recived: Numpad 9");
             timer = !timer;
-            nextChaosFactorTimerSeconds = chaosFactorMaxTimerSeconds;
-
-
+            nextChaosFactorTimerSeconds = 0;
         }
-
-
-        if (Input.GetKeyDown(KeyCode.O))
-		{
-
-		}
 	}
 
 	// Start Chaos Factor
