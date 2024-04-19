@@ -302,6 +302,7 @@ public class GameManager : MonoBehaviour
 
 		// Reset all chaos factors
 		ChaosFactorManager._Instance.Reset();
+		ChaosFactorManager._Instance.ResetDemoMode();
 
 		// Despawn all bullets
 		BulletObjectPoolManager._Instance.ResetAllBullets();

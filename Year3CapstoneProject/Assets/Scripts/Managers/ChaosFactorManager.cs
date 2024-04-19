@@ -135,11 +135,29 @@ public class ChaosFactorManager : MonoBehaviour
 
         if (Input.GetKeyDown("[8]"))
         {
-            timer = true;
-            nextChaosFactorTimerSeconds = 0;
 
-            demoMode = !demoMode;
-			demoTracker = 0;
+            if (timer && demoMode)
+            {
+                timer = false;
+                demoMode = false;
+            }
+			else if (timer && !demoMode)
+			{
+				timer = true;
+				demoMode = true;
+            }
+			else if (!timer && demoMode)
+			{
+				timer = false;
+				demoMode = false;
+			}
+			else
+			{
+                timer = true;
+                demoMode = true;
+            }
+            nextChaosFactorTimerSeconds = 0;
+            demoTracker = 0;
         }
 
         if (Input.GetKeyDown("[9]"))
@@ -356,7 +374,10 @@ public class ChaosFactorManager : MonoBehaviour
         yield break;
 	}
 
-
+	public void ResetDemoMode()
+	{
+		demoTracker = 0;
+	}
 
 	public void ResetChaosFactorTimer() { nextChaosFactorTimerSeconds = 0f; }
 
