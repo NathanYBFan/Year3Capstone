@@ -40,6 +40,7 @@ public class Meteor : MonoBehaviour, ChaosFactor
 
     private GameObject markerInstance;
     private GeneratesRumble rumble;
+    private bool boomIsPlaying = false;
 
     [SerializeField]
     private GameObject[] compatibleCFs;
@@ -123,14 +124,15 @@ public class Meteor : MonoBehaviour, ChaosFactor
     //Plays the impact sound
     private void BoomSound()
     {
+        if (boomIsPlaying) return;
         float randPitch = Random.Range(0.8f, 1.5f);
         AudioSource audioSource = AudioManager._Instance.CFAudioSource;
-        if (audioSource != null && !audioSource.isPlaying)
+        if (audioSource != null)
         {
+            boomIsPlaying = true;
             audioSource.pitch = randPitch;
             AudioManager._Instance.PlaySoundFX(AudioManager._Instance.CFAudioList[1], audioSource);
         }
-
     }
 
     //Plays the whistle/warning sound
