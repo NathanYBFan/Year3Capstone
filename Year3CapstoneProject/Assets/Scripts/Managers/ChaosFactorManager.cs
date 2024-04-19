@@ -144,7 +144,7 @@ public class ChaosFactorManager : MonoBehaviour
         if (Input.GetKeyDown("[8]"))
         {
 			Debug.Log("Input recived: Numpad 8");
-            timer = !timer;
+            timer = true;
             nextChaosFactorTimerSeconds = 0;
 
             demoMode = !demoMode;
