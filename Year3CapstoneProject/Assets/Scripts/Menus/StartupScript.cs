@@ -36,25 +36,25 @@ namespace UI.SettingsMenu {
             audioMixer.SetFloat("Player", PlayerPrefs.GetFloat("playerVolume", 20));
             audioMixer.SetFloat("System", PlayerPrefs.GetFloat("systemVolume", 20));
 
-            if (float.IsNegativeInfinity(Mathf.Log(PlayerPrefs.GetFloat("masterVolume")) * 20f))
+            if (float.IsNegativeInfinity(Mathf.Log(PlayerPrefs.GetFloat("masterVolume"), 20) * 20f))
                 audioMixer.SetFloat("Master", -80f);
             else
-                audioMixer.SetFloat("Master", Mathf.Log(PlayerPrefs.GetFloat("masterVolume")) * 20f);
+                audioMixer.SetFloat("Master", Mathf.Log(PlayerPrefs.GetFloat("masterVolume", 20)) * 20f);
 
-            if (float.IsNegativeInfinity(Mathf.Log(PlayerPrefs.GetFloat("musicVolume")) * 20f))
+            if (float.IsNegativeInfinity(Mathf.Log(PlayerPrefs.GetFloat("musicVolume", 20)) * 20f))
                 audioMixer.SetFloat("Music", -80f);
             else
-                audioMixer.SetFloat("Music", Mathf.Log(PlayerPrefs.GetFloat("musicVolume")) * 20f);
+                audioMixer.SetFloat("Music", Mathf.Log(PlayerPrefs.GetFloat("musicVolume", 20)) * 20f);
                 
-            if (float.IsNegativeInfinity(Mathf.Log(PlayerPrefs.GetFloat("playerVolume")) * 20f))
+            if (float.IsNegativeInfinity(Mathf.Log(PlayerPrefs.GetFloat("playerVolume", 20)) * 20f))
                 audioMixer.SetFloat("Player", -80f);
             else
-                audioMixer.SetFloat("Player", Mathf.Log(PlayerPrefs.GetFloat("playerVolume")) * 20f);
+                audioMixer.SetFloat("Player", Mathf.Log(PlayerPrefs.GetFloat("playerVolume", 20)) * 20f);
 
-            if (float.IsNegativeInfinity(Mathf.Log(PlayerPrefs.GetFloat("systemVolume")) * 20f))
+            if (float.IsNegativeInfinity(Mathf.Log(PlayerPrefs.GetFloat("systemVolume", 20)) * 20f))
                 audioMixer.SetFloat("System", -80f);
             else
-                audioMixer.SetFloat("System", Mathf.Log(PlayerPrefs.GetFloat("systemVolume")) * 20f);
+                audioMixer.SetFloat("System", Mathf.Log(PlayerPrefs.GetFloat("systemVolume", 20)) * 20f);
             
             Destroy(this);
         }
