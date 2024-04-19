@@ -23,6 +23,14 @@ public class CreditsMenu : MonoBehaviour
 
     public void BackButtonPressed(int levelToUnload)
     {
+        ButtonPressSFX();
         LevelLoadManager._Instance.UnloadMenuOverlay(LevelLoadManager._Instance.LevelNamesList[levelToUnload]);
+    }
+
+    // Finds the UIAudioSource, and plays the button press sound
+    private void ButtonPressSFX()
+    {
+        AudioSource buttonAudioSource = AudioManager._Instance.UIAudioSource;
+        AudioManager._Instance.PlaySoundFX(AudioManager._Instance.UIAudioList[1], buttonAudioSource);
     }
 }

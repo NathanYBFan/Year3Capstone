@@ -50,6 +50,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void UnloadScene()
     {
+        ButtonPressSFX();
         LevelLoadManager._Instance.UnloadMenuOverlay("SettingsMenu");
     }
 

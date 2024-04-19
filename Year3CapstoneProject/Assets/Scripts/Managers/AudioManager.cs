@@ -185,35 +185,11 @@ public class AudioManager : MonoBehaviour
 		if (!musicAudioSource.isPlaying)
 			musicAudioSource.Play();
 	}
-	//// Transition Coroutine to switch the music tracks
-	//public IEnumerator TransitionMusic(AudioClip musicToPlay, float fadeOutDuration, float fadeInDuration)
-	//{
-	//    // Local variables
-	//    float originalVolume = musicAudioSource.volume;     // Original volume to transition up to
-	//    float start = musicAudioSource.volume;              // Volume to change
-	//    float currentTime = 0;                              // Timer counter
-
-	//    while (currentTime < fadeOutDuration)
-	//    {
-	//        currentTime += Time.deltaTime;
-	//        musicAudioSource.volume = Mathf.Lerp(start, 0f, currentTime / fadeOutDuration);
-	//        yield return null;
-	//    }
-
-	//    // Switch Clip
-	//    musicAudioSource.clip = musicToPlay;
-	//    currentTime = 0;
-
-	//    // Fade in
-	//    while (currentTime < fadeInDuration)
-	//    {
-	//        currentTime += Time.deltaTime;
-	//        musicAudioSource.volume = Mathf.Lerp(start, originalVolume, currentTime / fadeInDuration);
-	//        yield return null;
-	//    }
-
-	//    yield break; // Exit Coroutine
-	//}
+	
+    public void MuteMusic(bool musicOnOrOff)
+    {
+        musicAudioSource.mute = musicOnOrOff;
+    }
 
 	// Transition Coroutine to switch the music tracks
 	private IEnumerator TransitionMusic(AudioClip musicToPlay, AudioSource musicSource, float duration)

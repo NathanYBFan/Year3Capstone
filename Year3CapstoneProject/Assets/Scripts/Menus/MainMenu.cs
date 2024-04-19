@@ -1,8 +1,5 @@
-using NaughtyAttributes;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.Controls;
 
 public class MainMenu : MonoBehaviour
 {
@@ -13,31 +10,27 @@ public class MainMenu : MonoBehaviour
     private GameObject trailerObject;
 
     [SerializeField]
-    private float timeToWaitBeforeTrailer = 5; // 30 seconds
-
-    [SerializeField, ReadOnly]
-    private float counter = 0;
+    private GameObject quitTrailerButton;
 
     private void Start()
     {
         EventSystem.current.SetSelectedGameObject(firstButton);
-        counter = 0;
     }
 
-    private void Update()
+    public void TrailerButtonPressed()
     {
-        counter += (1 * Time.deltaTime);
-        if (Input.anyKey)
-        {
-            counter = 0;
-            trailerObject.SetActive(false);
-        }
-        if (counter >= timeToWaitBeforeTrailer)
-        {
-            counter = 0;
-            if (!trailerObject.activeInHierarchy)
-                trailerObject.SetActive(true);
-        }
+        ButtonPressSFX();
+        trailerObject.SetActive(true);
+        AudioManager._Instance.MuteMusic(true);
+        EventSystem.current.SetSelectedGameObject(quitTrailerButton);
+    }
+
+    public void CloseTrailerPressed()
+    {
+        ButtonPressSFX();
+        trailerObject.SetActive(false);
+        AudioManager._Instance.MuteMusic(false);
+        EventSystem.current.SetSelectedGameObject(firstButton);
     }
 
     // Finds the UIAudioSource, and plays the button press sound
