@@ -2455,7 +2455,7 @@ MonoBehaviour:
   chaosFactorMaxTimerSeconds: 15
   currentRunningChaosFactors: []
   activeCFCount: 0
-  demoOrder: 0600000003000000040000000000000002000000010000000500000000000000030000000200000004000000030000000600000005000000
+  demoOrder: 0600000003000000040000000000000002000000010000000500000000000000030000000200000004000000010000000600000005000000
 --- !u!1 &694279906
 GameObject:
   m_ObjectHideFlags: 0
@@ -6394,7 +6394,7 @@ MonoBehaviour:
   stageSpawnPoints: []
   deadPlayerList: []
   currentRound: 0
-  maxRounds: 3
+  maxRounds: 7
 --- !u!1 &1457749808
 GameObject:
   m_ObjectHideFlags: 0
