@@ -31,13 +31,10 @@ namespace UI.SettingsMenu {
 
             Screen.SetResolution(1920, 1080, fullscreen);
 
-            if (PlayerPrefs.GetInt("initialFloat", 0) == 0) {
-                audioMixer.SetFloat("Master", 20);
-                audioMixer.SetFloat("Music", 20);
-                audioMixer.SetFloat("Player", 20);
-                audioMixer.SetFloat("System", 20);
-                PlayerPrefs.SetInt("initialFloat", 20);
-            }
+            audioMixer.SetFloat("Master", PlayerPrefs.GetFloat("masterVolume", 20));
+            audioMixer.SetFloat("Music", PlayerPrefs.GetFloat("musicVolume", 20));
+            audioMixer.SetFloat("Player", PlayerPrefs.GetFloat("playerVolume", 20));
+            audioMixer.SetFloat("System", PlayerPrefs.GetFloat("systemVolume", 20));
 
             if (float.IsNegativeInfinity(Mathf.Log(PlayerPrefs.GetFloat("masterVolume")) * 20f))
                 audioMixer.SetFloat("Master", -80f);
