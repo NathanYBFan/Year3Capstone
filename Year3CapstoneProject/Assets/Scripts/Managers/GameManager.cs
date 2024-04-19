@@ -282,6 +282,8 @@ public class GameManager : MonoBehaviour
 	{
 		// Reset inactivity audio voice line timer
 		AudioManager._Instance.ResetInactivityTimer();
+		if (AudioManager._Instance.MRTwentyAudioSource.isPlaying)
+			AudioManager._Instance.MRTwentyAudioSource.Stop();
 
 		OnRoundEnd?.Invoke();
 		ResetPlayersToVoid();
