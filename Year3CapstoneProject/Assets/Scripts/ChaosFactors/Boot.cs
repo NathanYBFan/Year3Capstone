@@ -102,7 +102,7 @@ public class Boot : MonoBehaviour, ChaosFactor
         }
         kicked = false;
 
-        yield return new WaitForSeconds(0.20f);
+        yield return new WaitForSeconds(0.30f);
         rb.gameObject.GetComponent<PlayerStats>().Booted = false;
     }
 
