@@ -88,14 +88,13 @@ public class Meteor : MonoBehaviour, ChaosFactor
 			platform.gameObject.GetComponent<Collider>().enabled = false;
 			platform.fakeDestroy(platformRespwnDelay);
 		}
-
-		StartCoroutine(boom());
+        BoomSound();
+        StartCoroutine(boom());
 	}
 
 
     private IEnumerator boom()
     {
-        BoomSound();
         explosion.Play();
         Destroy(markerInstance);
         MeteorVisual.enabled = false;
@@ -125,8 +124,8 @@ public class Meteor : MonoBehaviour, ChaosFactor
     private void BoomSound()
     {
         float randPitch = Random.Range(0.8f, 1.5f);
-        AudioSource audioSource = AudioManager._Instance.ChooseEnvAudioSource();
-        if (audioSource != null)
+        AudioSource audioSource = AudioManager._Instance.CFAudioSource;
+        if (audioSource != null && !audioSource.isPlaying)
         {
             audioSource.pitch = randPitch;
             AudioManager._Instance.PlaySoundFX(AudioManager._Instance.CFAudioList[1], audioSource);
